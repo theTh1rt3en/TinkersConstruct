@@ -71,6 +71,8 @@ public class PHConstruct {
                 "Difficulty Changes",
                 "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid",
                 false).getBoolean(false);
+        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", true).getBoolean(true);
+        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 6000).getInt(6000);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
@@ -427,6 +429,8 @@ public class PHConstruct {
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
     public static boolean alternativeBoltRecipe;
+    public static boolean indestructible;
+    public static int globalDespawn;
 
     // Smeltery Output Modification
     public static double ingotsPerOre;
