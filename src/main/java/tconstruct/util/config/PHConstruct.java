@@ -71,8 +71,9 @@ public class PHConstruct {
                 "Difficulty Changes",
                 "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid",
                 false).getBoolean(false);
-        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", true).getBoolean(true);
-        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 6000).getInt(6000);
+        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
+        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 18000).getInt(18000);
+        dropCanisters = config.get("Difficulty Changes", "Drop heart canisters on death", true).getBoolean(true);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
@@ -431,6 +432,7 @@ public class PHConstruct {
     public static boolean alternativeBoltRecipe;
     public static boolean indestructible;
     public static int globalDespawn;
+    public static boolean dropCanisters;
 
     // Smeltery Output Modification
     public static double ingotsPerOre;

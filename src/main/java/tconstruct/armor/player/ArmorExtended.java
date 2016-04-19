@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import tconstruct.library.accessory.IHealthAccessory;
+import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -230,9 +231,10 @@ public class ArmorExtended implements IInventory {
     // ---
 
     public void dropItems() {
+        final int dropEndSlot = PHConstruct.dropCanisters ? 7 : 4;
         EntityPlayer player = parent.get();
         if (player != null) {
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < dropEndSlot; ++i) {
                 if (this.inventory[i] != null && !isSoulBounded(this.inventory[i])) {
                     player.func_146097_a(this.inventory[i], true, false);
                     this.inventory[i] = null;
