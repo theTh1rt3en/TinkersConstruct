@@ -74,6 +74,7 @@ public class PHConstruct {
         indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
         globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 18000).getInt(18000);
         dropCanisters = config.get("Difficulty Changes", "Drop heart canisters on death", true).getBoolean(true);
+        daggerThrowMultiplier = config.get("Difficulty Changes", "Thrown dagger output multiplier", 3).getDouble(3);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
@@ -433,6 +434,7 @@ public class PHConstruct {
     public static boolean indestructible;
     public static int globalDespawn;
     public static boolean dropCanisters;
+    public static double daggerThrowMultiplier;
 
     // Smeltery Output Modification
     public static double ingotsPerOre;
