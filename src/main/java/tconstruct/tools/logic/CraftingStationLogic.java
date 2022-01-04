@@ -11,13 +11,16 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.tools.inventory.CraftingStationContainer;
 import tconstruct.util.config.PHConstruct;
 
 import java.lang.ref.WeakReference;
 
 public class CraftingStationLogic extends InventoryLogic implements ISidedInventory {
-    public WeakReference<IInventory> chest; // TODO: These are prototypes
+    public ForgeDirection chestDirection = ForgeDirection.UNKNOWN;
+    public int chestSize;
+    public WeakReference<IInventory> chest;
     public WeakReference<IInventory> doubleChest;
     public WeakReference<IInventory> patternChest;
     public WeakReference<IInventory> furnace;
@@ -53,39 +56,42 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     @Override
     public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
         chest = null;
+        chestSize = 0;
+        chestDirection = ForgeDirection.UNKNOWN;
         doubleChest = null;
         patternChest = null;
         furnace = null;
         tinkerTable = false;
-        final int[] ys = {y, y - 1, y + 1};
-        for (byte iy = 0; iy < 3; iy++) {
-            for (int xPos = x - 1, yPos = ys[iy]; xPos <= x + 1; xPos++) {
-                for (int zPos = z - 1; zPos <= z + 1; zPos++) {
-                    final TileEntity tile = world.getTileEntity(xPos, yPos, zPos);
-                    if (!(tile instanceof IInventory) || (tile instanceof CraftingStationLogic) || isBlacklisted(tile.getClass())) continue;
 
-                    final IInventory inv = (IInventory) tile;
+        for (final ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            final int xPos = x + dir.offsetX, yPos = y + dir.offsetY, zPos = z + dir.offsetZ;
+            final TileEntity tile = world.getTileEntity(xPos, yPos, zPos);
+            if (!(tile instanceof IInventory) || (tile instanceof CraftingStationLogic) || isBlacklisted(tile.getClass())) continue;
+            if(tile instanceof ISidedInventory && ((ISidedInventory)tile).getAccessibleSlotsFromSide(dir.getOpposite().ordinal()).length == 0) continue;
 
-                    if (patternChest == null && tile instanceof PatternChestLogic)
-                        patternChest = new WeakReference<>(inv);
-                    else if (chest == null && inv.isUseableByPlayer(inventoryplayer.player)) {
-                        chest = new WeakReference<>(inv);
-                        invColumns = 6;
-                        if (tile instanceof TileEntityChest) {
-                            checkForChest(world, xPos, yPos, zPos, 1, 0);
-                            checkForChest(world, xPos, yPos, zPos, -1, 0);
-                            checkForChest(world, xPos, yPos, zPos, 0, 1);
-                            checkForChest(world, xPos, yPos, zPos, 0, -1);
-                        }
-                        slotCount = inv.getSizeInventory() * (doubleChest != null ? 2 : 1);
-                        invRows = (int) Math.ceil((double) slotCount / invColumns);
+            final IInventory inv = (IInventory) tile;
 
-                    } else if (furnace == null && (tile instanceof TileEntityFurnace || tile instanceof FurnaceLogic))
-                        furnace = new WeakReference<>(inv);
-                    else if (!tinkerTable && tile instanceof ToolStationLogic)
-                        tinkerTable = true;
+            if (patternChest == null && tile instanceof PatternChestLogic)
+                patternChest = new WeakReference<>(inv);
+            else if (chest == null && inv.isUseableByPlayer(inventoryplayer.player)) {
+                chest = new WeakReference<>(inv);
+                chestDirection = dir;
+                invColumns = 6;
+                chestSize = tile instanceof ISidedInventory ? ((ISidedInventory)tile).getAccessibleSlotsFromSide(dir.getOpposite().ordinal()).length : inv.getSizeInventory();
+
+                if (tile instanceof TileEntityChest) {
+                    checkForChest(world, xPos, yPos, zPos, 1, 0);
+                    checkForChest(world, xPos, yPos, zPos, -1, 0);
+                    checkForChest(world, xPos, yPos, zPos, 0, 1);
+                    checkForChest(world, xPos, yPos, zPos, 0, -1);
                 }
-            }
+                slotCount = chestSize * (doubleChest != null ? 2 : 1);
+                invRows = (int) Math.ceil((double) slotCount / invColumns);
+
+            } else if (furnace == null && (tile instanceof TileEntityFurnace || tile instanceof FurnaceLogic))
+                furnace = new WeakReference<>(inv);
+            else if (!tinkerTable && tile instanceof ToolStationLogic)
+                tinkerTable = true;
         }
 
         return new CraftingStationContainer(inventoryplayer, this, x, y, z);
