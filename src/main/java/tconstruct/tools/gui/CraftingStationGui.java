@@ -22,6 +22,7 @@ import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
 
+import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.List;
 
@@ -91,7 +92,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
         this.xSize = 176;
         this.ySize = 166;
-        
 
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
@@ -119,6 +119,8 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             
             updateChest();
             updateChestSlots();
+        } else {
+            slider.hide();
         }
 
         this.craftingTextLeft = this.craftingLeft - this.guiLeft;
@@ -223,27 +225,28 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         this.mc.getTextureManager().bindTexture(gui_inventory);
-        border.draw();
-        
-        int x = chestLeft - 2 * border.w;
-        int y = chestTop;
-        int midW = chestWidth - border.w * 2;
-        
-        if(shouldDrawName()) {
-            textBackground.drawScaledX(x, y, midW);
-            y += textBackground.h;
+        if(hasChest()) {
+            border.draw();
+
+            int x = chestLeft - 2 * border.w;
+            int y = chestTop;
+            int midW = chestWidth - border.w * 2;
+
+            if (shouldDrawName()) {
+                textBackground.drawScaledX(x, y, midW);
+                y += textBackground.h;
+            }
+
+            drawChestSlots(x, y);
+
+            // slider
+            if (slider.isEnabled()) {
+                slider.update(mouseX, mouseY, !isMouseOverFullSlot(mouseX, mouseY) && isMouseInChest(mouseX, mouseY));
+                slider.draw();
+
+                updateChestSlots();
+            }
         }
-        
-        drawChestSlots(x, y);
-
-        // slider
-        if(slider.isEnabled()) {
-            slider.update(mouseX, mouseY, !isMouseOverFullSlot(mouseX, mouseY) && isMouseInChest(mouseX, mouseY));
-            slider.draw();
-
-            updateChestSlots();
-        }
-
         // Draw description
         if (logic.tinkerTable) {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -285,10 +288,23 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
     @Override
     public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
+        if(logic.chest != null) {
+            final Rectangle blah = new Rectangle(x, y, w, h);
+            final Rectangle chestRectangle = new Rectangle(
+                chestLeft - border.w, 
+                chestTop, 
+                chestWidth + (slider.isEnabled() ? slider.width : 0) + border.w, 
+                chestHeight + (shouldDrawName() ? textBackground.y : 0) + (border.h * 2)
+            );
+            
+            if(chestRectangle.intersects(blah))
+                return true;
+        }
+        
         if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
             return false;
-
-        return x - w - 4 >= guiLeft - (logic.chest != null ? 40 : 0) && x + 4 <= guiLeft + xSize + (logic.tinkerTable ? 126 : 0);
+        
+        return x - w - 4 >= guiLeft && x + 4 <= guiLeft + xSize + (logic.tinkerTable ? 126 : 0);
     }
 
     public boolean hasChest() {
@@ -296,8 +312,11 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
     }
 
     public boolean isMouseInChest(int mouseX, int mouseY) {
-        return mouseX >= this.chestLeft && mouseX < (chestLeft + chestWidth) &&
-               mouseY >= this.chestTop  && mouseY < (chestTop + chestHeight);
+        final int xMod = (slider.isEnabled() ? slider.width : 0) + border.w;
+        final int yMod = (shouldDrawName() ? textBackground.y : 0) + (border.h * 2);
+        
+        return mouseX >= (this.chestLeft - xMod) && mouseX < (chestLeft + chestWidth  + xMod) &&
+               mouseY >= (this.chestTop  - yMod) && mouseY < (chestTop  + chestHeight + yMod);
     }
 
     public boolean isMouseOverFullSlot(int mouseX, int mouseY) {
@@ -419,7 +438,8 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
         border.setPosition(chestLeft - 2 * border.w, chestTop);
         border.setSize(chestWidth, chestHeight + (shouldDrawName() ? textBackground.h : 0) + 2 * border.h);
-
+        
+        slider.show();
         slider.setPosition(chestLeft - border.w + logic.invColumns * slotElement.w, chestTop + (shouldDrawName() ? textBackground.h : 0) + border.h);
         slider.setSize(chestHeight);
         slider.setSliderParameters(0, logic.invRows - getDisplayedRows(), 1);

@@ -68,13 +68,23 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
             final int xPos = x + dir.offsetX, yPos = y + dir.offsetY, zPos = z + dir.offsetZ;
             final TileEntity tile = world.getTileEntity(xPos, yPos, zPos);
             if (!(tile instanceof IInventory) || (tile instanceof CraftingStationLogic) || isBlacklisted(tile.getClass())) continue;
-            if(tile instanceof ISidedInventory && ((ISidedInventory)tile).getAccessibleSlotsFromSide(dir.getOpposite().ordinal()).length == 0) continue;
 
             final IInventory inv = (IInventory) tile;
 
-            if (patternChest == null && tile instanceof PatternChestLogic)
+            if (patternChest == null && tile instanceof PatternChestLogic) {
                 patternChest = new WeakReference<>(inv);
-            else if (chest == null && inv.isUseableByPlayer(inventoryplayer.player)) {
+                continue;
+            } else if (furnace == null && (tile instanceof TileEntityFurnace || tile instanceof FurnaceLogic)) {
+                furnace = new WeakReference<>(inv);
+                continue;
+            } else if (!tinkerTable && tile instanceof ToolStationLogic) {
+                tinkerTable = true;
+                continue;
+            }
+
+            if(tile instanceof ISidedInventory && ((ISidedInventory)tile).getAccessibleSlotsFromSide(dir.getOpposite().ordinal()).length == 0) continue;
+            
+            if (chest == null && inv.isUseableByPlayer(inventoryplayer.player)) {
                 chest = new WeakReference<>(inv);
                 chestDirection = dir;
                 invColumns = 6;
@@ -88,11 +98,8 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
                 }
                 slotCount = chestSize * (doubleChest != null ? 2 : 1);
                 invRows = (int) Math.ceil((double) slotCount / invColumns);
+            } 
 
-            } else if (furnace == null && (tile instanceof TileEntityFurnace || tile instanceof FurnaceLogic))
-                furnace = new WeakReference<>(inv);
-            else if (!tinkerTable && tile instanceof ToolStationLogic)
-                tinkerTable = true;
         }
 
         return new CraftingStationContainer(inventoryplayer, this, x, y, z);
