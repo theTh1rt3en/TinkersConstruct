@@ -31,7 +31,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     public int invRows, invColumns, slotCount;
 
     public CraftingStationLogic() {
-        super(10); // 9 for crafting, 1 for output, 6 for extensions, 1 for plans
+        super(10); // 9 for crafting, 1 for output
     }
 
     @Override
@@ -57,6 +57,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
         chest = null;
         chestSize = 0;
+        slotCount = 0;
         chestDirection = ForgeDirection.UNKNOWN;
         doubleChest = null;
         patternChest = null;
