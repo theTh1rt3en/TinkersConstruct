@@ -105,20 +105,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         }
 
         if (logic.chest != null) {
-            chestSlotCount = logic.slotCount;
-
-            this.chestWidth = logic.invColumns * CraftingStationGui.slotElement.w;
-            this.chestHeight = calcCappedYSize(CraftingStationGui.slotElement.h * 10);
-
-            this.xSize += chestWidth;
-            this.guiLeft -= chestWidth;
-            this.chestLeft = this.guiLeft;
-            this.chestTop = this.craftingTop;
-            if (logic.doubleChest != null)
-                this.ySize = 187;
-            
             updateChest();
-            updateChestSlots();
         } else {
             slider.hide();
         }
@@ -202,11 +189,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        guiLeft += border.w;
-        chestLeft += border.w;
-        guiTop += border.h;
-        chestTop += border.h;
-        
+
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(background);
@@ -224,16 +207,20 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
+        
         this.mc.getTextureManager().bindTexture(gui_inventory);
         if(hasChest()) {
+            chestLeft += border.w;
+            chestTop += border.h;
+
             border.draw();
 
-            int x = chestLeft - 2 * border.w;
+            int x = chestLeft;
             int y = chestTop;
-            int midW = chestWidth - border.w * 2;
+            final int midW = chestWidth - border.w * 2;
 
             if (shouldDrawName()) {
-                textBackground.drawScaledX(x, y, midW);
+                textBackground.drawScaledX(chestLeft, chestTop, midW);
                 y += textBackground.h;
             }
 
@@ -246,6 +233,9 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
                 updateChestSlots();
             }
+
+            chestLeft -= border.w;
+            chestTop -= border.h;
         }
         // Draw description
         if (logic.tinkerTable) {
@@ -253,11 +243,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             this.mc.getTextureManager().bindTexture(description);
             this.drawTexturedModalRect(this.descLeft, this.descTop, 0, 0, 126, 172);
         }
-        
-        guiLeft -= border.w;
-        chestLeft -= border.w;
-        guiTop -= border.h;
-        chestTop -= border.h;
+
     }
 
     @Override
@@ -288,13 +274,11 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
     @Override
     public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
+        final int cw = (logic.chest != null ? chestWidth : 0);
         if(logic.chest != null) {
             final Rectangle blah = new Rectangle(x, y, w, h);
             final Rectangle chestRectangle = new Rectangle(
-                chestLeft - border.w, 
-                chestTop, 
-                chestWidth + (slider.isEnabled() ? slider.width : 0) + border.w, 
-                chestHeight + (shouldDrawName() ? textBackground.y : 0) + (border.h * 2)
+                chestLeft, chestTop, chestWidth, chestHeight + (shouldDrawName() ? textBackground.y : 0) + (border.h * 2)
             );
             
             if(chestRectangle.intersects(blah))
@@ -304,7 +288,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
             return false;
         
-        return x - w - 4 >= guiLeft && x + 4 <= guiLeft + xSize + (logic.tinkerTable ? 126 : 0);
+        return x - w - 4 >= guiLeft + cw && x + 4 <= guiLeft + xSize + cw + (logic.tinkerTable ? 126 : 0);
     }
 
     public boolean hasChest() {
@@ -373,8 +357,41 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         return chestWidth;
     }
 
-    public boolean sliderEnabled() {
-        return slider.isEnabled();
+    // updatePosition
+    public void updateChest() {
+        chestHeight = calcCappedYSize(CraftingStationGui.slotElement.h * 10);
+        chestSlotCount = logic.slotCount;
+
+        // slider needed?
+        if(getDisplayedRows() < logic.invRows) {
+            slider.enable();
+        }
+        else {
+            slider.disable();
+        }
+
+        chestWidth = logic.invColumns * CraftingStationGui.slotElement.w + 2 * border.w + (slider.isEnabled() ? slider.width : 0);
+
+        chestLeft = guiLeft - chestWidth;
+        chestTop = guiTop;
+
+        // Leaving out the xsize increase by chestSize and adjusting where it's used, because otherwise it shifts both the bookmarks and item panel
+        // way too far out.
+        //xSize += guiLeft - chestLeft;
+        guiLeft = chestLeft;
+
+        if (logic.doubleChest != null)
+            this.ySize = 187;
+
+        border.setPosition(chestLeft, chestTop);
+        border.setSize(chestWidth, chestHeight + (shouldDrawName() ? textBackground.h : 0) + 2 * border.h);
+
+        slider.show();
+        slider.setPosition(chestLeft + logic.invColumns * slotElement.w + border.w, chestTop + (shouldDrawName() ? textBackground.h : 0) + border.h);
+        slider.setSize(chestHeight);
+        slider.setSliderParameters(0, logic.invRows - getDisplayedRows(), 1);
+
+        updateChestSlots();
     }
     
     // updates slot visibility
@@ -383,16 +400,12 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         
         final IInventory secondInventory = logic.getSecondInventory();
         
-        int xOffset = 0;
-        if(slider.isEnabled()) {
-            xOffset -= slider.width;
-        }
-
+        int xOffset = border.w;
         int yOffset = border.h;
+        
         if(shouldDrawName()) {
             yOffset += textBackground.h;
         }
-
         
         firstSlotId = slider.getValue() * logic.invColumns;
         lastSlotId = Math.min(chestSlotCount, firstSlotId + getDisplayedRows() * logic.invColumns);
@@ -409,7 +422,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
                 final int x = (offset % logic.invColumns) * CraftingStationGui.slotElement.w;
                 final int y = (offset / logic.invColumns) * CraftingStationGui.slotElement.h;
 
-                slot.xDisplayPosition = x + xOffset + 2;
+                slot.xDisplayPosition = x + xOffset + 1 /*- this.chestWidth*/;
                 slot.yDisplayPosition = y + yOffset + 1;
             }
             else {
@@ -420,32 +433,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         }
     }
     
-    // updatePosition
-    public void updateChest() {
-        chestHeight = calcCappedYSize(CraftingStationGui.slotElement.h * 10);
-        chestWidth = logic.invColumns * CraftingStationGui.slotElement.w + 2 * border.w;
-        guiLeft -= border.w + 1;
-        
-        // slider needed?
-        if(getDisplayedRows() < logic.invRows) {
-            slider.enable();
-            chestWidth += slider.width; 
-            chestLeft -= slider.width;
-        }
-        else {
-            slider.disable();
-        }
-
-        border.setPosition(chestLeft - 2 * border.w, chestTop);
-        border.setSize(chestWidth, chestHeight + (shouldDrawName() ? textBackground.h : 0) + 2 * border.h);
-        
-        slider.show();
-        slider.setPosition(chestLeft - border.w + logic.invColumns * slotElement.w, chestTop + (shouldDrawName() ? textBackground.h : 0) + border.h);
-        slider.setSize(chestHeight);
-        slider.setSliderParameters(0, logic.invRows - getDisplayedRows(), 1);
-
-        updateChestSlots();
-    }
 
     // drawSlots
     protected void drawChestSlots(int xPos, int yPos) {

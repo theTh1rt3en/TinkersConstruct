@@ -54,13 +54,17 @@ public class CraftingStationContainer extends Container {
 
         int row, col;
 
-        int craftingOffsetX = 30;
-        int inventoryOffsetX = 8;
-
+        int bothOffset = 0;
+        
         if (logic.chest != null) {
-            craftingOffsetX += 116;
-            inventoryOffsetX += 116;
+            if(logic.slotCount > 54)
+                bothOffset += 12; // SlideBar.width
+
+            bothOffset += 122;
         }
+        final int craftingOffsetX = 30 + bothOffset;
+        final int inventoryOffsetX = 8 + bothOffset;
+        
         
         // 0 - crafting slot
         this.addSlotToContainer(new SlotCraftingStation(inventoryplayer.player, this.craftMatrix, this.craftResult, 0, craftingOffsetX + 94, 35));
