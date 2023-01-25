@@ -60,10 +60,9 @@ public class MiningExplosion extends Explosion {
                             Block k1 = this.world.getBlock(l, i1, j1);
 
                             if (k1 != Blocks.air) {
-                                Block block = k1;
                                 float f3 = this.exploder != null
-                                        ? this.exploder.func_145772_a(this, this.world, l, i1, j1, block)
-                                        : block.getExplosionResistance(
+                                        ? this.exploder.func_145772_a(this, this.world, l, i1, j1, k1)
+                                        : k1.getExplosionResistance(
                                                 this.exploder, world, l, i1, j1, explosionX, explosionY, explosionZ);
                                 f1 -= (f3 + 0.8F) * f2 * 0.25f;
                             }
@@ -196,14 +195,11 @@ public class MiningExplosion extends Explosion {
                 }
 
                 if (l != Blocks.air) {
-                    Block block = l;
-
-                    if (block.canDropFromExplosion(this)) {
-                        block.dropBlockAsItemWithChance(
+                    if (l.canDropFromExplosion(this)) {
+                        l.dropBlockAsItemWithChance(
                                 this.world, i, j, k, this.world.getBlockMetadata(i, j, k), 1.0F, 0);
                     }
-
-                    block.onBlockExploded(this.world, i, j, k, this);
+                    l.onBlockExploded(this.world, i, j, k, this);
                 }
             }
         }

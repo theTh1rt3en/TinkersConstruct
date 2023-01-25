@@ -31,7 +31,7 @@ public class CraftingSlab extends InventorySlab {
     /* Rendering */
     @Override
     public String[] getTextureNames() {
-        String[] textureNames = {
+        return new String[]{
             "craftingstation_top",
             "craftingstation_slab_side",
             "craftingstation_bottom",
@@ -51,8 +51,6 @@ public class CraftingSlab extends InventorySlab {
             "toolforge_slab_side",
             "toolforge_top"
         };
-
-        return textureNames;
     }
 
     @Override

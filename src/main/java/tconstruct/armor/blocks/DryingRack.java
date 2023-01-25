@@ -189,7 +189,7 @@ public class DryingRack extends InventoryBlock {
 
     @Override
     public String[] getTextureNames() {
-        String[] textureNames = {
+        return new String[]{
             "castingtable_top",
             "castingtable_side",
             "castingtable_bottom",
@@ -198,8 +198,6 @@ public class DryingRack extends InventoryBlock {
             "blockcast_side",
             "blockcast_bottom"
         };
-
-        return textureNames;
     }
 
     @Override

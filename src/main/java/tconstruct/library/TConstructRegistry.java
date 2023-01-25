@@ -618,8 +618,7 @@ public class TConstructRegistry {
         try {
             Class clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getTableCasting");
-            LiquidCasting lc = (LiquidCasting) method.invoke(this);
-            return lc;
+            return (LiquidCasting) method.invoke(this);
         } catch (Exception e) {
             logger.warn("Could not find casting table recipes.");
             return null;
@@ -634,8 +633,7 @@ public class TConstructRegistry {
         try {
             Class clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getBasinCasting");
-            LiquidCasting lc = (LiquidCasting) method.invoke(this);
-            return lc;
+            return (LiquidCasting) method.invoke(this);
         } catch (Exception e) {
             logger.warn("Could not find casting basin recipes.");
             return null;
@@ -650,8 +648,7 @@ public class TConstructRegistry {
         try {
             Class clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getChiselDetailing");
-            Detailing lc = (Detailing) method.invoke(this);
-            return lc;
+            return (Detailing) method.invoke(this);
         } catch (Exception e) {
             logger.warn("Could not find chisel detailing recipes.");
             return null;
