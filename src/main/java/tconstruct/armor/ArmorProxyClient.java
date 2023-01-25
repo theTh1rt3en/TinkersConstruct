@@ -289,7 +289,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
                 int healthRows = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F / 10.0F);
                 int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
-                this.rand.setSeed((long) (updateCounter * 312871));
+                this.rand.setSeed(updateCounter * 312871L);
 
                 int left = scaledWidth / 2 - 91;
                 int top = scaledHeight - GuiIngameForge.left_height;
