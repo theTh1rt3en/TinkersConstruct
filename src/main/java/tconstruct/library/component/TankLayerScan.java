@@ -233,7 +233,7 @@ public class TankLayerScan extends LogicComponent {
     }
 
     public int recurseStructureDown(int y) {
-        Iterator i = layerAirCoords.iterator();
+        Iterator<CoordTuple> i = layerAirCoords.iterator();
         if (i.hasNext()) {
             CoordTuple coord = (CoordTuple) i.next();
             if (checkAir(coord.x, y, coord.z)) {
@@ -283,7 +283,7 @@ public class TankLayerScan extends LogicComponent {
     }
 
     public int recurseStructureUp(int y) {
-        Iterator i = layerBlockCoords.iterator();
+        Iterator<CoordTuple> i = layerBlockCoords.iterator();
         if (i.hasNext()) {
             CoordTuple coord = (CoordTuple) i.next();
             if (checkServant(coord.x, y, coord.z)) {
