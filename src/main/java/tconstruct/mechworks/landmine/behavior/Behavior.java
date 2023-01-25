@@ -58,7 +58,7 @@ public abstract class Behavior {
                         && b.renderAsNormalBlock()
                         && !b.canProvidePower()
                         && !(b instanceof ITileEntityProvider)
-                        && !behaviorsListBlocks.containsKey(new ItemStack(b))) {
+                        && !behaviorsListBlocks.containsKey(new LandmineStack(b))) {
                     addBehavior(new LandmineStack(b), blockThrow);
                 }
             }
