@@ -135,7 +135,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
                 entityHit.addVelocity(
                         this.motionX * (double) knockback * 0.6000000238418579D / horizontalSpeed,
                         0.1D,
-                        this.motionZ * (double) knockback * 0.6000000238418579D / (double) horizontalSpeed);
+                        this.motionZ * (double) knockback * 0.6000000238418579D / horizontalSpeed);
             }
         }
 
@@ -359,7 +359,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             this.prevRotationYaw =
                     this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
             this.prevRotationPitch =
-                    this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
+                    this.rotationPitch = (float) (Math.atan2(this.motionY, f) * 180.0D / Math.PI);
         }
 
         // we previously hit something. Check if the block is still there.
@@ -394,9 +394,9 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             }
         } else {
             this.inGround = false;
-            this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+            this.motionX *= this.rand.nextFloat() * 0.2F;
+            this.motionY *= this.rand.nextFloat() * 0.2F;
+            this.motionZ *= this.rand.nextFloat() * 0.2F;
             this.ticksInGround = 0;
             this.ticksInAir = 0;
         }
@@ -443,7 +443,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
                 if (ent == this.shootingEntity && this.ticksInAir < 5) continue;
 
                 f1 = 0.3F;
-                AxisAlignedBB axisalignedbb1 = ent.boundingBox.expand((double) f1, (double) f1, (double) f1);
+                AxisAlignedBB axisalignedbb1 = ent.boundingBox.expand(f1, f1, f1);
                 MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(curPos, newPos);
 
                 // did we actually collide with the entity, or was it just really close nearby?

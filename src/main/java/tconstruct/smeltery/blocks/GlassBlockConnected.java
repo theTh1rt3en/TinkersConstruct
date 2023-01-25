@@ -60,7 +60,7 @@ public class GlassBlockConnected extends MantleBlock {
      */
     public boolean shouldConnectToBlock(
             IBlockAccess par1IBlockAccess, int par2, int par3, int par4, Block par5, int par6) {
-        return par5 == (Block) this;
+        return par5 == this;
     }
 
     @Override

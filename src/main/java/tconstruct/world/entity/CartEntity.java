@@ -261,9 +261,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                         }
 
                         float var8 = 0.05F;
-                        entityitem.motionX = (double) ((float) this.rand.nextGaussian() * var8);
-                        entityitem.motionY = (double) ((float) this.rand.nextGaussian() * var8 + 0.2F);
-                        entityitem.motionZ = (double) ((float) this.rand.nextGaussian() * var8);
+                        entityitem.motionX = (float) this.rand.nextGaussian() * var8;
+                        entityitem.motionY = (float) this.rand.nextGaussian() * var8 + 0.2F;
+                        entityitem.motionZ = (float) this.rand.nextGaussian() * var8;
                         this.worldObj.spawnEntityInWorld(entityitem);
                     }
                 }
@@ -392,7 +392,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                 }
             }
 
-            double var51 = (double) MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
+            double var51 = MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
 
             if (var51 < -170.0D || var51 >= 170.0D) {
                 this.rotationYaw += 180.0F;
@@ -523,10 +523,10 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
         if (BlockRail.func_150051_a(var10)) {
             int var11 = 0;
-            par3 = (double) var8;
+            par3 = var8;
 
             if (var11 >= 2 && var11 <= 5) {
-                par3 = (double) (var8 + 1);
+                par3 = var8 + 1;
             }
 
             int[][] var12 = matrix[var11];
@@ -622,7 +622,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             this.cargoItems = new ItemStack[this.getSizeInventory()];
 
             for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-                NBTTagCompound var4 = (NBTTagCompound) var2.getCompoundTagAt(var3);
+                NBTTagCompound var4 = var2.getCompoundTagAt(var3);
                 int var5 = var4.getByte("Slot") & 255;
 
                 if (var5 >= 0 && var5 < this.cargoItems.length) {
@@ -661,7 +661,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                 double var6 = var2 * var2 + var4 * var4;
 
                 if (var6 >= 9.999999747378752E-5D) {
-                    var6 = (double) MathHelper.sqrt_double(var6);
+                    var6 = MathHelper.sqrt_double(var6);
                     var2 /= var6;
                     var4 /= var6;
                     double var8 = 1.0D / var6;
@@ -674,8 +674,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                     var4 *= var8;
                     var2 *= 0.10000000149011612D;
                     var4 *= 0.10000000149011612D;
-                    var2 *= (double) (1.0F - this.entityCollisionReduction);
-                    var4 *= (double) (1.0F - this.entityCollisionReduction);
+                    var2 *= 1.0F - this.entityCollisionReduction;
+                    var4 *= 1.0F - this.entityCollisionReduction;
                     var2 *= 0.5D;
                     var4 *= 0.5D;
 
@@ -684,9 +684,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                         double var12 = par1Entity.posZ - this.posZ;
                         Vec3 var14 = Vec3.createVectorHelper(var10, 0.0D, var12).normalize();
                         Vec3 var15 = Vec3.createVectorHelper(
-                                        (double) MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F),
+                                        MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F),
                                         0.0D,
-                                        (double) MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F))
+                                        MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F))
                                 .normalize();
                         double var16 = Math.abs(var14.dotProduct(var15));
 
@@ -854,7 +854,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
             if (var2 != null && var2.getItem() == Items.coal) {
                 if (--var2.stackSize == 0) {
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                 }
 
                 this.fuel += 3600;
@@ -877,8 +877,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         this.minecartX = par1;
         this.minecartY = par3;
         this.minecartZ = par5;
-        this.minecartYaw = (double) par7;
-        this.minecartPitch = (double) par8;
+        this.minecartYaw = par7;
+        this.minecartPitch = par8;
         this.turnProgress = par9 + 2;
         this.motionX = this.velocityX;
         this.motionY = this.velocityY;
