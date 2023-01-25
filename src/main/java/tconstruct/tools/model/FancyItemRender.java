@@ -67,7 +67,6 @@ public class FancyItemRender extends Render {
 
             if (ForgeHooksClient.renderEntityItem(
                     par1EntityItem, itemstack, f2, f3, random, renderManager.renderEngine, field_147909_c, 1)) {
-                ;
             } else if (itemstack.getItemSpriteNumber() == 0
                     && block != null
                     && RenderBlocks.renderItemIn3d(
