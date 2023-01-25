@@ -8,7 +8,7 @@ import tconstruct.library.client.FluidRenderProperties;
 /* Melting becomes hardened */
 public class LiquidCasting {
     // public static LiquidCasting instance = new LiquidCasting();
-    private final ArrayList<CastingRecipe> casts = new ArrayList<CastingRecipe>();
+    private final ArrayList<CastingRecipe> casts = new ArrayList<>();
 
     private boolean contains(CastingRecipe recipe) {
         for (CastingRecipe c : casts) {

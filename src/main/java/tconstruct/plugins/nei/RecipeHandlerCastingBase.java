@@ -21,7 +21,7 @@ public abstract class RecipeHandlerCastingBase extends RecipeHandlerBase {
         public CachedCastingRecipe(CastingRecipe recipe) {
             this.metal = new FluidTankElement(MOLTEN_FLOW, recipe.castingMetal.amount, recipe.castingMetal);
             this.metal.flowingTexture = true;
-            this.resources = new ArrayList<PositionedStack>();
+            this.resources = new ArrayList<>();
             if (recipe.cast != null) {
                 this.resources.add(new PositionedStack(recipe.cast, 55, 19));
             } else {
@@ -42,7 +42,7 @@ public abstract class RecipeHandlerCastingBase extends RecipeHandlerBase {
 
         @Override
         public List<FluidTankElement> getFluidTanks() {
-            List<FluidTankElement> res = new ArrayList<FluidTankElement>();
+            List<FluidTankElement> res = new ArrayList<>();
             res.add(this.metal);
             return res;
         }

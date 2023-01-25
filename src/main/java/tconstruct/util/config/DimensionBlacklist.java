@@ -7,8 +7,8 @@ import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
 
 public class DimensionBlacklist {
-    public static ArrayList<Integer> blacklistedDims = new ArrayList<Integer>();
-    public static ArrayList<Integer> noPoolDims = new ArrayList<Integer>();
+    public static ArrayList<Integer> blacklistedDims = new ArrayList<>();
+    public static ArrayList<Integer> noPoolDims = new ArrayList<>();
 
     public static int promisedLandDimensionID = -100;
     public static int twilightForestDimensionID = -100;
