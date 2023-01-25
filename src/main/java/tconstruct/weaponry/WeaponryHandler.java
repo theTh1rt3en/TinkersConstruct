@@ -367,8 +367,7 @@ public class WeaponryHandler {
                             .getTagCompound()
                             .getCompoundTag("display")
                             .getString("Name")
-                            .toLowerCase()
-                            .equals("banana")) return;
+                            .equalsIgnoreCase("banana")) return;
             event.name =
                     '\u2400' + "Bonæna"; // the \u2400 is a non-printable unicode character so you can't just type it
             event.headStack = new ItemStack(TinkerTools.swordBlade, 1, TinkerTools.MaterialID.Bone);
