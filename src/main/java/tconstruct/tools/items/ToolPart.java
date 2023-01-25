@@ -126,8 +126,7 @@ public class ToolPart extends CraftingItem implements IToolPart {
 
     @Override
     public int getMaterialID(ItemStack stack) {
-        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage())) return stack.getItemDamage();
-
+        if (TConstructRegistry.toolMaterials.containsKey(stack.getItemDamage())) return stack.getItemDamage();
         return -1;
     }
 }
