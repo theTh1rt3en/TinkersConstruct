@@ -16,7 +16,6 @@ import tconstruct.gadgets.item.ItemSlimeBoots;
 public class SlimeBounceHandler {
 
     public static final float SQRT_2 = sqrt(2.0F);
-    private static final float[] SIN_TABLE = new float[65536];
     private static final double FRAC_BIAS;
     private static final double[] ASINE_TAB;
     private static final double[] COS_TAB;
@@ -24,9 +23,6 @@ public class SlimeBounceHandler {
             new IdentityHashMap<>();
 
     static {
-        for (int i = 0; i < 65536; ++i) {
-            SIN_TABLE[i] = (float) Math.sin(i * Math.PI * 2.0D / 65536.0D);
-        }
         FRAC_BIAS = Double.longBitsToDouble(4805340802404319232L);
         ASINE_TAB = new double[257];
         COS_TAB = new double[257];
