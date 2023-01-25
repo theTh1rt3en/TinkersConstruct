@@ -8,7 +8,7 @@ public enum ArmorPart {
 
     private final int partID;
 
-    private ArmorPart(int partID) {
+    ArmorPart(int partID) {
         this.partID = partID;
     }
 
