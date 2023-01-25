@@ -1360,9 +1360,9 @@ public class TinkerTools {
                 new ItemStack(TinkerTools.binding, 1, 6),
                 "");
         if (batHardened != null)
-            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);
+            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), batHardened);
         if (basicCell != null)
-            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
+            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), basicCell);
 
         /* Thaumcraft */
         Object obj = ItemHelper.getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");

@@ -883,7 +883,7 @@ public class TinkerSmeltery {
 
             // Ores
             Smeltery.addDictionaryMelting(
-                    "ore" + fluidTypeName, ft, 0, ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre));
+                    "ore" + fluidTypeName, ft, 0, (TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre));
 
             // Poor ores
             Smeltery.addDictionaryMelting("orePoor" + fluidTypeName, ft, 0, (int)
@@ -894,7 +894,7 @@ public class TinkerSmeltery {
                     "oreNether" + fluidTypeName,
                     ft,
                     75,
-                    ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre * 2));
+                    (TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre * 2));
 
             // Blocks
             Smeltery.addDictionaryMelting("block" + fluidTypeName, ft, 100, TConstruct.ingotLiquidValue * 2);

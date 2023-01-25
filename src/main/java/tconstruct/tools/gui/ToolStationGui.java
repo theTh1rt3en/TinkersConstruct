@@ -40,7 +40,7 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler {
 
     public ToolStationGui(
             InventoryPlayer inventoryplayer, ToolStationLogic stationlogic, World world, int x, int y, int z) {
-        super((ActiveContainer) stationlogic.getGuiContainer(inventoryplayer, world, x, y, z));
+        super(stationlogic.getGuiContainer(inventoryplayer, world, x, y, z));
         this.logic = stationlogic;
         toolSlots = (ToolStationContainer) inventorySlots;
         text = new GuiTextField(this.fontRendererObj, 83, 8, 30, 12);

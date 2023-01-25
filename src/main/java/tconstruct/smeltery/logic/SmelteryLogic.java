@@ -168,9 +168,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             stack.stackSize -= itemSize;
                             EntityItem entityitem = new EntityItem(
                                     worldObj,
-                                    (double) ((float) xCoord + jumpX + offsetX),
-                                    (double) ((float) yCoord + jumpY),
-                                    (double) ((float) zCoord + jumpZ + offsetZ),
+                                    (float) xCoord + jumpX + offsetX,
+                                    (float) yCoord + jumpY,
+                                    (float) zCoord + jumpZ + offsetZ,
                                     new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound()) {
@@ -179,9 +179,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             float offset = 0.05F;
-                            entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
-                            entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
-                            entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
+                            entityitem.motionX = (float) rand.nextGaussian() * offset;
+                            entityitem.motionY = (float) rand.nextGaussian() * offset + 0.2F;
+                            entityitem.motionZ = (float) rand.nextGaussian() * offset;
                             worldObj.spawnEntityInWorld(entityitem);
                         }
                     }
@@ -1033,7 +1033,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         moltenMetal.clear();
 
         for (int iter = 0; iter < liquidTag.tagCount(); iter++) {
-            NBTTagCompound nbt = (NBTTagCompound) liquidTag.getCompoundTagAt(iter);
+            NBTTagCompound nbt = liquidTag.getCompoundTagAt(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
             if (fluid != null) moltenMetal.add(fluid);
         }

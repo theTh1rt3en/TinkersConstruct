@@ -193,7 +193,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(0, metadata));
+            render.renderFaceYNeg(block, xPos, yPos, zPos, block.getIcon(0, metadata));
             flag = true;
         }
 
@@ -313,7 +313,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceYPos(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(1, metadata));
+            render.renderFaceYPos(block, xPos, yPos, zPos, block.getIcon(1, metadata));
             flag = true;
         }
 
@@ -447,7 +447,7 @@ public class BlockSkinRenderHelper {
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
             icon = block.getIcon(2, metadata);
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.renderFaceZNeg(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
@@ -580,7 +580,7 @@ public class BlockSkinRenderHelper {
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
             icon = block.getIcon(3, metadata);
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.renderFaceZPos(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
@@ -713,7 +713,7 @@ public class BlockSkinRenderHelper {
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
             icon = block.getIcon(4, metadata);
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.renderFaceXNeg(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
@@ -846,7 +846,7 @@ public class BlockSkinRenderHelper {
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
             icon = block.getIcon(5, metadata);
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.renderFaceXPos(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
@@ -906,7 +906,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(0, metadata));
+            render.renderFaceYNeg(block, xPos, yPos, zPos, block.getIcon(0, metadata));
             flag = true;
         }
 
@@ -916,7 +916,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
-            render.renderFaceYPos(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(1, metadata));
+            render.renderFaceYPos(block, xPos, yPos, zPos, block.getIcon(1, metadata));
             flag = true;
         }
 
@@ -928,7 +928,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(2, metadata));
+            render.renderFaceZNeg(block, xPos, yPos, zPos, block.getIcon(2, metadata));
 
             flag = true;
         }
@@ -939,7 +939,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(3, metadata));
+            render.renderFaceZPos(block, xPos, yPos, zPos, block.getIcon(3, metadata));
 
             flag = true;
         }
@@ -950,7 +950,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(4, metadata));
+            render.renderFaceXNeg(block, xPos, yPos, zPos, block.getIcon(4, metadata));
 
             flag = true;
         }
@@ -961,7 +961,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(5, metadata));
+            render.renderFaceXPos(block, xPos, yPos, zPos, block.getIcon(5, metadata));
 
             flag = true;
         }
@@ -1204,7 +1204,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
+            render.renderFaceYNeg(block, xPos, yPos, zPos, stillIcon);
             flag = true;
         }
 
@@ -1324,7 +1324,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceYPos(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
+            render.renderFaceYPos(block, xPos, yPos, zPos, stillIcon);
             flag = true;
         }
 
@@ -1455,7 +1455,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceZNeg(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1587,7 +1587,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceZPos(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1719,7 +1719,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceXNeg(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1851,7 +1851,7 @@ public class BlockSkinRenderHelper {
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceXPos(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1912,7 +1912,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
+            render.renderFaceYNeg(block, xPos, yPos, zPos, stillIcon);
             flag = true;
         }
 
@@ -1922,7 +1922,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
-            render.renderFaceYPos(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
+            render.renderFaceYPos(block, xPos, yPos, zPos, stillIcon);
             flag = true;
         }
 
@@ -1934,7 +1934,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceZNeg(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1945,7 +1945,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceZPos(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1956,7 +1956,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceXNeg(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
@@ -1967,7 +1967,7 @@ public class BlockSkinRenderHelper {
                             ? l
                             : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.renderFaceXPos(block, xPos, yPos, zPos, flowingIcon);
 
             flag = true;
         }
