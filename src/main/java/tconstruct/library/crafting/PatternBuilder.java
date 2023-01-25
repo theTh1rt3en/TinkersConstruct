@@ -149,7 +149,7 @@ public class PatternBuilder {
 
     // Small data classes. I would prefer the struct from C#, but we do what we
     // can.
-    public class ItemKey {
+    public static class ItemKey {
         public final Item item;
         public final int damage;
         public final int value;
@@ -163,7 +163,7 @@ public class PatternBuilder {
         }
     }
 
-    public class MaterialSet {
+    public static class MaterialSet {
         public final ItemStack shard;
         public final ItemStack rod;
         public final int materialID;
