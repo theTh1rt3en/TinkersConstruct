@@ -219,12 +219,19 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData {
         posZ += motionZ;
         float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
         rotationYaw = (float) ((Math.atan2(motionX, motionZ) * 180D) / 3.1415927410125732D);
-        for (rotationPitch = (float) ((Math.atan2(motionY, f1) * 180D) / 3.1415927410125732D);
-                rotationPitch - prevRotationPitch < -180F;
-                prevRotationPitch -= 360F) {}
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {}
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {}
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {}
+        rotationPitch = (float) ((Math.atan2(motionY, f1) * 180D) / 3.1415927410125732D);
+        while (rotationPitch - prevRotationPitch < -180F) {
+            prevRotationPitch -= 360F;
+        }
+        while (rotationPitch - prevRotationPitch >= 180F) {
+            prevRotationPitch += 360F;
+        }
+        while (rotationYaw - prevRotationYaw < -180F) {
+            prevRotationYaw -= 360F;
+        }
+        while (rotationYaw - prevRotationYaw >= 180F) {
+            prevRotationYaw += 360F;
+        }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         float f2 = 0.99F;
@@ -251,7 +258,10 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData {
         setPosition(posX, posY, posZ);
         if (!onGround) {
             prevBoomerangRotation = boomerangRotation;
-            for (boomerangRotation += 36F; boomerangRotation > 360F; boomerangRotation -= 360F) {}
+            boomerangRotation += 36F;
+            while (boomerangRotation > 360F) {
+                boomerangRotation -= 360F;
+            }
         }
     }
 
