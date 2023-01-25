@@ -72,12 +72,11 @@ public class ModButtertouch extends ModBoolean {
                 hasEnchant = true;
                 enchantTag.setShort("id", (short) index);
                 enchantTag.setShort("lvl", (short) ((byte) level));
-                tags.appendTag(enchantTag);
             } else {
                 enchantTag.setShort("id", (short) index);
                 enchantTag.setShort("lvl", (short) ((byte) lvl));
-                tags.appendTag(enchantTag);
             }
+            tags.appendTag(enchantTag);
         }
         if (!hasEnchant) {
             NBTTagCompound enchantTag = new NBTTagCompound();
