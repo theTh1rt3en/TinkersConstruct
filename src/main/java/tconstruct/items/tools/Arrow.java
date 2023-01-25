@@ -183,13 +183,7 @@ public class Arrow extends ToolCore {
                 else color = "\u00a76";
             }
 
-            String energy = new StringBuilder()
-                    .append(color)
-                    .append(tags.getInteger("Energy"))
-                    .append("/")
-                    .append(getMaxEnergyStored(stack))
-                    .append(" RF")
-                    .toString();
+            String energy = color + tags.getInteger("Energy") + "/" + getMaxEnergyStored(stack) + " RF";
             list.add(energy);
         }
         if (tags.hasKey("InfiTool")) {
