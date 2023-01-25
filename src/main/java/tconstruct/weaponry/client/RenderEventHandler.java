@@ -6,7 +6,6 @@ import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import tconstruct.library.weaponry.BowBaseAmmo;
 import tconstruct.library.weaponry.IWindup;
-import tconstruct.weaponry.TinkerWeaponry;
 
 public class RenderEventHandler {
     @SubscribeEvent
@@ -25,8 +24,9 @@ public class RenderEventHandler {
 
     @SubscribeEvent
     public void onRenderPlayer(RenderPlayerEvent.Pre event) {
-        //if (event.entityPlayer.getCurrentEquippedItem() != null && event.entityPlayer.getCurrentEquippedItem().getItem() == TinkerWeaponry.javelin) {
-        //}
+        // if (event.entityPlayer.getCurrentEquippedItem() != null &&
+        // event.entityPlayer.getCurrentEquippedItem().getItem() == TinkerWeaponry.javelin) {
+        // }
 
         if (event.entityPlayer.getItemInUse() == null) return;
 

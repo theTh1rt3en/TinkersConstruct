@@ -4,7 +4,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.UUID;
 import net.minecraft.enchantment.Enchantment;

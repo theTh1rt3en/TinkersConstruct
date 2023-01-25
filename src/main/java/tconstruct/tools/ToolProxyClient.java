@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.common.MinecraftForge;
-import tconstruct.TConstruct;
 import tconstruct.client.FlexibleToolRenderer;
 import tconstruct.client.entity.projectile.*;
 import tconstruct.client.pages.*;
@@ -543,17 +542,17 @@ public class ToolProxyClient extends ToolProxyCommon {
 
     @SubscribeEvent
     public void onSound(SoundLoadEvent event) {
-        //try {
-            /*
-             * SoundManager soundmanager = event.manager;
-             * soundmanager.addSound("tinker:frypan_hit.ogg");
-             * soundmanager.addSound("tinker:little_saw.ogg");
-             * soundmanager.addSound("tinker:launcher_clank.ogg");
-             * TConstruct.logger.info("Successfully loaded sounds.");
-             */
-        //} catch (Exception e) {
+        // try {
+        /*
+         * SoundManager soundmanager = event.manager;
+         * soundmanager.addSound("tinker:frypan_hit.ogg");
+         * soundmanager.addSound("tinker:little_saw.ogg");
+         * soundmanager.addSound("tinker:launcher_clank.ogg");
+         * TConstruct.logger.info("Successfully loaded sounds.");
+         */
+        // } catch (Exception e) {
         //    TConstruct.logger.error("Failed to register one or more sounds");
-        //}
+        // }
 
         MinecraftForge.EVENT_BUS.unregister(this);
     }
