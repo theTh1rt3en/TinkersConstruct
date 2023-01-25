@@ -131,7 +131,7 @@ public class ModLapis extends ItemModTypeFilter {
         boolean hasEnchant = false;
         while (iterator.hasNext()) {
             NBTTagCompound enchantTag = new NBTTagCompound();
-            index = ((Integer) iterator.next()).intValue();
+            index = (Integer) iterator.next();
             lvl = (Integer) enchantMap.get(index);
             if (index == enchant.effectId) {
                 hasEnchant = true;
