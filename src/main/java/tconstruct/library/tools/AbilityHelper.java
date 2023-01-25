@@ -310,7 +310,7 @@ public class AbilityHelper {
             }
 
             if (!(living instanceof EntityPlayer) || player.canAttackPlayer((EntityPlayer) living)) {
-                List var6 = player.worldObj.getEntitiesWithinAABB(
+                List<EntityWolf> var6 = player.worldObj.getEntitiesWithinAABB(
                         EntityWolf.class,
                         AxisAlignedBB.getBoundingBox(
                                         player.posX,
@@ -320,11 +320,8 @@ public class AbilityHelper {
                                         player.posY + 1.0D,
                                         player.posZ + 1.0D)
                                 .expand(16.0D, 4.0D, 16.0D));
-                Iterator var4 = var6.iterator();
 
-                while (var4.hasNext()) {
-                    EntityWolf var5 = (EntityWolf) var4.next();
-
+                for (EntityWolf var5 : var6) {
                     if (var5.isTamed()
                             && var5.getEntityToAttack() == null
                             && player.getDisplayName().equals(var5.func_152113_b())

@@ -1,17 +1,25 @@
 package tconstruct.blocks.traps;
 
-import cpw.mods.fml.relauncher.*;
-import java.util.*;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mantle.blocks.MantleBlock;
 import mantle.world.WorldHelper;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
+
+import java.util.List;
+import java.util.Random;
 
 public class Landmine extends MantleBlock {
     /** The mob type that can trigger this pressure plate. */
@@ -147,7 +155,7 @@ public class Landmine extends MantleBlock {
         boolean var5 = world.getBlockMetadata(posX, posY, posZ) == 1;
         boolean var6 = false;
         float var7 = 0.125F;
-        List var8 = null;
+        List<Entity> var8 = null;
 
         if (this.triggerMobType == EnumCreatureType.creature) {
             var8 = world.getEntitiesWithinAABBExcludingEntity(
@@ -182,12 +190,8 @@ public class Landmine extends MantleBlock {
          * 1) - var7))); }
          */
 
-        if (!var8.isEmpty()) {
-            Iterator var9 = var8.iterator();
-
-            while (var9.hasNext()) {
-                Entity var10 = (Entity) var9.next();
-
+        if (var8 != null && !var8.isEmpty()) {
+            for (Entity var10 : var8) {
                 if (!var10.doesEntityNotTriggerPressurePlate()) {
                     var6 = true;
                     break;

@@ -20,7 +20,7 @@ public class ContainerLandmine extends Container {
     public EntityPlayer entityPlayer;
     private int field_94536_g;
     private int field_94535_f = -1;
-    private final Set field_94537_h = new HashSet();
+    private final Set<Slot> field_94537_h = new HashSet<>();
 
     public ContainerLandmine(EntityPlayer player, TileEntityLandmine te) {
         this.te = te;
@@ -128,11 +128,8 @@ public class ContainerLandmine extends Container {
                 if (!this.field_94537_h.isEmpty()) {
                     itemstack1 = inventoryplayer.getItemStack().copy();
                     l = inventoryplayer.getItemStack().stackSize;
-                    Iterator iterator = this.field_94537_h.iterator();
 
-                    while (iterator.hasNext()) {
-                        Slot slot1 = (Slot) iterator.next();
-
+                    for (Slot slot1 : this.field_94537_h) {
                         if (slot1 != null
                                 && func_94527_a(slot1, inventoryplayer.getItemStack(), true)
                                 && slot1.isItemValid(inventoryplayer.getItemStack())
