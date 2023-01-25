@@ -79,9 +79,6 @@ public abstract class Behavior {
                         return (Behavior) behaviorsListBlocks.values().toArray()[i];
                     }
                 }
-                return null;
-            } else {
-                return null;
             }
         } else {
             if (!behaviorsListItems.isEmpty()) {
@@ -92,11 +89,9 @@ public abstract class Behavior {
                         return (Behavior) behaviorsListItems.values().toArray()[i];
                     }
                 }
-                return null;
-            } else {
-                return null;
             }
         }
+        return null;
     }
 
     public static Behavior getDefaulBehavior() {
