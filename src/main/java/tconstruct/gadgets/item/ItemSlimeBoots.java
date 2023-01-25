@@ -223,7 +223,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         list.add("Boooounce!");
         list.add("Hold "
                 + (I18n.format(
-                        Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyDescription(), new Object[0]))
+                        Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyDescription()))
                 + " to stop bouncing.");
     }
 

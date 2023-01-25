@@ -31,7 +31,7 @@ public class SmelteryDamageSource extends DamageSource {
         String s1 = s + ".player";
         return entityliving1 != null && StatCollector.canTranslate(s1)
                 ? new ChatComponentTranslation(
-                        s1, new Object[] {par1EntityLiving.func_145748_c_(), entityliving1.func_145748_c_()})
-                : new ChatComponentTranslation(s, new Object[] {par1EntityLiving.func_145748_c_()});
+                        s1, par1EntityLiving.func_145748_c_(), entityliving1.func_145748_c_())
+                : new ChatComponentTranslation(s, par1EntityLiving.func_145748_c_());
     }
 }
