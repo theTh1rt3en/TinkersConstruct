@@ -219,7 +219,7 @@ public class Scythe extends Weapon {
                                                 if (world.isRemote) {
                                                     INetHandler handler = FMLClientHandler.instance()
                                                             .getClientPlayHandler();
-                                                    if (handler != null && handler instanceof NetHandlerPlayClient) {
+                                                    if (handler instanceof NetHandlerPlayClient) {
                                                         NetHandlerPlayClient handlerClient =
                                                                 (NetHandlerPlayClient) handler;
                                                         handlerClient.addToSendQueue(new C07PacketPlayerDigging(

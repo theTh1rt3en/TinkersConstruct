@@ -166,7 +166,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             }
 
             if (movingobjectposition != null
-                    && movingobjectposition.entityHit != null
                     && movingobjectposition.entityHit instanceof EntityPlayer) {
                 EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
 

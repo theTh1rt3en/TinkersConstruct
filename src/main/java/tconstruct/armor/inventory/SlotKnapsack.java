@@ -25,6 +25,6 @@ public class SlotKnapsack extends Slot {
     @Override
     public boolean isItemValid(ItemStack par1ItemStack) {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-        return item != null && (item instanceof Knapsack);
+        return (item instanceof Knapsack);
     }
 }
