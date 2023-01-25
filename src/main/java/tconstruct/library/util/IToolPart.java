@@ -10,5 +10,5 @@ public interface IToolPart {
      *            This item
      * @return Proper material ID. -1 for invalid
      */
-    public int getMaterialID(ItemStack stack);
+    int getMaterialID(ItemStack stack);
 }

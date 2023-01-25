@@ -20,40 +20,40 @@ public interface UBOreTexturizer {
     // Overlay name is the fully qualified name, e.g. modname:overlayName
     // that static vars are fully qualified names for all the textures in the UB pack, just pass as is
     // the event isn't needed per se, but if this is called anytime else, the blocks will not "stick"
-    public void setupUBOre(Block oreBlock, String overlayName, FMLPreInitializationEvent event);
+    void setupUBOre(Block oreBlock, String overlayName, FMLPreInitializationEvent event);
 
-    public void setupUBOre(Block oreBlock, int metadata, String overlayName, FMLPreInitializationEvent event);
+    void setupUBOre(Block oreBlock, int metadata, String overlayName, FMLPreInitializationEvent event);
 
-    public void setupUBOre(
+    void setupUBOre(
             Block oreBlock, int metadata, String overlayName, String blockName, FMLPreInitializationEvent event);
 
-    public void requestUBOreSetup(Block oreBlock, String overlayName) throws BlocksAreAlreadySet;
+    void requestUBOreSetup(Block oreBlock, String overlayName) throws BlocksAreAlreadySet;
 
-    public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName) throws BlocksAreAlreadySet;
+    void requestUBOreSetup(Block oreBlock, int metadata, String overlayName) throws BlocksAreAlreadySet;
 
-    public void requestUBOreSetup(Block oreBlock, int metadata, String overlayName, String blockName)
+    void requestUBOreSetup(Block oreBlock, int metadata, String overlayName, String blockName)
             throws BlocksAreAlreadySet;
 
-    public void redoOres(int xInBlockCoordinates, int zInBlockCoordinates, World serverSideWorld);
+    void redoOres(int xInBlockCoordinates, int zInBlockCoordinates, World serverSideWorld);
 
-    public static String amber_overlay = "undergroundbiomes:amber_overlay";
-    public static String cinnabar_overlay = "undergroundbiomes:cinnabar_overlay";
-    public static String coal_overlay = "undergroundbiomes:coal_overlay";
-    public static String copper_overlay = "undergroundbiomes:copper_overlay";
-    public static String diamond_overlay = "undergroundbiomes:diamond_overlay";
-    public static String emerald_overlay = "undergroundbiomes:emerald_overlay";
-    public static String gold_overlay = "undergroundbiomes:gold_overlay";
-    public static String iron_overlay = "undergroundbiomes:iron_overlay";
-    public static String lapis_overlay = "undergroundbiomes:lapis_overlay";
-    public static String lead_overlay = "undergroundbiomes:lead_overlay";
-    public static String olivine_peridot_overlay = "undergroundbiomes:olivine-peridot_overlay";
-    public static String redstone_overlay = "undergroundbiomes:redstone_overlay";
-    public static String ruby_overlay = "undergroundbiomes:ruby_overlay";
-    public static String sapphire_overlay = "undergroundbiomes:sapphire_overlay";
-    public static String tin_overlay = "undergroundbiomes:tin_overlay";
-    public static String uranium_overlay = "undergroundbiomes:uranium_overlay";
+    String amber_overlay = "undergroundbiomes:amber_overlay";
+    String cinnabar_overlay = "undergroundbiomes:cinnabar_overlay";
+    String coal_overlay = "undergroundbiomes:coal_overlay";
+    String copper_overlay = "undergroundbiomes:copper_overlay";
+    String diamond_overlay = "undergroundbiomes:diamond_overlay";
+    String emerald_overlay = "undergroundbiomes:emerald_overlay";
+    String gold_overlay = "undergroundbiomes:gold_overlay";
+    String iron_overlay = "undergroundbiomes:iron_overlay";
+    String lapis_overlay = "undergroundbiomes:lapis_overlay";
+    String lead_overlay = "undergroundbiomes:lead_overlay";
+    String olivine_peridot_overlay = "undergroundbiomes:olivine-peridot_overlay";
+    String redstone_overlay = "undergroundbiomes:redstone_overlay";
+    String ruby_overlay = "undergroundbiomes:ruby_overlay";
+    String sapphire_overlay = "undergroundbiomes:sapphire_overlay";
+    String tin_overlay = "undergroundbiomes:tin_overlay";
+    String uranium_overlay = "undergroundbiomes:uranium_overlay";
 
-    public class BlocksAreAlreadySet extends RuntimeException {
+    class BlocksAreAlreadySet extends RuntimeException {
         // this is thrown if UB has already run its pre-initialization step and can no longer register blocks
         public final Block oreBlock;
         public final String overlayName;
