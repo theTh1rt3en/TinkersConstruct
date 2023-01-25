@@ -72,19 +72,18 @@ public class BattlesignGui extends GuiScreen {
 
         float lum = calcLuminance(bgColR, bgColG, bgColB);
         for (int i = 0; i < text.length; i++) {
+            final EnumChatFormatting chatFormatting = lum >= 35F
+                    ? EnumChatFormatting.BLACK
+                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE;
             fontRendererObj.drawString(
-                    (lum >= 35F
-                                    ? EnumChatFormatting.BLACK
-                                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
+                    chatFormatting
                             + (i == currentLine ? "> " : "")
                             + text[i]
                             + (i == currentLine
-                                    ? " \u00A7r"
-                                            + (lum >= 35F
-                                                    ? EnumChatFormatting.BLACK
-                                                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
-                                            + "<"
-                                    : ""),
+                            ? " " + EnumChatFormatting.RESET
+                            + chatFormatting
+                            + "<"
+                            : ""),
                     k
                             - fontRendererObj.getStringWidth(
                                             (i == currentLine ? "> " : "") + text[i] + (i == currentLine ? " <" : ""))
