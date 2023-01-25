@@ -37,7 +37,6 @@ public class FancyEntityItem extends EntityItem {
     }
 
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (par1DamageSource.getDamageType().equals("outOfWorld")) return true;
-        return false;
+        return par1DamageSource.getDamageType().equals("outOfWorld");
     }
 }

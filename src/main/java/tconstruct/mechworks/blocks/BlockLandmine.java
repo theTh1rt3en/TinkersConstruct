@@ -1,12 +1,7 @@
 package tconstruct.mechworks.blocks;
 
-import static net.minecraftforge.common.util.ForgeDirection.*;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 import mantle.blocks.BlockUtils;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
@@ -38,6 +33,11 @@ import tconstruct.mechworks.landmine.Helper;
 import tconstruct.mechworks.logic.LandmineExplodeLogic;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.world.model.RenderLandmine;
+
+import java.util.List;
+import java.util.Random;
+
+import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  *
@@ -411,13 +411,7 @@ public class BlockLandmine extends BlockContainer {
 
     private boolean hasItems(World par1World, int par2, int par3, int par4) {
         TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
-        if (te != null && te.getStackInSlot(0) != null
-                || te.getStackInSlot(1) != null
-                || te.getStackInSlot(2) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return te != null && (te.getStackInSlot(0) != null || te.getStackInSlot(1) != null || te.getStackInSlot(2) != null);
     }
 
     protected int getMineState(World par1World, int par2, int par3, int par4) {

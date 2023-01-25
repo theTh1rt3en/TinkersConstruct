@@ -62,10 +62,9 @@ public class ModFlux extends ModBoolean {
                     > ((ToolCore) tool.getItem()).getMaxEnergyStored(tool);
         }
         // otherwise check if we have enough modfiers
-        else if (tags.getInteger("Modifiers") < modifiersRequired) return false;
+        else return tags.getInteger("Modifiers") >= modifiersRequired;
 
         // all requirements satisfied!
-        return true;
     }
 
     @Override
