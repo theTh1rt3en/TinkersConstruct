@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockAccess;
 import tconstruct.blocks.TConstructBlock;
 
 public class GlassBlockStained extends TConstructBlock {
-    static String blockTextures[] = {
+    static String[] blockTextures = {
         "white",
         "orange",
         "magenta",

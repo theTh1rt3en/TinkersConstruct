@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 public class SoilSlabItem extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "grass", "dirt", "mycelium", "slime", "grout", "blueslime", "graveyardsoil", "consecratedsoil"
     };
 

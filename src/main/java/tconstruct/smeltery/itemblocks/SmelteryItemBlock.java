@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import tconstruct.achievements.TAchievements;
 
 public class SmelteryItemBlock extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "Controller",
         "Drain",
         "Brick",

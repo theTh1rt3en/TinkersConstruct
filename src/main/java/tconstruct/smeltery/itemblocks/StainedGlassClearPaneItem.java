@@ -4,7 +4,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 
 public class StainedGlassClearPaneItem extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "white",
         "orange",
         "magenta",
