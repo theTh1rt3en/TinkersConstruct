@@ -66,7 +66,7 @@ public class RecipeHandlerMelting extends RecipeHandlerBase {
     @Override
     public void loadTransferRects() {
         this.transferRects.add(
-                new RecipeTransferRect(new Rectangle(72, 20, 16, 34), this.getRecipeID(), new Object[0]));
+                new RecipeTransferRect(new Rectangle(72, 20, 16, 34), this.getRecipeID()));
     }
 
     @Override

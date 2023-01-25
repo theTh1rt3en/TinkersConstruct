@@ -670,13 +670,11 @@ public class TinkerSmeltery {
 
         // Glass Recipes
         GameRegistry.addRecipe(
-                new ItemStack(Items.glass_bottle, 3), new Object[] {"# #", " # ", '#', TinkerSmeltery.clearGlass});
+                new ItemStack(Items.glass_bottle, 3), "# #", " # ", '#', TinkerSmeltery.clearGlass);
         GameRegistry.addRecipe(new ShapedOreRecipe(
                 new ItemStack(Blocks.daylight_detector),
-                new Object[] {"GGG", "QQQ", "WWW", 'G', "blockGlass", 'Q', "gemQuartz", 'W', "slabWood"}));
-        GameRegistry.addRecipe(new ItemStack(Blocks.beacon, 1), new Object[] {
-            "GGG", "GSG", "OOO", 'G', TinkerSmeltery.clearGlass, 'S', Items.nether_star, 'O', Blocks.obsidian
-        });
+                "GGG", "QQQ", "WWW", 'G', "blockGlass", 'Q', "gemQuartz", 'W', "slabWood"));
+        GameRegistry.addRecipe(new ItemStack(Blocks.beacon, 1), "GGG", "GSG", "OOO", 'G', TinkerSmeltery.clearGlass, 'S', Items.nether_star, 'O', Blocks.obsidian);
         GameRegistry.addRecipe(new ShapedOreRecipe(
                 new ItemStack(TinkerSmeltery.glassPane, 16, 0), "GGG", "GGG", 'G', TinkerSmeltery.clearGlass));
 
@@ -818,16 +816,14 @@ public class TinkerSmeltery {
     }
 
     public void addOreDictionarySmelteryRecipes() {
-        List<FluidType> exceptions = Arrays.asList(new FluidType[] {
-            FluidType.getFluidType("Water"),
-            FluidType.getFluidType("Stone"),
-            FluidType.getFluidType("Emerald"),
-            FluidType.getFluidType("Quartz"),
-            FluidType.getFluidType("Ender"),
-            FluidType.getFluidType("Glass"),
-            FluidType.getFluidType("Slime"),
-            FluidType.getFluidType("Obsidian")
-        });
+        List<FluidType> exceptions = Arrays.asList(FluidType.getFluidType("Water"),
+                FluidType.getFluidType("Stone"),
+                FluidType.getFluidType("Emerald"),
+                FluidType.getFluidType("Quartz"),
+                FluidType.getFluidType("Ender"),
+                FluidType.getFluidType("Glass"),
+                FluidType.getFluidType("Slime"),
+                FluidType.getFluidType("Obsidian"));
         for (Map.Entry<String, FluidType> stringFluidTypeEntry : FluidType.fluidTypes.entrySet()) {
             FluidType ft = stringFluidTypeEntry.getValue();
             if (exceptions.contains(ft)) continue;
