@@ -9,11 +9,11 @@ import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.tools.ToolCore;
 
 public class TConstructClientRegistry {
-    public static ArrayList<StencilGuiElement> stencilButtons = new ArrayList<StencilGuiElement>();
-    public static ArrayList<StencilGuiElement> stencilButtons2 = new ArrayList<StencilGuiElement>();
-    public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
-    public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<ToolGuiElement>();
-    public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
+    public static ArrayList<StencilGuiElement> stencilButtons = new ArrayList<>();
+    public static ArrayList<StencilGuiElement> stencilButtons2 = new ArrayList<>();
+    public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<>(20);
+    public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<>();
+    public static Map<String, ItemStack> manualIcons = new HashMap<>();
     public static ItemStack defaultStack = new ItemStack(Items.iron_ingot);
 
     public static void addMaterialRenderMapping(

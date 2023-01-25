@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
 public class Detailing {
-    public List<DetailInput> detailing = new ArrayList<DetailInput>();
+    public List<DetailInput> detailing = new ArrayList<>();
 
     public void addDetailing(Object input, int inputMeta, Object output, int outputMeta, ToolCore tool) {
         ItemStack iID, oID;

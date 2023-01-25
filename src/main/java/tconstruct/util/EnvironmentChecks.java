@@ -15,12 +15,12 @@ public class EnvironmentChecks {
      * logs if so. Note: This code adds additional data to crashlogs. It does
      * not trigger any crashes.
      */
-    private static List<String> incompatibilities = new ArrayList<String>();
+    private static List<String> incompatibilities = new ArrayList<>();
 
     private static EnvironmentChecks instance = new EnvironmentChecks();
 
     public static void verifyEnvironmentSanity() {
-        List<String> modIds = new ArrayList<String>();
+        List<String> modIds = new ArrayList<>();
 
         // Bukkit/Magic Launcher/Optifine are caught by Mantle, so we no longer
         // check for those.

@@ -11,7 +11,7 @@ import tconstruct.util.config.PHConstruct;
 /* TE3 support */
 
 public class ModFlux extends ModBoolean {
-    public ArrayList<ItemStack> batteries = new ArrayList<ItemStack>();
+    public ArrayList<ItemStack> batteries = new ArrayList<>();
     public int modifiersRequired = 1; // LALALALA totally not hidden IguanaTweaks Support LALALALA
 
     public ModFlux() {

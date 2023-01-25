@@ -13,7 +13,7 @@ import net.minecraft.network.play.client.C0DPacketCloseWindow;
 import net.minecraftforge.client.event.GuiScreenEvent;
 
 public class TabRegistry {
-    private static ArrayList<AbstractTab> tabList = new ArrayList<AbstractTab>();
+    private static ArrayList<AbstractTab> tabList = new ArrayList<>();
 
     public static void registerTab(AbstractTab tab) {
         tabList.add(tab);

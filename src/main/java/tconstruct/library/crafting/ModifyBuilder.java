@@ -8,7 +8,7 @@ import tconstruct.library.modifier.*;
 
 public class ModifyBuilder {
     public static ModifyBuilder instance = new ModifyBuilder();
-    public List<ItemModifier> itemModifiers = new ArrayList<ItemModifier>();
+    public List<ItemModifier> itemModifiers = new ArrayList<>();
 
     public ItemStack modifyItem(ItemStack input, ItemStack[] modifiers) {
         ItemStack copy = input.copy(); // Prevent modifying the original

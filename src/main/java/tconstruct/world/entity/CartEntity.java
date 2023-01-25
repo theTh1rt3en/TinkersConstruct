@@ -990,7 +990,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
          * break; case 2: items.add(new ItemStack(Block.stoneOvenIdle)); break;
          * } return items;
          */
-        return new ArrayList<ItemStack>();
+        return new ArrayList<>();
     }
 
     /**
