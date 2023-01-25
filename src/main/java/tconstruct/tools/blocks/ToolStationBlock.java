@@ -35,7 +35,7 @@ public class ToolStationBlock extends InventoryBlock {
     /* Rendering */
     @Override
     public String[] getTextureNames() {
-        return new String[]{
+        return new String[] {
             "toolstation_top",
             "toolstation_side",
             "toolstation_bottom",

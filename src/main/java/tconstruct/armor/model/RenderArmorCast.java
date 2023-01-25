@@ -1,7 +1,6 @@
 package tconstruct.armor.model;
 
 import java.util.*;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureManager;
