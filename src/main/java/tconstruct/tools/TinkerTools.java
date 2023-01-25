@@ -1435,7 +1435,7 @@ public class TinkerTools {
                         1.1F,
                         1.2f,
                         0xf3414f);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             } // No need to handle
         }
 
