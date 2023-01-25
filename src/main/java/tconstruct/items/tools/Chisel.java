@@ -45,8 +45,7 @@ public class Chisel extends ToolCore {
     }
 
     boolean performDetailing(World world, int x, int y, int z, int blockID, int blockMeta) {
-        boolean detailed = false;
-        return detailed;
+        return false;
     }
 
     @Override
