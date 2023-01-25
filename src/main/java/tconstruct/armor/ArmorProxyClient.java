@@ -368,9 +368,6 @@ public class ArmorProxyClient extends ArmorProxyCommon {
                 if (absorb > 0) GuiIngameForge.left_height += 10;
 
                 event.setCanceled(true);
-                if (event.type == ElementType.CROSSHAIRS && gs.thirdPersonView != 0) {
-                    event.setCanceled(true);
-                }
             }
         }
     }
