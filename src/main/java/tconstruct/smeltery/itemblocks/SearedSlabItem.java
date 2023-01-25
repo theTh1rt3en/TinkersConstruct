@@ -4,7 +4,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 
 public class SearedSlabItem extends MultiItemBlock {
-    public static final String blockTypes[] = {"brick", "stone", "cobble", "paver", "road", "fancy", "square", "creeper"
+    public static final String[] blockTypes = {"brick", "stone", "cobble", "paver", "road", "fancy", "square", "creeper"
     };
 
     public SearedSlabItem(Block b) {

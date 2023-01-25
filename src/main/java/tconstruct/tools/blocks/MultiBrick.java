@@ -10,7 +10,7 @@ import net.minecraft.world.*;
 import tconstruct.blocks.TConstructBlock;
 
 public class MultiBrick extends TConstructBlock {
-    static String blockTextures[] = {
+    static String[] blockTextures = {
         "brick_obsidian",
         "brick_sandstone",
         "brick_netherrack",

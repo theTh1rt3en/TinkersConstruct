@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 public class MetalItemBlock extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Tin", "Aluminum", "AlBrass", "Alumite", "Steel", "Ender"
     };
 

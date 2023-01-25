@@ -7,7 +7,7 @@ import net.minecraft.util.*;
 import tconstruct.world.TinkerWorld;
 
 public class SlimeTallGrassItem extends MultiItemBlock {
-    public static final String blockTypes[] = {"tallgrass", "tallgrass.fern"};
+    public static final String[] blockTypes = {"tallgrass", "tallgrass.fern"};
 
     public SlimeTallGrassItem(Block b) {
         super(b, "block.slime", blockTypes);

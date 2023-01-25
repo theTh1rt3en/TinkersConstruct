@@ -15,7 +15,7 @@ import tconstruct.world.TinkerWorld;
 
 public class OreberryBushItem extends MultiItemBlock {
     public Block blockB;
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron",
         "gold", "copper", "tin"
     };

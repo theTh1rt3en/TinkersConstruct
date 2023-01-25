@@ -10,7 +10,7 @@ import net.minecraft.world.*;
 import tconstruct.blocks.TConstructBlock;
 
 public class GlassBlock extends TConstructBlock {
-    static String blockTextures[] = {"glass_clear", "soulglass", "soulglass_clear"};
+    static String[] blockTextures = {"glass_clear", "soulglass", "soulglass_clear"};
 
     public GlassBlock() {
         super(Material.glass, 3f, blockTextures);

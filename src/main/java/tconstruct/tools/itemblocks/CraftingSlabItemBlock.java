@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
 public class CraftingSlabItemBlock extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "tile.CraftingStation", "Crafter", "Parts", "PatternShaper", "PatternChest", "tile.ToolForge"
     };
 

@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import tconstruct.library.TConstructRegistry;
 
 public class GlassPaneStained extends PaneBase {
-    static String blockTextures[] = {
+    static String[] blockTextures = {
         "white",
         "orange",
         "magenta",

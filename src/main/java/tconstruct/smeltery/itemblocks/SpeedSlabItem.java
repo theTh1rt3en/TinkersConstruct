@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 public class SpeedSlabItem extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "brownstone.rough",
         "brownstone.rough.road",
         "brownstone.smooth",

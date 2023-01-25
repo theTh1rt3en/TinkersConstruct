@@ -29,7 +29,7 @@ public class ModLapis extends ItemModTypeFilter {
 
             if (!tags.hasKey(key)) return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-            int keyPair[] = tags.getIntArray(key);
+            int[] keyPair = tags.getIntArray(key);
             if (keyPair[0] + matchingAmount(input) <= max) return true;
         }
         return false;
@@ -52,7 +52,7 @@ public class ModLapis extends ItemModTypeFilter {
         }
 
         int increase = matchingAmount(input);
-        int keyPair[] = tags.getIntArray(key);
+        int[] keyPair = tags.getIntArray(key);
         keyPair[0] += increase;
         tags.setIntArray(key, keyPair);
         ToolCore toolcore = (ToolCore) tool.getItem();
@@ -81,7 +81,7 @@ public class ModLapis extends ItemModTypeFilter {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key)) return;
 
-        int keyPair[] = tags.getIntArray(key);
+        int[] keyPair = tags.getIntArray(key);
         if (keyPair[0] == max) return;
 
         if (random.nextInt(50) == 0) {
