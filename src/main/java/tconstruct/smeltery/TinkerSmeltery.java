@@ -932,7 +932,7 @@ public class TinkerSmeltery {
         ItemStack ingotcast_clay = new ItemStack(TinkerSmeltery.clayPattern, 1, 0);
 
         ItemStack gemcast_clay = new ItemStack(TinkerSmeltery.clayPattern, 1, 26);
-        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+        LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         // Blank
         tableCasting.addCastingRecipe(
                 new ItemStack(TinkerTools.blankPattern, 1, 1),
@@ -1815,7 +1815,7 @@ public class TinkerSmeltery {
 
     private void registerIngotCasting(FluidType ft, String name) {
         ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
-        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+        LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name)) {
             tableCasting.addCastingRecipe(
                     pattern,
@@ -1841,7 +1841,7 @@ public class TinkerSmeltery {
 
     private void registerNuggetCasting(FluidType ft, String name) {
         ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 27);
-        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+        LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name)) {
             // don't do oreberries. That'd be silly.
             if (ore.getItem() != null && ore.getItem() instanceof OreBerries) {
