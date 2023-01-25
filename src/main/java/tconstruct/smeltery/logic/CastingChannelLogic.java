@@ -134,8 +134,8 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
         // Move Fluid to Output Tanks
         Set<ForgeDirection> connected = this.getOutputs().keySet();
 
-        if (connected.contains(ForgeDirection.DOWN)) connected.remove(ForgeDirection.DOWN);
-        if (connected.contains(lastProvider)) connected.remove(lastProvider);
+        connected.remove(ForgeDirection.DOWN);
+        connected.remove(lastProvider);
 
         int output = Math.min(internalTank.getFluidAmount(), outputMax);
         int connectedAmount = connected.size();
@@ -223,7 +223,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
          */
 
         HashMap<ForgeDirection, TileEntity> connected = this.getOutputs();
-        if (connected.containsKey(lastProvider)) connected.remove(lastProvider);
+        connected.remove(lastProvider);
         if (connected.containsKey(ForgeDirection.DOWN)
                 && this.internalTank.getFluid() != null) // Prioritizes FluidHandlers below
         {
