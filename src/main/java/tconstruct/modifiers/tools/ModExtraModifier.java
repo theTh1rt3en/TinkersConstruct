@@ -13,10 +13,7 @@ public class ModExtraModifier extends ItemModifier {
     protected boolean canModify(ItemStack tool, ItemStack[] recipe) {
         if (tool != null && tool.getItem() instanceof IModifyable) {
             NBTTagCompound tags = this.getModifierTag(tool);
-            if (tags.getBoolean(key)) {
-                return false;
-            }
-            return true;
+            return !tags.getBoolean(key);
         }
         return false;
     }

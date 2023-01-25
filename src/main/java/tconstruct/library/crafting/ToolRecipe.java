@@ -72,8 +72,7 @@ public class ToolRecipe {
 
     public boolean validAccessory(Item input) {
         if (input == null) {
-            if (accessoryList.size() < 1) return true;
-            return false;
+            return accessoryList.size() < 1;
         }
         for (Item part : accessoryList) {
             if (part == input) return true;
@@ -84,8 +83,7 @@ public class ToolRecipe {
 
     public boolean validExtra(Item input) {
         if (input == null) {
-            if (extraList.size() < 1) return true;
-            return false;
+            return extraList.size() < 1;
         }
         for (Item part : extraList) {
             if (part == input) return true;

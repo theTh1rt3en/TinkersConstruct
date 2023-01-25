@@ -57,12 +57,9 @@ public class TActiveOmniMod extends ActiveToolMod {
     public boolean beforeBlockBreak(ToolCore tool, ItemStack stack, int x, int y, int z, EntityLivingBase entity) {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         baconator(tool, stack, entity, tags);
-
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode) return false;
         TinkerTools.modLapis.midStreamModify(stack, tool);
-        if (autoSmelt(tool, tags, stack, x, y, z, entity)) return true;
-
-        return false;
+        return autoSmelt(tool, tags, stack, x, y, z, entity);
     }
 
     @Override
@@ -294,7 +291,6 @@ public class TActiveOmniMod extends ActiveToolMod {
             ItemStack stack,
             EntityLivingBase player,
             Entity entity) {
-        if (tool == TinkerTools.cutlass && random.nextInt(10) == 0) return true;
-        return false;
+        return tool == TinkerTools.cutlass && random.nextInt(10) == 0;
     }
 }

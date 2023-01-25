@@ -196,7 +196,7 @@ public class AbilityHelper {
                     }
 
                     if (entity instanceof EntityPlayer) ((EntityPlayer) player).addExhaustion(0.3F);
-                    if (causedDamage) return true;
+                    return causedDamage;
                 }
             }
         }
