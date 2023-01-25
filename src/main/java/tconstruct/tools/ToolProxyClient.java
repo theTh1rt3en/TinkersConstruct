@@ -543,7 +543,7 @@ public class ToolProxyClient extends ToolProxyCommon {
 
     @SubscribeEvent
     public void onSound(SoundLoadEvent event) {
-        try {
+        //try {
             /*
              * SoundManager soundmanager = event.manager;
              * soundmanager.addSound("tinker:frypan_hit.ogg");
@@ -551,9 +551,9 @@ public class ToolProxyClient extends ToolProxyCommon {
              * soundmanager.addSound("tinker:launcher_clank.ogg");
              * TConstruct.logger.info("Successfully loaded sounds.");
              */
-        } catch (Exception e) {
-            TConstruct.logger.error("Failed to register one or more sounds");
-        }
+        //} catch (Exception e) {
+        //    TConstruct.logger.error("Failed to register one or more sounds");
+        //}
 
         MinecraftForge.EVENT_BUS.unregister(this);
     }
