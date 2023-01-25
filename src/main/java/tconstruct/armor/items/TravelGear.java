@@ -66,7 +66,6 @@ public class TravelGear extends ArmorCore implements IRevealer, IGoggles {
             case Chest:
                 return 4;
             case Legs:
-                return 2;
             case Feet:
                 return 2;
         }

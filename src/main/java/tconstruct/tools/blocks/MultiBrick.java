@@ -36,6 +36,7 @@ public class MultiBrick extends TConstructBlock {
         int meta = world.getBlockMetadata(x, y, z);
         switch (meta) {
             case 0:
+            case 13:
                 return Blocks.obsidian.getBlockHardness(world, x, y, z);
             case 1:
                 return Blocks.sandstone.getBlockHardness(world, x, y, z);
@@ -56,13 +57,10 @@ public class MultiBrick extends TConstructBlock {
             case 9:
                 return 1.0F;
             case 10:
-                return 1.5F;
             case 11:
                 return 1.5F;
             case 12:
                 return Blocks.end_stone.getBlockHardness(world, x, y, z);
-            case 13:
-                return Blocks.obsidian.getBlockHardness(world, x, y, z);
             default:
                 return blockHardness;
         }
@@ -74,6 +72,7 @@ public class MultiBrick extends TConstructBlock {
         int meta = world.getBlockMetadata(x, y, z);
         switch (meta) {
             case 0:
+            case 13:
                 return Blocks.obsidian.getExplosionResistance(
                         entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
             case 1:
@@ -103,14 +102,10 @@ public class MultiBrick extends TConstructBlock {
             case 9:
                 return 1.0F;
             case 10:
-                return 1.5F;
             case 11:
                 return 1.5F;
             case 12:
                 return Blocks.end_stone.getExplosionResistance(
-                        entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
-            case 13:
-                return Blocks.obsidian.getExplosionResistance(
                         entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
             default:
                 return getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
