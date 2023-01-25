@@ -500,7 +500,7 @@ public class SmelteryGui extends ActiveContainerGui {
                         logic.xCoord,
                         logic.yCoord,
                         logic.zCoord,
-                        this.isShiftKeyDown(),
+                        isShiftKeyDown(),
                         fluidToBeBroughtUp));
             }
             base += fluidHeights[i];
