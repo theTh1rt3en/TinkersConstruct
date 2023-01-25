@@ -90,7 +90,7 @@ public class ModLapis extends ItemModTypeFilter {
             updateModTag(tool, keyPair);
         }
 
-        List list = Arrays.asList(toolItem.getTraits());
+        List<String> list = Arrays.asList(toolItem.getTraits());
         if (list.contains("weapon")) {
             if (keyPair[0] >= 450) {
                 addEnchantment(tool, Enchantment.looting, 3);
@@ -160,7 +160,7 @@ public class ModLapis extends ItemModTypeFilter {
     }
 
     public boolean validType(ToolCore tool) {
-        List list = Arrays.asList(tool.getTraits());
+        List<String> list = Arrays.asList(tool.getTraits());
         return !list.contains("ammo") && (list.contains("weapon") || list.contains("harvest"));
     }
 }

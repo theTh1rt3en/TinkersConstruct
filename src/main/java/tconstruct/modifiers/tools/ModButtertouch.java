@@ -88,7 +88,7 @@ public class ModButtertouch extends ModBoolean {
     }
 
     public boolean validType(ToolCore tool) {
-        List list = Arrays.asList(tool.getTraits());
+        List<String> list = Arrays.asList(tool.getTraits());
         return list.contains("weapon") || list.contains("harvest");
     }
 }

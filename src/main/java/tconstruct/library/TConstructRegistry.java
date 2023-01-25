@@ -616,7 +616,7 @@ public class TConstructRegistry {
 
     LiquidCasting tableCasting() {
         try {
-            Class clazz = Class.forName("tconstruct.TConstruct");
+            Class<?> clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getTableCasting");
             return (LiquidCasting) method.invoke(this);
         } catch (Exception e) {
@@ -631,7 +631,7 @@ public class TConstructRegistry {
 
     LiquidCasting basinCasting() {
         try {
-            Class clazz = Class.forName("tconstruct.TConstruct");
+            Class<?> clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getBasinCasting");
             return (LiquidCasting) method.invoke(this);
         } catch (Exception e) {
@@ -646,7 +646,7 @@ public class TConstructRegistry {
 
     Detailing chiselDetailing() {
         try {
-            Class clazz = Class.forName("tconstruct.TConstruct");
+            Class<?> clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getChiselDetailing");
             return (Detailing) method.invoke(this);
         } catch (Exception e) {
