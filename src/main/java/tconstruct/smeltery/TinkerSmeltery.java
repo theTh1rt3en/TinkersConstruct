@@ -623,7 +623,7 @@ public class TinkerSmeltery {
             "dyeOrange",
             "dyeWhite"
         };
-        String color = "";
+        String color;
         for (int i = 0; i < 16; i++) {
             color = dyeTypes[15 - i];
             GameRegistry.addRecipe(new ShapedOreRecipe(
@@ -1071,8 +1071,8 @@ public class TinkerSmeltery {
         int[] liquidDamage = new int[] {2, 13, 10, 11, 12, 14, 15, 6, 16, 18}; // ItemStack
         // damage
         // value
-        int fluidAmount = 0;
-        Fluid fs = null;
+        int fluidAmount;
+        Fluid fs;
 
         for (int iter = 0; iter < TinkerTools.patternOutputs.length; iter++) {
             if (TinkerTools.patternOutputs[iter] != null) {

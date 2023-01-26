@@ -628,7 +628,7 @@ public class TinkerWorld {
             "dyeOrange",
             "dyeWhite"
         };
-        String color = "";
+        String color;
         for (int i = 0; i < 16; i++) {
             color = dyeTypes[15 - i];
             GameRegistry.addRecipe(new ShapedOreRecipe(

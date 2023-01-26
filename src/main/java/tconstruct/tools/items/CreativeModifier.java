@@ -48,7 +48,7 @@ public class CreativeModifier extends Item {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (stack.hasTagCompound()) {
-            String targetLock = "None";
+            String targetLock;
             targetLock = stack.getTagCompound().getString("TargetLock");
             targetLock = StatCollector.translateToLocal("infitool." + targetLock.toLowerCase());
             list.add(StatCollector.translateToLocal("creativeModLock.tooltip") + targetLock);

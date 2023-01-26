@@ -29,7 +29,7 @@ public class ModWindup extends ModRedstone {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int[] keyPair;
         int increase = matchingAmount(input);
-        int current = 0;
+        int current;
         if (tags.hasKey(key)) {
             keyPair = tags.getIntArray(key);
             if (keyPair[0] % max == 0) {

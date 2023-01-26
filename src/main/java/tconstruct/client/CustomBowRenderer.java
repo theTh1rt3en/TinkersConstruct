@@ -36,7 +36,7 @@ public class CustomBowRenderer implements IItemRenderer {
     public void renderItem(EntityLivingBase living, ItemStack stack, int renderPass, ItemRenderType type) {
         GL11.glPushMatrix();
 
-        IIcon icon = null;
+        IIcon icon;
         if (living instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) living;
             if (player.getItemInUse() != null)
