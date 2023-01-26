@@ -145,8 +145,7 @@ public class BlockLandmine extends BlockContainer {
             if (tileentity.hasCustomInventoryName()) {
                 is.setStackDisplayName(tileentity.getInventoryName());
             }
-            dropBlockAsItem(
-                    par1World, par2, par3, par4, new ItemStack(this, 1, damageDropped(tileentity.triggerType)));
+            dropBlockAsItem(par1World, par2, par3, par4, new ItemStack(this, 1, damageDropped(tileentity.triggerType)));
 
             for (int j1 = 0; j1 < tileentity.getSizeInventory(); ++j1) {
                 ItemStack itemstack = tileentity.getStackInSlot(j1);
