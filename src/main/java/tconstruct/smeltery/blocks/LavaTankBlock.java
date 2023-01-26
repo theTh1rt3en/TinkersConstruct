@@ -91,7 +91,7 @@ public class LavaTankBlock extends BlockContainer {
     @Override
     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
         Block bID = world.getBlock(x, y, z);
-        return bID == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
+        return bID != this && super.shouldSideBeRendered(world, x, y, z, side);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class LavaTankBlock extends BlockContainer {
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic != null && logic instanceof LavaTankLogic) return ((LavaTankLogic) logic).getBrightness();
+        if (logic instanceof LavaTankLogic) return ((LavaTankLogic) logic).getBrightness();
         return 0;
     }
 
