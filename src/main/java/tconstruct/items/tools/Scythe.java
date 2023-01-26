@@ -1,7 +1,6 @@
 package tconstruct.items.tools;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.*;
 import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

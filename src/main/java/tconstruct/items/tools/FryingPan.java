@@ -1,6 +1,5 @@
 package tconstruct.items.tools;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.*;
