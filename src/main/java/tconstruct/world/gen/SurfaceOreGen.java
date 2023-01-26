@@ -116,9 +116,9 @@ public class SurfaceOreGen extends WorldGenerator {
                                             || !world.getBlock(k2, l2, i3).isOpaqueCube())
                                         world.setBlock(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                     else {
-                                        for (int iter = 0; iter < replaceBlocks.length; iter++) {
+                                        for (Block replaceBlock : replaceBlocks) {
                                             if (world.getBlock(k2, l2, i3)
-                                                    .isReplaceableOreGen(world, k2, l2, i3, replaceBlocks[iter])) {
+                                                    .isReplaceableOreGen(world, k2, l2, i3, replaceBlock)) {
                                                 world.setBlock(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                                 break;
                                             }

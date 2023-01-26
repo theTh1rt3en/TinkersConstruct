@@ -1138,18 +1138,18 @@ public class TinkerSmeltery {
             new ItemStack(TinkerTools.materials, 1, 2),
             new ItemStack(TinkerTools.materials, 1, 37)
         };
-        for (int i = 0; i < ingotShapes.length; i++) {
+        for (ItemStack ingotShape : ingotShapes) {
             tableCasting.addCastingRecipe(
                     ingotcast,
                     new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
-                    ingotShapes[i],
+                    ingotShape,
                     false,
                     50);
             if (!PHConstruct.removeGoldCastRecipes)
                 tableCasting.addCastingRecipe(
                         ingotcast,
                         new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
-                        ingotShapes[i],
+                        ingotShape,
                         false,
                         50);
         }

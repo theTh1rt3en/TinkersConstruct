@@ -965,10 +965,10 @@ public class TinkerWorld {
             TinkerTools.chiselHead
         };
 
-        for (int partIter = 0; partIter < partTypes.length; partIter++) {
-            for (int typeIter = 0; typeIter < validTypes.length; typeIter++) {
+        for (Item partType : partTypes) {
+            for (int validType : validTypes) {
                 TinkerWorld.tinkerHouseChest.addItem(new WeightedRandomChestContent(
-                        new ItemStack(partTypes[partIter], 1, validTypes[typeIter]), 1, 1, 15));
+                        new ItemStack(partType, 1, validType), 1, 1, 15));
             }
         }
 
