@@ -6,7 +6,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
@@ -264,10 +263,8 @@ public class ArmorProxyClient extends ArmorProxyCommon {
             if (event.type == ElementType.HEALTH) {
                 updateCounter++;
 
-                ScaledResolution scaledresolution =
-                        new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
-                int scaledWidth = scaledresolution.getScaledWidth();
-                int scaledHeight = scaledresolution.getScaledHeight();
+                int scaledWidth = event.resolution.getScaledWidth();
+                int scaledHeight = event.resolution.getScaledHeight();
                 int xBasePos = scaledWidth / 2 - 91;
                 int yBasePos = scaledHeight - 39;
 
