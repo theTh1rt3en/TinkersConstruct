@@ -242,8 +242,10 @@ public class ContainerLandmine extends Container {
                                 if (itemstack4.stackSize == 0) {
                                     inventoryplayer.setItemStack(null);
                                 }
-                            } else if (shouldDoStuff && itemstack4 != null && slot2.isItemValid(
-                                    new ItemStack(itemstack4.getItem(), 1, itemstack4.getItemDamage()))) {
+                            } else if (shouldDoStuff
+                                    && itemstack4 != null
+                                    && slot2.isItemValid(
+                                            new ItemStack(itemstack4.getItem(), 1, itemstack4.getItemDamage()))) {
                                 k1 = par2 == 0 ? 1 : 1;
 
                                 if (k1 > slot2.getSlotStackLimit()) {
