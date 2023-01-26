@@ -11,7 +11,6 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraftforge.event.entity.player.*;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.smeltery.blocks.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 

@@ -23,7 +23,6 @@ import tconstruct.library.event.SmelteryCastEvent;
 import tconstruct.library.event.ToolBuildEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.*;
-import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.library.util.IToolPart;
 import tconstruct.library.weaponry.ArrowShaftMaterial;
 import tconstruct.library.weaponry.BowBaseAmmo;
