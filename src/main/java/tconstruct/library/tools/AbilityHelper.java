@@ -109,7 +109,7 @@ public class AbilityHelper {
                         if (baseDamage > 0) damage = baseDamage;
                         else damage = 1;
                     }
-                    boolean causedDamage = false;
+                    boolean causedDamage;
                     boolean isAlive = entity.isEntityAlive();
 
                     if (tool.pierceArmor() && !broken && entity instanceof EntityLivingBase) {
@@ -346,7 +346,7 @@ public class AbilityHelper {
             return;
 
         // calculate in reinforced/unbreaking
-        int reinforced = 0;
+        int reinforced;
         if (tags.hasKey("InfiTool") && dam > 0) // unbreaking only affects damage, not healing
         {
             NBTTagCompound toolTags = tags.getCompoundTag("InfiTool");

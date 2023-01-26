@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import tconstruct.achievements.TAchievements;
 
 public class CraftAchievementItem extends CraftingItem {
-    public String grantedAchievement = "";
+    public String grantedAchievement;
 
     public CraftAchievementItem(
             String[] names,
