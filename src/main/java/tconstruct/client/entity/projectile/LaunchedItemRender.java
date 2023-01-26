@@ -13,8 +13,8 @@ import tconstruct.tools.entity.LaunchedPotion;
 
 @SideOnly(Side.CLIENT)
 public class LaunchedItemRender extends Render {
-    private Item field_94151_a;
-    private int field_94150_f;
+    private final Item field_94151_a;
+    private final int field_94150_f;
 
     public LaunchedItemRender(Item par1Item, int par2) {
         this.field_94151_a = par1Item;

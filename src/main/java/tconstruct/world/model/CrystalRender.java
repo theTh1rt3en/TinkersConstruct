@@ -10,7 +10,7 @@ import tconstruct.world.entity.Crystal;
 @SideOnly(Side.CLIENT)
 public class CrystalRender extends RenderLiving {
     /** The creeper model. */
-    private ModelBase creeperModel = new CrystalModelSmall();
+    private final ModelBase creeperModel = new CrystalModelSmall();
 
     public CrystalRender() {
         super(new CrystalModelSmall(), 0.5F);

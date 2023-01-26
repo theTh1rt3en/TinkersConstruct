@@ -11,7 +11,7 @@ import tconstruct.client.AmmoItemRenderer;
 import tconstruct.library.weaponry.IWindup;
 
 public class ThrowingKnifeRenderer extends AmmoItemRenderer {
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getMinecraft();
 
     @Override
     protected void specialAnimation(ItemRenderType type, ItemStack item) {

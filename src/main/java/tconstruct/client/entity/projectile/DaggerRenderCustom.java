@@ -16,9 +16,9 @@ import tconstruct.tools.entity.DaggerEntity;
 @SideOnly(Side.CLIENT)
 @Deprecated
 public class DaggerRenderCustom extends Render {
-    private static RenderItem renderer = new RenderItem();
-    private static ToolCoreRenderer toolCoreRenderer = new ToolCoreRenderer(true, true);
-    private Random random = new Random();
+    private static final RenderItem renderer = new RenderItem();
+    private static final ToolCoreRenderer toolCoreRenderer = new ToolCoreRenderer(true, true);
+    private final Random random = new Random();
 
     public DaggerRenderCustom() {
         this.shadowSize = 0.15F;

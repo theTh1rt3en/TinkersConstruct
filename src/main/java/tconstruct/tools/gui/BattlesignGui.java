@@ -13,13 +13,13 @@ import tconstruct.tools.logic.BattlesignLogic;
 import tconstruct.util.network.SignDataPacket;
 
 public class BattlesignGui extends GuiScreen {
-    private BattlesignLogic battlesign;
+    private final BattlesignLogic battlesign;
 
     private float bgColR = 1F;
     private float bgColG = 1F;
     private float bgColB = 1F;
-    private static ResourceLocation background = new ResourceLocation("tinker:textures/gui/battlesignText.png");
-    private String[] text = {"", "", "", "", ""};
+    private static final ResourceLocation background = new ResourceLocation("tinker:textures/gui/battlesignText.png");
+    private final String[] text = {"", "", "", "", ""};
     int currentLine = 0;
 
     public BattlesignGui(BattlesignLogic logic) {

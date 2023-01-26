@@ -17,7 +17,7 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase {
     public static final Rectangle OUTPUT_TANK = new Rectangle(118, 9, 18, 32);
 
     public class CachedAlloyingRecipe extends CachedBaseRecipe {
-        private List<FluidTankElement> fluidTanks;
+        private final List<FluidTankElement> fluidTanks;
         private int minAmount;
 
         public CachedAlloyingRecipe(AlloyMix recipe) {

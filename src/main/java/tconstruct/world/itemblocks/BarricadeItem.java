@@ -10,7 +10,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class BarricadeItem extends ItemBlock {
-    private Block b;
+    private final Block b;
 
     public BarricadeItem(Block b) {
         super(b);
