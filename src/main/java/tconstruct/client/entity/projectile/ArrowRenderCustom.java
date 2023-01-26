@@ -15,8 +15,8 @@ import tconstruct.tools.entity.ArrowEntity;
 @SideOnly(Side.CLIENT)
 @Deprecated
 public class ArrowRenderCustom extends Render {
-    private static RenderItem renderer = new RenderItem();
-    private Random random = new Random();
+    private static final RenderItem renderer = new RenderItem();
+    private final Random random = new Random();
 
     public ArrowRenderCustom() {}
 

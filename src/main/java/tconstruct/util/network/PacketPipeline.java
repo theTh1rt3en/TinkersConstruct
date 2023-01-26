@@ -23,7 +23,7 @@ import net.minecraft.network.*;
 public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, AbstractPacket> {
 
     private EnumMap<Side, FMLEmbeddedChannel> channels;
-    private LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<>();
+    private final LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<>();
     private boolean isPostInitialised = false;
 
     /**

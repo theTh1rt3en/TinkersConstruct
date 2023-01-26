@@ -13,7 +13,7 @@ import tconstruct.world.TinkerWorld;
 
 @SideOnly(Side.CLIENT)
 public class ExplosiveRender extends Render {
-    private RenderBlocks blockRenderer = new RenderBlocks();
+    private final RenderBlocks blockRenderer = new RenderBlocks();
 
     public ExplosiveRender() {
         this.shadowSize = 0.5F;

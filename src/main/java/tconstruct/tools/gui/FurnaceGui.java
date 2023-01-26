@@ -13,7 +13,7 @@ import tconstruct.tools.logic.FurnaceLogic;
 public class FurnaceGui extends GuiContainer {
     private static final ResourceLocation furnaceGuiTextures =
             new ResourceLocation("textures/gui/container/furnace.png");
-    private FurnaceLogic logic;
+    private final FurnaceLogic logic;
 
     public FurnaceGui(InventoryPlayer inventory, FurnaceLogic furnace) {
         super(new FurnaceContainer(inventory, furnace));

@@ -13,7 +13,7 @@ import org.lwjgl.opengl.*;
 
 public class CustomBowRenderer implements IItemRenderer {
     Minecraft mc = Minecraft.getMinecraft();
-    private RenderBlocks renderBlocksInstance = new RenderBlocks();
+    private final RenderBlocks renderBlocksInstance = new RenderBlocks();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {

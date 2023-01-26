@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import tconstruct.tools.logic.FurnaceLogic;
 
 public class FurnaceContainer extends Container {
-    private FurnaceLogic furnace;
+    private final FurnaceLogic furnace;
     private int lastCookTime;
     private int lastBurnTime;
     private int lastItemBurnTime;

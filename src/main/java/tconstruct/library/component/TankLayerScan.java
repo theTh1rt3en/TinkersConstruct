@@ -27,8 +27,8 @@ public class TankLayerScan extends LogicComponent {
     protected ArrayList<int[]> validAirCoords = new ArrayList<>();
     protected CoordTuple returnStone;
 
-    private static boolean debug = System.getenv("DBG_MANTLE_TankLayerScan") != null;
-    private static int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64")
+    private static final boolean debug = System.getenv("DBG_MANTLE_TankLayerScan") != null;
+    private static final int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64")
             ? 4000
             : 2000; // Recursion causes overflows on 32-bit, so reduce if not 64-bit
 

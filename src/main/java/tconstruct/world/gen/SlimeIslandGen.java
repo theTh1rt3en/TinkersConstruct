@@ -15,8 +15,8 @@ import tconstruct.util.config.*;
 import tconstruct.world.TinkerWorld;
 
 public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
-    private Block liquidBlock;
-    private int gelMeta;
+    private final Block liquidBlock;
+    private final int gelMeta;
     int randomness = 2;
     Random random = new Random();
     Block base = TinkerTools.craftedSoil; // Block.dirt.blockID;

@@ -7,9 +7,9 @@ import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.*;
 
 public class HarvestableOreBerry implements IFactoryHarvestable {
-    private Block _sourceBlock;
-    private Item _berryItem;
-    private int _metaOffset;
+    private final Block _sourceBlock;
+    private final Item _berryItem;
+    private final int _metaOffset;
 
     public HarvestableOreBerry(Block sourceBlock, Item berryItem, int metaOffset) {
         _sourceBlock = sourceBlock;
