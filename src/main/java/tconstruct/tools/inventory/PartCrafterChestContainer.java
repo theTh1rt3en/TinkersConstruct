@@ -36,7 +36,9 @@ public class PartCrafterChestContainer extends ActiveContainer {
             new SlotOnlyTake(partLogic, 6, 218, 45),
             new SlotOnlyTake(partLogic, 7, 236, 45)
         };
-        for (int iter = 0; iter < inventory.length; iter++) this.addSlotToContainer(inventory[iter]);
+        for (Slot slot : inventory) {
+            this.addSlotToContainer(slot);
+        }
 
         /* Holder inventory */
         for (int column = 0; column < 5; column++) {
