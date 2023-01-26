@@ -967,8 +967,8 @@ public class TinkerWorld {
 
         for (Item partType : partTypes) {
             for (int validType : validTypes) {
-                TinkerWorld.tinkerHouseChest.addItem(new WeightedRandomChestContent(
-                        new ItemStack(partType, 1, validType), 1, 1, 15));
+                TinkerWorld.tinkerHouseChest.addItem(
+                        new WeightedRandomChestContent(new ItemStack(partType, 1, validType), 1, 1, 15));
             }
         }
 

@@ -162,7 +162,7 @@ public class Scythe extends Weapon {
                                             if (butter
                                                     && localBlock instanceof IShearable
                                                     && ((IShearable) localBlock)
-                                                    .isShearable(stack, player.worldObj, xPos, yPos, zPos)) {
+                                                            .isShearable(stack, player.worldObj, xPos, yPos, zPos)) {
                                                 ArrayList<ItemStack> drops = ((IShearable) localBlock)
                                                         .onSheared(
                                                                 stack,

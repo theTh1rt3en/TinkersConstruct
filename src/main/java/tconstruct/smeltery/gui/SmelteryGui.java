@@ -383,7 +383,8 @@ public class SmelteryGui extends ActiveContainerGui {
 
     private boolean isMolten(String fluidName) {
         boolean molten = false;
-        String[] moltenNames = StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
+        String[] moltenNames =
+                StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
         for (String moltenName : moltenNames) {
             if (fluidName.contains(moltenName.trim())) {
                 molten = true;
