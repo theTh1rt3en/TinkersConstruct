@@ -254,118 +254,123 @@ public class ArmorProxyClient extends ArmorProxyCommon {
     /* HUD */
     @SubscribeEvent
     public void renderHealthbar(RenderGameOverlayEvent.Pre event) {
-        if (Loader.isModLoaded("rpghud")) // uses different display, displays health correctly by itself.
-        return;
 
-        if (!Loader.isModLoaded("tukmc_Vz") || Loader.isModLoaded("borderlands")) // Loader check to avoid conflicting
-        // with a GUI mod (thanks Vazkii!)
-        {
-            if (event.type == ElementType.HEALTH) {
-                updateCounter++;
+        if (event.type != ElementType.HEALTH) {
+            return;
+        }
 
-                int scaledWidth = event.resolution.getScaledWidth();
-                int scaledHeight = event.resolution.getScaledHeight();
-                int xBasePos = scaledWidth / 2 - 91;
-                int yBasePos = scaledHeight - 39;
+        // uses different display, displays health correctly by itself.
+        if (Loader.isModLoaded("rpghud")) {
+            return;
+        }
 
-                boolean highlight = mc.thePlayer.hurtResistantTime / 3 % 2 == 1;
+        if (Loader.isModLoaded("tukmc_Vz") && !Loader.isModLoaded("borderlands")) {
+            // Loader check to avoid conflicting
+            // with a GUI mod (thanks Vazkii!)
+            return;
+        }
 
-                if (mc.thePlayer.hurtResistantTime < 10) {
-                    highlight = false;
-                }
+        updateCounter++;
 
-                IAttributeInstance attrMaxHealth =
-                        this.mc.thePlayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
-                int health = MathHelper.ceiling_float_int(mc.thePlayer.getHealth());
-                int healthLast = MathHelper.ceiling_float_int(mc.thePlayer.prevHealth);
-                float healthMax = (float) attrMaxHealth.getAttributeValue();
-                if (healthMax > 20) healthMax = 20;
-                float absorb = this.mc.thePlayer.getAbsorptionAmount();
+        int scaledWidth = event.resolution.getScaledWidth();
+        int scaledHeight = event.resolution.getScaledHeight();
+        int xBasePos = scaledWidth / 2 - 91;
+        int yBasePos = scaledHeight - 39;
 
-                int healthRows = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F / 10.0F);
-                int rowHeight = Math.max(10 - (healthRows - 2), 3);
+        boolean highlight = mc.thePlayer.hurtResistantTime / 3 % 2 == 1;
 
-                this.rand.setSeed(updateCounter * 312871L);
+        if (mc.thePlayer.hurtResistantTime < 10) {
+            highlight = false;
+        }
 
-                int left = scaledWidth / 2 - 91;
-                int top = scaledHeight - GuiIngameForge.left_height;
+        IAttributeInstance attrMaxHealth = this.mc.thePlayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
+        int health = MathHelper.ceiling_float_int(mc.thePlayer.getHealth());
+        int healthLast = MathHelper.ceiling_float_int(mc.thePlayer.prevHealth);
+        float healthMax = (float) attrMaxHealth.getAttributeValue();
+        if (healthMax > 20) healthMax = 20;
+        float absorb = this.mc.thePlayer.getAbsorptionAmount();
 
-                if (!GuiIngameForge.renderExperiance) {
-                    top += 7;
-                    yBasePos += 7;
-                }
+        int healthRows = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F / 10.0F);
+        int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
-                int regen = -1;
-                if (mc.thePlayer.isPotionActive(Potion.regeneration)) {
-                    regen = updateCounter % 25;
-                }
+        this.rand.setSeed(updateCounter * 312871L);
 
-                final int TOP = 9 * (mc.theWorld.getWorldInfo().isHardcoreModeEnabled() ? 5 : 0);
-                final int BACKGROUND = (highlight ? 25 : 16);
-                int MARGIN = 16;
-                if (mc.thePlayer.isPotionActive(Potion.poison)) MARGIN += 36;
-                else if (mc.thePlayer.isPotionActive(Potion.wither)) MARGIN += 72;
-                float absorbRemaining = absorb;
+        int left = scaledWidth / 2 - 91;
+        int top = scaledHeight - GuiIngameForge.left_height;
 
-                for (int i = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F) - 1; i >= 0; --i) {
-                    int b0 = (highlight ? 1 : 0);
-                    int row = MathHelper.ceiling_float_int((float) (i + 1) / 10.0F) - 1;
-                    int x = left + i % 10 * 8;
-                    int y = top - row * rowHeight;
+        if (!GuiIngameForge.renderExperiance) {
+            top += 7;
+            yBasePos += 7;
+        }
 
-                    if (health <= 4) y += rand.nextInt(2);
-                    if (i == regen) y -= 2;
+        int regen = -1;
+        if (mc.thePlayer.isPotionActive(Potion.regeneration)) {
+            regen = updateCounter % 25;
+        }
 
-                    drawTexturedModalRect(x, y, BACKGROUND, TOP, 9, 9);
+        final int TOP = 9 * (mc.theWorld.getWorldInfo().isHardcoreModeEnabled() ? 5 : 0);
+        final int BACKGROUND = (highlight ? 25 : 16);
+        int MARGIN = 16;
+        if (mc.thePlayer.isPotionActive(Potion.poison)) MARGIN += 36;
+        else if (mc.thePlayer.isPotionActive(Potion.wither)) MARGIN += 72;
+        float absorbRemaining = absorb;
 
-                    if (highlight) {
-                        if (i * 2 + 1 < healthLast) drawTexturedModalRect(x, y, MARGIN + 54, TOP, 9, 9); // 6
-                        else if (i * 2 + 1 == healthLast) drawTexturedModalRect(x, y, MARGIN + 63, TOP, 9, 9); // 7
-                    }
+        for (int i = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F) - 1; i >= 0; --i) {
+            int b0 = (highlight ? 1 : 0);
+            int row = MathHelper.ceiling_float_int((float) (i + 1) / 10.0F) - 1;
+            int x = left + i % 10 * 8;
+            int y = top - row * rowHeight;
 
-                    if (absorbRemaining > 0.0F) {
-                        if (absorbRemaining == absorb && absorb % 2.0F == 1.0F)
-                            drawTexturedModalRect(x, y, MARGIN + 153, TOP, 9, 9); // 17
-                        else drawTexturedModalRect(x, y, MARGIN + 144, TOP, 9, 9); // 16
-                        absorbRemaining -= 2.0F;
-                    } else {
-                        if (i * 2 + 1 < health) drawTexturedModalRect(x, y, MARGIN + 36, TOP, 9, 9); // 4
-                        else if (i * 2 + 1 == health) drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); // 5
-                    }
-                }
+            if (health <= 4) y += rand.nextInt(2);
+            if (i == regen) y -= 2;
 
-                int potionOffset = 0;
-                PotionEffect potion = mc.thePlayer.getActivePotionEffect(Potion.wither);
-                if (potion != null) potionOffset = 18;
-                potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
-                if (potion != null) potionOffset = 9;
-                if (mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) potionOffset += 27;
+            drawTexturedModalRect(x, y, BACKGROUND, TOP, 9, 9);
 
-                // Extra hearts
-                this.mc.getTextureManager().bindTexture(hearts);
+            if (highlight) {
+                if (i * 2 + 1 < healthLast) drawTexturedModalRect(x, y, MARGIN + 54, TOP, 9, 9); // 6
+                else if (i * 2 + 1 == healthLast) drawTexturedModalRect(x, y, MARGIN + 63, TOP, 9, 9); // 7
+            }
 
-                int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.getHealth());
-                for (int iter = 0; iter < hp / 20; iter++) {
-                    int renderHearts = (hp - 20 * (iter + 1)) / 2;
-                    if (renderHearts > 10) renderHearts = 10;
-                    for (int i = 0; i < renderHearts; i++) {
-                        int y = 0;
-                        if (i == regen) y -= 2;
-                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos + y, 0 + 18 * iter, potionOffset, 9, 9);
-                    }
-                    if (hp % 2 == 1 && renderHearts < 10) {
-                        this.drawTexturedModalRect(
-                                xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, potionOffset, 9, 9);
-                    }
-                }
-
-                this.mc.getTextureManager().bindTexture(icons);
-                GuiIngameForge.left_height += 10;
-                if (absorb > 0) GuiIngameForge.left_height += 10;
-
-                event.setCanceled(true);
+            if (absorbRemaining > 0.0F) {
+                if (absorbRemaining == absorb && absorb % 2.0F == 1.0F)
+                    drawTexturedModalRect(x, y, MARGIN + 153, TOP, 9, 9); // 17
+                else drawTexturedModalRect(x, y, MARGIN + 144, TOP, 9, 9); // 16
+                absorbRemaining -= 2.0F;
+            } else {
+                if (i * 2 + 1 < health) drawTexturedModalRect(x, y, MARGIN + 36, TOP, 9, 9); // 4
+                else if (i * 2 + 1 == health) drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); // 5
             }
         }
+
+        int potionOffset = 0;
+        PotionEffect potion = mc.thePlayer.getActivePotionEffect(Potion.wither);
+        if (potion != null) potionOffset = 18;
+        potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
+        if (potion != null) potionOffset = 9;
+        if (mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) potionOffset += 27;
+
+        // Extra hearts
+        this.mc.getTextureManager().bindTexture(hearts);
+
+        int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.getHealth());
+        for (int iter = 0; iter < hp / 20; iter++) {
+            int renderHearts = (hp - 20 * (iter + 1)) / 2;
+            if (renderHearts > 10) renderHearts = 10;
+            for (int i = 0; i < renderHearts; i++) {
+                int y = 0;
+                if (i == regen) y -= 2;
+                this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos + y, 0 + 18 * iter, potionOffset, 9, 9);
+            }
+            if (hp % 2 == 1 && renderHearts < 10) {
+                this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, potionOffset, 9, 9);
+            }
+        }
+
+        this.mc.getTextureManager().bindTexture(icons);
+        GuiIngameForge.left_height += 10;
+        if (absorb > 0) GuiIngameForge.left_height += 10;
+
+        event.setCanceled(true);
     }
 
     public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6) {
