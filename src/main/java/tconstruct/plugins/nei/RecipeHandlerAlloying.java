@@ -4,7 +4,6 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
