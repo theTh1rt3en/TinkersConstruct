@@ -26,7 +26,7 @@ public class ModRedstone extends ItemModTypeFilter {
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
             if (!tags.hasKey(key)) return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-            int keyPair[] = tags.getIntArray(key);
+            int[] keyPair = tags.getIntArray(key);
 
             if (keyPair[0] + matchingAmount(input) <= keyPair[1]) return true;
             else if (keyPair[0] == keyPair[1]) return tags.getInteger("Modifiers") > 0;
@@ -40,7 +40,7 @@ public class ModRedstone extends ItemModTypeFilter {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int[] keyPair;
         int increase = matchingAmount(input);
-        int current = 0;
+        int current;
         if (tags.hasKey(key)) {
             keyPair = tags.getIntArray(key);
             if (keyPair[0] % max == 0) {
@@ -103,7 +103,7 @@ public class ModRedstone extends ItemModTypeFilter {
     }
 
     public boolean validType(ToolCore tool) {
-        List list = Arrays.asList(tool.getTraits());
+        List<String> list = Arrays.asList(tool.getTraits());
 
         // handled by the windup modifier
         if (list.contains("windup")) return false;

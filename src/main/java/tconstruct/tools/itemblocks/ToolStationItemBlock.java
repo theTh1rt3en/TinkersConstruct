@@ -4,7 +4,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 
 public class ToolStationItemBlock extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "Crafter",
         "Parts",
         "Parts",

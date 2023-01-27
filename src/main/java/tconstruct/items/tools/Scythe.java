@@ -1,7 +1,6 @@
 package tconstruct.items.tools;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.*;
 import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -157,8 +156,8 @@ public class Scythe extends Weapon {
                                     != null) // && (block.blockMaterial == Material.leaves || block.isLeaves(world,
                             // xPos, yPos, zPos)))
                             {
-                                for (int iter = 0; iter < materials.length; iter++) {
-                                    if (materials[iter] == localBlock.getMaterial()) {
+                                for (Material material : materials) {
+                                    if (material == localBlock.getMaterial()) {
                                         if (!player.capabilities.isCreativeMode) {
                                             if (butter
                                                     && localBlock instanceof IShearable
@@ -219,7 +218,7 @@ public class Scythe extends Weapon {
                                                 if (world.isRemote) {
                                                     INetHandler handler = FMLClientHandler.instance()
                                                             .getClientPlayHandler();
-                                                    if (handler != null && handler instanceof NetHandlerPlayClient) {
+                                                    if (handler instanceof NetHandlerPlayClient) {
                                                         NetHandlerPlayClient handlerClient =
                                                                 (NetHandlerPlayClient) handler;
                                                         handlerClient.addToSendQueue(new C07PacketPlayerDigging(
@@ -266,9 +265,9 @@ public class Scythe extends Weapon {
                         entity.posY + 1.0D,
                         entity.posZ + 1.0D)
                 .expand(1.0D, 1.0D, 1.0D);
-        List list = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, box);
-        for (Object o : list) {
-            AbilityHelper.onLeftClickEntity(stack, player, (Entity) o, this);
+        List<Entity> list = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, box);
+        for (Entity e : list) {
+            AbilityHelper.onLeftClickEntity(stack, player, e, this);
         }
         return true;
     }

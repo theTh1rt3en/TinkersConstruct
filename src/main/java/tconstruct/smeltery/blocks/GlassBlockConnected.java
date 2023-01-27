@@ -16,9 +16,9 @@ import tconstruct.util.config.PHConstruct;
  */
 public class GlassBlockConnected extends MantleBlock {
     protected IIcon[] icons = new IIcon[16];
-    private boolean shouldRenderSelectionBox = true;
+    private final boolean shouldRenderSelectionBox = true;
     protected String folder;
-    private int renderPass;
+    private final int renderPass;
 
     public GlassBlockConnected(String location, boolean hasAlpha) {
         super(Material.glass);
@@ -60,7 +60,7 @@ public class GlassBlockConnected extends MantleBlock {
      */
     public boolean shouldConnectToBlock(
             IBlockAccess par1IBlockAccess, int par2, int par3, int par4, Block par5, int par6) {
-        return par5 == (Block) this;
+        return par5 == this;
     }
 
     @Override
@@ -526,7 +526,7 @@ public class GlassBlockConnected extends MantleBlock {
     @Override
     public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
         Block b = par1IBlockAccess.getBlock(par2, par3, par4);
-        return b == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+        return b != this && super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override

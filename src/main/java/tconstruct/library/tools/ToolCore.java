@@ -110,20 +110,20 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     /* Rendering */
 
-    public HashMap<Integer, IIcon> headIcons = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> brokenIcons = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> handleIcons = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> accessoryIcons = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> effectIcons = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> extraIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> headIcons = new HashMap<>();
+    public HashMap<Integer, IIcon> brokenIcons = new HashMap<>();
+    public HashMap<Integer, IIcon> handleIcons = new HashMap<>();
+    public HashMap<Integer, IIcon> accessoryIcons = new HashMap<>();
+    public HashMap<Integer, IIcon> effectIcons = new HashMap<>();
+    public HashMap<Integer, IIcon> extraIcons = new HashMap<>();
 
     // Not liking this
-    public HashMap<Integer, String> headStrings = new HashMap<Integer, String>();
-    public HashMap<Integer, String> brokenPartStrings = new HashMap<Integer, String>();
-    public HashMap<Integer, String> handleStrings = new HashMap<Integer, String>();
-    public HashMap<Integer, String> accessoryStrings = new HashMap<Integer, String>();
-    public HashMap<Integer, String> effectStrings = new HashMap<Integer, String>();
-    public HashMap<Integer, String> extraStrings = new HashMap<Integer, String>();
+    public HashMap<Integer, String> headStrings = new HashMap<>();
+    public HashMap<Integer, String> brokenPartStrings = new HashMap<>();
+    public HashMap<Integer, String> handleStrings = new HashMap<>();
+    public HashMap<Integer, String> accessoryStrings = new HashMap<>();
+    public HashMap<Integer, String> effectStrings = new HashMap<>();
+    public HashMap<Integer, String> extraStrings = new HashMap<>();
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -272,13 +272,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                 else color = "\u00a76";
             }
 
-            String energy = new StringBuilder()
-                    .append(color)
-                    .append(tags.getInteger("Energy"))
-                    .append("/")
-                    .append(getMaxEnergyStored(stack))
-                    .append(" RF")
-                    .toString();
+            String energy = color + tags.getInteger("Energy") + "/" + getMaxEnergyStored(stack) + " RF";
             list.add(energy);
         }
         if (tags.hasKey("InfiTool")) {
@@ -439,11 +433,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     @Override
     public void getSubItems(Item id, CreativeTabs tab, List list) {
-        Iterator iter = TConstructRegistry.toolMaterials.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            tconstruct.library.tools.ToolMaterial material = (tconstruct.library.tools.ToolMaterial) pairs.getValue();
-            buildTool((Integer) pairs.getKey(), ToolBuilder.defaultToolName(material, this), list);
+        for (Map.Entry<Integer, tconstruct.library.tools.ToolMaterial> integerToolMaterialEntry :
+                TConstructRegistry.toolMaterials.entrySet()) {
+            tconstruct.library.tools.ToolMaterial material = integerToolMaterialEntry.getValue();
+            buildTool(integerToolMaterialEntry.getKey(), ToolBuilder.defaultToolName(material, this), list);
         }
     }
 
@@ -593,7 +586,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         if (tags.hasKey(key + "Color")) return tags.getInteger(key + "Color");
 
         // custom texture?
-        Integer matId = tags.getInteger("Render" + key);
+        int matId = tags.getInteger("Render" + key);
         if (map.containsKey(matId)) return super.getColorFromItemStack(stack, renderPass);
 
         // color default texture with material color
@@ -612,13 +605,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
-        ItemStack nearbyStack = null;
+        ItemStack nearbyStack;
 
         if (hotbarSlot < 8) {
             nearbyStack = player.inventory.getStackInSlot(itemSlot);
             if (nearbyStack != null) {
                 Item item = nearbyStack.getItem();
-                if (item instanceof ItemPotion && ((ItemPotion) item).isSplash(nearbyStack.getItemDamage())) {
+                if (item instanceof ItemPotion && ItemPotion.isSplash(nearbyStack.getItemDamage())) {
                     nearbyStack = item.onItemRightClick(nearbyStack, world, player);
                     if (nearbyStack.stackSize < 1) {
                         nearbyStack = null;

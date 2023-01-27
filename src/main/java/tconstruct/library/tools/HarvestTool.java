@@ -93,7 +93,7 @@ public abstract class HarvestTool extends ToolCore {
 
     @Override
     public Set<String> getToolClasses(ItemStack stack) {
-        Set<String> set = new HashSet<String>();
+        Set<String> set = new HashSet<>();
 
         if (stack != null && stack.getItem() instanceof HarvestTool) {
             set.add(((HarvestTool) stack.getItem()).getHarvestType());
@@ -132,7 +132,7 @@ public abstract class HarvestTool extends ToolCore {
         boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
-        ItemStack nearbyStack = null;
+        ItemStack nearbyStack;
 
         if (hotbarSlot < 8) {
             nearbyStack = player.inventory.getStackInSlot(itemSlot);

@@ -20,7 +20,7 @@ public class TerrainGenEventHandler {
     private final SurfaceOreGen aluminumSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 4, 12, true);
     private final SurfaceOreGen cobaltSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 5, 30, true);
 
-    private static ImmutableCollection<BiomeGenBase> EXTRA_ORE_BIOMES =
+    private static final ImmutableCollection<BiomeGenBase> EXTRA_ORE_BIOMES =
             ImmutableList.of(extremeHills, extremeHillsEdge);
 
     @SubscribeEvent

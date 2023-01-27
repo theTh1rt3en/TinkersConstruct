@@ -34,7 +34,7 @@ public class DynamicToolPart extends CraftingItem implements IToolPart {
     }
 
     public DynamicToolPart(String texture, String name, String domain) {
-        this(texture, name, domain, (Class<? extends CustomMaterial>) null);
+        this(texture, name, domain, null);
     }
 
     public DynamicToolPart(
@@ -58,15 +58,14 @@ public class DynamicToolPart extends CraftingItem implements IToolPart {
     // item meta = material id
     @Override
     public int getMaterialID(ItemStack stack) {
-        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage())) return stack.getItemDamage();
-
+        if (TConstructRegistry.toolMaterials.containsKey(stack.getItemDamage())) return stack.getItemDamage();
         return -1;
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String material = "";
-        String matName = "";
+        String material;
+        String matName;
         if (customMaterialClass == null) {
             tconstruct.library.tools.ToolMaterial toolmat = TConstructRegistry.getMaterial(getMaterialID(stack));
             if (toolmat == null) return super.getItemStackDisplayName(stack);
@@ -80,7 +79,6 @@ public class DynamicToolPart extends CraftingItem implements IToolPart {
                     TConstructRegistry.getCustomMaterial(getMaterialID(stack), customMaterialClass);
             if (customMaterial == null) return super.getItemStackDisplayName(stack);
 
-            material = "";
             if (customMaterial.input != null) {
                 material = customMaterial.input.getUnlocalizedName();
                 int firstPeriodIndex = material.indexOf('.');
@@ -111,7 +109,7 @@ public class DynamicToolPart extends CraftingItem implements IToolPart {
         int id = getMaterialID(stack);
         if (id == -1) return getUnlocalizedName();
 
-        String material = "unknown";
+        String material;
         if (customMaterialClass == null) {
             tconstruct.library.tools.ToolMaterial toolmat = TConstructRegistry.getMaterial(getMaterialID(stack));
             material = toolmat.materialName;

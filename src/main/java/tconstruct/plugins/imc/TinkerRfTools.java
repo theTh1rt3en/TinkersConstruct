@@ -1,7 +1,6 @@
 package tconstruct.plugins.imc;
 
 import static tconstruct.smeltery.TinkerSmeltery.*;
-import static tconstruct.smeltery.TinkerSmeltery.moltenEnderiumFluid;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

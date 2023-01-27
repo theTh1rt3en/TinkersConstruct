@@ -13,15 +13,15 @@ import tconstruct.library.weaponry.IWindup;
 import tconstruct.util.Reference;
 
 public class CrosshairHandler {
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getMinecraft();
 
-    private static ResourceLocation crossHairSquare =
+    private static final ResourceLocation crossHairSquare =
             new ResourceLocation(Reference.RESOURCE, "textures/gui/Crosshair.png");
-    private static ResourceLocation crossHairTip =
+    private static final ResourceLocation crossHairTip =
             new ResourceLocation(Reference.RESOURCE, "textures/gui/Crosshair2.png");
-    private static ResourceLocation crossHairWeird =
+    private static final ResourceLocation crossHairWeird =
             new ResourceLocation(Reference.RESOURCE, "textures/gui/Crosshair3.png");
-    private static ResourceLocation crossHairSpike =
+    private static final ResourceLocation crossHairSpike =
             new ResourceLocation(Reference.RESOURCE, "textures/gui/Crosshair4.png");
 
     @SubscribeEvent
@@ -90,8 +90,8 @@ public class CrosshairHandler {
     }
 
     private void drawCrosshairPart(float width, float height, int part) {
-        double w = (double) width;
-        double h = (double) height;
+        double w = width;
+        double h = height;
 
         double s = 4;
         double z = -90;
@@ -136,8 +136,8 @@ public class CrosshairHandler {
     }
 
     private void drawAlternateCrosshairPart(float width, float height, int part) {
-        double w = (double) width;
-        double h = (double) height;
+        double w = width;
+        double h = height;
 
         final double s = 8d;
         final double z = -90;

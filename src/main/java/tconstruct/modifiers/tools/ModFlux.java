@@ -11,7 +11,7 @@ import tconstruct.util.config.PHConstruct;
 /* TE3 support */
 
 public class ModFlux extends ModBoolean {
-    public ArrayList<ItemStack> batteries = new ArrayList<ItemStack>();
+    public ArrayList<ItemStack> batteries = new ArrayList<>();
     public int modifiersRequired = 1; // LALALALA totally not hidden IguanaTweaks Support LALALALA
 
     public ModFlux() {
@@ -62,10 +62,9 @@ public class ModFlux extends ModBoolean {
                     > ((ToolCore) tool.getItem()).getMaxEnergyStored(tool);
         }
         // otherwise check if we have enough modfiers
-        else if (tags.getInteger("Modifiers") < modifiersRequired) return false;
+        else return tags.getInteger("Modifiers") >= modifiersRequired;
 
         // all requirements satisfied!
-        return true;
     }
 
     @Override

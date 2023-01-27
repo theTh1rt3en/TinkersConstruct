@@ -27,7 +27,7 @@ public class RecipeHandlerCastingBasin extends RecipeHandlerCastingBase {
     public List<CastingRecipe> getCastingRecipes() {
         LiquidCasting casting = TConstructRegistry.getBasinCasting();
         if (casting == null) {
-            return new ArrayList<CastingRecipe>();
+            return new ArrayList<>();
         }
         return casting.getCastingRecipes();
     }

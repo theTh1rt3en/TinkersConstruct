@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 import tconstruct.blocks.TConstructBlock;
 
 public class MultiBrickMetal extends TConstructBlock {
-    static String blockTextures[] = {
+    static String[] blockTextures = {
         "brick_alumite",
         "brick_ardite",
         "brick_cobalt",

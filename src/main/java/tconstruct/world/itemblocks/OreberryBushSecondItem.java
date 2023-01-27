@@ -9,13 +9,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.world.TinkerWorld;
 
 public class OreberryBushSecondItem extends MultiItemBlock {
     public Block blockB;
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "aluminum",
         "essence",
         "",
@@ -66,7 +65,7 @@ public class OreberryBushSecondItem extends MultiItemBlock {
             Block block = world.getBlock(x, y, z);
 
             if (block != null
-                    && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TinkerWorld.oreBerrySecond)
+                    && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, TinkerWorld.oreBerrySecond)
                     && WorldHelper.isAirBlock(world, x, y + 1, z)) {
                 world.setBlock(x, y + 1, z, blockB, stack.getItemDamage() % 4, 3);
                 if (!player.capabilities.isCreativeMode) stack.stackSize--;

@@ -1,13 +1,11 @@
 package tconstruct.items.tools;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
-import tconstruct.library.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;

@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class ItemModifier {
     public final String key;
-    public final List stacks;
+    public final List<ItemStack> stacks;
     public final int effectIndex;
     public static Random random = new Random();
 
@@ -17,9 +17,7 @@ public abstract class ItemModifier {
      * @param dataKey NBT string to put on the item
      */
     public ItemModifier(ItemStack[] recipe, int effect, String dataKey) {
-        List<ItemStack> itemstacks = new ArrayList<ItemStack>();
-        for (int iter = 0; iter < recipe.length; iter++) itemstacks.add(recipe[iter]);
-        stacks = itemstacks;
+        stacks = new ArrayList<>(Arrays.asList(recipe));
         effectIndex = effect;
         key = dataKey;
     }
@@ -34,18 +32,13 @@ public abstract class ItemModifier {
     public boolean matches(ItemStack[] recipe, ItemStack input) {
         if (!canModify(input, recipe)) return false;
 
-        ArrayList list = new ArrayList(this.stacks);
+        ArrayList<ItemStack> list = new ArrayList<>(this.stacks);
 
-        for (int iter = 0; iter < recipe.length; ++iter) {
-            ItemStack craftingStack = recipe[iter];
-
+        for (ItemStack craftingStack : recipe) {
             if (craftingStack != null) {
                 boolean canCraft = false;
-                Iterator iterate = list.iterator();
 
-                while (iterate.hasNext()) {
-                    ItemStack removeStack = (ItemStack) iterate.next();
-
+                for (ItemStack removeStack : list) {
                     if (craftingStack.getItem() == removeStack.getItem()
                             && (removeStack.getItemDamage() == Short.MAX_VALUE
                                     || craftingStack.getItemDamage() == removeStack.getItemDamage())) {

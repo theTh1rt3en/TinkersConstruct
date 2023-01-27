@@ -3,7 +3,6 @@ package tconstruct.library.tools;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.Event.Result;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.block.Block;
@@ -110,7 +109,7 @@ public class AbilityHelper {
                         if (baseDamage > 0) damage = baseDamage;
                         else damage = 1;
                     }
-                    boolean causedDamage = false;
+                    boolean causedDamage;
                     boolean isAlive = entity.isEntityAlive();
 
                     if (tool.pierceArmor() && !broken && entity instanceof EntityLivingBase) {
@@ -145,13 +144,9 @@ public class AbilityHelper {
 
                         if (knockback > 0) {
                             entity.addVelocity(
-                                    (double) (-MathHelper.sin(player.rotationYaw * (float) Math.PI / 180.0F)
-                                            * (float) knockback
-                                            * 0.5F),
+                                    -MathHelper.sin(player.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F,
                                     0.1D,
-                                    (double) (MathHelper.cos(player.rotationYaw * (float) Math.PI / 180.0F)
-                                            * (float) knockback
-                                            * 0.5F));
+                                    MathHelper.cos(player.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F);
                             player.motionX *= 0.6D;
                             player.motionZ *= 0.6D;
                             player.setSprinting(false);
@@ -196,7 +191,7 @@ public class AbilityHelper {
                     }
 
                     if (entity instanceof EntityPlayer) ((EntityPlayer) player).addExhaustion(0.3F);
-                    if (causedDamage) return true;
+                    return causedDamage;
                 }
             }
         }
@@ -310,7 +305,7 @@ public class AbilityHelper {
             }
 
             if (!(living instanceof EntityPlayer) || player.canAttackPlayer((EntityPlayer) living)) {
-                List var6 = player.worldObj.getEntitiesWithinAABB(
+                List<EntityWolf> var6 = player.worldObj.getEntitiesWithinAABB(
                         EntityWolf.class,
                         AxisAlignedBB.getBoundingBox(
                                         player.posX,
@@ -320,11 +315,8 @@ public class AbilityHelper {
                                         player.posY + 1.0D,
                                         player.posZ + 1.0D)
                                 .expand(16.0D, 4.0D, 16.0D));
-                Iterator var4 = var6.iterator();
 
-                while (var4.hasNext()) {
-                    EntityWolf var5 = (EntityWolf) var4.next();
-
+                for (EntityWolf var5 : var6) {
                     if (var5.isTamed()
                             && var5.getEntityToAttack() == null
                             && player.getDisplayName().equals(var5.func_152113_b())
@@ -354,7 +346,7 @@ public class AbilityHelper {
             return;
 
         // calculate in reinforced/unbreaking
-        int reinforced = 0;
+        int reinforced;
         if (tags.hasKey("InfiTool") && dam > 0) // unbreaking only affects damage, not healing
         {
             NBTTagCompound toolTags = tags.getCompoundTag("InfiTool");
@@ -390,9 +382,9 @@ public class AbilityHelper {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
                 int toolDamage = (damage * 100 / maxDamage) + 1;
                 int stackDamage = stack.getItemDamage();
-                if (toolDamage != stackDamage) {
-                    // stack.setItemDamage((damage * 100 / maxDamage) + 1);
-                }
+                // if (toolDamage != stackDamage) {
+                //    // stack.setItemDamage((damage * 100 / maxDamage) + 1);
+                // }
             }
         }
     }
@@ -488,7 +480,7 @@ public class AbilityHelper {
         tags.setInteger("Energy", max - missing);
     }
 
-    private static boolean equalityOverrideLoaded =
+    private static final boolean equalityOverrideLoaded =
             Loader.isModLoaded("CoFHCore"); // Mods should be loaded far enough before this is ever initialized
 
     public static void breakTool(ItemStack stack, NBTTagCompound tags, Entity entity) {
@@ -538,20 +530,18 @@ public class AbilityHelper {
                     && (block == Blocks.grass || block == Blocks.dirt)) {
                 Block block1 = Blocks.farmland;
                 world.playSoundEffect(
-                        (double) ((float) x + 0.5F),
-                        (double) ((float) y + 0.5F),
-                        (double) ((float) z + 0.5F),
+                        (float) x + 0.5F,
+                        (float) y + 0.5F,
+                        (float) z + 0.5F,
                         block1.stepSound.getStepResourcePath(),
                         (block1.stepSound.getVolume() + 1.0F) / 2.0F,
                         block1.stepSound.getPitch() * 0.8F);
 
-                if (world.isRemote) {
-                    return true;
-                } else {
+                if (!world.isRemote) {
                     world.setBlock(x, y, z, block1);
                     damageTool(stack, 1, player, false);
-                    return true;
                 }
+                return true;
             } else {
                 return false;
             }

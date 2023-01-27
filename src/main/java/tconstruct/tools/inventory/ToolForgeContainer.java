@@ -75,7 +75,7 @@ public class ToolForgeContainer extends ToolStationContainer {
         if (stack.getItem() instanceof IModifyable) {
             NBTTagCompound tags =
                     stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
-            Boolean full = (logic.getStackInSlot(2) != null
+            boolean full = (logic.getStackInSlot(2) != null
                     || logic.getStackInSlot(3) != null
                     || logic.getStackInSlot(4) != null);
             for (int i = 2; i <= 4; i++) logic.decrStackSize(i, 1);

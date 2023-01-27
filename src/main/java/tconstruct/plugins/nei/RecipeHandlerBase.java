@@ -146,15 +146,10 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler {
                 if (tank.position.contains(relMouse)) {
                     if ((tank.fluid != null) && tank.fluid.amount > 0) {
                         if (usage) {
-                            if (!GuiUsageRecipe.openRecipeGui("liquid", new Object[] {tank.fluid})) {
-                                return false;
-                            }
+                            return GuiUsageRecipe.openRecipeGui("liquid", tank.fluid);
                         } else {
-                            if (!GuiCraftingRecipe.openRecipeGui("liquid", new Object[] {tank.fluid})) {
-                                return false;
-                            }
+                            return GuiCraftingRecipe.openRecipeGui("liquid", tank.fluid);
                         }
-                        return true;
                     }
                 }
             }
@@ -231,7 +226,7 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler {
             if (this.fluid == null || this.fluid.getFluid() == null || this.fluid.amount <= 0) {
                 return;
             }
-            IIcon fluidIcon = null;
+            IIcon fluidIcon;
             if (this.flowingTexture && this.fluid.getFluid().getFlowingIcon() != null) {
                 fluidIcon = this.fluid.getFluid().getFlowingIcon();
             } else if (this.fluid.getFluid().getStillIcon() != null) {
@@ -263,17 +258,12 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler {
                     double maxV = fluidIcon.getMaxV();
 
                     Tessellator tessellator = Tessellator.instance;
+                    final double u = minU + (maxU - minU) * drawWidth / 16F;
+                    final double v = minV + (maxV - minV) * drawHeight / 16F;
                     tessellator.startDrawingQuads();
-                    tessellator.addVertexWithUV(
-                            drawX, drawY + drawHeight, 0, minU, minV + (maxV - minV) * drawHeight / 16F);
-                    tessellator.addVertexWithUV(
-                            drawX + drawWidth,
-                            drawY + drawHeight,
-                            0,
-                            minU + (maxU - minU) * drawWidth / 16F,
-                            minV + (maxV - minV) * drawHeight / 16F);
-                    tessellator.addVertexWithUV(
-                            drawX + drawWidth, drawY, 0, minU + (maxU - minU) * drawWidth / 16F, minV);
+                    tessellator.addVertexWithUV(drawX, drawY + drawHeight, 0, minU, v);
+                    tessellator.addVertexWithUV(drawX + drawWidth, drawY + drawHeight, 0, u, v);
+                    tessellator.addVertexWithUV(drawX + drawWidth, drawY, 0, u, minV);
                     tessellator.addVertexWithUV(drawX, drawY, 0, minU, minV);
                     tessellator.draw();
                 }

@@ -25,9 +25,8 @@ public class FurnaceSlab extends InventorySlab {
 
     @Override
     public TileEntity createTileEntity(World world, int metadata) {
-        switch (metadata % 8) {
-            case 0:
-                return new FurnaceLogic();
+        if (metadata % 8 == 0) {
+            return new FurnaceLogic();
         }
         return null;
     }
@@ -44,9 +43,7 @@ public class FurnaceSlab extends InventorySlab {
 
     @Override
     public String[] getTextureNames() {
-        String[] textureNames = {"furnaceslab_front", "furnaceslab_front_active", "furnaceslab_side", "furnace_top"};
-
-        return textureNames;
+        return new String[] {"furnaceslab_front", "furnaceslab_front_active", "furnaceslab_side", "furnace_top"};
     }
 
     @Override
@@ -99,9 +96,8 @@ public class FurnaceSlab extends InventorySlab {
 
     @Override
     public TileEntity createNewTileEntity(World var1, int metadata) {
-        switch (metadata % 8) {
-            case 0:
-                return new FurnaceLogic();
+        if (metadata % 8 == 0) {
+            return new FurnaceLogic();
         }
         return null;
     }

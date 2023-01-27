@@ -23,7 +23,7 @@ import net.minecraft.network.*;
 public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, AbstractPacket> {
 
     private EnumMap<Side, FMLEmbeddedChannel> channels;
-    private LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<Class<? extends AbstractPacket>>();
+    private final LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<>();
     private boolean isPostInitialised = false;
 
     /**
@@ -59,7 +59,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
     // In line encoding of the packet, including discriminator setting
     @Override
-    protected void encode(ChannelHandlerContext ctx, AbstractPacket msg, List<Object> out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, AbstractPacket msg, List<Object> out) {
         ByteBuf buffer = Unpooled.buffer();
         Class<? extends AbstractPacket> clazz = msg.getClass();
         if (!this.packets.contains(msg.getClass())) {
@@ -137,19 +137,13 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
         if (this.isPostInitialised) {
             return;
         }
-
         this.isPostInitialised = true;
-        Collections.sort(this.packets, new Comparator<Class<? extends AbstractPacket>>() {
-
-            @Override
-            public int compare(Class<? extends AbstractPacket> clazz1, Class<? extends AbstractPacket> clazz2) {
-                int com = String.CASE_INSENSITIVE_ORDER.compare(clazz1.getCanonicalName(), clazz2.getCanonicalName());
-                if (com == 0) {
-                    com = clazz1.getCanonicalName().compareTo(clazz2.getCanonicalName());
-                }
-
-                return com;
+        this.packets.sort((clazz1, clazz2) -> {
+            int com = String.CASE_INSENSITIVE_ORDER.compare(clazz1.getCanonicalName(), clazz2.getCanonicalName());
+            if (com == 0) {
+                com = clazz1.getCanonicalName().compareTo(clazz2.getCanonicalName());
             }
+            return com;
         });
     }
 

@@ -17,8 +17,8 @@ import tconstruct.mechworks.landmine.*;
  */
 public abstract class Behavior {
 
-    public static HashMap<LandmineStack, Behavior> behaviorsListItems = new HashMap<LandmineStack, Behavior>();
-    public static HashMap<LandmineStack, Behavior> behaviorsListBlocks = new HashMap<LandmineStack, Behavior>();
+    public static HashMap<LandmineStack, Behavior> behaviorsListItems = new HashMap<>();
+    public static HashMap<LandmineStack, Behavior> behaviorsListBlocks = new HashMap<>();
     protected static Behavior defaultBehavior;
 
     public static Behavior dummy = new BehaviorDummy();
@@ -51,16 +51,14 @@ public abstract class Behavior {
 
         // Make sure the part below this comment is executed last(to avoid
         // conflicts)
-        Iterator i1 = Block.blockRegistry.iterator();
-        while (i1.hasNext()) {
-            Object ob = i1.next();
-            if (ob != null && ob instanceof Block) {
+        for (Object ob : Block.blockRegistry) {
+            if (ob instanceof Block) {
                 Block b = (Block) ob;
                 if (b.getMaterial().isOpaque()
                         && b.renderAsNormalBlock()
                         && !b.canProvidePower()
                         && !(b instanceof ITileEntityProvider)
-                        && !behaviorsListBlocks.containsKey(new ItemStack(b))) {
+                        && !behaviorsListBlocks.containsKey(new LandmineStack(b))) {
                     addBehavior(new LandmineStack(b), blockThrow);
                 }
             }
@@ -81,9 +79,6 @@ public abstract class Behavior {
                         return (Behavior) behaviorsListBlocks.values().toArray()[i];
                     }
                 }
-                return null;
-            } else {
-                return null;
             }
         } else {
             if (!behaviorsListItems.isEmpty()) {
@@ -94,11 +89,9 @@ public abstract class Behavior {
                         return (Behavior) behaviorsListItems.values().toArray()[i];
                     }
                 }
-                return null;
-            } else {
-                return null;
             }
         }
+        return null;
     }
 
     public static Behavior getDefaulBehavior() {
@@ -141,8 +134,6 @@ public abstract class Behavior {
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(par1World.getBlockMetadata(par2, par3, par4));
 
         switch (dir) {
-            case DOWN:
-                return EnumFacing.UP;
             case UP:
                 return EnumFacing.DOWN;
             case WEST:
@@ -153,6 +144,7 @@ public abstract class Behavior {
                 return EnumFacing.NORTH;
             case NORTH:
                 return EnumFacing.SOUTH;
+            case DOWN:
             default:
                 return EnumFacing.UP;
         }
@@ -174,7 +166,7 @@ public abstract class Behavior {
         return true;
     }
 
-    public static final int arrayIndexOfStack(ArrayList<ItemStack> stacks, ItemStack item) {
+    public static int arrayIndexOfStack(ArrayList<ItemStack> stacks, ItemStack item) {
         Iterator<ItemStack> i1 = stacks.iterator();
 
         int index = 0;
@@ -190,16 +182,12 @@ public abstract class Behavior {
         return -1;
     }
 
-    public static final boolean arrayContainsEqualStack(ArrayList<ItemStack> stacks, ItemStack item) {
-        Iterator<ItemStack> i1 = stacks.iterator();
-
-        while (i1.hasNext()) {
-            ItemStack stack = i1.next();
+    public static boolean arrayContainsEqualStack(ArrayList<ItemStack> stacks, ItemStack item) {
+        for (ItemStack stack : stacks) {
             if (stack.isItemEqual(item)) {
                 return true;
             }
         }
-
         return false;
     }
 

@@ -33,7 +33,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
         public ArrowMaterial arrowMaterial;
 
         public CachedToolMaterialsRecipe(List<ItemStack> toolParts, int materialID) {
-            this.toolParts = new ArrayList<PositionedStack>();
+            this.toolParts = new ArrayList<>();
             for (ItemStack stack : toolParts) {
                 this.toolParts.add(new PositionedStack(stack, 10, 10));
             }
@@ -41,7 +41,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
         }
 
         public CachedToolMaterialsRecipe(List<ItemStack> toolParts, int materialID, boolean arrowBow) {
-            this.toolParts = new ArrayList<PositionedStack>();
+            this.toolParts = new ArrayList<>();
             for (ItemStack stack : toolParts) {
                 this.toolParts.add(new PositionedStack(stack, 10, 10));
             }
@@ -89,8 +89,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
 
     @Override
     public void loadTransferRects() {
-        this.transferRects.add(
-                new RecipeTransferRect(new Rectangle(10, 30, 16, 16), this.getRecipeID(), new Object[0]));
+        this.transferRects.add(new RecipeTransferRect(new Rectangle(10, 30, 16, 16), this.getRecipeID()));
     }
 
     @Override
@@ -214,7 +213,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
         if (outputId.equals(this.getRecipeID())) {
             ToolMaterial mat;
             for (int matID : TConstructRegistry.toolMaterials.keySet()) {
-                List<ItemStack> toolParts = new ArrayList<ItemStack>();
+                List<ItemStack> toolParts = new ArrayList<>();
 
                 mat = TConstructRegistry.toolMaterials.get(matID);
                 for (ItemKey key : PatternBuilder.instance.materials) {

@@ -16,7 +16,7 @@ import tconstruct.library.modifier.IModifyable;
 import tconstruct.util.network.HealthUpdatePacket;
 
 public class ArmorAbilities {
-    public static List<String> stepBoostedPlayers = new ArrayList();
+    public static List<String> stepBoostedPlayers = new ArrayList<>();
     // ItemStack prevFeet;
     double prevMotionY;
 
@@ -77,7 +77,7 @@ public class ArmorAbilities {
 
     @SubscribeEvent
     public void dimensionChanged(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (event.player == null || !(event.player instanceof EntityPlayerMP)) return;
+        if (!(event.player instanceof EntityPlayerMP)) return;
 
         // this callback is only called serverside
         float oldHealth = event.player.getHealth();

@@ -11,9 +11,9 @@ public abstract class ArmorModTypeFilter extends ArmorMod {
         super(effect, dataKey, armorTypes, items);
         assert items.length == values.length
                 : "Itemstacks and their values for armor modifiers must be the same length";
-        this.increase = new ArrayList<Integer>();
-        for (int i = 0; i < values.length; i++) {
-            increase.add(values[i]);
+        this.increase = new ArrayList<>();
+        for (int value : values) {
+            increase.add(value);
         }
     }
 
@@ -54,8 +54,7 @@ public abstract class ArmorModTypeFilter extends ArmorMod {
     public int matchingAmount(ItemStack[] input) {
         int amount = 0;
         for (ItemStack inputStack : input) {
-            if (inputStack == null) continue;
-            else {
+            if (inputStack != null) {
                 for (int iter = 0; iter < stacks.size(); iter++) {
                     ItemStack stack = (ItemStack) stacks.get(iter);
                     if (stack.getItemDamage() == Short.MAX_VALUE) {

@@ -20,7 +20,7 @@ public class ContainerLandmine extends Container {
     public EntityPlayer entityPlayer;
     private int field_94536_g;
     private int field_94535_f = -1;
-    private final Set field_94537_h = new HashSet();
+    private final Set<Slot> field_94537_h = new HashSet<>();
 
     public ContainerLandmine(EntityPlayer player, TileEntityLandmine te) {
         this.te = te;
@@ -128,11 +128,8 @@ public class ContainerLandmine extends Container {
                 if (!this.field_94537_h.isEmpty()) {
                     itemstack1 = inventoryplayer.getItemStack().copy();
                     l = inventoryplayer.getItemStack().stackSize;
-                    Iterator iterator = this.field_94537_h.iterator();
 
-                    while (iterator.hasNext()) {
-                        Slot slot1 = (Slot) iterator.next();
-
+                    for (Slot slot1 : this.field_94537_h) {
                         if (slot1 != null
                                 && func_94527_a(slot1, inventoryplayer.getItemStack(), true)
                                 && slot1.isItemValid(inventoryplayer.getItemStack())
@@ -177,10 +174,10 @@ public class ContainerLandmine extends Container {
 
             if ((par3 == 0 || par3 == 1) && (par2 == 0 || par2 == 1)) {
                 if (par1 == -999) {
-                    if (inventoryplayer.getItemStack() != null && par1 == -999) {
+                    if (inventoryplayer.getItemStack() != null) {
                         if (par2 == 0) {
                             par4EntityPlayer.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), false);
-                            inventoryplayer.setItemStack((ItemStack) null);
+                            inventoryplayer.setItemStack(null);
                         }
 
                         if (par2 == 1) {
@@ -188,7 +185,7 @@ public class ContainerLandmine extends Container {
                                     inventoryplayer.getItemStack().splitStack(1), false);
 
                             if (inventoryplayer.getItemStack().stackSize == 0) {
-                                inventoryplayer.setItemStack((ItemStack) null);
+                                inventoryplayer.setItemStack(null);
                             }
                         }
                     }
@@ -205,12 +202,10 @@ public class ContainerLandmine extends Container {
                         itemstack1 = this.transferStackInSlot(par4EntityPlayer, par1);
 
                         if (itemstack1 != null) {
-                            localObject2 = ((ItemStack) itemstack1).getItem();
+                            localObject2 = itemstack1.getItem();
                             itemstack = itemstack1.copy();
 
-                            if (slot2 != null
-                                    && slot2.getStack() != null
-                                    && slot2.getStack().getItem() == localObject2) {
+                            if (slot2.getStack() != null && slot2.getStack().getItem() == localObject2) {
                                 this.retrySlotClick(par1, par2, true, par4EntityPlayer);
                             }
                         }
@@ -222,11 +217,7 @@ public class ContainerLandmine extends Container {
 
                     slot2 = (Slot) this.inventorySlots.get(par1);
 
-                    boolean shouldDoStuff = true;
-
-                    if ((!(slot2 instanceof SlotBehavedOnly))) {
-                        shouldDoStuff = false;
-                    }
+                    boolean shouldDoStuff = slot2 instanceof SlotBehavedOnly;
 
                     if (slot2 != null) {
                         itemstack1 = slot2.getStack();
@@ -249,10 +240,9 @@ public class ContainerLandmine extends Container {
                                 }
 
                                 if (itemstack4.stackSize == 0) {
-                                    inventoryplayer.setItemStack((ItemStack) null);
+                                    inventoryplayer.setItemStack(null);
                                 }
                             } else if (shouldDoStuff
-                                    && slot2 instanceof SlotBehavedOnly
                                     && itemstack4 != null
                                     && slot2.isItemValid(
                                             new ItemStack(itemstack4.getItem(), 1, itemstack4.getItemDamage()))) {
@@ -267,7 +257,7 @@ public class ContainerLandmine extends Container {
                                 }
 
                                 if (itemstack4.stackSize == 0) {
-                                    inventoryplayer.setItemStack((ItemStack) null);
+                                    inventoryplayer.setItemStack(null);
                                 }
                             }
                         } else if (slot2.canTakeStack(par4EntityPlayer)) {
@@ -277,7 +267,7 @@ public class ContainerLandmine extends Container {
                                 inventoryplayer.setItemStack(itemstack3);
 
                                 if (itemstack1.stackSize == 0) {
-                                    slot2.putStack((ItemStack) null);
+                                    slot2.putStack(null);
                                 }
 
                                 slot2.onPickupFromSlot(par4EntityPlayer, inventoryplayer.getItemStack());
@@ -296,7 +286,7 @@ public class ContainerLandmine extends Container {
                                     itemstack4.splitStack(k1);
 
                                     if (itemstack4.stackSize == 0) {
-                                        inventoryplayer.setItemStack((ItemStack) null);
+                                        inventoryplayer.setItemStack(null);
                                     }
 
                                     itemstack1.stackSize += k1;
@@ -312,7 +302,7 @@ public class ContainerLandmine extends Container {
                                     itemstack1 = slot2.decrStackSize(k1);
 
                                     if (itemstack1.stackSize == 0) {
-                                        slot2.putStack((ItemStack) null);
+                                        slot2.putStack(null);
                                     }
 
                                     slot2.onPickupFromSlot(par4EntityPlayer, inventoryplayer.getItemStack());
@@ -346,7 +336,7 @@ public class ContainerLandmine extends Container {
                             if (k1 > -1) {
                                 inventoryplayer.addItemStackToInventory(itemstack1);
                                 slot2.decrStackSize(itemstack3.stackSize);
-                                slot2.putStack((ItemStack) null);
+                                slot2.putStack(null);
                                 slot2.onPickupFromSlot(par4EntityPlayer, itemstack3);
                             }
                         } else {
@@ -355,7 +345,7 @@ public class ContainerLandmine extends Container {
                             slot2.onPickupFromSlot(par4EntityPlayer, itemstack3);
                         }
                     } else if (!slot2.getHasStack() && itemstack1 != null && slot2.isItemValid(itemstack1)) {
-                        inventoryplayer.setInventorySlotContents(par2, (ItemStack) null);
+                        inventoryplayer.setInventorySlotContents(par2, null);
                         slot2.putStack(itemstack1);
                     }
                 }
@@ -409,7 +399,7 @@ public class ContainerLandmine extends Container {
                                 itemstack1.stackSize += j2;
 
                                 if (itemstack5.stackSize <= 0) {
-                                    slot3.putStack((ItemStack) null);
+                                    slot3.putStack(null);
                                 }
 
                                 slot3.onPickupFromSlot(par4EntityPlayer, itemstack5);

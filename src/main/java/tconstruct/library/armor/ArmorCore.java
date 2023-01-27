@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import tconstruct.library.TConstructRegistry;
@@ -180,9 +179,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         float ratio = currentDurability / maxDurability;
         double base = tags.getDouble("BaseDefense");
         double max = tags.getDouble("MaxDefense");
-        double current = (max - base) * ratio + base;
-
-        return current;
+        return (max - base) * ratio + base;
     }
 
     @Override
@@ -347,7 +344,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         return tags.getCompoundTag(getBaseTagName()).getInteger("Damage");
     }
 
-    private DecimalFormat df = new DecimalFormat("##.#");
+    private final DecimalFormat df = new DecimalFormat("##.#");
 
     @Override
     @SideOnly(Side.CLIENT)

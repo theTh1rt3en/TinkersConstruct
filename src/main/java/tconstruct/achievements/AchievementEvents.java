@@ -24,8 +24,7 @@ public class AchievementEvents {
                 TAchievements.triggerAchievement(event.player, "tconstruct.preparedFight");
             }
 
-            if (event.inventory != null
-                    && event.inventory instanceof ToolForgeLogic
+            if (event.inventory instanceof ToolForgeLogic
                     && event.tool.getItem() instanceof ToolCore
                     && ((ToolCore) event.tool.getItem()).durabilityTypeExtra() != 0) {
                 TAchievements.triggerAchievement(event.player, "tconstruct.proTinkerer");

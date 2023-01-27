@@ -19,9 +19,9 @@ public class RecipeHandlerMelting extends RecipeHandlerBase {
     public static final Rectangle MOLTEN_TANK = new Rectangle(115, 20, 18, 18);
 
     public class CachedMeltingRecipe extends CachedBaseRecipe {
-        private PositionedStack input;
-        private int temperature;
-        private FluidTankElement output;
+        private final PositionedStack input;
+        private final int temperature;
+        private final FluidTankElement output;
 
         public CachedMeltingRecipe(ItemStack input) {
             this.input = new PositionedStack(input, 28, 21);
@@ -42,7 +42,7 @@ public class RecipeHandlerMelting extends RecipeHandlerBase {
 
         @Override
         public List<FluidTankElement> getFluidTanks() {
-            List<FluidTankElement> tanks = new ArrayList<FluidTankElement>();
+            List<FluidTankElement> tanks = new ArrayList<>();
             tanks.add(this.output);
             return tanks;
         }
@@ -65,8 +65,7 @@ public class RecipeHandlerMelting extends RecipeHandlerBase {
 
     @Override
     public void loadTransferRects() {
-        this.transferRects.add(
-                new RecipeTransferRect(new Rectangle(72, 20, 16, 34), this.getRecipeID(), new Object[0]));
+        this.transferRects.add(new RecipeTransferRect(new Rectangle(72, 20, 16, 34), this.getRecipeID()));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package tconstruct.world.blocks;
 
 import java.util.Random;
-import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 
@@ -24,7 +23,7 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable {
             int meta = world.getBlockMetadata(x, y, z);
             if (world.getFullBlockLightValue(x, y, z) < 10 || meta % 4 == 1) {
                 if (meta < 12) {
-                    world.setBlock(x, y, z, (Block) this, meta + 4, 3);
+                    world.setBlock(x, y, z, this, meta + 4, 3);
                 }
             }
             /*

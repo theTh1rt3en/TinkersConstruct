@@ -23,7 +23,6 @@ import tconstruct.library.event.SmelteryCastEvent;
 import tconstruct.library.event.ToolBuildEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.*;
-import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.library.util.IToolPart;
 import tconstruct.library.weaponry.ArrowShaftMaterial;
 import tconstruct.library.weaponry.BowBaseAmmo;
@@ -161,14 +160,14 @@ public class WeaponryHandler {
         NBTTagCompound tags = event.toolTag.getCompoundTag("InfiTool");
         ProjectileWeapon weapon = (ProjectileWeapon) event.tool;
 
-        int drawSpeed = 0;
-        float flightSpeed = 0;
+        int drawSpeed;
+        float flightSpeed;
 
         BowMaterial top;
         BowMaterial bottom;
         BowstringMaterial string;
 
-        boolean enchanted = false;
+        boolean enchanted;
 
         if (event.tool instanceof BowBaseAmmo) {
             top = TConstructRegistry.getBowMaterial(tags.getInteger("Head"));
@@ -367,8 +366,7 @@ public class WeaponryHandler {
                             .getTagCompound()
                             .getCompoundTag("display")
                             .getString("Name")
-                            .toLowerCase()
-                            .equals("banana")) return;
+                            .equalsIgnoreCase("banana")) return;
             event.name =
                     '\u2400' + "Bonæna"; // the \u2400 is a non-printable unicode character so you can't just type it
             event.headStack = new ItemStack(TinkerTools.swordBlade, 1, TinkerTools.MaterialID.Bone);

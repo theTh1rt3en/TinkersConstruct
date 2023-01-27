@@ -160,7 +160,7 @@ public class SmelteryGui extends ActiveContainerGui {
             int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0) {
-                int size = fuel >= 16 ? 16 : fuel;
+                int size = Math.min(fuel, 16);
                 fuel -= size;
                 drawLiquidRect(
                         cornerX + 117,
@@ -289,7 +289,7 @@ public class SmelteryGui extends ActiveContainerGui {
     }
 
     protected int[] calcLiquidHeights() {
-        int fluidHeights[] = new int[logic.moltenMetal.size()];
+        int[] fluidHeights = new int[logic.moltenMetal.size()];
         int cap = logic.getCapacity();
         if (logic.getTotalLiquid() > cap) cap = logic.getTotalLiquid();
         for (int i = 0; i < logic.moltenMetal.size(); i++) {
@@ -300,7 +300,7 @@ public class SmelteryGui extends ActiveContainerGui {
         }
 
         // check if we have enough height to render everything
-        int sum = 0;
+        int sum;
         do {
             sum = 0;
             int biggest = -1;
@@ -322,18 +322,16 @@ public class SmelteryGui extends ActiveContainerGui {
 
     protected void drawFluidStackTooltip(FluidStack par1ItemStack, int par2, int par3, boolean fuel) {
         this.zLevel = 100;
-        List list = getLiquidTooltip(par1ItemStack, this.mc.gameSettings.advancedItemTooltips, fuel);
-
+        List<String> list = getLiquidTooltip(par1ItemStack, this.mc.gameSettings.advancedItemTooltips, fuel);
         for (int k = 0; k < list.size(); ++k) {
-            list.set(k, EnumChatFormatting.GRAY + (String) list.get(k));
+            list.set(k, EnumChatFormatting.GRAY + list.get(k));
         }
-
         this.drawToolTip(list, par2, par3);
         this.zLevel = 0;
     }
 
-    public List getLiquidTooltip(FluidStack liquid, boolean advanced, boolean fuel) {
-        ArrayList list = new ArrayList();
+    public List<String> getLiquidTooltip(FluidStack liquid, boolean advanced, boolean fuel) {
+        ArrayList<String> list = new ArrayList<>();
         if (fuel || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery.fuel"));
             list.add("mB: " + liquid.amount);
@@ -387,30 +385,25 @@ public class SmelteryGui extends ActiveContainerGui {
         boolean molten = false;
         String[] moltenNames =
                 StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
-
-        for (int i = 0; i < moltenNames.length; i++) {
-            if (fluidName.contains(moltenNames[i].trim())) {
+        for (String moltenName : moltenNames) {
+            if (fluidName.contains(moltenName.trim())) {
                 molten = true;
                 break;
             }
         }
-
         return molten;
     }
 
-    protected void drawToolTip(List par1List, int par2, int par3) {
+    protected void drawToolTip(List<String> par1List, int par2, int par3) {
         if (!par1List.isEmpty()) {
             GL11.glDisable(GL12.GL_RESCALE_NORMAL);
             RenderHelper.disableStandardItemLighting();
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_DEPTH_TEST);
             int k = 0;
-            Iterator iterator = par1List.iterator();
 
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
+            for (String s : par1List) {
                 int l = this.fontRendererObj.getStringWidth(s);
-
                 if (l > k) {
                     k = l;
                 }
@@ -448,7 +441,7 @@ public class SmelteryGui extends ActiveContainerGui {
             this.drawGradientRect(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
 
             for (int k2 = 0; k2 < par1List.size(); ++k2) {
-                String s1 = (String) par1List.get(k2);
+                String s1 = par1List.get(k2);
                 this.fontRendererObj.drawStringWithShadow(s1, i1, j1, -1);
 
                 if (k2 == 0) {
@@ -501,7 +494,7 @@ public class SmelteryGui extends ActiveContainerGui {
                         logic.xCoord,
                         logic.yCoord,
                         logic.zCoord,
-                        this.isShiftKeyDown(),
+                        isShiftKeyDown(),
                         fluidToBeBroughtUp));
             }
             base += fluidHeights[i];

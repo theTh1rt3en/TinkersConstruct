@@ -35,7 +35,7 @@ public class ToolStationBlock extends InventoryBlock {
     /* Rendering */
     @Override
     public String[] getTextureNames() {
-        String[] textureNames = {
+        return new String[] {
             "toolstation_top",
             "toolstation_side",
             "toolstation_bottom",
@@ -67,8 +67,6 @@ public class ToolStationBlock extends InventoryBlock {
             "stenciltable_jungle_side",
             "stenciltable_jungle_bottom"
         };
-
-        return textureNames;
     }
 
     @Override
@@ -141,30 +139,20 @@ public class ToolStationBlock extends InventoryBlock {
             case 0:
                 return new ToolStationLogic();
             case 1:
-                return new PartBuilderLogic();
-            case 2:
-                return new PartBuilderLogic();
             case 3:
-                return new PartBuilderLogic();
+            case 2:
             case 4:
                 return new PartBuilderLogic();
             case 5:
-                return new PatternChestLogic();
+            case 9:
+            case 8:
+            case 7:
             case 6:
                 return new PatternChestLogic();
-            case 7:
-                return new PatternChestLogic();
-            case 8:
-                return new PatternChestLogic();
-            case 9:
-                return new PatternChestLogic();
             case 10:
-                return new StencilTableLogic();
-            case 11:
-                return new StencilTableLogic();
-            case 12:
-                return new StencilTableLogic();
             case 13:
+            case 12:
+            case 11:
                 return new StencilTableLogic();
                 /*case 14:
                 return new CastingTableLogic();*/

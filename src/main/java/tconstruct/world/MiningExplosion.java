@@ -12,9 +12,9 @@ import net.minecraft.world.*;
 
 public class MiningExplosion extends Explosion {
     World world;
-    private Random random = new Random();
-    private int field_77289_h = 16;
-    private Map field_77288_k = new HashMap();
+    private final Random random = new Random();
+    private final int field_77289_h = 16;
+    private final Map<Entity, Vec3> field_77288_k = new HashMap<>();
 
     public MiningExplosion(World par1World, Entity par2Entity, double par3, double par5, double par7, float par9) {
         super(par1World, par2Entity, par3, par5, par7, par9);
@@ -24,7 +24,7 @@ public class MiningExplosion extends Explosion {
     @Override
     public void doExplosionA() {
         float f = this.explosionSize;
-        HashSet hashset = new HashSet();
+        HashSet<ChunkPosition> hashset = new HashSet<>();
         int i;
         int j;
         int k;
@@ -41,9 +41,9 @@ public class MiningExplosion extends Explosion {
                             || j == this.field_77289_h - 1
                             || k == 0
                             || k == this.field_77289_h - 1) {
-                        double d3 = (double) ((float) i / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F);
-                        double d4 = (double) ((float) j / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F);
-                        double d5 = (double) ((float) k / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F);
+                        double d3 = (float) i / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F;
+                        double d4 = (float) j / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F;
+                        double d5 = (float) k / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F;
                         double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
                         d3 /= d6;
                         d4 /= d6;
@@ -60,10 +60,9 @@ public class MiningExplosion extends Explosion {
                             Block k1 = this.world.getBlock(l, i1, j1);
 
                             if (k1 != Blocks.air) {
-                                Block block = k1;
                                 float f3 = this.exploder != null
-                                        ? this.exploder.func_145772_a(this, this.world, l, i1, j1, block)
-                                        : block.getExplosionResistance(
+                                        ? this.exploder.func_145772_a(this, this.world, l, i1, j1, k1)
+                                        : k1.getExplosionResistance(
                                                 this.exploder, world, l, i1, j1, explosionX, explosionY, explosionZ);
                                 f1 -= (f3 + 0.8F) * f2 * 0.25f;
                             }
@@ -91,14 +90,11 @@ public class MiningExplosion extends Explosion {
         int l1 = MathHelper.floor_double(this.explosionY + (double) this.explosionSize + 1.0D);
         int i2 = MathHelper.floor_double(this.explosionZ - (double) this.explosionSize - 1.0D);
         int j2 = MathHelper.floor_double(this.explosionZ + (double) this.explosionSize + 1.0D);
-        List list = this.world.getEntitiesWithinAABBExcludingEntity(
-                this.exploder,
-                AxisAlignedBB.getBoundingBox(
-                        (double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
+        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(
+                this.exploder, AxisAlignedBB.getBoundingBox(i, k, i2, j, l1, j2));
         Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
 
-        for (int k2 = 0; k2 < list.size(); ++k2) {
-            Entity entity = (Entity) list.get(k2);
+        for (Entity entity : list) {
             double d7 =
                     entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / (double) this.explosionSize;
 
@@ -106,13 +102,13 @@ public class MiningExplosion extends Explosion {
                 d0 = entity.posX - this.explosionX;
                 d1 = entity.posY + (double) entity.getEyeHeight() - this.explosionY;
                 d2 = entity.posZ - this.explosionZ;
-                double d8 = (double) MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+                double d8 = MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
 
                 if (d8 != 0.0D) {
                     d0 /= d8;
                     d1 /= d8;
                     d2 /= d8;
-                    double d9 = (double) this.world.getBlockDensity(vec3, entity.boundingBox);
+                    double d9 = this.world.getBlockDensity(vec3, entity.boundingBox);
                     double d10 = (1.0D - d7) * d9;
                     if (!(entity instanceof EntityItem))
                         entity.attackEntityFrom(DamageSource.setExplosionSource(this), (float)
@@ -123,8 +119,7 @@ public class MiningExplosion extends Explosion {
                     entity.motionZ += d2 * d11;
 
                     if (entity instanceof EntityPlayer) {
-                        this.field_77288_k.put(
-                                (EntityPlayer) entity, Vec3.createVectorHelper(d0 * d10, d1 * d10, d2 * d10));
+                        this.field_77288_k.put(entity, Vec3.createVectorHelper(d0 * d10, d1 * d10, d2 * d10));
                     }
                 }
             }
@@ -151,7 +146,7 @@ public class MiningExplosion extends Explosion {
                     "largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
         }
 
-        Iterator iterator;
+        Iterator<ChunkPosition> iterator;
         ChunkPosition chunkposition;
         int i;
         int j;
@@ -162,25 +157,25 @@ public class MiningExplosion extends Explosion {
             iterator = this.affectedBlockPositions.iterator();
 
             while (iterator.hasNext()) {
-                chunkposition = (ChunkPosition) iterator.next();
+                chunkposition = iterator.next();
                 i = chunkposition.chunkPosX;
                 j = chunkposition.chunkPosY;
                 k = chunkposition.chunkPosZ;
                 l = this.world.getBlock(i, j, k);
 
                 if (par1) {
-                    double d0 = (double) ((float) i + this.world.rand.nextFloat());
-                    double d1 = (double) ((float) j + this.world.rand.nextFloat());
-                    double d2 = (double) ((float) k + this.world.rand.nextFloat());
+                    double d0 = (float) i + this.world.rand.nextFloat();
+                    double d1 = (float) j + this.world.rand.nextFloat();
+                    double d2 = (float) k + this.world.rand.nextFloat();
                     double d3 = d0 - this.explosionX;
                     double d4 = d1 - this.explosionY;
                     double d5 = d2 - this.explosionZ;
-                    double d6 = (double) MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
+                    double d6 = MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
                     d3 /= d6;
                     d4 /= d6;
                     d5 /= d6;
                     double d7 = 0.5D / (d6 / (double) this.explosionSize + 0.1D);
-                    d7 *= (double) (this.world.rand.nextFloat() * this.world.rand.nextFloat() + 0.3F);
+                    d7 *= this.world.rand.nextFloat() * this.world.rand.nextFloat() + 0.3F;
                     d3 *= d7;
                     d4 *= d7;
                     d5 *= d7;
@@ -196,14 +191,10 @@ public class MiningExplosion extends Explosion {
                 }
 
                 if (l != Blocks.air) {
-                    Block block = l;
-
-                    if (block.canDropFromExplosion(this)) {
-                        block.dropBlockAsItemWithChance(
-                                this.world, i, j, k, this.world.getBlockMetadata(i, j, k), 1.0F, 0);
+                    if (l.canDropFromExplosion(this)) {
+                        l.dropBlockAsItemWithChance(this.world, i, j, k, this.world.getBlockMetadata(i, j, k), 1.0F, 0);
                     }
-
-                    block.onBlockExploded(this.world, i, j, k, this);
+                    l.onBlockExploded(this.world, i, j, k, this);
                 }
             }
         }

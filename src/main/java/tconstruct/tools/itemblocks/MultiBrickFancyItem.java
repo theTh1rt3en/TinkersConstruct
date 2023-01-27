@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 public class MultiBrickFancyItem extends MultiItemBlock {
-    static String blockTypes[] = {
+    static String[] blockTypes = {
         "obsidian",
         "sandstone",
         "netherrack",

@@ -73,7 +73,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public int[] meltingTemps; // values are multiplied by 10
     private int tick;
 
-    public ArrayList<FluidStack> moltenMetal = new ArrayList<FluidStack>();
+    public ArrayList<FluidStack> moltenMetal = new ArrayList<>();
     public int maxLiquid;
     public int currentLiquid;
 
@@ -113,17 +113,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
             int[] tempActive = activeTemps;
             activeTemps = new int[maxBlockCapacity];
-            int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;
+            int activeLength = Math.min(tempActive.length, activeTemps.length);
             System.arraycopy(tempActive, 0, activeTemps, 0, activeLength);
 
             int[] tempMelting = meltingTemps;
             meltingTemps = new int[maxBlockCapacity];
-            int meltingLength = tempMelting.length > meltingTemps.length ? meltingTemps.length : tempMelting.length;
+            int meltingLength = Math.min(tempMelting.length, meltingTemps.length);
             System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingLength);
 
             ItemStack[] tempInv = inventory;
             inventory = new ItemStack[maxBlockCapacity];
-            int invLength = tempInv.length > inventory.length ? inventory.length : tempInv.length;
+            int invLength = Math.min(tempInv.length, inventory.length);
             System.arraycopy(tempInv, 0, inventory, 0, invLength);
 
             if (activeTemps.length > 0 && activeTemps.length > tempActive.length) {
@@ -168,9 +168,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             stack.stackSize -= itemSize;
                             EntityItem entityitem = new EntityItem(
                                     worldObj,
-                                    (double) ((float) xCoord + jumpX + offsetX),
-                                    (double) ((float) yCoord + jumpY),
-                                    (double) ((float) zCoord + jumpZ + offsetZ),
+                                    (float) xCoord + jumpX + offsetX,
+                                    (float) yCoord + jumpY,
+                                    (float) zCoord + jumpZ + offsetZ,
                                     new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound()) {
@@ -179,9 +179,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             float offset = 0.05F;
-                            entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
-                            entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
-                            entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
+                            entityitem.motionX = (float) rand.nextGaussian() * offset;
+                            entityitem.motionY = (float) rand.nextGaussian() * offset + 0.2F;
+                            entityitem.motionZ = (float) rand.nextGaussian() * offset;
                             worldObj.spawnEntityInWorld(entityitem);
                         }
                     }
@@ -423,9 +423,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                                 if (addMoltenMetal(result, false)) {
                                     inventory[i] = null;
                                     activeTemps[i] = 200;
-                                    ArrayList alloys = Smeltery.mixMetals(moltenMetal);
-                                    for (int al = 0; al < alloys.size(); al++) {
-                                        FluidStack liquid = (FluidStack) alloys.get(al);
+                                    ArrayList<FluidStack> alloys = Smeltery.mixMetals(moltenMetal);
+                                    for (FluidStack liquid : alloys) {
                                         addMoltenMetal(liquid, true);
                                     }
                                     markDirty();
@@ -448,7 +447,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
             moltenMetal.add(liquid.copy());
             updateCurrentLiquid();
-            return true;
         } else {
             // update liquid amount..
             updateCurrentLiquid();
@@ -476,8 +474,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 if (first) moltenMetal.add(0, liquid.copy());
                 else moltenMetal.add(liquid.copy());
             }
-            return true;
         }
+        return true;
     }
 
     private void updateCurrentLiquid() {
@@ -794,11 +792,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public boolean checkSameLevel(int x, int y, int z, int[] sides) {
         lavaTanks.clear();
-
         boolean check = checkBricksOnLevel(x, y, z, sides);
-
-        if (check && lavaTanks.size() > 0) return true;
-        else return false;
+        return check && lavaTanks.size() > 0;
     }
 
     public int recurseStructureUp(int x, int y, int z, int[] sides, int count) {
@@ -966,9 +961,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
             if (amount > 0 && doFill) {
                 if (addMoltenMetal(resource, false)) {
-                    ArrayList alloys = Smeltery.mixMetals(moltenMetal);
-                    for (int al = 0; al < alloys.size(); al++) {
-                        FluidStack liquid = (FluidStack) alloys.get(al);
+                    ArrayList<FluidStack> alloys = Smeltery.mixMetals(moltenMetal);
+                    for (FluidStack liquid : alloys) {
                         addMoltenMetal(liquid, true);
                     }
                 }
@@ -1037,7 +1031,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         moltenMetal.clear();
 
         for (int iter = 0; iter < liquidTag.tagCount(); iter++) {
-            NBTTagCompound nbt = (NBTTagCompound) liquidTag.getCompoundTagAt(iter);
+            NBTTagCompound nbt = liquidTag.getCompoundTagAt(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
             if (fluid != null) moltenMetal.add(fluid);
         }

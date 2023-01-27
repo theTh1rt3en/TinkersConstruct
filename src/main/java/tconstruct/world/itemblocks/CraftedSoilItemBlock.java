@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 
 public class CraftedSoilItemBlock extends MultiItemBlock {
-    public static final String blockTypes[] = {
+    public static final String[] blockTypes = {
         "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil", "blue", "dirt", "Grout"
     };
 
@@ -21,12 +21,9 @@ public class CraftedSoilItemBlock extends MultiItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack itemstack) {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, this.blockTypes.length - 1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockTypes.length - 1);
         if (pos <= 4) return super.getUnlocalizedName(itemstack);
-        return (new StringBuilder())
-                .append("block.slime.soil.")
-                .append(this.blockTypes[pos])
-                .toString();
+        return "block.slime.soil." + blockTypes[pos];
     }
 
     @Override

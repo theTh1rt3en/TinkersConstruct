@@ -11,7 +11,7 @@ public class FluidType {
     public final Fluid fluid;
     public final boolean isToolpart;
 
-    public static HashMap<String, FluidType> fluidTypes = new HashMap<String, FluidType>();
+    public static HashMap<String, FluidType> fluidTypes = new HashMap<>();
 
     public FluidType(Block block, int meta, int baseTemperature, Fluid fluid, boolean isToolpart) {
         this.renderBlock = block;
@@ -36,20 +36,19 @@ public class FluidType {
     }
 
     public static FluidType getFluidType(Fluid searchedFluid) {
-        Iterator iter = fluidTypes.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            if (((FluidType) pairs.getValue()).fluid.equals(searchedFluid)) return (FluidType) pairs.getValue();
+        for (Map.Entry<String, FluidType> stringFluidTypeEntry : fluidTypes.entrySet()) {
+            if (stringFluidTypeEntry.getValue().fluid.equals(searchedFluid)) {
+                return stringFluidTypeEntry.getValue();
+            }
         }
         return null;
     }
 
     public static int getTemperatureByFluid(Fluid searchedFluid) {
-        Iterator iter = fluidTypes.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            if (((FluidType) pairs.getValue()).fluid.equals(searchedFluid))
-                return ((FluidType) pairs.getValue()).baseTemperature;
+        for (Map.Entry<String, FluidType> stringFluidTypeEntry : fluidTypes.entrySet()) {
+            if (stringFluidTypeEntry.getValue().fluid.equals(searchedFluid)) {
+                return stringFluidTypeEntry.getValue().baseTemperature;
+            }
         }
         return 800;
     }

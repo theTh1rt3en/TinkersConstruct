@@ -51,7 +51,6 @@ import tconstruct.plugins.ubc.TinkerUBC;
 import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.EnvironmentChecks;
 import tconstruct.util.IMCHandler;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
@@ -122,8 +121,6 @@ public class TConstruct {
         } else {
             logger.info("Preparing to take over the world");
         }
-
-        EnvironmentChecks.verifyEnvironmentSanity();
     }
 
     // Force the client and server to have or not have this mod
@@ -206,9 +203,9 @@ public class TConstruct {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         packetPipeline.initalise();
-        if (event.getSide() == Side.CLIENT) {
-            // MinecraftForge.EVENT_BUS.register(new EventCloakRender());
-        }
+        // if (event.getSide() == Side.CLIENT) {
+        // MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+        // }
 
         DimensionBlacklist.getBadBimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TinkerWorld.slimePool, 2), 2);

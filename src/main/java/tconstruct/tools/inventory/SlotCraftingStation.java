@@ -8,7 +8,7 @@ import tconstruct.library.tools.AbilityHelper;
 
 public class SlotCraftingStation extends SlotCrafting {
     private final IInventory matrix;
-    private EntityPlayer player;
+    private final EntityPlayer player;
 
     public SlotCraftingStation(
             EntityPlayer par1EntityPlayer,

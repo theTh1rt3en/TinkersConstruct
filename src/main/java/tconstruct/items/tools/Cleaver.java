@@ -1,6 +1,5 @@
 package tconstruct.items.tools;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;

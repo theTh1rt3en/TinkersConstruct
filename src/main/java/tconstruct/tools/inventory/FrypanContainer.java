@@ -37,8 +37,8 @@ public class FrypanContainer extends Container {
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (int i = 0; i < crafters.size(); i++) {
-            ICrafting icrafting = (ICrafting) crafters.get(i);
+        for (Object crafter : crafters) {
+            ICrafting icrafting = (ICrafting) crafter;
             if (progress != logic.progress) {
                 icrafting.sendProgressBarUpdate(this, 0, logic.progress);
             }
@@ -94,7 +94,7 @@ public class FrypanContainer extends Container {
             }
 
             if (slotStack.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }

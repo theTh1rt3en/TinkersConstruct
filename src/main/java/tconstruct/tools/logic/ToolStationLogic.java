@@ -32,8 +32,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
 
     @Override
     public boolean canDropInventorySlot(int slot) {
-        if (slot == 0) return false;
-        return true;
+        return slot != 0;
     }
 
     @Override
@@ -123,8 +122,8 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
         // we only allow renaming with a nametag otherwise
         else if (!("\u00A7f" + name).equals(display.getString("Name")) && !name.equals(display.getString("Name"))) {
             int nametagCount = 0;
-            for (int i = 0; i < inventory.length; i++)
-                if (inventory[i] != null && inventory[i].getItem() == Items.name_tag) nametagCount++;
+            for (ItemStack itemStack : inventory)
+                if (itemStack != null && itemStack.getItem() == Items.name_tag) nametagCount++;
 
             doRename = nametagCount == 1;
         }

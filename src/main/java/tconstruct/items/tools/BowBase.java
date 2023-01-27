@@ -1,6 +1,5 @@
 package tconstruct.items.tools;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.*;
@@ -65,7 +64,7 @@ public abstract class BowBase extends ToolCore {
                 speedBase = flightSpeed;
             }
 
-            EntityArrow arrowEntity = null;
+            EntityArrow arrowEntity;
             // if (tinkerArrow != null)
             if (slotID != -1 && (arrowID == -1 || slotID < arrowID)) {
                 ItemStack arrowStack = tinkerArrow.copy();
@@ -234,40 +233,39 @@ public abstract class BowBase extends ToolCore {
             accessoryIcons1.clear();
             extraIcons1.clear();
             effectIcons1.clear();
-            Iterator iterOne = headStrings.entrySet().iterator();
+            Iterator<Map.Entry<Integer, String>> iterOne =
+                    headStrings.entrySet().iterator();
             while (iterOne.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterOne.next();
-                headIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                Map.Entry<Integer, String> pairs = iterOne.next();
+                headIcons1.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_1"));
             }
 
             iterOne = handleStrings.entrySet().iterator();
             while (iterOne.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterOne.next();
-                handleIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                Map.Entry<Integer, String> pairs = iterOne.next();
+                handleIcons1.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_1"));
             }
 
             if (getPartAmount() > 2) {
                 iterOne = accessoryStrings.entrySet().iterator();
                 while (iterOne.hasNext()) {
-                    Map.Entry pairs = (Map.Entry) iterOne.next();
-                    accessoryIcons1.put(
-                            (Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                    Map.Entry<Integer, String> pairs = iterOne.next();
+                    accessoryIcons1.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_1"));
                 }
             }
 
             if (getPartAmount() > 3) {
                 iterOne = extraStrings.entrySet().iterator();
                 while (iterOne.hasNext()) {
-                    Map.Entry pairs = (Map.Entry) iterOne.next();
-                    extraIcons1.put(
-                            (Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                    Map.Entry<Integer, String> pairs = iterOne.next();
+                    extraIcons1.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_1"));
                 }
             }
 
             iterOne = effectStrings.entrySet().iterator();
             while (iterOne.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterOne.next();
-                effectIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                Map.Entry<Integer, String> pairs = iterOne.next();
+                effectIcons1.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_1"));
             }
 
             headIcons2.clear();
@@ -275,40 +273,39 @@ public abstract class BowBase extends ToolCore {
             accessoryIcons2.clear();
             extraIcons2.clear();
             effectIcons2.clear();
-            Iterator iterTwo = headStrings.entrySet().iterator();
+            Iterator<Map.Entry<Integer, String>> iterTwo =
+                    headStrings.entrySet().iterator();
             while (iterTwo.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterTwo.next();
-                headIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                Map.Entry<Integer, String> pairs = iterTwo.next();
+                headIcons2.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_2"));
             }
 
             iterTwo = handleStrings.entrySet().iterator();
             while (iterTwo.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterTwo.next();
-                handleIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                Map.Entry<Integer, String> pairs = iterTwo.next();
+                handleIcons2.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_2"));
             }
 
             if (getPartAmount() > 2) {
                 iterTwo = accessoryStrings.entrySet().iterator();
                 while (iterTwo.hasNext()) {
-                    Map.Entry pairs = (Map.Entry) iterTwo.next();
-                    accessoryIcons2.put(
-                            (Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                    Map.Entry<Integer, String> pairs = iterTwo.next();
+                    accessoryIcons2.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_2"));
                 }
             }
 
             if (getPartAmount() > 3) {
                 iterTwo = extraStrings.entrySet().iterator();
                 while (iterTwo.hasNext()) {
-                    Map.Entry pairs = (Map.Entry) iterTwo.next();
-                    extraIcons2.put(
-                            (Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                    Map.Entry<Integer, String> pairs = iterTwo.next();
+                    extraIcons2.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_2"));
                 }
             }
 
             iterTwo = effectStrings.entrySet().iterator();
             while (iterTwo.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterTwo.next();
-                effectIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                Map.Entry<Integer, String> pairs = iterTwo.next();
+                effectIcons2.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_2"));
             }
 
             headIcons3.clear();
@@ -316,40 +313,39 @@ public abstract class BowBase extends ToolCore {
             accessoryIcons3.clear();
             extraIcons3.clear();
             effectIcons3.clear();
-            Iterator iterThree = headStrings.entrySet().iterator();
+            Iterator<Map.Entry<Integer, String>> iterThree =
+                    headStrings.entrySet().iterator();
             while (iterThree.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterThree.next();
-                headIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                Map.Entry<Integer, String> pairs = iterThree.next();
+                headIcons3.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_3"));
             }
 
             iterThree = handleStrings.entrySet().iterator();
             while (iterThree.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterThree.next();
-                handleIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                Map.Entry<Integer, String> pairs = iterThree.next();
+                handleIcons3.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_3"));
             }
 
             if (getPartAmount() > 2) {
                 iterThree = accessoryStrings.entrySet().iterator();
                 while (iterThree.hasNext()) {
-                    Map.Entry pairs = (Map.Entry) iterThree.next();
-                    accessoryIcons3.put(
-                            (Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                    Map.Entry<Integer, String> pairs = iterThree.next();
+                    accessoryIcons3.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_3"));
                 }
             }
 
             if (getPartAmount() > 3) {
                 iterThree = extraStrings.entrySet().iterator();
                 while (iterThree.hasNext()) {
-                    Map.Entry pairs = (Map.Entry) iterThree.next();
-                    extraIcons3.put(
-                            (Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                    Map.Entry<Integer, String> pairs = iterThree.next();
+                    extraIcons3.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_3"));
                 }
             }
 
             iterThree = effectStrings.entrySet().iterator();
             while (iterThree.hasNext()) {
-                Map.Entry pairs = (Map.Entry) iterThree.next();
-                effectIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                Map.Entry<Integer, String> pairs = iterThree.next();
+                effectIcons3.put(pairs.getKey(), iconRegister.registerIcon(pairs.getValue() + "_3"));
             }
         }
         registerArrows(iconRegister);
@@ -428,23 +424,23 @@ public abstract class BowBase extends ToolCore {
     public IIcon arrow2;
     public IIcon arrow3;
 
-    public HashMap<Integer, IIcon> headIcons1 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> handleIcons1 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> accessoryIcons1 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> extraIcons1 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> effectIcons1 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> headIcons1 = new HashMap<>();
+    public HashMap<Integer, IIcon> handleIcons1 = new HashMap<>();
+    public HashMap<Integer, IIcon> accessoryIcons1 = new HashMap<>();
+    public HashMap<Integer, IIcon> extraIcons1 = new HashMap<>();
+    public HashMap<Integer, IIcon> effectIcons1 = new HashMap<>();
 
-    public HashMap<Integer, IIcon> headIcons2 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> handleIcons2 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> accessoryIcons2 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> extraIcons2 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> effectIcons2 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> headIcons2 = new HashMap<>();
+    public HashMap<Integer, IIcon> handleIcons2 = new HashMap<>();
+    public HashMap<Integer, IIcon> accessoryIcons2 = new HashMap<>();
+    public HashMap<Integer, IIcon> extraIcons2 = new HashMap<>();
+    public HashMap<Integer, IIcon> effectIcons2 = new HashMap<>();
 
-    public HashMap<Integer, IIcon> headIcons3 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> handleIcons3 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> accessoryIcons3 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> extraIcons3 = new HashMap<Integer, IIcon>();
-    public HashMap<Integer, IIcon> effectIcons3 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> headIcons3 = new HashMap<>();
+    public HashMap<Integer, IIcon> handleIcons3 = new HashMap<>();
+    public HashMap<Integer, IIcon> accessoryIcons3 = new HashMap<>();
+    public HashMap<Integer, IIcon> extraIcons3 = new HashMap<>();
+    public HashMap<Integer, IIcon> effectIcons3 = new HashMap<>();
 
     @Override
     public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {

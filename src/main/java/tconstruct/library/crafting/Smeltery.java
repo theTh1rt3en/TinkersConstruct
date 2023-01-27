@@ -11,11 +11,11 @@ import net.minecraftforge.oredict.OreDictionary;
 public class Smeltery {
     public static Smeltery instance = new Smeltery();
 
-    private final Map<ItemMetaWrapper, FluidStack> smeltingList = new HashMap<ItemMetaWrapper, FluidStack>();
-    private final Map<ItemMetaWrapper, Integer> temperatureList = new HashMap<ItemMetaWrapper, Integer>();
-    private final Map<ItemMetaWrapper, ItemStack> renderIndex = new HashMap<ItemMetaWrapper, ItemStack>();
-    private final List<AlloyMix> alloys = new ArrayList<AlloyMix>();
-    private final Map<Fluid, Integer[]> smelteryFuels = new HashMap<Fluid, Integer[]>(); // fluid -> [power, duration]
+    private final Map<ItemMetaWrapper, FluidStack> smeltingList = new HashMap<>();
+    private final Map<ItemMetaWrapper, Integer> temperatureList = new HashMap<>();
+    private final Map<ItemMetaWrapper, ItemStack> renderIndex = new HashMap<>();
+    private final List<AlloyMix> alloys = new ArrayList<>();
+    private final Map<Fluid, Integer[]> smelteryFuels = new HashMap<>(); // fluid -> [power, duration]
 
     /**
      * Add a new fluid as a valid Smeltery fuel.
@@ -108,9 +108,7 @@ public class Smeltery {
      * @param mixers the liquids to be mixed. Quantities are used as ratios
      */
     public static void addAlloyMixing(FluidStack result, FluidStack... mixers) {
-        ArrayList inputs = new ArrayList();
-        for (FluidStack liquid : mixers) inputs.add(liquid);
-
+        final ArrayList<FluidStack> inputs = new ArrayList<>(Arrays.asList(mixers));
         instance.alloys.add(new AlloyMix(result, inputs));
     }
 
@@ -135,7 +133,7 @@ public class Smeltery {
      * @return The result ItemStack
      */
     public static Integer getLiquifyTemperature(Block block, int metadata) {
-        return instance.getLiquifyTemperature(new ItemStack(block, 1, metadata));
+        return getLiquifyTemperature(new ItemStack(block, 1, metadata));
     }
 
     /**
@@ -159,18 +157,20 @@ public class Smeltery {
      * @return The result ItemStack
      */
     public static FluidStack getSmelteryResult(Block block, int metadata) {
-        return instance.getSmelteryResult(new ItemStack(block, 1, metadata));
+        return getSmelteryResult(new ItemStack(block, 1, metadata));
     }
 
     public static ItemStack getRenderIndex(ItemStack input) {
         return instance.renderIndex.get(new ItemMetaWrapper(input));
     }
 
-    public static ArrayList mixMetals(ArrayList<FluidStack> moltenMetal) {
-        ArrayList liquids = new ArrayList();
+    public static ArrayList<FluidStack> mixMetals(ArrayList<FluidStack> moltenMetal) {
+        ArrayList<FluidStack> liquids = new ArrayList<>();
         for (AlloyMix alloy : instance.alloys) {
             FluidStack liquid = alloy.mix(moltenMetal);
-            if (liquid != null) liquids.add(liquid);
+            if (liquid != null) {
+                liquids.add(liquid);
+            }
         }
         return liquids;
     }

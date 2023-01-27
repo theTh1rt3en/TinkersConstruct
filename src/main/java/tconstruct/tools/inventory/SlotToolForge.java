@@ -22,7 +22,7 @@ public class SlotToolForge extends SlotTool {
         if (stack.getItem() instanceof IModifyable) {
             NBTTagCompound tags =
                     stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
-            Boolean full = (inventory.getStackInSlot(2) != null
+            boolean full = (inventory.getStackInSlot(2) != null
                     || inventory.getStackInSlot(3) != null
                     || inventory.getStackInSlot(4) != null);
             for (int i = 2; i <= 4; i++) inventory.decrStackSize(i, 1);

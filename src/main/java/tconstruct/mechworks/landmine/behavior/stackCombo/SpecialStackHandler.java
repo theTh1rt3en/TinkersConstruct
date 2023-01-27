@@ -17,7 +17,7 @@ import tconstruct.mechworks.logic.TileEntityLandmine;
  */
 public abstract class SpecialStackHandler {
 
-    public static ArrayList<SpecialStackHandler> handlers = new ArrayList<SpecialStackHandler>();
+    public static ArrayList<SpecialStackHandler> handlers = new ArrayList<>();
 
     public static void registerBuiltInStackHandlers() {
         addSpecialBehavior(new SpecialStackHandlerRocketFireball());
@@ -36,8 +36,6 @@ public abstract class SpecialStackHandler {
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(par1World.getBlockMetadata(par2, par3, par4));
 
         switch (dir) {
-            case DOWN:
-                return EnumFacing.UP;
             case UP:
                 return EnumFacing.DOWN;
             case WEST:
@@ -48,6 +46,7 @@ public abstract class SpecialStackHandler {
                 return EnumFacing.NORTH;
             case NORTH:
                 return EnumFacing.SOUTH;
+            case DOWN:
             default:
                 return EnumFacing.UP;
         }
@@ -77,11 +76,11 @@ public abstract class SpecialStackHandler {
         }
     }
 
-    public static final int arrayIndexOfStack(ArrayList<ItemStack> stacks, ItemStack item) {
+    public static int arrayIndexOfStack(ArrayList<ItemStack> stacks, ItemStack item) {
         return Behavior.arrayIndexOfStack(stacks, item);
     }
 
-    public static final boolean arrayContainsEqualStack(ArrayList<ItemStack> stacks, ItemStack item) {
+    public static boolean arrayContainsEqualStack(ArrayList<ItemStack> stacks, ItemStack item) {
         return Behavior.arrayContainsEqualStack(stacks, item);
     }
 

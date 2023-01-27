@@ -8,9 +8,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class OreberryBushGen extends WorldGenerator {
     private Block blockB;
-    private int metadata;
+    private final int metadata;
     int chance;
-    private Block[] replaceBlocks;
+    private final Block[] replaceBlocks;
 
     public OreberryBushGen(Block block, int meta, int chance) {
         this(
@@ -18,7 +18,7 @@ public class OreberryBushGen extends WorldGenerator {
                 meta,
                 chance,
                 Blocks.stone,
-                (Block) Blocks.grass,
+                Blocks.grass,
                 Blocks.dirt,
                 Blocks.water,
                 Blocks.sand,
@@ -84,8 +84,8 @@ public class OreberryBushGen extends WorldGenerator {
                 || (block != Blocks.end_portal_frame && !world.getBlock(x, y, z).func_149730_j()))
             world.setBlock(x, y, z, this.blockB, metadata, 2);
         else {
-            for (int iter = 0; iter < replaceBlocks.length; iter++) {
-                if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, replaceBlocks[iter])) {
+            for (Block replaceBlock : replaceBlocks) {
+                if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, replaceBlock)) {
                     world.setBlock(x, y, z, this.blockB, metadata, 2);
                     break;
                 }

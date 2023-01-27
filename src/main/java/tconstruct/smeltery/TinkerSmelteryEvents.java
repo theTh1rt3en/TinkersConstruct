@@ -11,7 +11,6 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraftforge.event.entity.player.*;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.smeltery.blocks.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
@@ -53,12 +52,7 @@ public class TinkerSmelteryEvents {
                     if (evt.entityPlayer.capabilities.isCreativeMode) {
                         WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
                     } else {
-                        if (TinkerSmeltery.fluidBlocks[id] instanceof LiquidMetalFinite) {
-                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                        } else {
-                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                        }
-
+                        WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
                         evt.setResult(Result.ALLOW);
                         evt.result = new ItemStack(TinkerSmeltery.buckets, 1, id);
                     }

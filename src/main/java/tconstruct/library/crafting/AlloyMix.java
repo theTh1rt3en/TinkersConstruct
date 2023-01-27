@@ -18,14 +18,11 @@ public class AlloyMix {
      */
 
     public FluidStack mix(ArrayList<FluidStack> liquids) {
-        ArrayList<FluidStack> copyMix = new ArrayList(mixers);
-        ArrayList effectiveAmount = new ArrayList();
+        ArrayList<FluidStack> copyMix = new ArrayList<>(mixers);
+        ArrayList<Integer> effectiveAmount = new ArrayList<>();
 
-        for (int i = 0; i < liquids.size(); i++) {
-            FluidStack liquid = liquids.get(i);
-            Iterator iter = copyMix.iterator();
-            while (iter.hasNext()) {
-                FluidStack mixer = (FluidStack) iter.next();
+        for (FluidStack liquid : liquids) {
+            for (FluidStack mixer : copyMix) {
                 if (mixer.isFluidEqual(liquid)) {
                     // do we actually have enough of that liquid?
                     if (liquid.amount < mixer.amount) break;
@@ -42,13 +39,11 @@ public class AlloyMix {
 
         // Remove old liquids
         int low = getLowestAmount(effectiveAmount);
-        ArrayList<FluidStack> copyMix2 = new ArrayList(mixers);
+        ArrayList<FluidStack> copyMix2 = new ArrayList<>(mixers);
 
         for (int i = 0; i < liquids.size(); i++) {
             FluidStack liquid = liquids.get(i);
-            Iterator iter = copyMix2.iterator();
-            while (iter.hasNext()) {
-                FluidStack mixer = (FluidStack) iter.next();
+            for (FluidStack mixer : copyMix2) {
                 // if (mixer.itemID == liquid.itemID && mixer.itemMeta ==
                 // liquid.itemMeta)
                 if (mixer.isFluidEqual(liquid)) {
@@ -69,12 +64,14 @@ public class AlloyMix {
         return ret;
     }
 
-    int getLowestAmount(ArrayList list) {
-        int frist = (Integer) list.get(0); // FRIST!!!
+    int getLowestAmount(ArrayList<Integer> list) {
+        int first = list.get(0);
         for (int i = 1; i < list.size(); i++) {
-            int compare = (Integer) list.get(i);
-            if (frist > compare) frist = compare;
+            int compare = list.get(i);
+            if (first > compare) {
+                first = compare;
+            }
         }
-        return frist;
+        return first;
     }
 }

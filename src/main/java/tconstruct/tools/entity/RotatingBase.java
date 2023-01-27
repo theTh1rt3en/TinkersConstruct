@@ -186,11 +186,10 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData {
                     movingobjectposition.hitVec.zCoord);
         }
         Entity entity = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(
+        List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(
                 this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
         double d = 0.0D;
-        for (int j = 0; j < list.size(); j++) {
-            Entity entity1 = (Entity) list.get(j);
+        for (Entity entity1 : list) {
             if (!entity1.canBeCollidedWith() || entity1 == owner && ticksInAir < 5) {
                 continue;
             }
@@ -219,12 +218,19 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData {
         posZ += motionZ;
         float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
         rotationYaw = (float) ((Math.atan2(motionX, motionZ) * 180D) / 3.1415927410125732D);
-        for (rotationPitch = (float) ((Math.atan2(motionY, f1) * 180D) / 3.1415927410125732D);
-                rotationPitch - prevRotationPitch < -180F;
-                prevRotationPitch -= 360F) {}
-        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) {}
-        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) {}
-        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) {}
+        rotationPitch = (float) ((Math.atan2(motionY, f1) * 180D) / 3.1415927410125732D);
+        while (rotationPitch - prevRotationPitch < -180F) {
+            prevRotationPitch -= 360F;
+        }
+        while (rotationPitch - prevRotationPitch >= 180F) {
+            prevRotationPitch += 360F;
+        }
+        while (rotationYaw - prevRotationYaw < -180F) {
+            prevRotationYaw -= 360F;
+        }
+        while (rotationYaw - prevRotationYaw >= 180F) {
+            prevRotationYaw += 360F;
+        }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         float f2 = 0.99F;
@@ -251,7 +257,10 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData {
         setPosition(posX, posY, posZ);
         if (!onGround) {
             prevBoomerangRotation = boomerangRotation;
-            for (boomerangRotation += 36F; boomerangRotation > 360F; boomerangRotation -= 360F) {}
+            boomerangRotation += 36F;
+            while (boomerangRotation > 360F) {
+                boomerangRotation -= 360F;
+            }
         }
     }
 
@@ -280,7 +289,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData {
         tags.setShort("xTile", (short) xTile);
         tags.setShort("yTile", (short) yTile);
         tags.setShort("zTile", (short) zTile);
-        tags.setString("inTile", (String) inTile.getUnlocalizedName());
+        tags.setString("inTile", inTile.getUnlocalizedName());
         tags.setByte("shake", (byte) arrowShake);
         tags.setByte("onGround", (byte) (onGround ? 1 : 0));
         tags.setBoolean("Retrieval", doNotRetrieve);

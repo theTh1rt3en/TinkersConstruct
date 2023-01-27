@@ -45,7 +45,7 @@ public class TConstructRegistry {
      * chiselHead scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade,
      * hammerHead bowstring, fletching, arrowhead
      */
-    public static HashMap<String, Item> itemDirectory = new HashMap<String, Item>();
+    public static HashMap<String, Item> itemDirectory = new HashMap<>();
 
     /**
      * Adds an item to the directory
@@ -95,7 +95,7 @@ public class TConstructRegistry {
      * scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowString,
      * fletching, arrowHead
      */
-    static HashMap<String, ItemStack> itemstackDirectory = new HashMap<String, ItemStack>();
+    static HashMap<String, ItemStack> itemstackDirectory = new HashMap<>();
 
     /**
      * Adds an itemstack to the directory
@@ -126,7 +126,7 @@ public class TConstructRegistry {
         return ret;
     }
 
-    public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
+    public static ArrayList<ToolCore> tools = new ArrayList<>(20);
 
     // Parts
 
@@ -134,7 +134,7 @@ public class TConstructRegistry {
      * List: Item ID, metadata, material ID ItemStack: Output. Ex: Cactus
      * Binding
      */
-    public static HashMap<List, ItemStack> patternPartMapping = new HashMap<List, ItemStack>();
+    public static HashMap<List, ItemStack> patternPartMapping = new HashMap<>();
 
     /**
      * Maps an item and a material ID to an output part
@@ -193,14 +193,14 @@ public class TConstructRegistry {
         ToolBuilder tb = ToolBuilder.instance;
         if (parts.length < 2 || parts.length > 4) logger.warn("Wrong amount of items to craft into a tool");
 
-        tb.addToolRecipe(output, parts);
+        ToolBuilder.addToolRecipe(output, parts);
     }
 
     // Materials
-    public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(40);
-    public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<String, ToolMaterial>(40);
-    public static List<Integer> defaultToolPartMaterials = new LinkedList<Integer>();
-    public static List<Integer> defaultShardMaterials = new LinkedList<Integer>();
+    public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<>(40);
+    public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<>(40);
+    public static List<Integer> defaultToolPartMaterials = new LinkedList<>();
+    public static List<Integer> defaultShardMaterials = new LinkedList<>();
 
     public static void addDefaultToolPartMaterial(int materialID) {
         if (!toolMaterials.containsKey(materialID))
@@ -465,7 +465,7 @@ public class TConstructRegistry {
     }
 
     // Bow materials
-    public static HashMap<Integer, BowMaterial> bowMaterials = new HashMap<Integer, BowMaterial>(40);
+    public static HashMap<Integer, BowMaterial> bowMaterials = new HashMap<>(40);
 
     @Deprecated
     public static void addBowMaterial(int materialID, int durability, int drawSpeed, float speedMax) {
@@ -488,7 +488,7 @@ public class TConstructRegistry {
         return bowMaterials.get(materialID);
     }
 
-    public static HashMap<Integer, ArrowMaterial> arrowMaterials = new HashMap<Integer, ArrowMaterial>(40);
+    public static HashMap<Integer, ArrowMaterial> arrowMaterials = new HashMap<>(40);
 
     @Deprecated
     public static void addArrowMaterial(int materialID, float mass, float breakChance, float accuracy) {
@@ -513,7 +513,7 @@ public class TConstructRegistry {
     }
 
     // Custom materials - bowstrings, fletching, etc
-    public static ArrayList<CustomMaterial> customMaterials = new ArrayList<CustomMaterial>();
+    public static ArrayList<CustomMaterial> customMaterials = new ArrayList<>();
 
     public static void addCustomMaterial(CustomMaterial mat) {
         if (mat != null) customMaterials.add(mat);
@@ -616,10 +616,9 @@ public class TConstructRegistry {
 
     LiquidCasting tableCasting() {
         try {
-            Class clazz = Class.forName("tconstruct.TConstruct");
+            Class<?> clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getTableCasting");
-            LiquidCasting lc = (LiquidCasting) method.invoke(this);
-            return lc;
+            return (LiquidCasting) method.invoke(this);
         } catch (Exception e) {
             logger.warn("Could not find casting table recipes.");
             return null;
@@ -632,10 +631,9 @@ public class TConstructRegistry {
 
     LiquidCasting basinCasting() {
         try {
-            Class clazz = Class.forName("tconstruct.TConstruct");
+            Class<?> clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getBasinCasting");
-            LiquidCasting lc = (LiquidCasting) method.invoke(this);
-            return lc;
+            return (LiquidCasting) method.invoke(this);
         } catch (Exception e) {
             logger.warn("Could not find casting basin recipes.");
             return null;
@@ -648,18 +646,17 @@ public class TConstructRegistry {
 
     Detailing chiselDetailing() {
         try {
-            Class clazz = Class.forName("tconstruct.TConstruct");
+            Class<?> clazz = Class.forName("tconstruct.TConstruct");
             Method method = clazz.getMethod("getChiselDetailing");
-            Detailing lc = (Detailing) method.invoke(this);
-            return lc;
+            return (Detailing) method.invoke(this);
         } catch (Exception e) {
             logger.warn("Could not find chisel detailing recipes.");
             return null;
         }
     }
 
-    public static ArrayList<ActiveToolMod> activeModifiers = new ArrayList<ActiveToolMod>();
-    public static LinkedList<ActiveArmorMod> activeArmorModifiers = new LinkedList<ActiveArmorMod>();
+    public static ArrayList<ActiveToolMod> activeModifiers = new ArrayList<>();
+    public static LinkedList<ActiveArmorMod> activeArmorModifiers = new LinkedList<>();
 
     public static void registerActiveToolMod(ActiveToolMod mod) {
         activeModifiers.add(mod);

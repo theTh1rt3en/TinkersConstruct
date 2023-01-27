@@ -73,7 +73,7 @@ public class Pattern extends CraftingItem implements IPattern {
 
     // 2 for full material, 1 for half.
     private static Map<Integer, Integer> buildPatternCostMap() {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> map = new HashMap<>();
 
         map.put(0, 2);
         map.put(1, 1);
@@ -139,11 +139,11 @@ public class Pattern extends CraftingItem implements IPattern {
 
     @Override
     public int getPatternCost(ItemStack pattern) {
-        return patternCosts.containsKey(pattern.getItemDamage()) ? patternCosts.get(pattern.getItemDamage()) : 0;
+        return patternCosts.getOrDefault(pattern.getItemDamage(), 0);
     }
 
     @Override
     public ItemStack getPatternOutput(ItemStack stack, ItemStack input, MaterialSet set) {
-        return TConstructRegistry.getPartMapping((Item) this, stack.getItemDamage(), set.materialID);
+        return TConstructRegistry.getPartMapping(this, stack.getItemDamage(), set.materialID);
     }
 }

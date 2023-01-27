@@ -4,7 +4,7 @@ import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 
 public class MultiBrickMetalItem extends MultiItemBlock {
-    static String blockTypes[] = {
+    static String[] blockTypes = {
         "brick.alumite",
         "brick.ardite",
         "brick.cobalt",

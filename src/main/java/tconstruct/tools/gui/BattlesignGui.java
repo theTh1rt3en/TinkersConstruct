@@ -13,13 +13,13 @@ import tconstruct.tools.logic.BattlesignLogic;
 import tconstruct.util.network.SignDataPacket;
 
 public class BattlesignGui extends GuiScreen {
-    private BattlesignLogic battlesign;
+    private final BattlesignLogic battlesign;
 
     private float bgColR = 1F;
     private float bgColG = 1F;
     private float bgColB = 1F;
-    private static ResourceLocation background = new ResourceLocation("tinker:textures/gui/battlesignText.png");
-    private String[] text = {"", "", "", "", ""};
+    private static final ResourceLocation background = new ResourceLocation("tinker:textures/gui/battlesignText.png");
+    private final String[] text = {"", "", "", "", ""};
     int currentLine = 0;
 
     public BattlesignGui(BattlesignLogic logic) {
@@ -72,19 +72,14 @@ public class BattlesignGui extends GuiScreen {
 
         float lum = calcLuminance(bgColR, bgColG, bgColB);
         for (int i = 0; i < text.length; i++) {
+            final EnumChatFormatting chatFormatting = lum >= 35F
+                    ? EnumChatFormatting.BLACK
+                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE;
             fontRendererObj.drawString(
-                    (lum >= 35F
-                                    ? EnumChatFormatting.BLACK
-                                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
+                    chatFormatting
                             + (i == currentLine ? "> " : "")
                             + text[i]
-                            + (i == currentLine
-                                    ? " \u00A7r"
-                                            + (lum >= 35F
-                                                    ? EnumChatFormatting.BLACK
-                                                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
-                                            + "<"
-                                    : ""),
+                            + (i == currentLine ? " " + EnumChatFormatting.RESET + chatFormatting + "<" : ""),
                     k
                             - fontRendererObj.getStringWidth(
                                             (i == currentLine ? "> " : "") + text[i] + (i == currentLine ? " <" : ""))
@@ -119,13 +114,11 @@ public class BattlesignGui extends GuiScreen {
 
                     break;
                 case 28:
+                case 208:
                     moveLine(1);
                     break;
                 case 200:
                     moveLine(-1);
-                    break;
-                case 208:
-                    moveLine(1);
                     break;
             }
         }
@@ -168,7 +161,7 @@ public class BattlesignGui extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
     }

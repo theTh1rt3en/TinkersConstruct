@@ -104,7 +104,7 @@ public class ToolStationContainer extends ActiveContainer {
             }
 
             if (slotStack.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }
@@ -117,7 +117,7 @@ public class ToolStationContainer extends ActiveContainer {
         if (stack.getItem() instanceof IModifyable) {
             NBTTagCompound tags =
                     stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
-            Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
+            boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
             for (int i = 2; i <= 3; i++) logic.decrStackSize(i, 1);
             ItemStack compare = logic.getStackInSlot(1);
             int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;

@@ -110,13 +110,7 @@ public class Shortbow extends BowBase {
                 else color = "\u00a76";
             }
 
-            String energy = new StringBuilder()
-                    .append(color)
-                    .append(tags.getInteger("Energy"))
-                    .append("/")
-                    .append(getMaxEnergyStored(stack))
-                    .append(" RF")
-                    .toString();
+            String energy = color + tags.getInteger("Energy") + "/" + getMaxEnergyStored(stack) + " RF";
             list.add(energy);
         }
         if (tags.hasKey("InfiTool")) {
@@ -169,10 +163,9 @@ public class Shortbow extends BowBase {
 
     public String getBowstringName(int type) {
         switch (type) {
-            case 0:
-                return "";
             case 1:
                 return "\u00A7bEnchanted";
+            case 0:
             default:
                 return "";
         }

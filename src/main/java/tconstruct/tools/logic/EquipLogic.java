@@ -32,9 +32,7 @@ public abstract class EquipLogic extends InventoryLogic {
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
-        if (slot == 0) {
-            return;
-        } else {
+        if (slot != 0) {
             super.setInventorySlotContents(slot, stack);
         }
     }
@@ -46,16 +44,14 @@ public abstract class EquipLogic extends InventoryLogic {
 
     @Override
     public boolean isStackInSlot(int slot) {
-        return slot != 0 ? inventory[slot] != null : false;
+        return slot != 0 && inventory[slot] != null;
     }
 
     @Override
     public S35PacketUpdateTileEntity getDescriptionPacket() {
         NBTTagCompound compound = new NBTTagCompound();
         this.writeToNBT(compound);
-
-        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, compound);
-        return packet;
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, compound);
     }
 
     @Override

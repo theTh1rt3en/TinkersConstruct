@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class GlassBlockItem extends MultiItemBlock {
-    public static final String blockTypes[] = {"pure"}; // , "soul",
+    public static final String[] blockTypes = {"pure"}; // , "soul",
     // "soul.pure" };
 
     public GlassBlockItem(Block b) {

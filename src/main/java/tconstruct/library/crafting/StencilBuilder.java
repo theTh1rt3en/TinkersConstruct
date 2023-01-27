@@ -8,8 +8,8 @@ public class StencilBuilder {
     public static StencilBuilder instance = new StencilBuilder();
 
     public List<ItemStack> blanks =
-            new LinkedList<ItemStack>(); // i wish ItemStack would support equals so i could use a Set here...
-    public Map<Integer, ItemStack> stencils = new TreeMap<Integer, ItemStack>();
+            new LinkedList<>(); // i wish ItemStack would support equals so i could use a Set here...
+    public Map<Integer, ItemStack> stencils = new TreeMap<>();
 
     /**
      * Returns whether the given ItemStack is a blank pattern and therefore usable for stencil crafting.

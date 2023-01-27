@@ -30,7 +30,7 @@ public class TPlayerHandler {
     /* Player */
     // public int hunger;
 
-    private ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
+    private final ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<>();
 
     @SubscribeEvent
     public void PlayerLoggedInEvent(PlayerLoggedInEvent event) {
@@ -71,7 +71,7 @@ public class TPlayerHandler {
                 }
             }
 
-            if (player.getDisplayName().toLowerCase().equals("fractuality")) {
+            if (player.getDisplayName().equalsIgnoreCase("fractuality")) {
                 ItemStack pattern = new ItemStack(TinkerTools.woodPattern, 1, 22);
 
                 NBTTagCompound compound = new NBTTagCompound();
@@ -86,7 +86,7 @@ public class TPlayerHandler {
                 AbilityHelper.spawnItemAtPlayer(player, pattern);
             }
 
-            if (player.getDisplayName().toLowerCase().equals("zerokyuuni")) {
+            if (player.getDisplayName().equalsIgnoreCase("zerokyuuni")) {
                 ItemStack pattern = new ItemStack(Items.stick);
 
                 NBTTagCompound compound = new NBTTagCompound();
@@ -99,7 +99,7 @@ public class TPlayerHandler {
 
                 AbilityHelper.spawnItemAtPlayer(player, pattern);
             }
-            if (player.getDisplayName().toLowerCase().equals("zisteau")) {
+            if (player.getDisplayName().equalsIgnoreCase("zisteau")) {
                 spawnPigmanModifier(player);
             }
 
@@ -140,7 +140,7 @@ public class TPlayerHandler {
 
                 AbilityHelper.spawnItemAtPlayer(player, modifier);
 
-                if (player.getDisplayName().toLowerCase().equals("zisteau")) {
+                if (player.getDisplayName().equalsIgnoreCase("zisteau")) {
                     spawnPigmanModifier(player);
                 }
             }
@@ -215,7 +215,7 @@ public class TPlayerHandler {
         if (!event.entity.worldObj.isRemote) {
             TPlayerStats properties = (TPlayerStats) event.entity.getExtendedProperties(TPlayerStats.PROP_NAME);
             properties.hunger = ((EntityPlayer) event.entity).getFoodStats().getFoodLevel();
-            playerStats.put(((EntityPlayer) event.entity).getPersistentID(), properties);
+            playerStats.put(event.entity.getPersistentID(), properties);
         }
     }
 
@@ -284,7 +284,7 @@ public class TPlayerHandler {
 
     private final String serverLocation = "https://dl.dropboxusercontent.com/u/42769935/sticks.txt";
     private final int timeout = 1000;
-    private HashSet<String> stickUsers = new HashSet<String>();
+    private final HashSet<String> stickUsers = new HashSet<>();
 
     public void buildStickURLDatabase(String location) {
         URL url;

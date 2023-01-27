@@ -39,7 +39,7 @@ public class LandmineExplodeLogic {
         boolean isOffensive = true;
         boolean cancelDefault = false;
 
-        ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> stacks = new ArrayList<>();
         boolean hasExploded = false;
 
         if (tileEntity == null) {
@@ -77,9 +77,7 @@ public class LandmineExplodeLogic {
                 new LandmineSpecialStackLogic(worldObj, x, y, z, triggerer, isOffensive, stacks);
         specialStacks.handleSpecialStacks();
 
-        Iterator<ItemStack> i1 = stacks.iterator();
-        while (i1.hasNext()) {
-            ItemStack currentStack = i1.next();
+        for (ItemStack currentStack : stacks) {
             Behavior b = Behavior.getBehaviorFromStack(currentStack);
             if (b != null) {
                 if (isOffensive || !b.isOffensive(currentStack)) {

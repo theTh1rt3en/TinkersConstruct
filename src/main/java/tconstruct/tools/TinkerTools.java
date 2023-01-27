@@ -635,14 +635,14 @@ public class TinkerTools {
                 }
             }
         } else {
-            for (int mat = 0; mat < nonMetals.length; mat++) {
+            for (int nonMetal : nonMetals) {
                 for (int meta = 0; meta < TinkerTools.patternOutputs.length; meta++) {
                     if (TinkerTools.patternOutputs[meta] != null)
                         TConstructRegistry.addPartMapping(
                                 TinkerTools.woodPattern,
                                 meta + 1,
-                                nonMetals[mat],
-                                new ItemStack(TinkerTools.patternOutputs[meta], 1, nonMetals[mat]));
+                                nonMetal,
+                                new ItemStack(TinkerTools.patternOutputs[meta], 1, nonMetal));
                 }
             }
         }
@@ -669,54 +669,57 @@ public class TinkerTools {
     }
 
     private void addRecipesForToolBuilder() {
-        ToolBuilder tb = ToolBuilder.instance;
-        tb.addNormalToolRecipe(TinkerTools.pickaxe, TinkerTools.pickaxeHead, TinkerTools.toolRod, TinkerTools.binding);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
+                TinkerTools.pickaxe, TinkerTools.pickaxeHead, TinkerTools.toolRod, TinkerTools.binding);
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.broadsword, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.wideGuard);
-        tb.addNormalToolRecipe(TinkerTools.hatchet, TinkerTools.hatchetHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(TinkerTools.shovel, TinkerTools.shovelHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(TinkerTools.hatchet, TinkerTools.hatchetHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.shovel, TinkerTools.shovelHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.longsword, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.handGuard);
-        tb.addNormalToolRecipe(TinkerTools.rapier, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.crossbar);
-        tb.addNormalToolRecipe(TinkerTools.frypan, TinkerTools.frypanHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(TinkerTools.battlesign, TinkerTools.signHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
+                TinkerTools.rapier, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.crossbar);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.frypan, TinkerTools.frypanHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.battlesign, TinkerTools.signHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.mattock, TinkerTools.hatchetHead, TinkerTools.toolRod, TinkerTools.shovelHead);
-        tb.addNormalToolRecipe(TinkerTools.dagger, TinkerTools.knifeBlade, TinkerTools.toolRod, TinkerTools.crossbar);
-        tb.addNormalToolRecipe(TinkerTools.cutlass, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.fullGuard);
-        tb.addNormalToolRecipe(TinkerTools.chisel, TinkerTools.chiselHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(
+                TinkerTools.dagger, TinkerTools.knifeBlade, TinkerTools.toolRod, TinkerTools.crossbar);
+        ToolBuilder.addNormalToolRecipe(
+                TinkerTools.cutlass, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.fullGuard);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.chisel, TinkerTools.chiselHead, TinkerTools.toolRod);
 
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.scythe,
                 TinkerTools.scytheBlade,
                 TinkerTools.toughRod,
                 TinkerTools.toughBinding,
                 TinkerTools.toughRod);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.lumberaxe,
                 TinkerTools.broadAxeHead,
                 TinkerTools.toughRod,
                 TinkerTools.largePlate,
                 TinkerTools.toughBinding);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.cleaver,
                 TinkerTools.largeSwordBlade,
                 TinkerTools.toughRod,
                 TinkerTools.largePlate,
                 TinkerTools.toughRod);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.excavator,
                 TinkerTools.excavatorHead,
                 TinkerTools.toughRod,
                 TinkerTools.largePlate,
                 TinkerTools.toughBinding);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.hammer,
                 TinkerTools.hammerHead,
                 TinkerTools.toughRod,
                 TinkerTools.largePlate,
                 TinkerTools.largePlate);
-        tb.addNormalToolRecipe(
+        ToolBuilder.addNormalToolRecipe(
                 TinkerTools.battleaxe,
                 TinkerTools.broadAxeHead,
                 TinkerTools.toughRod,
@@ -1361,9 +1364,8 @@ public class TinkerTools {
                 new ItemStack(TinkerTools.binding, 1, 6),
                 "");
         if (batHardened != null)
-            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);
-        if (basicCell != null)
-            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
+            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), batHardened);
+        if (basicCell != null) TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), basicCell);
 
         /* Thaumcraft */
         Object obj = ItemHelper.getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
@@ -1435,7 +1437,7 @@ public class TinkerTools {
                         1.1F,
                         1.2f,
                         0xf3414f);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             } // No need to handle
         }
 

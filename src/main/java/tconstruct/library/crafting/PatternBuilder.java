@@ -14,11 +14,11 @@ import tconstruct.library.util.IPattern;
 public class PatternBuilder {
     public static PatternBuilder instance = new PatternBuilder();
     // Map items to their parts with a hashmap
-    public List<ItemKey> materials = new ArrayList<ItemKey>();
-    public HashMap<String, MaterialSet> materialSets = new HashMap<String, MaterialSet>();
+    public List<ItemKey> materials = new ArrayList<>();
+    public HashMap<String, MaterialSet> materialSets = new HashMap<>();
 
     // We could use IRecipe if it wasn't tied to InventoryCrafting
-    public List<IPattern> toolPatterns = new ArrayList<IPattern>();
+    public List<IPattern> toolPatterns = new ArrayList<>();
 
     /* Register methods */
     public void registerMaterial(ItemStack material, int value, String key) {
@@ -55,7 +55,7 @@ public class PatternBuilder {
 
             ItemKey key = getItemKey(material);
             if (key != null) {
-                MaterialSet mat = (MaterialSet) materialSets.get(key.key);
+                MaterialSet mat = materialSets.get(key.key);
                 ItemStack toolPart = getMatchingPattern(pattern, material, mat);
 
                 if (toolPart != null) {
@@ -99,7 +99,7 @@ public class PatternBuilder {
         if (material != null) {
             ItemKey key = getItemKey(material);
             if (key != null) {
-                MaterialSet set = (MaterialSet) materialSets.get(key.key);
+                MaterialSet set = materialSets.get(key.key);
                 return set.materialID;
             }
         }
@@ -136,20 +136,20 @@ public class PatternBuilder {
     }
 
     public ItemStack getShardFromSet(String materialset) {
-        MaterialSet set = (MaterialSet) materialSets.get(materialset);
+        MaterialSet set = materialSets.get(materialset);
         if (set != null && set.shard != null) return set.shard.copy();
         return null;
     }
 
     public ItemStack getRodFromSet(String materialset) {
-        MaterialSet set = (MaterialSet) materialSets.get(materialset);
+        MaterialSet set = materialSets.get(materialset);
         if (set != null) return set.rod.copy();
         return null;
     }
 
     // Small data classes. I would prefer the struct from C#, but we do what we
     // can.
-    public class ItemKey {
+    public static class ItemKey {
         public final Item item;
         public final int damage;
         public final int value;
@@ -163,7 +163,7 @@ public class PatternBuilder {
         }
     }
 
-    public class MaterialSet {
+    public static class MaterialSet {
         public final ItemStack shard;
         public final ItemStack rod;
         public final int materialID;

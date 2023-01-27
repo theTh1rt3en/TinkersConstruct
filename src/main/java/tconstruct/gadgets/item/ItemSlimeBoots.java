@@ -61,14 +61,13 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         ItemStack itemstack = playerIn.getEquipmentInSlot(slot);
         if (itemstack == null) {
             playerIn.setCurrentItemOrArmor(slot, itemStackIn.copy());
-            itemStackIn.stackSize--;
         } else {
             itemstack = itemstack.copy();
             playerIn.setCurrentItemOrArmor(1, itemStackIn.copy());
             // playerIn.setCurrentItemOrArmor(0, itemstack);
             playerIn.entityDropItem(itemstack, 0);
-            itemStackIn.stackSize--;
         }
+        itemStackIn.stackSize--;
         return itemStackIn;
     }
 
@@ -185,11 +184,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
-    public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
-        if (source == DamageSource.fall) {
-            return;
-        }
-    }
+    public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {}
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -224,7 +219,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         list.add("Boooounce!");
         list.add("Hold "
                 + (I18n.format(
-                        Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyDescription(), new Object[0]))
+                        Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyDescription()))
                 + " to stop bouncing.");
     }
 

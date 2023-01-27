@@ -5,7 +5,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.*;
 import gnu.trove.set.hash.THashSet;
 import java.util.Queue;
 import java.util.Set;
@@ -92,8 +91,7 @@ public class LumberAxe extends AOEHarvestTool {
 
         if (wood.isWood(world, x, y, z) || wood.getMaterial() == Material.sponge)
             if (detectTree(world, x, y, z)) {
-                TreeChopTask chopper =
-                        new TreeChopTask((AOEHarvestTool) this, stack, new ChunkPosition(x, y, z), player, 128);
+                TreeChopTask chopper = new TreeChopTask(this, stack, new ChunkPosition(x, y, z), player, 128);
                 try {
                     FMLCommonHandler.instance().bus().register(chopper);
                 } catch (LinkageError l) {

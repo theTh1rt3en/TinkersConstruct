@@ -85,14 +85,12 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
             if (inventory[slot].stackSize == 0) {
                 inventory[slot] = null;
             }
-            return;
         }
     }
 
     @Override
     public boolean canDropInventorySlot(int slot) {
-        if (slot == 0) return true;
-        else return false;
+        return slot == 0;
     }
 
     @Override

@@ -120,14 +120,13 @@ public abstract class SlimeBase extends EntityLiving implements IMob {
         this.motionY = 0.05 * getSlimeSize() + 0.37;
 
         if (this.isPotionActive(Potion.jump)) {
-            this.motionY +=
-                    (double) ((float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+            this.motionY += (float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
         }
 
         if (this.isSprinting()) {
             float f = this.rotationYaw * 0.017453292F;
-            this.motionX -= (double) (MathHelper.sin(f) * 0.2F);
-            this.motionZ += (double) (MathHelper.cos(f) * 0.2F);
+            this.motionX -= MathHelper.sin(f) * 0.2F;
+            this.motionZ += MathHelper.cos(f) * 0.2F;
         }
 
         if (!(this instanceof IBossDisplayData)

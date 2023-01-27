@@ -26,7 +26,7 @@ public class ModBlaze extends ItemModTypeFilter {
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
             if (!tags.hasKey(key)) return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-            int keyPair[] = tags.getIntArray(key);
+            int[] keyPair = tags.getIntArray(key);
             if (keyPair[0] + matchingAmount(input) <= keyPair[1]) return true;
             else if (keyPair[0] == keyPair[1]) return tags.getInteger("Modifiers") > 0;
         }
@@ -75,7 +75,7 @@ public class ModBlaze extends ItemModTypeFilter {
     }
 
     public boolean validType(ToolCore tool) {
-        List list = Arrays.asList(tool.getTraits());
+        List<String> list = Arrays.asList(tool.getTraits());
         return list.contains("melee") || list.contains("ammo");
     }
 }

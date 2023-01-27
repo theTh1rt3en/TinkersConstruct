@@ -10,15 +10,15 @@ import tconstruct.util.config.PHConstruct;
 
 public class SurfaceOreGen extends WorldGenerator {
     /** The block of the ore to be placed using this generator. */
-    private Block minableBlock;
+    private final Block minableBlock;
 
-    private int minableBlockMeta = 0;
+    private int minableBlockMeta;
 
     /** The number of blocks to generate. */
-    private int numberOfBlocks;
+    private final int numberOfBlocks;
 
-    private Block[] replaceBlocks;
-    private boolean alterSize;
+    private final Block[] replaceBlocks;
+    private final boolean alterSize;
 
     public SurfaceOreGen(Block b, int meta, int number, boolean changeSize) {
         this(
@@ -27,7 +27,7 @@ public class SurfaceOreGen extends WorldGenerator {
                 number,
                 changeSize,
                 Blocks.stone,
-                (Block) Blocks.grass,
+                Blocks.grass,
                 Blocks.dirt,
                 Blocks.water,
                 Blocks.sand,
@@ -76,12 +76,12 @@ public class SurfaceOreGen extends WorldGenerator {
         float f = random.nextFloat() * (float) Math.PI;
         int blockNumber = numberOfBlocks;
         if (alterSize) blockNumber = numberOfBlocks * 2 / 5 + random.nextInt(numberOfBlocks * 3 / 5);
-        double d0 = (double) ((float) (startX + 8) + MathHelper.sin(f) * (float) blockNumber / 8.0F);
-        double d1 = (double) ((float) (startX + 8) - MathHelper.sin(f) * (float) blockNumber / 8.0F);
-        double d2 = (double) ((float) (startZ + 8) + MathHelper.cos(f) * (float) blockNumber / 8.0F);
-        double d3 = (double) ((float) (startZ + 8) - MathHelper.cos(f) * (float) blockNumber / 8.0F);
-        double d4 = (double) (startY + random.nextInt(3) - 2);
-        double d5 = (double) (startY + random.nextInt(3) - 2);
+        double d0 = (float) (startX + 8) + MathHelper.sin(f) * (float) blockNumber / 8.0F;
+        double d1 = (float) (startX + 8) - MathHelper.sin(f) * (float) blockNumber / 8.0F;
+        double d2 = (float) (startZ + 8) + MathHelper.cos(f) * (float) blockNumber / 8.0F;
+        double d3 = (float) (startZ + 8) - MathHelper.cos(f) * (float) blockNumber / 8.0F;
+        double d4 = startY + random.nextInt(3) - 2;
+        double d5 = startY + random.nextInt(3) - 2;
 
         for (int l = 0; l <= blockNumber; ++l) {
             double d6 = d0 + (d1 - d0) * (double) l / (double) blockNumber;
@@ -116,9 +116,9 @@ public class SurfaceOreGen extends WorldGenerator {
                                             || !world.getBlock(k2, l2, i3).isOpaqueCube())
                                         world.setBlock(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                     else {
-                                        for (int iter = 0; iter < replaceBlocks.length; iter++) {
+                                        for (Block replaceBlock : replaceBlocks) {
                                             if (world.getBlock(k2, l2, i3)
-                                                    .isReplaceableOreGen(world, k2, l2, i3, replaceBlocks[iter])) {
+                                                    .isReplaceableOreGen(world, k2, l2, i3, replaceBlock)) {
                                                 world.setBlock(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                                 break;
                                             }

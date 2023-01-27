@@ -1,21 +1,28 @@
 package tconstruct.blocks.traps;
 
-import cpw.mods.fml.relauncher.*;
-import java.util.*;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
 import mantle.blocks.MantleBlock;
 import mantle.world.WorldHelper;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 
 public class Landmine extends MantleBlock {
     /** The mob type that can trigger this pressure plate. */
-    private EnumCreatureType triggerMobType;
+    private final EnumCreatureType triggerMobType;
 
     public Landmine(EnumCreatureType par3EnumCreatureType, Material par4Material) {
         super(par4Material);
@@ -91,7 +98,7 @@ public class Landmine extends MantleBlock {
      */
     @Override
     public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4) {
-        return par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4)
+        return World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4)
                 || BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4));
     }
 
@@ -101,12 +108,8 @@ public class Landmine extends MantleBlock {
      * neighbor blockID
      */
     public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, Block par5) {
-        boolean var6 = false;
-
-        if (!par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4)
-                && !BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4))) {
-            var6 = true;
-        }
+        boolean var6 = !World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4)
+                && !BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4));
 
         if (var6) {
             this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
@@ -147,30 +150,30 @@ public class Landmine extends MantleBlock {
         boolean var5 = world.getBlockMetadata(posX, posY, posZ) == 1;
         boolean var6 = false;
         float var7 = 0.125F;
-        List var8 = null;
+        List<Entity> var8 = null;
 
         if (this.triggerMobType == EnumCreatureType.creature) {
             var8 = world.getEntitiesWithinAABBExcludingEntity(
-                    (Entity) null,
+                    null,
                     AxisAlignedBB.getBoundingBox(
-                            (double) ((float) posX + var7),
-                            (double) posY,
-                            (double) ((float) posZ + var7),
-                            (double) ((float) (posX + 1) - var7),
+                            (float) posX + var7,
+                            posY,
+                            (float) posZ + var7,
+                            (float) (posX + 1) - var7,
                             (double) posY + 0.25D,
-                            (double) ((float) (posZ + 1) - var7)));
+                            (float) (posZ + 1) - var7));
         }
 
         if (this.triggerMobType == EnumCreatureType.monster) {
             var8 = world.getEntitiesWithinAABB(
                     EntityLiving.class,
                     AxisAlignedBB.getBoundingBox(
-                            (double) ((float) posX + var7),
-                            (double) posY,
-                            (double) ((float) posZ + var7),
-                            (double) ((float) (posX + 1) - var7),
+                            (float) posX + var7,
+                            posY,
+                            (float) posZ + var7,
+                            (float) (posX + 1) - var7,
                             (double) posY + 0.25D,
-                            (double) ((float) (posZ + 1) - var7)));
+                            (float) (posZ + 1) - var7));
         }
 
         /*
@@ -182,12 +185,8 @@ public class Landmine extends MantleBlock {
          * 1) - var7))); }
          */
 
-        if (!var8.isEmpty()) {
-            Iterator var9 = var8.iterator();
-
-            while (var9.hasNext()) {
-                Entity var10 = (Entity) var9.next();
-
+        if (var8 != null && !var8.isEmpty()) {
+            for (Entity var10 : var8) {
                 if (!var10.doesEntityNotTriggerPressurePlate()) {
                     var6 = true;
                     break;
@@ -197,7 +196,7 @@ public class Landmine extends MantleBlock {
 
         if (var6 && !var5) {
             WorldHelper.setBlockToAir(world, posX, posY, posZ);
-            world.createExplosion((Entity) null, posX, posY, posZ, 2.0F, true);
+            world.createExplosion(null, posX, posY, posZ, 2.0F, true);
             /*
              * par1World.setBlockMetadataWithNotify(posX, posY, posZ, 1);
              * par1World.notifyBlocksOfNeighborChange(posX, posY, posZ,

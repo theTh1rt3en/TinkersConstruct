@@ -37,10 +37,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
             TileEntity drainte = worldObj.getTileEntity(x, yCoord, z);
             TileEntity tankte = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 
-            if (drainte != null
-                    && drainte instanceof IFluidHandler
-                    && tankte != null
-                    && tankte instanceof IFluidHandler) {
+            if (drainte instanceof IFluidHandler && tankte instanceof IFluidHandler) {
                 FluidStack templiquid =
                         ((IFluidHandler) drainte).drain(getForgeDirection(), TConstruct.ingotLiquidValue, false);
                 if (templiquid != null) {
@@ -166,8 +163,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void setActive(boolean flag) {
         if (!active) {
-            active = true;
-            if (!activateFaucet()) active = false;
+            active = activateFaucet();
         } else {
             active = false;
         }

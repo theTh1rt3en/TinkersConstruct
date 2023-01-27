@@ -4,7 +4,6 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import mantle.blocks.BlockUtils;
@@ -58,7 +57,7 @@ public class BlockLandmine extends BlockContainer {
 
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        if (world.getBlock(x, y, z) == (Block) this && world.getTileEntity(x, y, z) instanceof TileEntityLandmine) {
+        if (world.getBlock(x, y, z) == this && world.getTileEntity(x, y, z) instanceof TileEntityLandmine) {
             TileEntityLandmine te = (TileEntityLandmine) world.getTileEntity(x, y, z);
 
             if (te != null) {
@@ -142,14 +141,11 @@ public class BlockLandmine extends BlockContainer {
                 && (!explodeOnBroken || !hasItems(par1World, par2, par3, par4))
                 && par6 != 193
                 && !tileentity.isExploding) {
-            if (this != null) {
-                ItemStack is = new ItemStack(this, 1, damageDropped(tileentity.triggerType));
-                if (tileentity.hasCustomInventoryName()) {
-                    is.setStackDisplayName(tileentity.getInventoryName());
-                }
-                dropBlockAsItem(
-                        par1World, par2, par3, par4, new ItemStack(this, 1, damageDropped(tileentity.triggerType)));
+            ItemStack is = new ItemStack(this, 1, damageDropped(tileentity.triggerType));
+            if (tileentity.hasCustomInventoryName()) {
+                is.setStackDisplayName(tileentity.getInventoryName());
             }
+            dropBlockAsItem(par1World, par2, par3, par4, new ItemStack(this, 1, damageDropped(tileentity.triggerType)));
 
             for (int j1 = 0; j1 < tileentity.getSizeInventory(); ++j1) {
                 ItemStack itemstack = tileentity.getStackInSlot(j1);
@@ -161,9 +157,9 @@ public class BlockLandmine extends BlockContainer {
                         itemstack.stackSize -= ss;
                         EntityItem entityitem = new EntityItem(
                                 par1World,
-                                (double) ((float) par2),
-                                (double) ((float) par3),
-                                (double) ((float) par4),
+                                (float) par2,
+                                (float) par3,
+                                (float) par4,
                                 new ItemStack(itemstack.getItem(), ss, itemstack.getItemDamage()));
 
                         if (itemstack.hasTagCompound()) {
@@ -172,9 +168,9 @@ public class BlockLandmine extends BlockContainer {
                         }
 
                         float f3 = 0.05F;
-                        entityitem.motionX = (double) (f3);
-                        entityitem.motionY = (double) (f3 + 0.2F);
-                        entityitem.motionZ = (double) (f3);
+                        entityitem.motionX = f3;
+                        entityitem.motionY = f3 + 0.2F;
+                        entityitem.motionZ = f3;
                         par1World.spawnEntityInWorld(entityitem);
                     }
                 }
@@ -411,13 +407,8 @@ public class BlockLandmine extends BlockContainer {
 
     private boolean hasItems(World par1World, int par2, int par3, int par4) {
         TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
-        if (te != null && te.getStackInSlot(0) != null
-                || te.getStackInSlot(1) != null
-                || te.getStackInSlot(2) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return te != null
+                && (te.getStackInSlot(0) != null || te.getStackInSlot(1) != null || te.getStackInSlot(2) != null);
     }
 
     protected int getMineState(World par1World, int par2, int par3, int par4) {
@@ -447,11 +438,11 @@ public class BlockLandmine extends BlockContainer {
         }
 
         if (triggerType != null) {
-            List list = null;
+            List<Entity> list = null;
 
             if (triggerType == Sensitivity.everything) {
                 list = par1World.getEntitiesWithinAABBExcludingEntity(
-                        (Entity) null, getSensitiveAABB(par1World, par2, par3, par4));
+                        null, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
             if (triggerType == Sensitivity.mobs) {
@@ -465,11 +456,7 @@ public class BlockLandmine extends BlockContainer {
             }
 
             if (list != null && !list.isEmpty()) {
-                Iterator iterator = list.iterator();
-
-                while (iterator.hasNext()) {
-                    Entity entity = (Entity) iterator.next();
-
+                for (Entity entity : list) {
                     if (!entity.doesEntityNotTriggerPressurePlate()) {
                         return 1;
                     }
@@ -543,11 +530,11 @@ public class BlockLandmine extends BlockContainer {
         }
 
         if (triggerType != null) {
-            List list = null;
+            List<Entity> list = null;
 
             if (triggerType == Sensitivity.everything) {
                 list = par1World.getEntitiesWithinAABBExcludingEntity(
-                        (Entity) null,
+                        null,
                         AxisAlignedBB.getBoundingBox(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
@@ -564,11 +551,7 @@ public class BlockLandmine extends BlockContainer {
             }
 
             if (list != null && !list.isEmpty()) {
-                Iterator iterator = list.iterator();
-
-                while (iterator.hasNext()) {
-                    Entity entity = (Entity) iterator.next();
-
+                for (Entity entity : list) {
                     if (!entity.doesEntityNotTriggerPressurePlate()) {
                         return entity;
                     }
@@ -576,7 +559,7 @@ public class BlockLandmine extends BlockContainer {
             }
         }
 
-        return new EntityTNTPrimed(par1World, par2, par3, par4, (EntityLivingBase) null);
+        return new EntityTNTPrimed(par1World, par2, par3, par4, null);
     }
 
     @Override

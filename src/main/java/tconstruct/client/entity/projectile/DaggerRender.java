@@ -21,10 +21,10 @@ import tconstruct.tools.entity.DaggerEntity;
 public class DaggerRender extends Render {
     private static final ResourceLocation RES_ITEM_GLINT =
             new ResourceLocation("textures/misc/enchanted_item_glint.png");
-    private RenderBlocks itemRenderBlocks = new RenderBlocks();
+    private final RenderBlocks itemRenderBlocks = new RenderBlocks();
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public boolean renderWithColor = true;
 
@@ -176,10 +176,10 @@ public class DaggerRender extends Render {
             par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
-        float f4 = ((IIcon) par2Icon).getMinU();
-        float f5 = ((IIcon) par2Icon).getMaxU();
-        float f6 = ((IIcon) par2Icon).getMinV();
-        float f7 = ((IIcon) par2Icon).getMaxV();
+        float f4 = par2Icon.getMinU();
+        float f5 = par2Icon.getMaxU();
+        float f6 = par2Icon.getMinV();
+        float f7 = par2Icon.getMaxV();
         float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
@@ -222,14 +222,7 @@ public class DaggerRender extends Render {
             GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(rotation, 0.0F, 0.0F, 1.0F);
             ItemRenderer.renderItemIn2D(
-                    tessellator,
-                    f5,
-                    f6,
-                    f4,
-                    f7,
-                    ((IIcon) par2Icon).getIconWidth(),
-                    ((IIcon) par2Icon).getIconHeight(),
-                    f12);
+                    tessellator, f5, f6, f4, f7, par2Icon.getIconWidth(), par2Icon.getIconHeight(), f12);
 
             /*
              * if (itemstack.hasEffect(pass)) { GL11.glDepthFunc(GL11.GL_EQUAL);
@@ -279,7 +272,7 @@ public class DaggerRender extends Render {
             boolean renderEffect) {
         Item k = par3ItemStack.getItem();
         int l = par3ItemStack.getItemDamage();
-        Object object = par3ItemStack.getIconIndex();
+        IIcon iIcon = par3ItemStack.getIconIndex();
         float f;
         int i1;
         float f1;
@@ -343,8 +336,8 @@ public class DaggerRender extends Render {
                     par2TextureManager.getResourceLocation(par3ItemStack.getItemSpriteNumber());
             par2TextureManager.bindTexture(resourcelocation);
 
-            if (object == null) {
-                object = ((TextureMap)
+            if (iIcon == null) {
+                iIcon = ((TextureMap)
                                 Minecraft.getMinecraft().getTextureManager().getTexture(resourcelocation))
                         .getAtlasSprite("missingno");
             }
@@ -358,7 +351,7 @@ public class DaggerRender extends Render {
                 GL11.glColor4f(f, f1, f2, 1.0F);
             }
 
-            this.renderIcon(par4, par5, (IIcon) object, 16, 16);
+            this.renderIcon(par4, par5, iIcon, 16, 16);
             GL11.glEnable(GL11.GL_LIGHTING);
 
             if (par3ItemStack.hasEffect(0)) {
@@ -444,26 +437,15 @@ public class DaggerRender extends Render {
 
             tessellator.startDrawingQuads();
             tessellator.addVertexWithUV(
-                    (double) (par2 + 0),
-                    (double) (par3 + par5),
-                    (double) this.zLevel,
-                    (double) ((f2 + (float) par5 * f4) * f),
-                    (double) ((f3 + (float) par5) * f1));
+                    par2 + 0, par3 + par5, this.zLevel, (f2 + (float) par5 * f4) * f, (f3 + (float) par5) * f1);
             tessellator.addVertexWithUV(
-                    (double) (par2 + par4),
-                    (double) (par3 + par5),
-                    (double) this.zLevel,
-                    (double) ((f2 + (float) par4 + (float) par5 * f4) * f),
-                    (double) ((f3 + (float) par5) * f1));
-            tessellator.addVertexWithUV(
-                    (double) (par2 + par4),
-                    (double) (par3 + 0),
-                    (double) this.zLevel,
-                    (double) ((f2 + (float) par4) * f),
-                    (double) ((f3 + 0.0F) * f1));
-            tessellator.addVertexWithUV(
-                    (double) (par2 + 0), (double) (par3 + 0), (double) this.zLevel, (double) ((f2 + 0.0F) * f), (double)
-                            ((f3 + 0.0F) * f1));
+                    par2 + par4,
+                    par3 + par5,
+                    this.zLevel,
+                    (f2 + (float) par4 + (float) par5 * f4) * f,
+                    (f3 + (float) par5) * f1);
+            tessellator.addVertexWithUV(par2 + par4, par3 + 0, this.zLevel, (f2 + (float) par4) * f, (f3 + 0.0F) * f1);
+            tessellator.addVertexWithUV(par2 + 0, par3 + 0, this.zLevel, (f2 + 0.0F) * f, (f3 + 0.0F) * f1);
             tessellator.draw();
         }
     }
@@ -478,7 +460,7 @@ public class DaggerRender extends Render {
             ItemStack par3ItemStack,
             int par4,
             int par5) {
-        this.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, (String) null);
+        this.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, null);
     }
 
     public void renderItemOverlayIntoGUI(
@@ -532,31 +514,20 @@ public class DaggerRender extends Render {
     private void renderQuad(Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6) {
         par1Tessellator.startDrawingQuads();
         par1Tessellator.setColorOpaque_I(par6);
-        par1Tessellator.addVertex((double) (par2 + 0), (double) (par3 + 0), 0.0D);
-        par1Tessellator.addVertex((double) (par2 + 0), (double) (par3 + par5), 0.0D);
-        par1Tessellator.addVertex((double) (par2 + par4), (double) (par3 + par5), 0.0D);
-        par1Tessellator.addVertex((double) (par2 + par4), (double) (par3 + 0), 0.0D);
+        par1Tessellator.addVertex(par2 + 0, par3 + 0, 0.0D);
+        par1Tessellator.addVertex(par2 + 0, par3 + par5, 0.0D);
+        par1Tessellator.addVertex(par2 + par4, par3 + par5, 0.0D);
+        par1Tessellator.addVertex(par2 + par4, par3 + 0, 0.0D);
         par1Tessellator.draw();
     }
 
     public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5) {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(
-                (double) (par1 + 0), (double) (par2 + par5), (double) this.zLevel, (double) par3Icon.getMinU(), (double)
-                        par3Icon.getMaxV());
-        tessellator.addVertexWithUV(
-                (double) (par1 + par4),
-                (double) (par2 + par5),
-                (double) this.zLevel,
-                (double) par3Icon.getMaxU(),
-                (double) par3Icon.getMaxV());
-        tessellator.addVertexWithUV(
-                (double) (par1 + par4), (double) (par2 + 0), (double) this.zLevel, (double) par3Icon.getMaxU(), (double)
-                        par3Icon.getMinV());
-        tessellator.addVertexWithUV(
-                (double) (par1 + 0), (double) (par2 + 0), (double) this.zLevel, (double) par3Icon.getMinU(), (double)
-                        par3Icon.getMinV());
+        tessellator.addVertexWithUV(par1 + 0, par2 + par5, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
+        tessellator.addVertexWithUV(par1 + par4, par2 + par5, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
+        tessellator.addVertexWithUV(par1 + par4, par2 + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
+        tessellator.addVertexWithUV(par1 + 0, par2 + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV());
         tessellator.draw();
     }
 

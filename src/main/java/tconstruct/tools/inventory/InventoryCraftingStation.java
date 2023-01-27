@@ -7,15 +7,15 @@ import net.minecraft.item.ItemStack;
 
 public class InventoryCraftingStation extends InventoryCrafting {
     /** the width of the crafting inventory */
-    private int inventoryWidth;
+    private final int inventoryWidth;
 
     /**
      * Class containing the callbacks for the events on_GUIClosed and
      * on_CraftMaxtrixChanged.
      */
-    private Container eventHandler;
+    private final Container eventHandler;
 
-    private InventoryLogic logic;
+    private final InventoryLogic logic;
 
     public InventoryCraftingStation(Container par1Container, int size, int height, InventoryLogic logic) {
         super(par1Container, size, height);
@@ -70,23 +70,14 @@ public class InventoryCraftingStation extends InventoryCrafting {
         ItemStack stack = logic.getStackInSlot(slotID + 1);
         if (stack != null) {
             ItemStack itemstack;
-
             if (stack.stackSize <= par2) {
                 itemstack = stack.copy();
-                stack = null;
                 logic.setInventorySlotContents(slotID + 1, null);
-                this.eventHandler.onCraftMatrixChanged(this);
-                return itemstack;
             } else {
                 itemstack = stack.splitStack(par2);
-
-                if (stack.stackSize == 0) {
-                    stack = null;
-                }
-
-                this.eventHandler.onCraftMatrixChanged(this);
-                return itemstack;
             }
+            this.eventHandler.onCraftMatrixChanged(this);
+            return itemstack;
         } else {
             return null;
         }

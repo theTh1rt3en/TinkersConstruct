@@ -5,7 +5,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.lang.reflect.*;
 import java.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -13,7 +12,7 @@ import net.minecraft.network.play.client.C0DPacketCloseWindow;
 import net.minecraftforge.client.event.GuiScreenEvent;
 
 public class TabRegistry {
-    private static ArrayList<AbstractTab> tabList = new ArrayList<AbstractTab>();
+    private static final ArrayList<AbstractTab> tabList = new ArrayList<>();
 
     public static void registerTab(AbstractTab tab) {
         tabList.add(tab);
@@ -38,7 +37,7 @@ public class TabRegistry {
         }
     }
 
-    private static Minecraft mc = FMLClientHandler.instance().getClient();
+    private static final Minecraft mc = FMLClientHandler.instance().getClient();
 
     public static void openInventoryGui() {
         mc.thePlayer.sendQueue.addToSendQueue(new C0DPacketCloseWindow(mc.thePlayer.openContainer.windowId));
@@ -48,9 +47,7 @@ public class TabRegistry {
 
     public static void updateTabValues(int cornerX, int cornerY, Class<?> selectedButton) {
         int count = 2;
-        for (int i = 0; i < tabList.size(); i++) {
-            AbstractTab t = tabList.get(i);
-
+        for (AbstractTab t : tabList) {
             if (t.shouldAddToList()) {
                 t.id = count;
                 t.xPosition = cornerX + (count - 2) * 28;
@@ -78,13 +75,13 @@ public class TabRegistry {
                     Class<?> c = Class.forName("codechicken.nei.NEIClientConfig");
                     Object hidden = c.getMethod("isHidden").invoke(null);
                     Object enabled = c.getMethod("isEnabled").invoke(null);
-                    if (hidden != null && hidden instanceof Boolean && enabled != null && enabled instanceof Boolean) {
+                    if (hidden instanceof Boolean && enabled instanceof Boolean) {
                         if ((Boolean) hidden || !((Boolean) enabled)) {
                             // If NEI is disabled or hidden, offset the tabs by 60
                             return 60;
                         }
                     }
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             } else {
                 // If NEI is not installed, offset the tabs

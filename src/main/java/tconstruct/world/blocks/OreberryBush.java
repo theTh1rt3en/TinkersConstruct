@@ -27,7 +27,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
     public String[] textureNames;
     public String[] oreTypes;
     public int itemMeat;
-    private int subitems;
+    private final int subitems;
 
     public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes) {
         super(Material.leaves, false);
@@ -51,7 +51,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
         this.fancyIcons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.fastIcons.length; i++) {
-            if (textureNames[i] != "") {
+            if (!"".equals(textureNames[i])) {
                 this.fastIcons[i] = iconRegister.registerIcon("tinker:crops/" + textureNames[i] + "_fast");
                 this.fancyIcons[i] = iconRegister.registerIcon("tinker:crops/" + textureNames[i] + "_fancy");
             }

@@ -18,9 +18,9 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     public static final int fillMax = TConstruct.ingotLiquidValue * 3;
     public static final int outputMax = TConstruct.ingotLiquidValue;
     FluidTank internalTank = new FluidTank(fillMax);
-    HashMap<ForgeDirection, FluidTank> subTanks = new HashMap();
+    HashMap<ForgeDirection, FluidTank> subTanks = new HashMap<>();
     public ForgeDirection lastProvider;
-    public ArrayList<ForgeDirection> validOutputs = new ArrayList();
+    public ArrayList<ForgeDirection> validOutputs = new ArrayList<>();
     public int ticks = 0;
     public int recentlyFilledDelay;
 
@@ -46,11 +46,12 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     public void updateEntity() {
         ticks++;
 
-        boolean flagActiveFaucet = false;
+        // boolean flagActiveFaucet = false;
 
         TileEntity possibleFaucet = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
-        if (possibleFaucet != null && possibleFaucet instanceof FaucetLogic)
-            flagActiveFaucet = ((FaucetLogic) possibleFaucet).active;
+        // if (possibleFaucet instanceof FaucetLogic) {
+        //    flagActiveFaucet = ((FaucetLogic) possibleFaucet).active;
+        // }
 
         if (ticks == 6) // && !flagActiveFaucet)
         this.distributeFluids();
@@ -134,8 +135,8 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
         // Move Fluid to Output Tanks
         Set<ForgeDirection> connected = this.getOutputs().keySet();
 
-        if (connected.contains(ForgeDirection.DOWN)) connected.remove(ForgeDirection.DOWN);
-        if (connected.contains(lastProvider)) connected.remove(lastProvider);
+        connected.remove(ForgeDirection.DOWN);
+        connected.remove(lastProvider);
 
         int output = Math.min(internalTank.getFluidAmount(), outputMax);
         int connectedAmount = connected.size();
@@ -223,7 +224,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
          */
 
         HashMap<ForgeDirection, TileEntity> connected = this.getOutputs();
-        if (connected.containsKey(lastProvider)) connected.remove(lastProvider);
+        connected.remove(lastProvider);
         if (connected.containsKey(ForgeDirection.DOWN)
                 && this.internalTank.getFluid() != null) // Prioritizes FluidHandlers below
         {
@@ -291,14 +292,13 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     }
 
     public HashMap<ForgeDirection, TileEntity> getOutputs() {
-        HashMap<ForgeDirection, TileEntity> map = new HashMap();
+        HashMap<ForgeDirection, TileEntity> map = new HashMap<>();
         for (ForgeDirection fd : this.validOutputs) {
             int tX = this.xCoord + fd.offsetX;
             int tY = this.yCoord + fd.offsetY;
             int tZ = this.zCoord + fd.offsetZ;
             TileEntity tile = this.worldObj.getTileEntity(tX, tY, tZ);
-
-            if (tile != null && tile instanceof IFluidHandler) map.put(fd, tile);
+            if (tile instanceof IFluidHandler) map.put(fd, tile);
         }
         return map;
     }
@@ -390,7 +390,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
 
         int[] validFDs = tags.getIntArray("validOutputs");
         if (validFDs != null) {
-            validOutputs = new ArrayList();
+            validOutputs = new ArrayList<>();
             for (int i : validFDs) validOutputs.add(convertIntToFD(i));
         }
         /* UNUSED

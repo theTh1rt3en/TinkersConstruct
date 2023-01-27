@@ -4,7 +4,6 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,11 +16,11 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase {
     public static final Rectangle OUTPUT_TANK = new Rectangle(118, 9, 18, 32);
 
     public class CachedAlloyingRecipe extends CachedBaseRecipe {
-        private List<FluidTankElement> fluidTanks;
+        private final List<FluidTankElement> fluidTanks;
         private int minAmount;
 
         public CachedAlloyingRecipe(AlloyMix recipe) {
-            this.fluidTanks = new ArrayList<FluidTankElement>();
+            this.fluidTanks = new ArrayList<>();
 
             int maxAmount = recipe.mixers.get(0).amount;
             int mult = 1;
@@ -87,8 +86,7 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase {
 
     @Override
     public void loadTransferRects() {
-        this.transferRects.add(
-                new RecipeTransferRect(new Rectangle(76, 21, 22, 15), this.getRecipeID(), new Object[0]));
+        this.transferRects.add(new RecipeTransferRect(new Rectangle(76, 21, 22, 15), this.getRecipeID()));
     }
 
     @Override
@@ -122,8 +120,7 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase {
 
     @Override
     public void loadUsageRecipes(FluidStack ingredient) {
-        for (Iterator<AlloyMix> i = Smeltery.getAlloyList().iterator(); i.hasNext(); ) {
-            AlloyMix recipe = i.next();
+        for (AlloyMix recipe : Smeltery.getAlloyList()) {
             for (FluidStack liquid : recipe.mixers) {
                 if (areFluidsEqual(liquid, ingredient) && !recipe.mixers.isEmpty()) {
                     this.arecipes.add(new CachedAlloyingRecipe(recipe));

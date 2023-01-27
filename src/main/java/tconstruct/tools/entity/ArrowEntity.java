@@ -75,8 +75,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.prevRotationYaw =
                     this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-            this.prevRotationPitch =
-                    this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
+            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, f) * 180.0D / Math.PI);
         }
 
         Block i = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
@@ -107,9 +106,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     }
                 } else {
                     this.inGround = false;
-                    this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-                    this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-                    this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+                    this.motionX *= this.rand.nextFloat() * 0.2F;
+                    this.motionY *= this.rand.nextFloat() * 0.2F;
+                    this.motionZ *= this.rand.nextFloat() * 0.2F;
                     this.ticksInGround = 0;
                     this.ticksInAir = 0;
                 }
@@ -132,7 +131,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             }
 
             Entity entity = null;
-            List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
+            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
                     this,
                     this.boundingBox
                             .addCoord(this.motionX, this.motionY, this.motionZ)
@@ -142,12 +141,11 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             float ySpeed;
 
             for (l = 0; l < list.size(); ++l) {
-                Entity entity1 = (Entity) list.get(l);
+                Entity entity1 = list.get(l);
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5)) {
                     ySpeed = 0.3F;
-                    AxisAlignedBB axisalignedbb1 =
-                            entity1.boundingBox.expand((double) ySpeed, (double) ySpeed, (double) ySpeed);
+                    AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand(ySpeed, ySpeed, ySpeed);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(vec3, vec31);
 
                     if (movingobjectposition1 != null) {
@@ -165,9 +163,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 movingobjectposition = new MovingObjectPosition(entity);
             }
 
-            if (movingobjectposition != null
-                    && movingobjectposition.entityHit != null
-                    && movingobjectposition.entityHit instanceof EntityPlayer) {
+            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer) {
                 EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
 
                 if (entityplayer.capabilities.disableDamage
@@ -193,7 +189,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         damageInflicted += this.rand.nextInt(damageInflicted / 2 + 2);
                     }
 
-                    DamageSource damagesource = null;
+                    DamageSource damagesource;
 
                     if (this.shootingEntity == null) {
                         damagesource = DamageSource.causeArrowDamage(this, this);
@@ -295,9 +291,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.inData = this.worldObj.getBlockMetadata(
                             this.field_145791_d, this.field_145792_e, this.field_145789_f);
-                    this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
-                    this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));
-                    this.motionZ = (double) ((float) (movingobjectposition.hitVec.zCoord - this.posZ));
+                    this.motionX = (float) (movingobjectposition.hitVec.xCoord - this.posX);
+                    this.motionY = (float) (movingobjectposition.hitVec.yCoord - this.posY);
+                    this.motionZ = (float) (movingobjectposition.hitVec.zCoord - this.posZ);
                     speed = MathHelper.sqrt_double(
                             this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
                     this.posX -= this.motionX / (double) speed * 0.05000000074505806D;
@@ -334,10 +330,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-            for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) speed) * 180.0D / Math.PI);
-                    this.rotationPitch - this.prevRotationPitch < -180.0F;
-                    this.prevRotationPitch -= 360.0F) {
-                ;
+            this.rotationPitch = (float) (Math.atan2(this.motionY, speed) * 180.0D / Math.PI);
+            while (this.rotationPitch - this.prevRotationPitch < -180.0F) {
+                this.prevRotationPitch -= 360.0F;
             }
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -374,10 +369,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 dropSpeed = 0.8F;
             }
 
-            this.motionX *= (double) dropSpeed;
-            this.motionY *= (double) dropSpeed;
-            this.motionZ *= (double) dropSpeed;
-            this.motionY -= (double) ySpeed;
+            this.motionX *= dropSpeed;
+            this.motionY *= dropSpeed;
+            this.motionZ *= dropSpeed;
+            this.motionY -= ySpeed;
             this.setPosition(this.posX, this.posY, this.posZ);
             this.func_145775_I();
         }
@@ -402,7 +397,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 // TODO is this needed???
                 // crashreportcategory.addCrashSection("Item ID",
                 // Integer.valueOf(par1ItemStack.itemID));
-                crashreportcategory.addCrashSection("Item data", Integer.valueOf(par1ItemStack.getItemDamage()));
+                crashreportcategory.addCrashSection("Item data", par1ItemStack.getItemDamage());
                 // crashreportcategory.addCrashSectionCallable("Item name", new
                 // CallableItemName(this, par1ItemStack));
                 throw new ReportedException(crashreport);
@@ -452,27 +447,21 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     return 0;
                 } else {
 
-                    int l = stackSize;
-
-                    if (stackSize > stack.getMaxStackSize() - stack.stackSize) {
-                        l = stack.getMaxStackSize() - stack.stackSize;
-                    }
+                    int l = Math.min(stackSize, stack.getMaxStackSize() - stack.stackSize);
 
                     if (l > 64 - stack.stackSize) {
                         l = 64 - stack.stackSize;
                     }
 
-                    if (l == 0) {
-                        return stackSize;
-                    } else {
+                    if (l != 0) {
                         stackSize -= l;
                         stack.stackSize += l;
                         living.setCurrentItemOrArmor(slotID, stack);
-                        if (living instanceof EntityLiving)
+                        if (living instanceof EntityLiving) {
                             ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
-
-                        return stackSize;
+                        }
                     }
+                    return stackSize;
                 }
             }
         }

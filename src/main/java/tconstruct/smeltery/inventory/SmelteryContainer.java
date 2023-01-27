@@ -56,13 +56,9 @@ public class SmelteryContainer extends ActiveContainer {
             // TConstruct.logger.info(invRow);
             int basePos = invRow * columns;
             for (int iter = 0; iter < activeInventorySlots.size(); iter++) {
-                ActiveSlot slot = (ActiveSlot) activeInventorySlots.get(iter);
-                if (slot.activeSlotNumber >= basePos
-                        && slot.activeSlotNumber < basePos + columns * SmelteryGui.maxRows) {
-                    slot.setActive(true);
-                } else {
-                    slot.setActive(false);
-                }
+                ActiveSlot slot = activeInventorySlots.get(iter);
+                slot.setActive(slot.activeSlotNumber >= basePos
+                        && slot.activeSlotNumber < basePos + columns * SmelteryGui.maxRows);
 
                 int xPos = (iter - basePos) % columns;
                 int yPos = (iter - basePos) / columns;
@@ -139,7 +135,7 @@ public class SmelteryContainer extends ActiveContainer {
             }
 
             if (slotStack.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }

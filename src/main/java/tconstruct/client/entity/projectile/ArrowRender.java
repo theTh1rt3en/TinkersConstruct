@@ -19,10 +19,10 @@ import tconstruct.tools.entity.ArrowEntity;
 public class ArrowRender extends Render {
     private static final ResourceLocation RES_ITEM_GLINT =
             new ResourceLocation("textures/misc/enchanted_item_glint.png");
-    private RenderBlocks itemRenderBlocks = new RenderBlocks();
+    private final RenderBlocks itemRenderBlocks = new RenderBlocks();
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public boolean renderWithColor = true;
 
@@ -58,7 +58,7 @@ public class ArrowRender extends Render {
             float f6;
             int i;
 
-            Block block = null;
+            Block block;
             block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
             if (itemstack.getItemSpriteNumber() == 0
@@ -159,10 +159,10 @@ public class ArrowRender extends Render {
             par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
-        float f4 = ((IIcon) par2Icon).getMinU();
-        float f5 = ((IIcon) par2Icon).getMaxU();
-        float f6 = ((IIcon) par2Icon).getMinV();
-        float f7 = ((IIcon) par2Icon).getMaxV();
+        float f4 = par2Icon.getMinU();
+        float f5 = par2Icon.getMaxU();
+        float f6 = par2Icon.getMinV();
+        float f7 = par2Icon.getMaxV();
         float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
@@ -211,14 +211,7 @@ public class ArrowRender extends Render {
             GL11.glColor4f(par5, par6, par7, 1.0F);
 
             ItemRenderer.renderItemIn2D(
-                    tessellator,
-                    f5,
-                    f6,
-                    f4,
-                    f7,
-                    ((IIcon) par2Icon).getIconWidth(),
-                    ((IIcon) par2Icon).getIconHeight(),
-                    f12);
+                    tessellator, f5, f6, f4, f7, par2Icon.getIconWidth(), par2Icon.getIconHeight(), f12);
 
             if (itemstack.hasEffect(pass)) {
                 GL11.glDepthFunc(GL11.GL_EQUAL);

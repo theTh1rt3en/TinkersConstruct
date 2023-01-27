@@ -204,7 +204,7 @@ public class SearedBlock extends InventoryBlock {
             return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
         } else {
             TileEntity tile = world.getTileEntity(x, y, z);
-            if (tile != null && tile instanceof FaucetLogic) {
+            if (tile instanceof FaucetLogic) {
                 FaucetLogic logic = (FaucetLogic) tile;
                 float xMin = 0.25F;
                 float xMax = 0.75F;
@@ -231,12 +231,12 @@ public class SearedBlock extends InventoryBlock {
                 }
 
                 return AxisAlignedBB.getBoundingBox(
-                        (double) ((float) x + xMin),
+                        (float) x + xMin,
                         (double) y + 0.25,
-                        (double) ((float) z + zMin),
-                        (double) ((float) x + xMax),
+                        (float) z + zMin,
+                        (float) x + xMax,
                         (double) y + 0.625,
-                        (double) ((float) z + zMax));
+                        (float) z + zMax);
             }
         }
 

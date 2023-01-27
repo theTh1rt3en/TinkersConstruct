@@ -11,7 +11,6 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.AmmoItemRenderer;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.Reference;
@@ -61,7 +60,7 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
     }
 
     private void registerEntityRendering() {
-        ProjectileBaseRenderer defaultRenderer = new ProjectileBaseRenderer<ProjectileBase>();
+        ProjectileBaseRenderer defaultRenderer = new ProjectileBaseRenderer<>();
         RenderingRegistry.registerEntityRenderingHandler(ShurikenEntity.class, new ShurikenEntityRenderer());
         RenderingRegistry.registerEntityRenderingHandler(ThrowingKnifeEntity.class, defaultRenderer);
         RenderingRegistry.registerEntityRenderingHandler(JavelinEntity.class, new JavelinEntityRenderer());
