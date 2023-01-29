@@ -1,6 +1,7 @@
 package tconstruct.smeltery.logic;
 
 import mantle.blocks.abstracts.MultiServantLogic;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -8,6 +9,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 
 public class LavaTankLogic extends MultiServantLogic implements IFluidHandler {
+
     public FluidTank tank;
     public int renderOffset;
     public static final int tankCapacity = FluidContainerRegistry.BUCKET_VOLUME * 4;
@@ -63,15 +65,12 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler {
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         FluidStack fluid = null;
         if (tank.getFluid() != null) fluid = tank.getFluid().copy();
-        return new FluidTankInfo[] {new FluidTankInfo(fluid, tank.getCapacity())};
+        return new FluidTankInfo[] { new FluidTankInfo(fluid, tank.getCapacity()) };
     }
 
     /*
-     * @Override public IFluidTank[] getTanks (ForgeDirection direction) {
-     * return new IFluidTank[] { tank }; }
-     *
-     * @Override public IFluidTank getTank (ForgeDirection direction, FluidStack
-     * type) { return tank; }
+     * @Override public IFluidTank[] getTanks (ForgeDirection direction) { return new IFluidTank[] { tank }; }
+     * @Override public IFluidTank getTank (ForgeDirection direction, FluidStack type) { return tank; }
      */
 
     public float getFluidAmountScaled() {

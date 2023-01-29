@@ -1,9 +1,11 @@
 package tconstruct.modifiers.tools;
 
 import java.util.*;
+
 import net.minecraft.enchantment.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+
 import tconstruct.library.tools.ToolCore;
 
 public class ModButtertouch extends ModBoolean {
@@ -57,7 +59,7 @@ public class ModButtertouch extends ModBoolean {
     }
 
     public void addEnchantment(ItemStack tool, Enchantment enchant, int level) // TODO: Move this to ItemModifier
-            {
+    {
         NBTTagList tags = new NBTTagList();
         Map<Integer, Integer> enchantMap = EnchantmentHelper.getEnchantments(tool);
         Iterator<Map.Entry<Integer, Integer>> iterator = enchantMap.entrySet().iterator();

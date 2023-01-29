@@ -1,14 +1,17 @@
 package tconstruct.plugins.nei;
 
+import java.awt.Rectangle;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
+import tconstruct.library.crafting.DryingRackRecipes;
+import tconstruct.library.crafting.DryingRackRecipes.DryingRecipe;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
-import java.awt.Rectangle;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
-import tconstruct.library.crafting.DryingRackRecipes;
-import tconstruct.library.crafting.DryingRackRecipes.DryingRecipe;
 
 public class RecipeHandlerDryingRack extends RecipeHandlerBase {
 

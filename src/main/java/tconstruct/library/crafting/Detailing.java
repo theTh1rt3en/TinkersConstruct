@@ -1,13 +1,16 @@
 package tconstruct.library.crafting;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+
 import tconstruct.library.tools.ToolCore;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Detailing {
+
     public List<DetailInput> detailing = new ArrayList<>();
 
     public void addDetailing(Object input, int inputMeta, Object output, int outputMeta, ToolCore tool) {
@@ -73,6 +76,7 @@ public class Detailing {
     }
 
     public static class DetailInput {
+
         public ItemStack input;
         public int inputMeta;
         public ItemStack output;

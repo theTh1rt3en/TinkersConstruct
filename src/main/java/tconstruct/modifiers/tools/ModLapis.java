@@ -1,12 +1,15 @@
 package tconstruct.modifiers.tools;
 
 import java.util.*;
+
 import net.minecraft.enchantment.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+
 import tconstruct.library.tools.ToolCore;
 
 public class ModLapis extends ItemModTypeFilter {
+
     String tooltipName;
     int max = 450;
 
@@ -43,7 +46,7 @@ public class ModLapis extends ItemModTypeFilter {
 
             String modName = "\u00a79Lapis (0/450)";
             int tooltipIndex = addToolTip(tool, "\u00a79Luck", modName);
-            int[] keyPair = new int[] {0, tooltipIndex};
+            int[] keyPair = new int[] { 0, tooltipIndex };
             tags.setIntArray(key, keyPair);
 
             int modifiers = tags.getInteger("Modifiers");

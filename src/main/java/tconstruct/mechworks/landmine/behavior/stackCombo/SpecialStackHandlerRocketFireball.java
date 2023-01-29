@@ -1,6 +1,7 @@
 package tconstruct.mechworks.landmine.behavior.stackCombo;
 
 import java.util.*;
+
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.*;
@@ -12,8 +13,8 @@ import net.minecraft.world.World;
 public class SpecialStackHandlerRocketFireball extends SpecialStackHandler {
 
     @Override
-    public void checkStack(
-            World par1World, int par2, int par3, int par4, Entity triggerer, ArrayList<ItemStack> stacks) {
+    public void checkStack(World par1World, int par2, int par3, int par4, Entity triggerer,
+            ArrayList<ItemStack> stacks) {
         if (stacks.isEmpty()) {
             return;
         }

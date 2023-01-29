@@ -1,7 +1,7 @@
 package tconstruct.smeltery.gui;
 
-import cpw.mods.fml.common.Loader;
 import java.util.*;
+
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,15 +9,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
+
 import tconstruct.TConstruct;
 import tconstruct.smeltery.inventory.*;
 import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.network.SmelteryPacket;
+import cpw.mods.fml.common.Loader;
 
 public class SmelteryGui extends ActiveContainerGui {
+
     public SmelteryLogic logic;
     private boolean isScrolling = false;
     private boolean wasClicking;
@@ -69,8 +73,7 @@ public class SmelteryGui extends ActiveContainerGui {
             int scrollWidth = xScroll + 14;
             int scrollHeight = yScroll + 144;
 
-            if (!this.wasClicking
-                    && mouseDown
+            if (!this.wasClicking && mouseDown
                     && mouseX >= xScroll
                     && mouseY >= yScroll
                     && mouseX < scrollWidth
@@ -110,7 +113,10 @@ public class SmelteryGui extends ActiveContainerGui {
         int baseX = 86 + (columns - 3) * 22;
         fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Smeltery"), baseX, 5, 0x404040);
         fontRendererObj.drawString(
-                StatCollector.translateToLocal("container.inventory"), baseX + 4, (ySize - 96) + 2, 0x404040);
+                StatCollector.translateToLocal("container.inventory"),
+                baseX + 4,
+                (ySize - 96) + 2,
+                0x404040);
 
         int cornerX = (width - xSize) / 2 + 36 + (columns - 3) * 22;
         int cornerY = (height - ySize) / 2;
@@ -140,8 +146,9 @@ public class SmelteryGui extends ActiveContainerGui {
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
-    private static final ResourceLocation backgroundSide =
-            new ResourceLocation("tinker", "textures/gui/smelteryside.png");
+    private static final ResourceLocation backgroundSide = new ResourceLocation(
+            "tinker",
+            "textures/gui/smelteryside.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY) {
@@ -383,8 +390,7 @@ public class SmelteryGui extends ActiveContainerGui {
 
     private boolean isMolten(String fluidName) {
         boolean molten = false;
-        String[] moltenNames =
-                StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
+        String[] moltenNames = StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
         for (String moltenName : moltenNames) {
             if (fluidName.contains(moltenName.trim())) {
                 molten = true;
@@ -489,13 +495,14 @@ public class SmelteryGui extends ActiveContainerGui {
             if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i]) {
                 fluidToBeBroughtUp = logic.moltenMetal.get(i).getFluidID();
 
-                TConstruct.packetPipeline.sendToServer(new SmelteryPacket(
-                        logic.getWorldObj().provider.dimensionId,
-                        logic.xCoord,
-                        logic.yCoord,
-                        logic.zCoord,
-                        isShiftKeyDown(),
-                        fluidToBeBroughtUp));
+                TConstruct.packetPipeline.sendToServer(
+                        new SmelteryPacket(
+                                logic.getWorldObj().provider.dimensionId,
+                                logic.xCoord,
+                                logic.yCoord,
+                                logic.zCoord,
+                                isShiftKeyDown(),
+                                fluidToBeBroughtUp));
             }
             base += fluidHeights[i];
         }

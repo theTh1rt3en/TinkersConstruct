@@ -2,6 +2,7 @@ package tconstruct.armor.inventory;
 
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
+
 import tconstruct.mechworks.landmine.behavior.Behavior;
 
 public class SlotBehavedOnly extends Slot {

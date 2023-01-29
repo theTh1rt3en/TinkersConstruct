@@ -1,6 +1,7 @@
 package tconstruct.smeltery.logic;
 
 import mantle.blocks.iface.*;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.*;
@@ -8,9 +9,11 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+
 import tconstruct.TConstruct;
 
 public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler {
+
     byte direction;
     boolean active;
     public FluidStack liquid;
@@ -38,8 +41,8 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
             TileEntity tankte = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 
             if (drainte instanceof IFluidHandler && tankte instanceof IFluidHandler) {
-                FluidStack templiquid =
-                        ((IFluidHandler) drainte).drain(getForgeDirection(), TConstruct.ingotLiquidValue, false);
+                FluidStack templiquid = ((IFluidHandler) drainte)
+                        .drain(getForgeDirection(), TConstruct.ingotLiquidValue, false);
                 if (templiquid != null) {
                     int drained = ((IFluidHandler) tankte).fill(ForgeDirection.UP, templiquid, false);
                     if (drained > 0) {
@@ -91,25 +94,10 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 
     @Override
     public void setDirection(float yaw, float pitch, EntityLivingBase player) {
-        /*int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
-        switch (facing)
-        {
-        case 0:
-            direction = 2;
-            break;
-
-        case 1:
-            direction = 5;
-            break;
-
-        case 2:
-            direction = 3;
-            break;
-
-        case 3:
-            direction = 4;
-            break;
-        }*/
+        /*
+         * int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3; switch (facing) { case 0: direction =
+         * 2; break; case 1: direction = 5; break; case 2: direction = 3; break; case 3: direction = 4; break; }
+         */
     }
 
     @Override

@@ -1,12 +1,15 @@
 package tconstruct.library.accessory;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import cpw.mods.fml.relauncher.*;
+
 public interface IAccessoryModel {
-    /** Similar to how armor is rendered.
+
+    /**
+     * Similar to how armor is rendered.
      *
      * @param stack
      * @param entity

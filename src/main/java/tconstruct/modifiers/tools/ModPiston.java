@@ -1,11 +1,14 @@
 package tconstruct.modifiers.tools;
 
 import java.util.*;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
 import tconstruct.library.tools.ToolCore;
 
 public class ModPiston extends ItemModTypeFilter {
+
     String tooltipName;
     int max = 10;
 
@@ -57,7 +60,7 @@ public class ModPiston extends ItemModTypeFilter {
             tags.setInteger("Modifiers", modifiers);
             String modName = "\u00a74Knockback (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
-            int[] keyPair = new int[] {increase, max, tooltipIndex};
+            int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
         }
 

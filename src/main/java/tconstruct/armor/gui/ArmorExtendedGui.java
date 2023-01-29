@@ -5,12 +5,15 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.*;
+
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.client.tabs.*;
 
 public class ArmorExtendedGui extends InventoryEffectRenderer {
+
     public InventoryPlayer inv;
     public ArmorExtended stats;
 
@@ -140,9 +143,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer {
     }
 
     /*
-     * protected void keyTyped(char par1, int par2) { if (par2 ==
-     * TControls.armorKey.keyCode) { this.mc.thePlayer.closeScreen(); }
-     *
-     * super.keyTyped(par1, par2); }
+     * protected void keyTyped(char par1, int par2) { if (par2 == TControls.armorKey.keyCode) {
+     * this.mc.thePlayer.closeScreen(); } super.keyTyped(par1, par2); }
      */
 }

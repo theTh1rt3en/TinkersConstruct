@@ -1,10 +1,12 @@
 package tconstruct.smeltery.inventory;
 
 import java.util.*;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
 public class ActiveContainer extends Container {
+
     public List<ActiveSlot> activeInventorySlots = new ArrayList<>();
 
     @Override

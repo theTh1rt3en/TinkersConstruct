@@ -1,8 +1,9 @@
 package tconstruct.blocks.traps;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.Random;
+
 import mantle.blocks.MantleBlock;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,9 +13,11 @@ import net.minecraft.item.*;
 import net.minecraft.potion.*;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.*;
+
 import tconstruct.library.TConstructRegistry;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.model.PunjiRender;
+import cpw.mods.fml.relauncher.*;
 
 public class Punji extends MantleBlock {
 
@@ -38,8 +41,8 @@ public class Punji extends MantleBlock {
 
     /* Right-click adds sticks */
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer player, int par6, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float hitX,
+            float hitY, float hitZ) {
         /*
          * if (world.isRemote) return false;
          */
@@ -72,9 +75,8 @@ public class Punji extends MantleBlock {
     }
 
     /**
-     * Is this block (a) opaque and (b) a full 1m cube? This determines whether
-     * or not to render the shared face of two adjacent blocks and also whether
-     * the player can attach torches, redstone wire, etc to this block.
+     * Is this block (a) opaque and (b) a full 1m cube? This determines whether or not to render the shared face of two
+     * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
      */
     @Override
     public boolean isOpaqueCube() {
@@ -82,8 +84,7 @@ public class Punji extends MantleBlock {
     }
 
     /**
-     * If this block doesn't render as an ordinary block it will return False
-     * (examples: signs, buttons, stairs, etc)
+     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
      */
     @Override
     public boolean renderAsNormalBlock() {

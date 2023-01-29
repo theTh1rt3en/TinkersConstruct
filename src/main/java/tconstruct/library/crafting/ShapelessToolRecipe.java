@@ -1,19 +1,25 @@
 package tconstruct.library.crafting;
 
 import java.util.*;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
+
 import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
 
 public class ShapelessToolRecipe extends ShapelessRecipes {
+
     static {
         RecipeSorter.register(
-                TConstruct.modID + ":" + "toolrecipe", ShapelessToolRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+                TConstruct.modID + ":" + "toolrecipe",
+                ShapelessToolRecipe.class,
+                RecipeSorter.Category.SHAPELESS,
+                "");
     }
 
     public ShapelessToolRecipe(ItemStack par1ItemStack, List par2List) {
@@ -40,7 +46,8 @@ public class ShapelessToolRecipe extends ShapelessRecipes {
 
                                 flag = true;
                             } else if ((itemstack1.getItemDamage() == Short.MAX_VALUE
-                                    || itemstack.getItemDamage() == itemstack1.getItemDamage())) flag = true;
+                                    || itemstack.getItemDamage() == itemstack1.getItemDamage()))
+                                flag = true;
 
                             arraylist.remove(itemstack1);
                             break;

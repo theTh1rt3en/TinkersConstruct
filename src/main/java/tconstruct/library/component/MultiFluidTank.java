@@ -1,11 +1,14 @@
 package tconstruct.library.component;
 
 import java.util.*;
+
 import net.minecraft.nbt.*;
 import net.minecraftforge.fluids.*;
+
 import tconstruct.library.crafting.Smeltery;
 
 public class MultiFluidTank extends LogicComponent implements IFluidTank {
+
     public ArrayList<FluidStack> fluidlist = new ArrayList<>();
     protected int maxLiquid;
     protected int currentLiquid;

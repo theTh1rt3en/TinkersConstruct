@@ -1,8 +1,10 @@
 package tconstruct.modifiers.armor;
 
 import java.util.*;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+
 import tconstruct.library.armor.ArmorPart;
 
 public class AModLeadBoots extends AModBoolean {

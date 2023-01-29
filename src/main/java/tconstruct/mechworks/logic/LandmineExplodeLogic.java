@@ -1,15 +1,18 @@
 package tconstruct.mechworks.logic;
 
 import java.util.*;
+
 import mantle.world.WorldHelper;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import tconstruct.mechworks.landmine.behavior.Behavior;
 
 /**
- * This logic is designed only for blocks having TileEntityLandmine as their
- * tileEntity(otherwise ClassCastException will be awarded)
+ * This logic is designed only for blocks having TileEntityLandmine as their tileEntity(otherwise ClassCastException
+ * will be awarded)
  *
  * @author fuj1n
  *
@@ -73,8 +76,14 @@ public class LandmineExplodeLogic {
             }
         }
 
-        LandmineSpecialStackLogic specialStacks =
-                new LandmineSpecialStackLogic(worldObj, x, y, z, triggerer, isOffensive, stacks);
+        LandmineSpecialStackLogic specialStacks = new LandmineSpecialStackLogic(
+                worldObj,
+                x,
+                y,
+                z,
+                triggerer,
+                isOffensive,
+                stacks);
         specialStacks.handleSpecialStacks();
 
         for (ItemStack currentStack : stacks) {

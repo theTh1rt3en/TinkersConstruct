@@ -1,8 +1,9 @@
 package tconstruct.weaponry.weapons;
 
-import cpw.mods.fml.common.Loader;
 import java.util.List;
+
 import mods.battlegear2.api.core.InventoryPlayerBattle;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
@@ -22,16 +24,17 @@ import tconstruct.util.Reference;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.weaponry.entity.BoltEntity;
+import cpw.mods.fml.common.Loader;
 
 public class Crossbow extends ProjectileWeapon {
+
     public Crossbow() {
         super(0, "Crossbow");
         this.setMaxDamage(100);
     }
 
     public boolean isLoaded(ItemStack itemStack) {
-        if (itemStack.hasTagCompound())
-            return isLoaded(itemStack.getTagCompound().getCompoundTag("InfiTool"));
+        if (itemStack.hasTagCompound()) return isLoaded(itemStack.getTagCompound().getCompoundTag("InfiTool"));
 
         return false;
     }
@@ -116,10 +119,9 @@ public class Crossbow extends ProjectileWeapon {
         if (tags.getBoolean("Broken")) return;
 
         // has ammo?
-        if (searchForAmmo(player, stack) != null)
-            if (!tags.hasKey("Reloading"))
-                // start reloading
-                tags.setInteger("Reloading", getWindupTime(stack));
+        if (searchForAmmo(player, stack) != null) if (!tags.hasKey("Reloading"))
+            // start reloading
+            tags.setInteger("Reloading", getWindupTime(stack));
     }
 
     // called after the reloading is done. Does the actual loading
@@ -223,8 +225,7 @@ public class Crossbow extends ProjectileWeapon {
         // arrow priority: hotbar > inventory, tinker arrows > regular arrows
         if (Loader.isModLoaded("battlegear2")) {
             ItemStack offhand = ((InventoryPlayerBattle) player.inventory).getCurrentOffhandWeapon();
-            if (offhand != null
-                    && (offhand.getItem() instanceof BoltAmmo)
+            if (offhand != null && (offhand.getItem() instanceof BoltAmmo)
                     && ((IAmmo) offhand.getItem()).getAmmoCount(offhand) > 0) {
                 return offhand;
             }
@@ -247,8 +248,8 @@ public class Crossbow extends ProjectileWeapon {
     }
 
     @Override
-    protected Entity createProjectile(
-            ItemStack ammo, World world, EntityPlayer player, float speed, float accuracy, float windup) {
+    protected Entity createProjectile(ItemStack ammo, World world, EntityPlayer player, float speed, float accuracy,
+            float windup) {
         EntityArrow arrow;
 
         ItemStack reference = ammo.copy();
@@ -276,8 +277,8 @@ public class Crossbow extends ProjectileWeapon {
     }
 
     @Override
-    public void playFiringSound(
-            World world, EntityPlayer player, ItemStack weapon, ItemStack ammo, float speed, float accuracy) {
+    public void playFiringSound(World world, EntityPlayer player, ItemStack weapon, ItemStack ammo, float speed,
+            float accuracy) {
         world.playSoundAtEntity(player, "random.bow", 1.0F, 0.5F);
     }
 
@@ -386,7 +387,7 @@ public class Crossbow extends ProjectileWeapon {
 
     @Override
     public String[] getTraits() {
-        return new String[] {"weapon", "bow", "windup"};
+        return new String[] { "weapon", "bow", "windup" };
     }
 
     @Override

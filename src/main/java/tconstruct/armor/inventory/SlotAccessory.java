@@ -2,9 +2,11 @@ package tconstruct.armor.inventory;
 
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
+
 import tconstruct.library.accessory.IAccessory;
 
 public class SlotAccessory extends Slot {
+
     private final int slotID;
     private final int slotStackLimit;
 

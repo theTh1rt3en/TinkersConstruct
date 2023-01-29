@@ -1,11 +1,13 @@
 package tconstruct.util;
 
 import java.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 
 public class CraftingRecipeHelper {
+
     public static void removeShapedRecipes(List<ItemStack> removelist) {
         for (ItemStack stack : removelist) removeShapedRecipe(stack);
     }

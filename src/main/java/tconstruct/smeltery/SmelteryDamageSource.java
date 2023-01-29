@@ -2,9 +2,11 @@ package tconstruct.smeltery;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.*;
+
 import tconstruct.library.tools.AbilityHelper;
 
 public class SmelteryDamageSource extends DamageSource {
+
     public SmelteryDamageSource() {
         super("smeltery");
     }

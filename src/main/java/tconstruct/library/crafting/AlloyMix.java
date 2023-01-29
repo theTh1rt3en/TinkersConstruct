@@ -1,9 +1,11 @@
 package tconstruct.library.crafting;
 
 import java.util.*;
+
 import net.minecraftforge.fluids.FluidStack;
 
 public class AlloyMix {
+
     public final FluidStack result;
     public final List<FluidStack> mixers;
 
@@ -13,8 +15,7 @@ public class AlloyMix {
     }
 
     /*
-     * public boolean matches(List liquids) { ArrayList list = new
-     * ArrayList(mixers); return false; }
+     * public boolean matches(List liquids) { ArrayList list = new ArrayList(mixers); return false; }
      */
 
     public FluidStack mix(ArrayList<FluidStack> liquids) {

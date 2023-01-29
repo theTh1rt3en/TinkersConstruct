@@ -1,15 +1,12 @@
 package tconstruct.armor.player;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-import cpw.mods.fml.relauncher.Side;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
 import mantle.player.PlayerUtils;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.Entity.EnumEntitySize;
@@ -20,10 +17,16 @@ import net.minecraft.nbt.*;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
+import cpw.mods.fml.relauncher.Side;
 
 // TODO: Redesign this class
 public class TPlayerHandler {
@@ -151,8 +154,8 @@ public class TPlayerHandler {
             if (PHConstruct.lavaFortuneInteraction) {
                 PlayerUtils.sendChatMessage(player, "Warning: Cross-mod Exploit Present!");
                 PlayerUtils.sendChatMessage(player, "Solution 1: Disable Reverse Smelting recipes from GregTech.");
-                PlayerUtils.sendChatMessage(
-                        player, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+                PlayerUtils
+                        .sendChatMessage(player, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
     }
@@ -202,7 +205,7 @@ public class TPlayerHandler {
 
     @SubscribeEvent
     public void livingFall(LivingFallEvent evt) // Only for negating fall damage
-            {
+    {
         if (evt.entityLiving instanceof EntityPlayer) {
             evt.distance -= 1;
         }
@@ -249,8 +252,8 @@ public class TPlayerHandler {
     /* Modify Player */
     public void updateSize(String user, float offset) {
         /*
-         * EntityPlayer player = getEntityPlayer(user); setEntitySize(0.6F,
-         * offset, player); player.yOffset = offset - 0.18f;
+         * EntityPlayer player = getEntityPlayer(user); setEntitySize(0.6F, offset, player); player.yOffset = offset -
+         * 0.18f;
          */
     }
 

@@ -1,7 +1,7 @@
 package tconstruct.items.tools;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.List;
+
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,14 +9,17 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
+import cpw.mods.fml.relauncher.*;
 
 @Deprecated
 public class Shortbow extends BowBase {
+
     public Shortbow() {
         super();
         this.setUnlocalizedName("InfiTool.Shortbow");
@@ -76,7 +79,7 @@ public class Shortbow extends BowBase {
 
     @Override
     public String[] getTraits() {
-        return new String[] {"weapon", "ranged", "bow"};
+        return new String[] { "weapon", "ranged", "bow" };
     }
 
     @Override
@@ -157,8 +160,10 @@ public class Shortbow extends BowBase {
             }
         }
         list.add("");
-        list.add("\u00A79+" + tags.getCompoundTag("InfiTool").getInteger("Attack") + " "
-                + StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
+        list.add(
+                "\u00A79+" + tags.getCompoundTag("InfiTool").getInteger("Attack")
+                        + " "
+                        + StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
     }
 
     public String getBowstringName(int type) {

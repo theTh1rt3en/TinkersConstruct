@@ -1,16 +1,18 @@
 package tconstruct.library;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.IdentityHashMap;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+
 import tconstruct.gadgets.TinkerGadgets;
 import tconstruct.gadgets.item.ItemSlimeBoots;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 /** Logic for entities bouncing */
 public class SlimeBounceHandler {
@@ -54,8 +56,7 @@ public class SlimeBounceHandler {
     }
 
     /**
-     * Causes the entity to bounce, needed because the fall event will reset motion
-     * afterwards
+     * Causes the entity to bounce, needed because the fall event will reset motion afterwards
      *
      * @param entity Entity to bounce
      * @param bounce Bounce amount
@@ -252,6 +253,7 @@ public class SlimeBounceHandler {
 
     /** Data class to keep track of bouncing info for an entity */
     private static class BounceInfo {
+
         /** Velocity the entity should have, unused if 0 */
         private double bounce;
         /** Time to update the entities velocity */

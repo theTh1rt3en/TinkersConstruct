@@ -1,11 +1,14 @@
 package tconstruct.mechworks.gui;
 
 import java.util.List;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+
 import org.lwjgl.opengl.GL11;
+
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 

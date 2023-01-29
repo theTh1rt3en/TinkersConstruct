@@ -1,13 +1,15 @@
 package tconstruct.mechworks.entity.item;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.*;
+
 import tconstruct.world.MiningExplosion;
+import cpw.mods.fml.relauncher.*;
 
 public class ExplosivePrimed extends Entity {
+
     /** How long the fuse is */
     public Block block;
 
@@ -22,8 +24,8 @@ public class ExplosivePrimed extends Entity {
         this.yOffset = this.height / 2.0F;
     }
 
-    public ExplosivePrimed(
-            World par1World, double par2, double par4, double par6, EntityLivingBase par8EntityLivingBase) {
+    public ExplosivePrimed(World par1World, double par2, double par4, double par6,
+            EntityLivingBase par8EntityLivingBase) {
         this(par1World);
         this.setPosition(par2, par4, par6);
         float f = (float) (Math.random() * Math.PI * 2.0D);
@@ -41,8 +43,8 @@ public class ExplosivePrimed extends Entity {
     protected void entityInit() {}
 
     /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they
-     * walk on. used for spiders and wolves to prevent them from trampling crops
+     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
+     * prevent them from trampling crops
      */
     @Override
     protected boolean canTriggerWalking() {
@@ -50,8 +52,7 @@ public class ExplosivePrimed extends Entity {
     }
 
     /**
-     * Returns true if other Entities should be prevented from moving through
-     * this Entity.
+     * Returns true if other Entities should be prevented from moving through this Entity.
      */
     @Override
     public boolean canBeCollidedWith() {

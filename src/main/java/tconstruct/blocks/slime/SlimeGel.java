@@ -1,7 +1,7 @@
 package tconstruct.blocks.slime;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,12 +10,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.*;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
 import tconstruct.blocks.TConstructBlock;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.*;
 
 public class SlimeGel extends TConstructBlock {
+
     public SlimeGel() {
-        super(Material.sponge, 0.5f, new String[] {"slimeblock_blue", "slimeblock_green", "slimeblock_purple"});
+        super(Material.sponge, 0.5f, new String[] { "slimeblock_blue", "slimeblock_green", "slimeblock_purple" });
         setCreativeTab(TConstructRegistry.blockTab);
     }
 

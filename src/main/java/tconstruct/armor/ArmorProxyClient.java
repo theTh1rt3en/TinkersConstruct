@@ -1,10 +1,9 @@
 package tconstruct.armor;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
+
 import mantle.lib.client.MantleClientRegistry;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
@@ -29,6 +28,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
+
 import tconstruct.armor.gui.ArmorExtendedGui;
 import tconstruct.armor.gui.KnapsackGui;
 import tconstruct.armor.items.TravelGear;
@@ -50,8 +50,12 @@ import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorProxyClient extends ArmorProxyCommon {
+
     public static WingModel wings = new WingModel();
     public static BootBump bootbump = new BootBump();
     public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
@@ -127,16 +131,8 @@ public class ArmorProxyClient extends ArmorProxyCommon {
                 new ItemStack(Blocks.piston),
                 null);
 
-        ItemStack[] recipe = new ItemStack[] {
-            new ItemStack(TinkerWorld.slimeGel, 1, 0),
-            new ItemStack(Items.ender_pearl),
-            feather,
-            feather,
-            feather,
-            feather,
-            feather,
-            feather
-        };
+        ItemStack[] recipe = new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0),
+                new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather };
         ItemStack modWings = ModifyBuilder.instance.modifyItem(wings, recipe);
         MantleClientRegistry.registerManualLargeRecipe(
                 "featherfall",
@@ -160,7 +156,10 @@ public class ArmorProxyClient extends ArmorProxyCommon {
                 new ItemStack(Blocks.piston),
                 null);
         TConstructClientRegistry.registerManualModifier(
-                "waterwalk", boots.copy(), new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily));
+                "waterwalk",
+                boots.copy(),
+                new ItemStack(Blocks.waterlily),
+                new ItemStack(Blocks.waterlily));
         TConstructClientRegistry.registerManualModifier("leadboots", boots.copy(), new ItemStack(Blocks.iron_block));
         TConstructClientRegistry.registerManualModifier(
                 "slimysoles",
@@ -169,8 +168,8 @@ public class ArmorProxyClient extends ArmorProxyCommon {
                 new ItemStack(TinkerWorld.slimePad, 1, 0));
 
         ItemStack gloves = TinkerArmor.travelGlove.getDefaultItem();
-        TConstructClientRegistry.registerManualModifier(
-                "glovehaste", gloves.copy(), redstone, new ItemStack(Blocks.redstone_block));
+        TConstructClientRegistry
+                .registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Blocks.redstone_block));
         // MantleClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Items.slime_ball),
         // new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25), null);
         TConstructClientRegistry.registerManualModifier(
@@ -379,11 +378,23 @@ public class ArmorProxyClient extends ArmorProxyCommon {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(
-                par1 + 0, par2 + par6, this.zLevel, (float) (par3 + 0) * f, (float) (par4 + par6) * f1);
+                par1 + 0,
+                par2 + par6,
+                this.zLevel,
+                (float) (par3 + 0) * f,
+                (float) (par4 + par6) * f1);
         tessellator.addVertexWithUV(
-                par1 + par5, par2 + par6, this.zLevel, (float) (par3 + par5) * f, (float) (par4 + par6) * f1);
+                par1 + par5,
+                par2 + par6,
+                this.zLevel,
+                (float) (par3 + par5) * f,
+                (float) (par4 + par6) * f1);
         tessellator.addVertexWithUV(
-                par1 + par5, par2 + 0, this.zLevel, (float) (par3 + par5) * f, (float) (par4 + 0) * f1);
+                par1 + par5,
+                par2 + 0,
+                this.zLevel,
+                (float) (par3 + par5) * f,
+                (float) (par4 + 0) * f1);
         tessellator.addVertexWithUV(par1 + 0, par2 + 0, this.zLevel, (float) (par3 + 0) * f, (float) (par4 + 0) * f1);
         tessellator.draw();
     }
@@ -449,7 +460,9 @@ public class ArmorProxyClient extends ArmorProxyCommon {
         if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase) {
             EntityLivingBase entitylivingbase1 = (EntityLivingBase) player.ridingEntity;
             yawOffset = this.interpolateRotation(
-                    entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTick);
+                    entitylivingbase1.prevRenderYawOffset,
+                    entitylivingbase1.renderYawOffset,
+                    partialTick);
             pitch = MathHelper.wrapAngleTo180_float(yawRotation - yawOffset);
 
             if (pitch < -85.0F) {
@@ -469,8 +482,8 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 
         pitch = this.handleRotationFloat(player, partialTick);
         float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
-        float limbSwing =
-                player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
+        float limbSwing = player.prevLimbSwingAmount
+                + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
         float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
         // TPlayerStats stats = TPlayerStats.get(player);
         ArmorExtended armor = ArmorProxyClient.armorExtended; // TODO: Do this for every player, not just the client
@@ -479,8 +492,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
             ModelBiped model = item.getArmorModel(player, armor.inventory[1], 4);
 
             if (item instanceof IAccessoryModel) {
-                this.mc
-                        .getTextureManager()
+                this.mc.getTextureManager()
                         .bindTexture(((IAccessoryModel) item).getWearbleTexture(player, armor.inventory[1], 1));
                 model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
                 model.render(
@@ -499,8 +511,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
             ModelBiped model = item.getArmorModel(player, armor.inventory[3], 5);
 
             if (item instanceof IAccessoryModel) {
-                this.mc
-                        .getTextureManager()
+                this.mc.getTextureManager()
                         .bindTexture(((IAccessoryModel) item).getWearbleTexture(player, armor.inventory[1], 1));
                 model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
                 model.render(

@@ -1,17 +1,20 @@
 package tconstruct.world.itemblocks;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.List;
+
 import mantle.blocks.abstracts.MultiItemBlock;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 
+import cpw.mods.fml.relauncher.*;
+
 public class CraftedSoilItemBlock extends MultiItemBlock {
-    public static final String[] blockTypes = {
-        "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil", "blue", "dirt", "Grout"
-    };
+
+    public static final String[] blockTypes = { "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil",
+            "blue", "dirt", "Grout" };
 
     public CraftedSoilItemBlock(Block b) {
         super(b, "CraftedSoil", blockTypes);

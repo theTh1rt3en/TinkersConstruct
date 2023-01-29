@@ -1,11 +1,13 @@
 package tconstruct.mechworks.itemblocks;
 
 import java.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 
@@ -49,18 +51,8 @@ public class ItemBlockLandmine extends ItemBlock {
     }
 
     @Override
-    public boolean placeBlockAt(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ,
-            int metadata) {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ, int metadata) {
         if (!world.setBlock(x, y, z, TinkerMechworks.landmine, metadata, 3)) {
             return false;
         }

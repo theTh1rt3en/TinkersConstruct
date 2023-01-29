@@ -1,6 +1,7 @@
 package tconstruct.mechworks.landmine.behavior;
 
 import java.util.*;
+
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
@@ -8,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 
 /**
@@ -18,13 +20,7 @@ import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 public class BehaviorPotion extends Behavior {
 
     @Override
-    public void executeLogic(
-            World par1World,
-            int par2,
-            int par3,
-            int par4,
-            ItemStack par5ItemStack,
-            Entity triggerer,
+    public void executeLogic(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack, Entity triggerer,
             boolean willBlockBeRemoved) {
         if (ItemPotion.isSplash(par5ItemStack.getItemDamage())) {
             par1World.playSoundAtEntity(

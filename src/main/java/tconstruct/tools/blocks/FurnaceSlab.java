@@ -1,19 +1,22 @@
 package tconstruct.tools.blocks;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.Random;
+
 import mantle.blocks.abstracts.InventorySlab;
 import mantle.blocks.iface.*;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.*;
+
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.FurnaceLogic;
+import cpw.mods.fml.relauncher.*;
 
 public class FurnaceSlab extends InventorySlab {
 
@@ -43,7 +46,7 @@ public class FurnaceSlab extends InventorySlab {
 
     @Override
     public String[] getTextureNames() {
-        return new String[] {"furnaceslab_front", "furnaceslab_front_active", "furnaceslab_side", "furnace_top"};
+        return new String[] { "furnaceslab_front", "furnaceslab_front_active", "furnaceslab_side", "furnace_top" };
     }
 
     @Override
