@@ -25,7 +25,7 @@ public class MaterialItem extends CraftingItem {
             "EssenceCrystal", "AluBrassNugget", "SilkyCloth", "SilkyJewel", "ObsidianNugget", "CobaltNugget",
             "ArditeNugget", "ManyullynNugget", "BronzeNugget", "AlumiteNugget", "SteelNugget", "PigIronIngot",
             "PigIronNugget", "GlueBall", "SearedBrick", "ArditeDust", "CobaltDust", "AluminumDust", "ManyullynDust",
-            "AluBrassDust" };
+            "AluBrassDust", "Reinforcement" };
 
     static String[] craftingTextures = new String[] { "paperstack", "slimecrystal", "searedbrick", "cobaltingot",
             "arditeingot", "manyullyningot", "mossball", "lavacrystal", "necroticbone", "copperingot", "tiningot",
@@ -34,5 +34,5 @@ public class MaterialItem extends CraftingItem {
             "nugget_alubrass", "silkycloth", "silkyjewel", "nugget_obsidian", "nugget_cobalt", "nugget_ardite",
             "nugget_manyullyn", "nugget_bronze", "nugget_alumite", "nugget_steel", "pigironingot", "nugget_pigiron",
             "glueball", "searedbrick_nether", "ardite_dust", "cobalt_dust", "aluminum_dust", "manyullyn_dust",
-            "alubrass_dust" };
+            "alubrass_dust", "reinforcement" };
 }
