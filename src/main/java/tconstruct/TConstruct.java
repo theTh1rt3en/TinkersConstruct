@@ -286,6 +286,8 @@ public class TConstruct {
 
         @SubscribeEvent
         public void onEntitySpawn(EntityJoinWorldEvent event) {
+            // return if config is zero to keep vanilla functionality
+            if (PHConstruct.globalDespawn == 0) return;
             if (event.entity instanceof EntityItem) {
                 EntityItem ourGuy = (EntityItem) event.entity;
                 if (ourGuy.lifespan == 6000) {

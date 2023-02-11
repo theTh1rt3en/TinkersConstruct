@@ -71,10 +71,14 @@ public class PHConstruct {
                 "Difficulty Changes",
                 "Add alternative recipe for bolt parts: arrowhead + toolrod in a crafting grid",
                 false).getBoolean(false);
-        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", false).getBoolean(false);
-        globalDespawn = config.get("Difficulty Changes", "Global item despawn time", 18000).getInt(18000);
-        dropCanisters = config.get("Difficulty Changes", "Drop heart canisters on death", true).getBoolean(true);
-        daggerThrowMultiplier = config.get("Difficulty Changes", "Thrown dagger output multiplier", 3).getDouble(3);
+        indestructible = config.get("Difficulty Changes", "Dropped tools are indestructible", true).getBoolean(true);
+        globalDespawn = config.get(
+                "Difficulty Changes",
+                "Global item despawn time",
+                0,
+                "Changes the despawn time of all items, 0 is vanilla behavior").getInt(0);
+        dropCanisters = config.get("Difficulty Changes", "Drop heart canisters on death", false).getBoolean(false);
+        daggerThrowMultiplier = config.get("Difficulty Changes", "Thrown dagger output multiplier", 1).getDouble(1);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
