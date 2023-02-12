@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 
 import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.tools.*;
+import tconstruct.util.config.PHConstruct;
 
 public class DaggerEntity extends ProjectileBase {
 
@@ -58,7 +59,8 @@ public class DaggerEntity extends ProjectileBase {
                 returnStack,
                 (EntityPlayer) shootingEntity,
                 movingobjectposition.entityHit,
-                (ToolCore) returnStack.getItem());
+                (ToolCore) returnStack.getItem(),
+                PHConstruct.daggerThrowMultiplier);
         // super.onHitEntity(movingobjectposition);
     }
 

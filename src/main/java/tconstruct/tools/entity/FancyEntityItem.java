@@ -6,12 +6,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
+import tconstruct.util.config.PHConstruct;
+
 public class FancyEntityItem extends EntityItem {
 
     public FancyEntityItem(World par1World, double par2, double par4, double par6) {
         super(par1World, par2, par4, par6);
-        this.isImmuneToFire = true;
-        this.lifespan = 72000;
+        if (PHConstruct.indestructible) {
+            this.isImmuneToFire = true;
+            this.lifespan = 72000;
+        }
     }
 
     public FancyEntityItem(World par1World, double par2, double par4, double par6, ItemStack par8ItemStack) {
@@ -23,8 +27,10 @@ public class FancyEntityItem extends EntityItem {
 
     public FancyEntityItem(World par1World) {
         super(par1World);
-        this.isImmuneToFire = true;
-        this.lifespan = 72000;
+        if (PHConstruct.indestructible) {
+            this.isImmuneToFire = true;
+            this.lifespan = 72000;
+        }
     }
 
     public FancyEntityItem(World world, Entity original, ItemStack stack) {
@@ -37,6 +43,11 @@ public class FancyEntityItem extends EntityItem {
     }
 
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        return par1DamageSource.getDamageType().equals("outOfWorld");
+        if (PHConstruct.indestructible) {
+            if (par1DamageSource.getDamageType().equals("outOfWorld")) return true;
+            return false;
+        } else {
+            return super.attackEntityFrom(par1DamageSource, par2);
+        }
     }
 }
