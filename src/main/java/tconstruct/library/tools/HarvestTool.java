@@ -134,7 +134,8 @@ public abstract class HarvestTool extends ToolCore {
             if (nearbyStack != null) {
                 Item item = nearbyStack.getItem();
 
-                if (item instanceof ItemBlock || (item != null && item == TinkerTools.openBlocksDevNull)) {
+                if (item instanceof ItemBlock || (item != null && item == TinkerTools.openBlocksDevNull)
+                        || (TinkerTools.ofanix != null && TinkerTools.ofanix == item)) {
                     int posX = x;
                     int posY = y;
                     int posZ = z;
