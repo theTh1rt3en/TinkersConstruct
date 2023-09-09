@@ -43,7 +43,6 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         super(SLIME_MATERIAL, 0, 3);
         this.setCreativeTab(TConstructRegistry.gadgetsTab);
         this.setMaxStackSize(1);
-        this.setMaxDamage(100);
         SLIME_MATERIAL.customCraftingMaterial = Items.slime_ball;
         armorPart = ArmorPart.Feet;
         textureFolder = "armor";
@@ -57,7 +56,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         return armorType1 == 3;
     }
 
-    // equipping with rightclick
+    // equipping with right click
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         int slot = 1; // 0 = current item, 1 = feet
@@ -67,7 +66,6 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         } else {
             itemstack = itemstack.copy();
             playerIn.setCurrentItemOrArmor(1, itemStackIn.copy());
-            // playerIn.setCurrentItemOrArmor(0, itemstack);
             playerIn.entityDropItem(itemstack, 0);
         }
         itemStackIn.stackSize--;
@@ -79,21 +77,17 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
     // RUBBERY BOUNCY BOUNCERY WOOOOO
     public void onFall(LivingFallEvent event) {
         final EntityLivingBase living = event.entityLiving;
-        // TinkerGadgets.log.info("Fall event.");
         // using fall distance as the event distance could be reduced by jump boost
         if (living == null || living.fallDistance <= 2f) {
-            // TinkerGadgets.log.info("Invalid event.");
             return;
         }
         // can the entity bounce?
         if (!SlimeBounceHandler.hasSlimeBoots(living)) {
-            // TinkerGadgets.log.info("No Boots.");
             return;
         }
 
         // reduced fall damage when crouching
         if (living.isSneaking()) {
-            // TinkerGadgets.log.info("Sneaking");
             event.distance = 1;
             return;
         }
@@ -102,10 +96,8 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         event.setCanceled(true);
         // skip further client processing on players
         if (living.worldObj.isRemote) {
-            // TinkerGadgets.log.info("Client Fall Handler.");
             living.playSound("mob.slime.small", 1f, 1f);
             SlimeBounceHandler.addBounceHandler(living);
-            // TConstruct.packetPipeline.sendToServer(new BouncedPacket(living));
             return;
         }
 
@@ -113,17 +105,16 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         // velocity during the event, so we need to reverse engineer it
         Vec3 motion = SlimeBounceHandler.getMotion(living);
         if (living instanceof EntityPlayerMP) {
-            // velocity is lost on server players, but we dont have to defer the bounce
+            // velocity is lost on server players, but we don't have to defer the bounce
             double gravity = 0.2353455252;
             double time = Math.sqrt(living.fallDistance / gravity);
-            double velocity = gravity * time;
+            double velocity = gravity * time / 2;
             living.motionX = motion.xCoord / 0.95f;
             living.motionY = velocity;
             living.motionZ = motion.zCoord / 0.95f;
             living.velocityChanged = true;
             // preserve momentum
             SlimeBounceHandler.addBounceHandler(living);
-            // TinkerGadgets.log.info("Player");
         } else {
             // for non-players, need to defer the bounce
             // only slow down half as much when bouncing
@@ -131,9 +122,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
             living.motionY = motion.yCoord * -0.9;
             living.motionZ = motion.zCoord / 0.95f;
             SlimeBounceHandler.addBounceHandler(living, SlimeBounceHandler.getMotion(living).yCoord);
-            // TinkerGadgets.log.info("Not Player");
         }
-        // TinkerGadgets.log.info("Server Fall Handler.");
         // update airborn status
         living.isAirBorne = true;
         living.onGround = false;
@@ -143,7 +132,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
 
     @Override
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-        return 2;
+        return 0;
     }
 
     @Override
@@ -183,11 +172,13 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
     @Override
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage,
             int slot) {
-        return new ArmorProperties(0, armor.getItemDamage() / 100, 100);
+        return new ArmorProperties(0, 0.1D, 1);
     }
 
     @Override
-    public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {}
+    public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
+        armor.damageItem(1, entity);
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -230,6 +221,11 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
     @Override
     public boolean hasCustomEntity(ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public int getMaxDamage() {
+        return 100;
     }
 
     @Override

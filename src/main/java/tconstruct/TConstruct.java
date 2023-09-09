@@ -17,7 +17,13 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -160,9 +166,6 @@ public class TConstruct {
         pulsar.registerPulse(new TinkerUBC());
         pulsar.registerPulse(new TinkerGears());
         pulsar.registerPulse(new TinkerRfTools());
-        /*
-         * pulsar.registerPulse(new TinkerPrayers()); pulsar.registerPulse(new TinkerCropify());
-         */
 
         TConstructRegistry.materialTab = new TConstructCreativeTab("TConstructMaterials");
         TConstructRegistry.toolTab = new TConstructCreativeTab("TConstructTools");
@@ -176,10 +179,7 @@ public class TConstruct {
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
 
-        // GameRegistry.registerFuelHandler(content);
-
         playerTracker = new TPlayerHandler();
-        // GameRegistry.registerPlayerTracker(playerTracker);
         FMLCommonHandler.instance().bus().register(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
         NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);

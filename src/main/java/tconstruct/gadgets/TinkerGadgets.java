@@ -11,6 +11,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -20,8 +21,8 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 import tconstruct.gadgets.item.ItemSlimeBoots;
 import tconstruct.gadgets.item.ItemSlimeSling;
-import tconstruct.library.SlimeBounceHandler;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.world.TinkerWorld;
 
 @Pulse(id = "Tinkers' Gadgets", description = "All the fun toys.", forced = true)
 public class TinkerGadgets {
@@ -35,31 +36,37 @@ public class TinkerGadgets {
 
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
-        log.info("Pre Init");
-        SlimeBounceHandler.init();
         slimeSling = registerItem(new ItemSlimeSling(), "slimesling");
         slimeBoots = registerItem(new ItemSlimeBoots(), "slime_boots");
     }
 
     @Handler
     public void init(FMLInitializationEvent event) {
-        log.info("Init");
-        String ore = "blockSlime";
+        if (!Loader.isModLoaded("dreamcraft")) {
+            ItemStack slimeBlockGreen = new ItemStack(TinkerWorld.slimeGel, 1, 1);
 
-        GameRegistry.addRecipe(
-                new ShapedOreRecipe(new ItemStack(slimeBoots), "   ", "s s", "b b", 's', "slimeball", 'b', ore));
-        GameRegistry.addRecipe(
-                new ShapedOreRecipe(
-                        new ItemStack(slimeSling),
-                        "fbf",
-                        "s s",
-                        " s ",
-                        'f',
-                        Items.string,
-                        's',
-                        "slimeball",
-                        'b',
-                        ore));
+            GameRegistry.addShapedRecipe(
+                    new ItemStack(slimeBoots),
+                    "   ",
+                    "s s",
+                    "b b",
+                    's',
+                    Items.slime_ball,
+                    'b',
+                    slimeBlockGreen);
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(slimeSling),
+                            "fbf",
+                            "s s",
+                            " s ",
+                            'f',
+                            Items.string,
+                            's',
+                            Items.slime_ball,
+                            'b',
+                            slimeBlockGreen));
+        }
         TConstructRegistry.gadgetsTab.init(new ItemStack(slimeBoots));
     }
 

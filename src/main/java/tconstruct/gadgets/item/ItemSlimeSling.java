@@ -69,16 +69,6 @@ public class ItemSlimeSling extends Item {
             return;
         }
 
-        // copy chargeup code from bow \o/
-        int i = this.getMaxItemUseDuration(stack) - timeLeft;
-        float f = i / 20.0F;
-        f = (f * f + f * 2.0F) / 3.0F;
-        f *= 4f;
-
-        if (f > 6f) {
-            f = 6f;
-        }
-
         // check if player was targeting a block
         MovingObjectPosition mop = getMovingObjectPositionFromPlayer(world, player, false);
 
@@ -86,7 +76,11 @@ public class ItemSlimeSling extends Item {
             // we fling the inverted player look vector
             Vec3 vec = player.getLookVec().normalize();
 
-            player.addVelocity(vec.xCoord * -f, vec.yCoord * -f / 3f, vec.zCoord * -f);
+            double itemUseDuration = (this.getMaxItemUseDuration(stack) - timeLeft);
+            double power = Math.min(itemUseDuration / 20D, 1.8D);
+            double height = Math.max(vec.yCoord * power * 2, -2D);
+
+            player.addVelocity(vec.xCoord * -power, -height, vec.zCoord * -power);
 
             if (player instanceof EntityPlayerMP) {
                 EntityPlayerMP playerMP = (EntityPlayerMP) player;
@@ -95,8 +89,18 @@ public class ItemSlimeSling extends Item {
             }
             player.playSound(TinkerGadgets.resource("slimesling"), 1f, 1f);
             SlimeBounceHandler.addBounceHandler(player);
-            // TinkerCommons.potionSlimeBounce.apply(player);
+            stack.damageItem(1, player);
         }
+    }
+
+    @Override
+    public boolean isDamageable() {
+        return true;
+    }
+
+    @Override
+    public int getMaxDamage() {
+        return 100;
     }
 
     @Override
