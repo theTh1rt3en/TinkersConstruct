@@ -1,8 +1,11 @@
 package tconstruct.armor;
 
+import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.HEALTH;
+
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
@@ -25,6 +28,8 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -233,7 +238,6 @@ public class ArmorProxyClient extends ArmorProxyCommon {
     Minecraft mc = Minecraft.getMinecraft();
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
-    private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
     // public static int left_height = 39;
     // public static int right_height = 39;
     Random rand = new Random();
@@ -274,6 +278,9 @@ public class ArmorProxyClient extends ArmorProxyCommon {
             // with a GUI mod (thanks Vazkii!)
             return;
         }
+
+        mc.mcProfiler.startSection("health");
+        GL11.glEnable(GL11.GL_BLEND);
 
         int scaledWidth = event.resolution.getScaledWidth();
         int scaledHeight = event.resolution.getScaledHeight();
@@ -369,11 +376,13 @@ public class ArmorProxyClient extends ArmorProxyCommon {
             }
         }
 
-        this.mc.getTextureManager().bindTexture(icons);
+        this.mc.getTextureManager().bindTexture(Gui.icons);
         GuiIngameForge.left_height += 10;
         if (absorb > 0) GuiIngameForge.left_height += 10;
-
+        GL11.glDisable(GL11.GL_BLEND);
+        mc.mcProfiler.endSection();
         event.setCanceled(true);
+        MinecraftForge.EVENT_BUS.post(new RenderGameOverlayEvent.Post(event, HEALTH));
     }
 
     public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6) {
