@@ -154,13 +154,15 @@ public class HealthBarRenderer extends Gui {
         if (health > 20) {
             // Render tinkers' hearts
             mc.getTextureManager().bindTexture(TINKER_HEARTS);
-            for (int i = 0; i < health / 20; i++) {
+            for (int i = Math.max(0, health / 20 - 2); i < health / 20; i++) {
                 final int heartIndexMax = Math.min(10, (health - 20 * (i + 1)) / 2);
                 for (int j = 0; j < heartIndexMax; j++) {
                     int y = 0;
                     if (j == regen) y -= 2;
-                    // full heart texture
-                    this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9);
+                    if ((i + 1) * 20 + j * 2 + 21 >= health) {
+                        // full heart texture
+                        this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9);
+                    }
                 }
                 if (health % 2 == 1 && heartIndexMax < 10) {
                     int y = 0;
