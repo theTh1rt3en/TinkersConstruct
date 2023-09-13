@@ -150,29 +150,23 @@ public class HealthBarRenderer extends Gui {
             }
         }
 
-        // Extra hearts
-        mc.getTextureManager().bindTexture(TINKER_HEARTS);
-
-        for (int iter = 0; iter < health / 20; iter++) {
-            int renderHearts = (health - 20 * (iter + 1)) / 2;
-            if (renderHearts > 10) renderHearts = 10;
-            for (int i = 0; i < renderHearts; i++) {
-                int y = 0;
-                if (i == regen) y -= 2;
-                this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos + y, 18 * iter, tinkerPotionOffset, 9, 9);
+        if (health > 20) {
+            // Render tinkers' hearts
+            mc.getTextureManager().bindTexture(TINKER_HEARTS);
+            for (int i = 0; i < health / 20; i++) {
+                final int renderHearts = Math.min(10, (health - 20 * (i + 1)) / 2);
+                for (int j = 0; j < renderHearts; j++) {
+                    int y = 0;
+                    if (j == regen) y -= 2;
+                    this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9);
+                }
+                if (health % 2 == 1 && renderHearts < 10) {
+                    this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * i, tinkerTextureY, 9, 9);
+                }
             }
-            if (health % 2 == 1 && renderHearts < 10) {
-                this.drawTexturedModalRect(
-                        xBasePos + 8 * renderHearts,
-                        yBasePos,
-                        9 + 18 * iter,
-                        tinkerPotionOffset,
-                        9,
-                        9);
-            }
+            mc.getTextureManager().bindTexture(icons);
         }
 
-        mc.getTextureManager().bindTexture(icons);
         GuiIngameForge.left_height += 10;
         if (absorb > 0) GuiIngameForge.left_height += 10;
         GL11.glDisable(GL11.GL_BLEND);
