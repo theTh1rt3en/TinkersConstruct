@@ -155,14 +155,24 @@ public class HealthBarRenderer extends Gui {
             // Render tinkers' hearts
             mc.getTextureManager().bindTexture(TINKER_HEARTS);
             for (int i = 0; i < health / 20; i++) {
-                final int renderHearts = Math.min(10, (health - 20 * (i + 1)) / 2);
-                for (int j = 0; j < renderHearts; j++) {
+                final int heartIndexMax = Math.min(10, (health - 20 * (i + 1)) / 2);
+                for (int j = 0; j < heartIndexMax; j++) {
                     int y = 0;
                     if (j == regen) y -= 2;
-                    this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9); // full heart texture
+                    // full heart texture
+                    this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9);
                 }
-                if (health % 2 == 1 && renderHearts < 10) {
-                    this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * i, tinkerTextureY, 9, 9); // half heart texture
+                if (health % 2 == 1 && heartIndexMax < 10) {
+                    int y = 0;
+                    if (heartIndexMax == regen) y -= 2;
+                    // half heart texture
+                    this.drawTexturedModalRect(
+                            xBasePos + 8 * heartIndexMax,
+                            yBasePos + y,
+                            9 + 18 * i,
+                            tinkerTextureY,
+                            9,
+                            9);
                 }
             }
             mc.getTextureManager().bindTexture(icons);
