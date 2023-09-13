@@ -34,7 +34,7 @@ public class HealthBarRenderer extends Gui {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
+        if (event.phase == TickEvent.Phase.START && !mc.isGamePaused()) {
             this.updateCounter++;
         }
     }
