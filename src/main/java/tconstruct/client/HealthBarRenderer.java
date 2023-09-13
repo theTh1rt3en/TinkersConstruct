@@ -61,10 +61,10 @@ public class HealthBarRenderer extends Gui {
         mc.mcProfiler.startSection("health");
         GL11.glEnable(GL11.GL_BLEND);
 
-        int scaledWidth = event.resolution.getScaledWidth();
-        int scaledHeight = event.resolution.getScaledHeight();
-        int xBasePos = scaledWidth / 2 - 91;
-        int yBasePos = scaledHeight - 39;
+        final int width = event.resolution.getScaledWidth();
+        final int height = event.resolution.getScaledHeight();
+        final int xBasePos = width / 2 - 91;
+        int yBasePos = height - 39;
 
         boolean highlight = mc.thePlayer.hurtResistantTime / 3 % 2 == 1;
 
@@ -75,17 +75,16 @@ public class HealthBarRenderer extends Gui {
         final IAttributeInstance attrMaxHealth = mc.thePlayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
         final int health = MathHelper.ceiling_float_int(mc.thePlayer.getHealth());
         final int healthLast = MathHelper.ceiling_float_int(mc.thePlayer.prevHealth);
-        float healthMax = (float) attrMaxHealth.getAttributeValue();
-        if (healthMax > 20F) healthMax = 20F;
-        float absorb = mc.thePlayer.getAbsorptionAmount();
+        final float healthMax = Math.min(20F, (float) attrMaxHealth.getAttributeValue());
+        final float absorb = mc.thePlayer.getAbsorptionAmount();
 
         final int healthRows = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F / 10.0F);
         final int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
         this.rand.setSeed(updateCounter * 312871L);
 
-        int left = scaledWidth / 2 - 91;
-        int top = scaledHeight - GuiIngameForge.left_height;
+        int left = width / 2 - 91;
+        int top = height - GuiIngameForge.left_height;
 
         if (!GuiIngameForge.renderExperiance) {
             top += 7;
@@ -98,10 +97,10 @@ public class HealthBarRenderer extends Gui {
         }
 
         final int TOP;
-        int tinkerPotionOffset = 0;
+        int tinkerTextureY = 0;
         if (mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) {
             TOP = 9 * 5;
-            tinkerPotionOffset += 27;
+            tinkerTextureY += 27;
         } else {
             TOP = 0;
         }
@@ -109,13 +108,14 @@ public class HealthBarRenderer extends Gui {
         int MARGIN = 16;
         if (mc.thePlayer.isPotionActive(Potion.poison)) {
             MARGIN += 36;
-            tinkerPotionOffset = 9;
+            tinkerTextureY = 9;
         } else if (mc.thePlayer.isPotionActive(Potion.wither)) {
             MARGIN += 72;
-            tinkerPotionOffset = 18;
+            tinkerTextureY = 18;
         }
         float absorbRemaining = absorb;
 
+        // Render vanilla hearts
         for (int i = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F) - 1; i >= 0; --i) {
             final int row = MathHelper.ceiling_float_int((float) (i + 1) / 10.0F) - 1;
             int x = left + i % 10 * 8;
@@ -124,28 +124,29 @@ public class HealthBarRenderer extends Gui {
             if (health <= 4) y += rand.nextInt(2);
             if (i == regen) y -= 2;
 
-            this.drawTexturedModalRect(x, y, BACKGROUND, TOP, 9, 9);
+            this.drawTexturedModalRect(x, y, BACKGROUND, TOP, 9, 9); // heart background texture
 
             if (highlight) {
                 if (i * 2 + 1 < healthLast) {
-                    this.drawTexturedModalRect(x, y, MARGIN + 54, TOP, 9, 9); // 6
+                    this.drawTexturedModalRect(x, y, MARGIN + 54, TOP, 9, 9); // full heart damage texture
                 } else if (i * 2 + 1 == healthLast) {
-                    this.drawTexturedModalRect(x, y, MARGIN + 63, TOP, 9, 9); // 7
+                    this.drawTexturedModalRect(x, y, MARGIN + 63, TOP, 9, 9); // half heart damage texture
                 }
             }
 
             if (absorbRemaining > 0.0F) {
                 if (absorbRemaining == absorb && absorb % 2.0F == 1.0F) {
-                    this.drawTexturedModalRect(x, y, MARGIN + 153, TOP, 9, 9); // 17
+                    this.drawTexturedModalRect(x, y, MARGIN + 153, TOP, 9, 9); // half heart absorption texture
                 } else {
-                    this.drawTexturedModalRect(x, y, MARGIN + 144, TOP, 9, 9); // 16
+                    this.drawTexturedModalRect(x, y, MARGIN + 144, TOP, 9, 9); // full heart absorption texture
                 }
                 absorbRemaining -= 2.0F;
-            } else {
+            } else if (i * 2 + 1 + 20 >= health) {
+                // only draw red vanilla hearts when it won't be covered by tinkers' hearts
                 if (i * 2 + 1 < health) {
-                    this.drawTexturedModalRect(x, y, MARGIN + 36, TOP, 9, 9); // 4
+                    this.drawTexturedModalRect(x, y, MARGIN + 36, TOP, 9, 9); // full heart texture
                 } else if (i * 2 + 1 == health) {
-                    this.drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); // 5
+                    this.drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); // half heart texture
                 }
             }
         }
@@ -158,10 +159,10 @@ public class HealthBarRenderer extends Gui {
                 for (int j = 0; j < renderHearts; j++) {
                     int y = 0;
                     if (j == regen) y -= 2;
-                    this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9);
+                    this.drawTexturedModalRect(xBasePos + 8 * j, yBasePos + y, 18 * i, tinkerTextureY, 9, 9); // full heart texture
                 }
                 if (health % 2 == 1 && renderHearts < 10) {
-                    this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * i, tinkerTextureY, 9, 9);
+                    this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * i, tinkerTextureY, 9, 9); // half heart texture
                 }
             }
             mc.getTextureManager().bindTexture(icons);
