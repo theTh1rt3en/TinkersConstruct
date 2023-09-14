@@ -155,6 +155,8 @@ public class HealthBarRenderer extends Gui {
             // Render tinkers' hearts
             mc.getTextureManager().bindTexture(TINKER_HEARTS);
             for (int i = Math.max(0, health / 20 - 2); i < health / 20; i++) {
+                // uncomment the line below to help with debugging
+                // yBasePos -=20;
                 final int heartIndexMax = Math.min(10, (health - 20 * (i + 1)) / 2);
                 for (int j = 0; j < heartIndexMax; j++) {
                     int y = 0;
