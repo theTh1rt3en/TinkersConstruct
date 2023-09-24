@@ -1,24 +1,31 @@
 package tconstruct.library.tools;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.core.item.IEqualityOverrideItem;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.*;
-import tconstruct.library.*;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.modifier.*;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.util.TextureHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.FancyEntityItem;

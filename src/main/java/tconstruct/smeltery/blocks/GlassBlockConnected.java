@@ -3,10 +3,11 @@ package tconstruct.smeltery.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.config.PHConstruct;

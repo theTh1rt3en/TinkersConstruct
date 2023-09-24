@@ -8,18 +8,25 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.blocks.abstracts.InventorySlab;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.tools.*;
-import tconstruct.tools.logic.*;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.ToolProxyCommon;
+import tconstruct.tools.logic.CraftingStationLogic;
+import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PatternChestLogic;
+import tconstruct.tools.logic.StencilTableLogic;
+import tconstruct.tools.logic.ToolForgeLogic;
+import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.config.PHConstruct;
 
 public class CraftingSlab extends InventorySlab {

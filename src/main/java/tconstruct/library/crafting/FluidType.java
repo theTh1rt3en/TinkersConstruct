@@ -1,6 +1,7 @@
 package tconstruct.library.crafting;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.fluids.Fluid;

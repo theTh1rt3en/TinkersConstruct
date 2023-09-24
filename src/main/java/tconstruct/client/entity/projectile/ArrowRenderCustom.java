@@ -3,16 +3,15 @@ package tconstruct.client.entity.projectile;
 import java.util.Random;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
-import org.lwjgl.opengl.*;
-
-import cpw.mods.fml.relauncher.*;
 import tconstruct.tools.entity.ArrowEntity;
 
 @SideOnly(Side.CLIENT)

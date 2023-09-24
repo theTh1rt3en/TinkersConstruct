@@ -1,15 +1,18 @@
 package tconstruct.world.blocks;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockWood;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.*;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.library.TConstructRegistry;
 
 public class MeatBlock extends BlockWood {

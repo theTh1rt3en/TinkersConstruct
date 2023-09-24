@@ -2,12 +2,13 @@ package tconstruct.smeltery;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.FillBucketEvent;
 
-import cpw.mods.fml.common.eventhandler.*;
 import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import mantle.world.WorldHelper;
 import tconstruct.armor.player.TPlayerStats;

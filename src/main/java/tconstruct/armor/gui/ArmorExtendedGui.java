@@ -1,16 +1,17 @@
 package tconstruct.armor.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.InventoryEffectRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.*;
-
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.player.ArmorExtended;
-import tconstruct.client.tabs.*;
+import tconstruct.client.tabs.InventoryTabArmorExtended;
+import tconstruct.client.tabs.TabRegistry;
 
 public class ArmorExtendedGui extends InventoryEffectRenderer {
 

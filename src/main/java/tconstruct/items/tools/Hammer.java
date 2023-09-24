@@ -4,12 +4,14 @@ import java.util.List;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.*;
+import tconstruct.library.tools.AOEHarvestTool;
 import tconstruct.tools.TinkerTools;
 
 public class Hammer extends AOEHarvestTool {

@@ -5,7 +5,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
-import tconstruct.library.event.*;
+import tconstruct.library.event.SmelteryCastEvent;
+import tconstruct.library.event.SmelteryCastedEvent;
 
 public class CastingTableLogic extends CastingBlockLogic {
 

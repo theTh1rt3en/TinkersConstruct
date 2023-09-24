@@ -1,7 +1,8 @@
 package tconstruct.smeltery;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -10,17 +11,29 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.RenderBlockFluid;
 
-import cpw.mods.fml.client.registry.*;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import mantle.client.MProxyClient;
 import mantle.lib.client.MantleClientRegistry;
 import tconstruct.armor.TinkerArmor;
-import tconstruct.armor.modelblock.*;
+import tconstruct.armor.modelblock.DryingRackRender;
+import tconstruct.armor.modelblock.DryingRackSpecialRender;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.pages.BlockCastPage;
 import tconstruct.common.TProxyCommon;
-import tconstruct.smeltery.gui.*;
-import tconstruct.smeltery.logic.*;
-import tconstruct.smeltery.model.*;
+import tconstruct.smeltery.gui.SmelteryGui;
+import tconstruct.smeltery.logic.CastingBasinLogic;
+import tconstruct.smeltery.logic.CastingTableLogic;
+import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.smeltery.model.BlockRenderCastingChannel;
+import tconstruct.smeltery.model.CastingBasinSpecialRender;
+import tconstruct.smeltery.model.CastingBlockRender;
+import tconstruct.smeltery.model.CastingTableSpecialRenderer;
+import tconstruct.smeltery.model.PaneConnectedRender;
+import tconstruct.smeltery.model.PaneRender;
+import tconstruct.smeltery.model.SmelteryRender;
+import tconstruct.smeltery.model.TankItemRenderer;
+import tconstruct.smeltery.model.TankRender;
 import tconstruct.tools.TinkerTools;
 
 public class SmelteryProxyClient extends SmelteryProxyCommon {

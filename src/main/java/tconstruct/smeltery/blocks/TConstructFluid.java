@@ -3,9 +3,9 @@ package tconstruct.smeltery.blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.BlockFluidClassic;
+import net.minecraftforge.fluids.Fluid;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.library.TConstructRegistry;
 
 public class TConstructFluid extends BlockFluidClassic {

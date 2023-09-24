@@ -3,7 +3,8 @@ package tconstruct.modifiers.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.modifier.*;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 
 public class ModExtraModifier extends ItemModifier {
 

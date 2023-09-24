@@ -3,13 +3,14 @@ package tconstruct.armor.items;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.items.abstracts.CraftingItem;
-import tconstruct.armor.player.*;
+import tconstruct.armor.player.ArmorExtended;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.IHealthAccessory;
 

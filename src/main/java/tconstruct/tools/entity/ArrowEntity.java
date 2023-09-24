@@ -1,18 +1,25 @@
 package tconstruct.tools.entity;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.crash.*;
-import net.minecraft.entity.*;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ReportedException;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.ByteBufUtils;

@@ -3,7 +3,8 @@ package tconstruct.client;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

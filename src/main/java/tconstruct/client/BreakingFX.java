@@ -6,8 +6,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
-
 @SideOnly(Side.CLIENT)
 public class BreakingFX extends EntityFX {
 

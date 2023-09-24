@@ -1,7 +1,7 @@
 package tconstruct.mechworks.landmine.behavior;
 
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemMonsterPlacer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 

@@ -5,8 +5,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
-import tconstruct.library.client.*;
+import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.client.ToolGuiElement;
 import tconstruct.tools.logic.ToolForgeLogic;
 
 @SideOnly(Side.CLIENT)

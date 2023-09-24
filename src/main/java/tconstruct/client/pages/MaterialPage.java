@@ -4,8 +4,8 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import org.lwjgl.opengl.*;
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import mantle.client.pages.BookPage;
 import mantle.lib.client.MantleClientRegistry;

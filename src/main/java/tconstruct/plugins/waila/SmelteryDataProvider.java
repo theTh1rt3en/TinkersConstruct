@@ -10,7 +10,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
-import mcp.mobius.waila.api.*;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
 public class SmelteryDataProvider implements IWailaDataProvider {

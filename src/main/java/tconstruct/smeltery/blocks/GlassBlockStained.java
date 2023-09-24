@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.blocks.TConstructBlock;
 
 public class GlassBlockStained extends TConstructBlock {

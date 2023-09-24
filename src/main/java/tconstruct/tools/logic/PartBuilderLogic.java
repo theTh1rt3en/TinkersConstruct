@@ -1,7 +1,8 @@
 package tconstruct.tools.logic;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -10,7 +11,8 @@ import net.minecraft.world.World;
 import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.util.IPattern;
-import tconstruct.tools.inventory.*;
+import tconstruct.tools.inventory.PartCrafterChestContainer;
+import tconstruct.tools.inventory.PartCrafterContainer;
 
 public class PartBuilderLogic extends InventoryLogic implements ISidedInventory {
 

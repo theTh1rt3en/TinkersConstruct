@@ -1,6 +1,6 @@
 package tconstruct.tools.gui;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 

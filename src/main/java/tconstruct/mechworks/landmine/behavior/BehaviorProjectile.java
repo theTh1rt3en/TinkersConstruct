@@ -1,8 +1,8 @@
 package tconstruct.mechworks.landmine.behavior;
 
-import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityEnderPearl;
-import net.minecraft.entity.projectile.*;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;

@@ -1,10 +1,16 @@
 package tconstruct.library.crafting;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.*;
-import net.minecraftforge.fluids.*;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import mantle.utils.ItemMetaWrapper;

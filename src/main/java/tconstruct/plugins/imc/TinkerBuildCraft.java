@@ -3,8 +3,8 @@ package tconstruct.plugins.imc;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-import cpw.mods.fml.common.event.*;
-import mantle.pulsar.pulse.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
 import tconstruct.smeltery.TinkerSmeltery;
 

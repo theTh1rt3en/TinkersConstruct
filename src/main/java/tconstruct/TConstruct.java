@@ -70,7 +70,11 @@ import tconstruct.util.network.PacketPipeline;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
-import tconstruct.world.village.*;
+import tconstruct.world.village.ComponentSmeltery;
+import tconstruct.world.village.ComponentToolWorkshop;
+import tconstruct.world.village.TVillageTrades;
+import tconstruct.world.village.VillageSmelteryHandler;
+import tconstruct.world.village.VillageToolStationHandler;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!

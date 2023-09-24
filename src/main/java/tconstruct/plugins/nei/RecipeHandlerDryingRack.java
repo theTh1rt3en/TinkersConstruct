@@ -1,6 +1,6 @@
 package tconstruct.plugins.nei;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;

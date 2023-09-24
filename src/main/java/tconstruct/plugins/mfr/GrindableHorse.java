@@ -1,13 +1,14 @@
 package tconstruct.plugins.mfr;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import powercrystals.minefactoryreloaded.api.*;
 import tconstruct.tools.TinkerTools;
 
 public class GrindableHorse implements IFactoryGrindable {

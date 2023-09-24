@@ -1,13 +1,13 @@
 package tconstruct.smeltery.blocks;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.BlockFluidFinite;
+import net.minecraftforge.fluids.Fluid;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.smeltery.TinkerSmeltery;
 

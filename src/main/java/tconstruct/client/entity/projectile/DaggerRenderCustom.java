@@ -3,16 +3,16 @@ package tconstruct.client.entity.projectile;
 import java.util.Random;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
-import org.lwjgl.opengl.*;
-
-import cpw.mods.fml.relauncher.*;
 import tconstruct.client.ToolCoreRenderer;
 import tconstruct.tools.entity.DaggerEntity;
 

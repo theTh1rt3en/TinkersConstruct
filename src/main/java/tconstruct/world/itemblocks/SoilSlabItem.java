@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.blocks.abstracts.MultiItemBlock;
 
 public class SoilSlabItem extends MultiItemBlock {

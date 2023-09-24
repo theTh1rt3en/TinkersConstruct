@@ -4,7 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import tconstruct.library.armor.*;
+import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.armor.ArmorPart;
 
 public class ActiveArmorMod {
 

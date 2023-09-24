@@ -1,7 +1,6 @@
 package tconstruct.plugins.nei;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

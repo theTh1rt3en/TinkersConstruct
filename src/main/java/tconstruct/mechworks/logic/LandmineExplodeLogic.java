@@ -1,6 +1,6 @@
 package tconstruct.mechworks.logic;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;

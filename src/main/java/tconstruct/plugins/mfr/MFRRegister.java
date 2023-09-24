@@ -1,6 +1,5 @@
 package tconstruct.plugins.mfr;
 
-import powercrystals.minefactoryreloaded.api.*;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.world.TinkerWorld;
 

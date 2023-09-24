@@ -1,6 +1,7 @@
 package tconstruct.smeltery.inventory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

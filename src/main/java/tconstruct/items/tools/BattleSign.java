@@ -1,14 +1,15 @@
 package tconstruct.items.tools;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.*;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.Weapon;
-import tconstruct.tools.*;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.ToolProxyClient;
 import tconstruct.tools.logic.EquipLogic;
 
 public class BattleSign extends Weapon {

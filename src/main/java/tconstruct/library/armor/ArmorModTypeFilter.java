@@ -1,6 +1,8 @@
 package tconstruct.library.armor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 

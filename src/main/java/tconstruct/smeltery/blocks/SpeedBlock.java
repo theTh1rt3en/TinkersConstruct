@@ -5,10 +5,10 @@ import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.blocks.TConstructBlock;
 
 public class SpeedBlock extends TConstructBlock {

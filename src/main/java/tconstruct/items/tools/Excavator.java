@@ -1,9 +1,9 @@
 package tconstruct.items.tools;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
 
-import tconstruct.library.tools.*;
+import tconstruct.library.tools.AOEHarvestTool;
 import tconstruct.tools.TinkerTools;
 
 public class Excavator extends AOEHarvestTool {

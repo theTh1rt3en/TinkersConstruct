@@ -6,10 +6,10 @@ import java.util.Map;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.items.abstracts.CraftingItem;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder.MaterialSet;

@@ -1,7 +1,6 @@
 package tconstruct.library;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

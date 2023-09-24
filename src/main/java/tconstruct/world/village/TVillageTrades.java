@@ -1,11 +1,14 @@
 package tconstruct.world.village;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.village.*;
+import net.minecraft.village.MerchantRecipe;
+import net.minecraft.village.MerchantRecipeList;
 
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 import tconstruct.mechworks.TinkerMechworks;

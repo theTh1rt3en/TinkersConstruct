@@ -7,17 +7,21 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.modifier.*;
+import tconstruct.library.modifier.ActiveArmorMod;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.entity.FancyEntityItem;
 

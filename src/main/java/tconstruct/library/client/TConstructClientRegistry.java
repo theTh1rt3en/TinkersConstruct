@@ -1,6 +1,8 @@
 package tconstruct.library.client;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

@@ -1,15 +1,17 @@
 package tconstruct.blocks.slime;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.BlockFluidClassic;
+import net.minecraftforge.fluids.Fluid;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.entity.BlueSlime;
 import tconstruct.world.entity.KingBlueSlime;

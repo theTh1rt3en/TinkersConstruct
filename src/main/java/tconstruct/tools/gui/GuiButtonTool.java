@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.library.client.ToolGuiElement;
 
 @SideOnly(Side.CLIENT)

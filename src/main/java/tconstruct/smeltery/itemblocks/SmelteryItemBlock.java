@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.blocks.abstracts.MultiItemBlock;
 import tconstruct.achievements.TAchievements;
 

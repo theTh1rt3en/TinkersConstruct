@@ -4,8 +4,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
 import tconstruct.TConstruct;
-import tconstruct.smeltery.blocks.*;
-import tconstruct.smeltery.logic.*;
+import tconstruct.smeltery.blocks.LavaTankBlock;
+import tconstruct.smeltery.blocks.SmelteryBlock;
+import tconstruct.smeltery.logic.CastingBasinLogic;
+import tconstruct.smeltery.logic.CastingChannelLogic;
+import tconstruct.smeltery.logic.CastingTableLogic;
 
 public class WailaRegistrar {
 

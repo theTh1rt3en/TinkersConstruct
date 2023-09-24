@@ -1,12 +1,12 @@
 package tconstruct.tools.items;
 
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.w3c.dom.Document;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
-import mantle.books.*;
 import tconstruct.client.TProxyClient;
 
 public class ManualInfo {

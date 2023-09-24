@@ -1,13 +1,15 @@
 package tconstruct.client.pages;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
-import org.lwjgl.opengl.*;
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import mantle.client.pages.BookPage;
 import mantle.lib.client.MantleClientRegistry;

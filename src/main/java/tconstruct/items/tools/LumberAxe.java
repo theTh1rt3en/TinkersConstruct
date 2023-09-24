@@ -8,7 +8,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
@@ -21,8 +22,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import gnu.trove.set.hash.THashSet;
 import mantle.player.PlayerUtils;
-import tconstruct.library.*;
-import tconstruct.library.tools.*;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.AOEHarvestTool;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 
 public class LumberAxe extends AOEHarvestTool {

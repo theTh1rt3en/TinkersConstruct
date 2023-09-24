@@ -2,18 +2,22 @@ package tconstruct.mechworks;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import mantle.pulsar.pulse.*;
 import tconstruct.TConstruct;
 import tconstruct.mechworks.blocks.BlockLandmine;
-import tconstruct.mechworks.entity.item.*;
+import tconstruct.mechworks.entity.item.EntityLandmineFirework;
+import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.TinkerTools;

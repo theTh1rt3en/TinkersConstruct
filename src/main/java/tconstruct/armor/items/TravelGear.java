@@ -14,10 +14,10 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.*;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.TinkerArmor;
-import tconstruct.library.armor.*;
+import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.armor.ArmorPart;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 

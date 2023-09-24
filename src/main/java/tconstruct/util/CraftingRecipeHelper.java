@@ -1,10 +1,15 @@
 package tconstruct.util;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
 
 public class CraftingRecipeHelper {
 

@@ -1,6 +1,7 @@
 package tconstruct.world.gen;
 
-import static net.minecraft.world.biome.BiomeGenBase.*;
+import static net.minecraft.world.biome.BiomeGenBase.extremeHills;
+import static net.minecraft.world.biome.BiomeGenBase.extremeHillsEdge;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
 
 import java.util.Random;
@@ -8,8 +9,6 @@ import java.util.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
-
-import com.google.common.collect.*;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.util.config.PHConstruct;

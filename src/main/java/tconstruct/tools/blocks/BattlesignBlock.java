@@ -3,14 +3,14 @@ package tconstruct.tools.blocks;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.*;
 import tconstruct.tools.logic.BattlesignLogic;
 import tconstruct.tools.model.BattlesignRender;
 

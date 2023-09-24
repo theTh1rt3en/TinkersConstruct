@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
 
-import cpw.mods.fml.relauncher.*;
-
 public class StoneLadder extends BlockLadder {
 
     // Override ladder material

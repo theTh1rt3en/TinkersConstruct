@@ -1,9 +1,9 @@
 package tconstruct.world.itemblocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.*;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 
-import cpw.mods.fml.relauncher.*;
 import mantle.blocks.abstracts.MultiItemBlock;
 import tconstruct.world.TinkerWorld;
 

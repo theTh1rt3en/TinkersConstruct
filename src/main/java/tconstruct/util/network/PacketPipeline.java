@@ -1,19 +1,21 @@
 package tconstruct.util.network;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.*;
-import net.minecraft.network.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NetHandlerPlayServer;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.*;
+import cpw.mods.fml.common.network.FMLEmbeddedChannel;
+import cpw.mods.fml.common.network.FMLOutboundHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
-import cpw.mods.fml.relauncher.*;
-import io.netty.buffer.*;
-import io.netty.channel.*;
 import io.netty.handler.codec.MessageToMessageCodec;
-import mantle.common.network.*;
 
 /**
  * Packet pipeline class. Directs all registered packet data to be handled by the packets themselves.

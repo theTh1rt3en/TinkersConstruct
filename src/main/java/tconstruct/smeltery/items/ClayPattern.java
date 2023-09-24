@@ -3,7 +3,8 @@ package tconstruct.smeltery.items;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import tconstruct.tools.items.Pattern;
 

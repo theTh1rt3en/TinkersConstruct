@@ -1,15 +1,26 @@
 package tconstruct.library;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
-import org.apache.logging.log4j.*;
-
-import tconstruct.library.crafting.*;
+import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.LiquidCasting;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.modifier.ActiveArmorMod;
-import tconstruct.library.tools.*;
+import tconstruct.library.tools.ArrowMaterial;
+import tconstruct.library.tools.BowMaterial;
+import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.CustomMaterial;
+import tconstruct.library.tools.FletchingMaterial;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.ToolMaterial;
 import tconstruct.tools.TinkerTools;
 
 /**

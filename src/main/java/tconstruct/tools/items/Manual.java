@@ -8,7 +8,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.*;
 import mantle.books.BookData;
 import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;

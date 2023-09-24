@@ -1,6 +1,7 @@
 package tconstruct.modifiers.tools;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 

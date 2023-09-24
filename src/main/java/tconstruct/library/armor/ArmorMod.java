@@ -2,10 +2,12 @@ package tconstruct.library.armor;
 
 import java.util.EnumSet;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.modifier.*;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 
 public abstract class ArmorMod extends ItemModifier {
 

@@ -1,10 +1,11 @@
 package tconstruct.mechworks.landmine.behavior.stackCombo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
 
-import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.*;
+import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
