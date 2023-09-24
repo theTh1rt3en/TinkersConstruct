@@ -3,6 +3,8 @@ package tconstruct.mechworks.landmine.behavior.stackCombo;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;

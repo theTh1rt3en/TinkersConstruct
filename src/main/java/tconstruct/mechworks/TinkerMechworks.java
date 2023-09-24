@@ -1,5 +1,7 @@
 package tconstruct.mechworks;
 
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;

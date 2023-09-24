@@ -1,5 +1,8 @@
 package tconstruct.mechworks.landmine.behavior;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySnowball;

@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;

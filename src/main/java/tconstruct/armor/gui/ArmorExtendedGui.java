@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.client.tabs.InventoryTabArmorExtended;

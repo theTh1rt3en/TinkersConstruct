@@ -10,6 +10,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.Entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

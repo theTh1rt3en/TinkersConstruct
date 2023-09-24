@@ -14,6 +14,8 @@ import static net.minecraft.util.EnumChatFormatting.RED;
 import static net.minecraft.util.EnumChatFormatting.WHITE;
 import static net.minecraft.util.EnumChatFormatting.YELLOW;
 
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.Material;

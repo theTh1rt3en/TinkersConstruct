@@ -9,6 +9,8 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import powercrystals.minefactoryreloaded.api.IFactoryGrindable;
+import powercrystals.minefactoryreloaded.api.MobDrop;
 import tconstruct.tools.TinkerTools;
 
 public class GrindableHorse implements IFactoryGrindable {

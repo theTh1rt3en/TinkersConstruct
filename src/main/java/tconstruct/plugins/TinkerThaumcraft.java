@@ -1,5 +1,7 @@
 package tconstruct.plugins;
 
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;

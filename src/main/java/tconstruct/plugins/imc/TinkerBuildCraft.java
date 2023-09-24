@@ -1,5 +1,7 @@
 package tconstruct.plugins.imc;
 
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

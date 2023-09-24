@@ -9,6 +9,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import powercrystals.minefactoryreloaded.api.HarvestType;
+import powercrystals.minefactoryreloaded.api.IFactoryHarvestable;
 
 public class HarvestableOreBerry implements IFactoryHarvestable {
 

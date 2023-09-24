@@ -19,6 +19,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.common.Loader;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import tconstruct.TConstruct;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.smeltery.inventory.SmelteryContainer;

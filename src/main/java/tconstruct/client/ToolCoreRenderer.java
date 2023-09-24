@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
 

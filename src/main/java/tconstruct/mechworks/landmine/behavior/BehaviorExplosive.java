@@ -2,6 +2,7 @@ package tconstruct.mechworks.landmine.behavior;
 
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
