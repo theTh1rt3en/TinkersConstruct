@@ -21,12 +21,12 @@ import static tconstruct.smeltery.TinkerSmeltery.moltenSilverFluid;
 import static tconstruct.smeltery.TinkerSmeltery.moltenSteelFluid;
 import static tconstruct.smeltery.TinkerSmeltery.pigIronFluid;
 
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
 import net.minecraftforge.fluids.Fluid;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 
 @Pulse(

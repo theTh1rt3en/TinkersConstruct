@@ -3,8 +3,6 @@ package tconstruct.library.armor;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +22,8 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.modifier.ActiveArmorMod;
 import tconstruct.library.modifier.IModifyable;
@@ -169,7 +169,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     // ISpecialArmor overrides
     @Override
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage,
-                                         int slot) {
+            int slot) {
         // Priority, absorbRatio, max
         if (!armor.hasTagCompound() || source.isUnblockable()) return new ArmorProperties(0, 0, 0);
 

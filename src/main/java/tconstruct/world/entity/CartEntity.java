@@ -3,8 +3,6 @@ package tconstruct.world.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRail;
 import net.minecraft.entity.Entity;
@@ -26,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 
 public class CartEntity extends Entity implements IInventory, IEntityAdditionalSpawnData {

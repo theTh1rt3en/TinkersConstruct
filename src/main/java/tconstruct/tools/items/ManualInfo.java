@@ -1,7 +1,5 @@
 package tconstruct.tools.items;
 
-import mantle.books.BookData;
-import mantle.books.BookDataStore;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -9,6 +7,8 @@ import org.w3c.dom.Document;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import mantle.books.BookData;
+import mantle.books.BookDataStore;
 import tconstruct.client.TProxyClient;
 
 public class ManualInfo {
