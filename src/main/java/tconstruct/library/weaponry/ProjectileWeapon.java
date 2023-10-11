@@ -32,11 +32,11 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.client.CrosshairType;
 
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
 /**
  * Weapons that utilize ammo that uses the ammo system to shoot projectiles. Bows,...
  */
+@Optional.InterfaceList({
+        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
 public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWeapon, IAccuracy, IWindup {
 
     public ProjectileWeapon(int baseDamage, String name) {
