@@ -15,11 +15,11 @@ import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.client.CrosshairType;
 
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
 /**
  * Throwing weapons that utilize the ammo system on themselves. Throwing knifes etc.
  */
+@Optional.InterfaceList({
+        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
 public abstract class AmmoWeapon extends AmmoItem implements IBattlegearWeapon, IAccuracy, IWindup {
 
     public AmmoWeapon(int baseDamage, String name) {
