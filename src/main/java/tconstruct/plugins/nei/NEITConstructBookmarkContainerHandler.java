@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 
@@ -17,7 +16,8 @@ import tconstruct.tools.logic.CraftingStationLogic;
 public class NEITConstructBookmarkContainerHandler implements IBookmarkContainerHandler {
 
     protected static Minecraft mc = Minecraft.getMinecraft();
-    final int magicNumber = (5 * 9) + 1; // First 46 slots are player inventory in the station, including crafting field and product
+    final int magicNumber = (5 * 9) + 1; // First 46 slots are player inventory in the station, including crafting field
+                                         // and product
 
     @Override
     public void pullBookmarkItemsFromContainer(GuiContainer guiContainer, ArrayList<ItemStack> bookmarkItems) {
