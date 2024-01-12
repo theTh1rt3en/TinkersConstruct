@@ -11,11 +11,11 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.books.BookData;
+import mantle.books.BookDataStore;
 import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;
 import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
-import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 
 public class Manual extends CraftingItem {
@@ -48,15 +48,15 @@ public class Manual extends CraftingItem {
     private BookData getData(ItemStack stack) {
         switch (stack.getItemDamage()) {
             case 0:
-                return TProxyClient.manualData.beginner;
+                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.beginner");
             case 1:
-                return TProxyClient.manualData.toolStation;
+                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.toolstation");
             case 2:
-                return TProxyClient.manualData.smeltery;
+                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.smeltery");
             case 4:
-                return TProxyClient.manualData.weaponry;
+                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.weaponry");
             default:
-                return TProxyClient.manualData.diary;
+                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.diary");
         }
     }
 
