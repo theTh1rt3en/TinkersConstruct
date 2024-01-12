@@ -1,6 +1,7 @@
 package tconstruct.tools.items;
 
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -41,22 +42,25 @@ public class Manual extends CraftingItem {
 
     @SideOnly(Side.CLIENT)
     public void openBook(ItemStack stack, World world, EntityPlayer player) {
-        player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
-        FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
+        BookData data = BookDataStore.getBookfromName(TConstruct.modID, getBookName(stack.getItemDamage()));
+        if (Objects.nonNull(data)) {
+            player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
+            FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, data));
+        }
     }
 
-    private BookData getData(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+    private static String getBookName(int bookItemDamage) {
+        switch (bookItemDamage) {
             case 0:
-                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.beginner");
+                return "tconstruct.manual.beginner";
             case 1:
-                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.toolstation");
+                return "tconstruct.manual.toolstation";
             case 2:
-                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.smeltery");
+                return "tconstruct.manual.smeltery";
             case 4:
-                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.weaponry");
+                return "tconstruct.manual.weaponry";
             default:
-                return BookDataStore.getBookfromName(TConstruct.modID, "tconstruct.manual.diary");
+                return "tconstruct.manual.diary";
         }
     }
 
