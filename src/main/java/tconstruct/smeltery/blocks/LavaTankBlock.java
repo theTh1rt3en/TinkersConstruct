@@ -150,8 +150,9 @@ public class LavaTankBlock extends BlockContainer {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
                 if (amount == liquid.amount) {
                     logic.fill(ForgeDirection.UNKNOWN, liquid, true);
-                    if (!entityplayer.capabilities.isCreativeMode) entityplayer.inventory
-                            .setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+                    if (!entityplayer.capabilities.isCreativeMode) {
+                        replaceHeldItem(entityplayer, FluidContainerRegistry.drainFluidContainer(current));
+                    }
 
                     // update
                     entityplayer.inventoryContainer.detectAndSendChanges();
@@ -161,7 +162,7 @@ public class LavaTankBlock extends BlockContainer {
                 return true;
             }
             // taking liquit out of the tank
-            else if (FluidContainerRegistry.isBucket(current)) {
+            else if (FluidContainerRegistry.isContainer(current)) {
                 FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
                 FluidStack fillFluid = tanks[0].fluid; // getFluid();
                 if (!world.isRemote) {
@@ -172,18 +173,7 @@ public class LavaTankBlock extends BlockContainer {
                                 FluidContainerRegistry.getFluidForFilledItem(fillStack).amount,
                                 true);
                         if (!entityplayer.capabilities.isCreativeMode && !world.isRemote) {
-                            if (current.stackSize == 1) {
-                                entityplayer.inventory
-                                        .setInventorySlotContents(entityplayer.inventory.currentItem, fillStack);
-                            } else {
-                                entityplayer.inventory.setInventorySlotContents(
-                                        entityplayer.inventory.currentItem,
-                                        consumeItem(current));
-
-                                if (!entityplayer.inventory.addItemStackToInventory(fillStack)) {
-                                    entityplayer.dropPlayerItemWithRandomChoice(fillStack, false);
-                                }
-                            }
+                            replaceHeldItem(entityplayer, fillStack);
 
                             // update inventory
                             entityplayer.inventoryContainer.detectAndSendChanges();
@@ -200,6 +190,31 @@ public class LavaTankBlock extends BlockContainer {
         return false;
     }
 
+    /**
+     * Replace one currently held item for a given player.
+     *
+     * @param player      A player
+     * @param replacement An ItemStack that will replace one of the items in the player's currently held ItemStack.
+     */
+    private static void replaceHeldItem(EntityPlayer player, ItemStack replacement) {
+        ItemStack current = player.inventory.getCurrentItem();
+        if (current.stackSize == 1) {
+            player.inventory.setInventorySlotContents(player.inventory.currentItem, replacement);
+        } else {
+            player.inventory.decrStackSize(player.inventory.currentItem, 1);
+
+            if (!player.inventory.addItemStackToInventory(replacement)) {
+                player.dropPlayerItemWithRandomChoice(replacement, false);
+            }
+        }
+    }
+
+    /**
+     * This was probably not meant to be public and should ideally be removed. It's a direct copy of code found in
+     * buildcraft.core.lib.inventory.InvUtils.
+     * <p>
+     * In any case it is no longer useful here.
+     */
     public static ItemStack consumeItem(ItemStack stack) {
         if (stack.stackSize == 1) {
             if (stack.getItem().hasContainerItem()) return stack.getItem().getContainerItem(stack);
