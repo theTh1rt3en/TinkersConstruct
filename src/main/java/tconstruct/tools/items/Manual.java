@@ -1,6 +1,7 @@
 package tconstruct.tools.items;
 
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,11 +12,11 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.books.BookData;
+import mantle.books.BookDataStore;
 import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;
 import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
-import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 
 public class Manual extends CraftingItem {
@@ -41,22 +42,25 @@ public class Manual extends CraftingItem {
 
     @SideOnly(Side.CLIENT)
     public void openBook(ItemStack stack, World world, EntityPlayer player) {
-        player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
-        FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
+        BookData data = BookDataStore.getBookfromName(TConstruct.modID, getBookName(stack.getItemDamage()));
+        if (Objects.nonNull(data)) {
+            player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
+            FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, data));
+        }
     }
 
-    private BookData getData(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+    private static String getBookName(int bookItemDamage) {
+        switch (bookItemDamage) {
             case 0:
-                return TProxyClient.manualData.beginner;
+                return "tconstruct.manual.beginner";
             case 1:
-                return TProxyClient.manualData.toolStation;
+                return "tconstruct.manual.toolstation";
             case 2:
-                return TProxyClient.manualData.smeltery;
+                return "tconstruct.manual.smeltery";
             case 4:
-                return TProxyClient.manualData.weaponry;
+                return "tconstruct.manual.weaponry";
             default:
-                return TProxyClient.manualData.diary;
+                return "tconstruct.manual.diary";
         }
     }
 
