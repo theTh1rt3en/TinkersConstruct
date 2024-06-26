@@ -215,6 +215,12 @@ public class PHConstruct {
                 "Always cast TConstruct ingots",
                 true,
                 "You will always get a TConstruct item from casting an ingot or block.").getBoolean();
+        consumeXPBerryStacks = config.get(
+                "general",
+                "Allow stackwise consumption",
+                true,
+                "Allow stacks of essence berries to be consumed at once when shifting (this does not spawn XP orbs in world).")
+                .getBoolean();
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
         goldAppleRecipe = config.get(
@@ -403,6 +409,8 @@ public class PHConstruct {
 
     public static int seaLevel;
     public static boolean tconComesFirst;
+
+    public static boolean consumeXPBerryStacks;
 
     // Mobs
     public static int naturalSlimeSpawn;
