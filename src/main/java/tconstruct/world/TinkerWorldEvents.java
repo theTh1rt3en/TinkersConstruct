@@ -1,5 +1,9 @@
 package tconstruct.world;
 
+import java.util.ArrayList;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,6 +24,12 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 
+import com.kuba6000.mobsinfo.api.ConstructableItemStack;
+import com.kuba6000.mobsinfo.api.IMobExtraInfoProvider;
+import com.kuba6000.mobsinfo.api.MobDrop;
+import com.kuba6000.mobsinfo.api.MobRecipe;
+
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.TConstruct;
@@ -27,7 +37,8 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 
-public class TinkerWorldEvents {
+@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
+public class TinkerWorldEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
     public void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
@@ -102,6 +113,7 @@ public class TinkerWorldEvents {
 
     @SubscribeEvent
     public void onLivingDrop(LivingDropsEvent event) {
+        // ANY CHANGE MADE IN HERE MUST ALSO BE MADE IN provideExtraDropsInformation!
         if (event.entityLiving == null) return;
 
         if (event.entityLiving.getClass() == EntityGhast.class) {
@@ -113,6 +125,29 @@ public class TinkerWorldEvents {
                 }
             } else {
                 ItemHelper.addDrops(event, new ItemStack(Items.ghast_tear, 1));
+            }
+        }
+    }
+
+    @Optional.Method(modid = "mobsinfo")
+    @Override
+    public void provideExtraDropsInformation(@Nonnull String entityString, @Nonnull ArrayList<MobDrop> drops,
+            @Nonnull MobRecipe recipe) {
+        if (recipe.entity.getClass() == EntityGhast.class) {
+            if (PHConstruct.uhcGhastDrops) {
+                for (MobDrop drop : drops) {
+                    if (drop.stack.getItem() == Items.ghast_tear) {
+                        drop.stack = new ItemStack(Items.gold_ingot);
+                        drop.reconstructableStack = new ConstructableItemStack(drop.stack);
+                    }
+                }
+            } else {
+                for (MobDrop drop : drops) {
+                    if (drop.stack.getItem() == Items.ghast_tear) {
+                        drop.chance += 10000;
+                        drop.clampChance();
+                    }
+                }
             }
         }
     }

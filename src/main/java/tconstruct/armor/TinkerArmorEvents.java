@@ -1,6 +1,9 @@
 package tconstruct.armor;
 
+import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -16,6 +19,11 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 
+import com.kuba6000.mobsinfo.api.IMobExtraInfoProvider;
+import com.kuba6000.mobsinfo.api.MobDrop;
+import com.kuba6000.mobsinfo.api.MobRecipe;
+
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.items.TravelWings;
@@ -24,10 +32,12 @@ import tconstruct.library.modifier.IModifyable;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.ArmourGuiSyncPacket;
 
-public class TinkerArmorEvents {
+@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
+public class TinkerArmorEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
     public void onLivingDrop(LivingDropsEvent event) {
+        // ANY CHANGE MADE IN HERE MUST ALSO BE MADE IN provideDropsInformation!
         if (event.entityLiving == null) return;
 
         if (!event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot")) return;
@@ -62,6 +72,39 @@ public class TinkerArmorEvents {
                 entityitem.delayBeforeCanPickup = 10;
                 event.drops.add(entityitem);
             }
+        }
+    }
+
+    @Optional.Method(modid = "mobsinfo")
+    @Override
+    public void provideExtraDropsInformation(@Nonnull String entityString, @Nonnull ArrayList<MobDrop> drops,
+            @Nonnull MobRecipe recipe) {
+        if (recipe.entity instanceof IMob) {
+            MobDrop drop = new MobDrop(
+                    new ItemStack(TinkerArmor.heartCanister, 1, 1),
+                    MobDrop.DropType.Normal,
+                    50,
+                    null,
+                    null,
+                    false,
+                    false);
+            drops.add(drop);
+        }
+
+        if (recipe.entity instanceof IBossDisplayData) {
+            String entityName = recipe.entity.getClass().getSimpleName().toLowerCase();
+            for (String name : PHConstruct.heartDropBlacklist)
+                if (name.toLowerCase(Locale.US).equals(entityName)) return;
+
+            MobDrop drop = new MobDrop(
+                    new ItemStack(TinkerArmor.heartCanister, recipe.entity instanceof EntityDragon ? 5 : 1, 3),
+                    MobDrop.DropType.Normal,
+                    10000,
+                    null,
+                    null,
+                    false,
+                    false);
+            drops.add(drop);
         }
     }
 
