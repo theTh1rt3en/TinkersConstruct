@@ -124,6 +124,7 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
     public void provideDropsInformation(@Nonnull ArrayList<MobDrop> drops) {
         super.provideDropsInformation(drops);
         double chance = 1d / TConstructRegistry.tools.size();
+        int validtools = 0;
         for (ToolCore tool : TConstructRegistry.tools) {
             final ItemStack headStack = new ItemStack(tool.getHeadItem(), 1, 17);
             final ItemStack handleStack = new ItemStack(tool.getHandleItem(), 1, 17);
@@ -148,11 +149,12 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
                 tags.setInteger("TotalDurability", 2500);
                 tags.setInteger("BaseDurability", 2500);
                 tags.setInteger("MiningSpeed", 1400);
-
+                validtools++;
                 drops.add(MobDrop.create(toolStack).withChance(chance));
-                drops.add(MobDrop.create(new ItemStack(TinkerArmor.heartCanister, 1, 1)).withChance(chance / 5d));
             }
         }
+        drops.add(
+                MobDrop.create(new ItemStack(TinkerArmor.heartCanister, 1, 1)).withChance((chance / 5d) * validtools));
     }
 
     ToolCore getValidTool() {
