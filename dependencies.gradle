@@ -15,5 +15,5 @@ dependencies {
     compileOnly("curse.maven:dynamic-sword-skills-226360:2495462")
     compileOnly("curse.maven:notenoughkeys-224614:2276280")
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
-    compileOnly("com.github.GTNewHorizons:Mobs-Info:0.4.0-GTNH:dev")
+    compileOnly("com.github.GTNewHorizons:Mobs-Info:0.4.1-GTNH:dev")
 }
