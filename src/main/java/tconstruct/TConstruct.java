@@ -106,7 +106,6 @@ public class TConstruct {
     public static PulseManager pulsar = new PulseManager(
             MOD_ID,
             new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
-    public static TPlayerHandler playerTracker;
     @Getter
     public static LiquidCasting tableCasting;
     @Getter
@@ -175,7 +174,7 @@ public class TConstruct {
 
         AoEExclusionList.init(new File(event.getModConfigurationDirectory(), "TConstruct_AOEExclusions.cfg"));
 
-        playerTracker = new TPlayerHandler();
+        var playerTracker = new TPlayerHandler();
         FMLCommonHandler.instance().bus().register(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
         NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
@@ -191,21 +190,25 @@ public class TConstruct {
         }
 
         if (PHConstruct.addToVillages) {
-            // adds to the villager spawner egg
-            VillagerRegistry.instance().registerVillagerId(78943);
-            // moved down, not needed if 'addToVillages' is false
-            if (PHConstruct.allowVillagerTrading)
-                VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
-
-            VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
-            MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-            if (pulsar.isPulseLoaded("Tinkers' Smeltery")) {
-                VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
-                MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-            }
+            addToVillages();
         }
 
         TConstructAPI.PROP_NAME = TPlayerStats.PROP_NAME;
+    }
+
+    private static void addToVillages() {
+        // adds to the villager spawner egg
+        VillagerRegistry.instance().registerVillagerId(78943);
+        // moved down, not needed if 'addToVillages' is false
+        if (PHConstruct.allowVillagerTrading)
+            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
+
+        VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
+        MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+        if (pulsar.isPulseLoaded("Tinkers' Smeltery")) {
+            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+        }
     }
 
     @EventHandler

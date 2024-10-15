@@ -1,5 +1,7 @@
 package tconstruct.world;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
@@ -20,6 +22,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import com.google.common.collect.ImmutableList;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod.Instance;
@@ -61,7 +65,6 @@ import tconstruct.tools.entity.LaunchedPotion;
 import tconstruct.tools.itemblocks.MultiBrickFancyItem;
 import tconstruct.tools.itemblocks.MultiBrickItem;
 import tconstruct.tools.itemblocks.MultiBrickMetalItem;
-import tconstruct.util.Reference;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.blocks.ConveyorBase;
 import tconstruct.world.blocks.GravelOre;
@@ -96,7 +99,7 @@ import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
 
-@ObjectHolder(Reference.MOD_ID)
+@ObjectHolder(MOD_ID)
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
 
@@ -154,26 +157,11 @@ public class TinkerWorld {
         }
     }
 
-    @Handler
-    public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
-
-        registerBlocks();
-        registerTraps();
-        registerSlime();
-        registerSlimeIslands();
-        registerDecorations();
-        registerOres();
-        registerRails();
-        registerItems();
-        modifyStackSize();
-
+    private static void registerMisc() {
         TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
         TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
         GameRegistry.registerBlock(TinkerWorld.metalBlock, MetalItemBlock.class, "MetalBlock");
         FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
-
-        oreRegistry();
     }
 
     private static void modifyStackSize() {
@@ -181,11 +169,7 @@ public class TinkerWorld {
         Items.iron_door.setMaxStackSize(16);
         Items.boat.setMaxStackSize(16);
         Items.minecart.setMaxStackSize(3);
-        // Items.minecartEmpty.setMaxStackSize(3);
-        // Items.minecartCrate.setMaxStackSize(3);
-        // Items.minecartPowered.setMaxStackSize(3);
         Items.cake.setMaxStackSize(16);
-        // Block.torchWood.setTickRandomly(false);
     }
 
     private static void registerItems() {
@@ -344,21 +328,6 @@ public class TinkerWorld {
         woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    @Handler
-    public void init(FMLInitializationEvent event) {
-        craftingTableRecipes();
-        addRecipesForFurnace();
-        addLoot();
-        createEntities();
-        proxy.initialize();
-
-        GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
-        MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
-    }
-
-    @Handler
-    public void postInit(FMLPostInitializationEvent evt) {}
-
     public static void createEntities() {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
@@ -374,55 +343,23 @@ public class TinkerWorld {
         // TConstruct.instance, 64, 5, true);
 
         if (PHConstruct.naturalSlimeSpawn > 0) {
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.FOREST));
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS));
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.MOUNTAIN));
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.HILLS));
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.SWAMP));
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.JUNGLE));
-            EntityRegistry.addSpawn(
-                    BlueSlime.class,
-                    PHConstruct.naturalSlimeSpawn,
-                    4,
-                    20,
-                    EnumCreatureType.monster,
-                    BiomeDictionary.getBiomesForType(BiomeDictionary.Type.WASTELAND));
+            var biomeTypes = ImmutableList.of(
+                    BiomeDictionary.Type.FOREST,
+                    BiomeDictionary.Type.PLAINS,
+                    BiomeDictionary.Type.MOUNTAIN,
+                    BiomeDictionary.Type.HILLS,
+                    BiomeDictionary.Type.SWAMP,
+                    BiomeDictionary.Type.JUNGLE,
+                    BiomeDictionary.Type.WASTELAND);
+
+            biomeTypes.forEach(
+                    biome -> EntityRegistry.addSpawn(
+                            BlueSlime.class,
+                            PHConstruct.naturalSlimeSpawn,
+                            4,
+                            20,
+                            EnumCreatureType.monster,
+                            BiomeDictionary.getBiomesForType(biome)));
         }
     }
 
@@ -950,6 +887,72 @@ public class TinkerWorld {
                 0.2f);
     }
 
+    public static void addLoot() {
+        // Item, min, max, weight
+        ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST)
+                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 5));
+        ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST)
+                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 10));
+        ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST)
+                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 10));
+
+        TinkerWorld.tinkerHouseChest = new ChestGenHooks("TinkerHouse", new WeightedRandomChestContent[0], 3, 27);
+        TinkerWorld.tinkerHouseChest
+                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 1));
+        int[] validTypes = { 0, 1, 2, 3, 4, 5, 6, 8, 9, 13, 14, 17 };
+        Item[] partTypes = { TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead,
+                TinkerTools.binding, TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard,
+                TinkerTools.crossbar, TinkerTools.knifeBlade, TinkerTools.frypanHead, TinkerTools.signHead,
+                TinkerTools.chiselHead };
+
+        for (Item partType : partTypes) {
+            for (int validType : validTypes) {
+                TinkerWorld.tinkerHouseChest
+                        .addItem(new WeightedRandomChestContent(new ItemStack(partType, 1, validType), 1, 1, 15));
+            }
+        }
+
+        TinkerWorld.tinkerHousePatterns = new ChestGenHooks("TinkerPatterns", new WeightedRandomChestContent[0], 5, 30);
+        for (int i = 0; i < 13; i++) {
+            TinkerWorld.tinkerHousePatterns.addItem(
+                    new WeightedRandomChestContent(new ItemStack(TinkerTools.woodPattern, 1, i + 1), 1, 3, 20));
+        }
+        TinkerWorld.tinkerHousePatterns
+                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerTools.woodPattern, 1, 22), 1, 3, 40));
+    }
+
+    @Handler
+    public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
+
+        registerBlocks();
+        registerTraps();
+        registerSlime();
+        registerSlimeIslands();
+        registerDecorations();
+        registerOres();
+        registerRails();
+        registerItems();
+        modifyStackSize();
+        registerMisc();
+        oreRegistry();
+    }
+
+    @Handler
+    public void init(FMLInitializationEvent event) {
+        craftingTableRecipes();
+        addRecipesForFurnace();
+        addLoot();
+        createEntities();
+        proxy.initialize();
+
+        GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
+        MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
+    }
+
+    @Handler
+    public void postInit(FMLPostInitializationEvent evt) {}
+
     public void oreRegistry() {
         OreDictionary.registerOre("oreCobalt", new ItemStack(TinkerWorld.oreSlag, 1, 1));
         OreDictionary.registerOre("oreArdite", new ItemStack(TinkerWorld.oreSlag, 1, 2));
@@ -1037,39 +1040,5 @@ public class TinkerWorld {
                         Items.string,
                         'S',
                         "slimeball"));
-    }
-
-    public static void addLoot() {
-        // Item, min, max, weight
-        ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST)
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 5));
-        ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST)
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 10));
-        ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST)
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 10));
-
-        TinkerWorld.tinkerHouseChest = new ChestGenHooks("TinkerHouse", new WeightedRandomChestContent[0], 3, 27);
-        TinkerWorld.tinkerHouseChest
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 1));
-        int[] validTypes = { 0, 1, 2, 3, 4, 5, 6, 8, 9, 13, 14, 17 };
-        Item[] partTypes = { TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead,
-                TinkerTools.binding, TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard,
-                TinkerTools.crossbar, TinkerTools.knifeBlade, TinkerTools.frypanHead, TinkerTools.signHead,
-                TinkerTools.chiselHead };
-
-        for (Item partType : partTypes) {
-            for (int validType : validTypes) {
-                TinkerWorld.tinkerHouseChest
-                        .addItem(new WeightedRandomChestContent(new ItemStack(partType, 1, validType), 1, 1, 15));
-            }
-        }
-
-        TinkerWorld.tinkerHousePatterns = new ChestGenHooks("TinkerPatterns", new WeightedRandomChestContent[0], 5, 30);
-        for (int i = 0; i < 13; i++) {
-            TinkerWorld.tinkerHousePatterns.addItem(
-                    new WeightedRandomChestContent(new ItemStack(TinkerTools.woodPattern, 1, i + 1), 1, 3, 20));
-        }
-        TinkerWorld.tinkerHousePatterns
-                .addItem(new WeightedRandomChestContent(new ItemStack(TinkerTools.woodPattern, 1, 22), 1, 3, 40));
     }
 }
