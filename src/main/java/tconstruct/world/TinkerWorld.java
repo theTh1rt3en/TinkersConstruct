@@ -100,12 +100,11 @@ import tconstruct.world.items.StrangeFood;
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
 
+    private static final String PROXY_CLIENT = "tconstruct.world.TinkerWorldProxyClient";
+    private static final String PROXY_SERVER = "tconstruct.world.TinkerWorldProxyCommon";
     @Instance("TinkerWorld")
     public static TinkerWorld instance;
-
-    @SidedProxy(
-            clientSide = "tconstruct.world.TinkerWorldProxyClient",
-            serverSide = "tconstruct.world.TinkerWorldProxyCommon")
+    @SidedProxy(clientSide = PROXY_CLIENT, serverSide = PROXY_SERVER)
     public static TinkerWorldProxyCommon proxy;
 
     public static Item strangeFood;
@@ -148,153 +147,48 @@ public class TinkerWorld {
     // Morbid
     public static Item goldHead;
 
+    public static void ensureOreIsRegistered(String oreName, ItemStack is) {
+        int oreId = OreDictionary.getOreID(is);
+        if (oreId == -1) {
+            OreDictionary.registerOre(oreName, is);
+        }
+    }
+
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
 
-        // Blocks
-        TinkerWorld.meatBlock = new MeatBlock().setBlockName("tconstruct.meatblock");
-        TinkerWorld.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
-        TinkerWorld.woolSlab1.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
-        TinkerWorld.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
-        TinkerWorld.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
-        // Traps
-        TinkerWorld.punji = new Punji().setBlockName("trap.punji");
-        TinkerWorld.barricadeOak = new BarricadeBlock(Blocks.log, 0).setBlockName("trap.barricade.oak");
-        TinkerWorld.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).setBlockName("trap.barricade.spruce");
-        TinkerWorld.barricadeBirch = new BarricadeBlock(Blocks.log, 2).setBlockName("trap.barricade.birch");
-        TinkerWorld.barricadeJungle = new BarricadeBlock(Blocks.log, 3).setBlockName("trap.barricade.jungle");
-        TinkerWorld.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundTypeGrass)
-                .setBlockName("explosive.slime");
+        registerBlocks();
+        registerTraps();
+        registerSlime();
+        registerSlimeIslands();
+        registerDecorations();
+        registerOres();
+        registerRails();
+        registerItems();
+        modifyStackSize();
 
-        // Slime
-        TinkerWorld.slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
+        TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
+        TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
+        GameRegistry.registerBlock(TinkerWorld.metalBlock, MetalItemBlock.class, "MetalBlock");
+        FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
 
-        TinkerWorld.blueSlimeFluid = new Fluid("slime.blue");
-        if (!FluidRegistry.registerFluid(TinkerWorld.blueSlimeFluid))
-            TinkerWorld.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
-        TinkerWorld.slimePool = new SlimeFluid(TinkerWorld.blueSlimeFluid, Material.water)
-                .setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep)
-                .setBlockName("liquid.slime");
-        GameRegistry.registerBlock(TinkerWorld.slimePool, "liquid.slime");
-        TinkerWorld.blueSlimeFluid.setBlock(TinkerWorld.slimePool);
+        oreRegistry();
+    }
 
-        // Slime Islands
-        TinkerWorld.slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0)
-                .setBlockName("slime.gel");
-        TinkerWorld.slimeGel.setHarvestLevel("axe", 0, 1);
-        TinkerWorld.slimeGrass = new SlimeGrass().setStepSound(Block.soundTypeGrass).setLightOpacity(0)
-                .setBlockName("slime.grass");
-        TinkerWorld.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.soundTypeGrass)
-                .setBlockName("slime.grass.tall");
-        TinkerWorld.slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TinkerWorld.slimeStep)
-                .setBlockName("slime.leaves");
-        TinkerWorld.slimeSapling = (SlimeSapling) new SlimeSapling().setStepSound(TinkerWorld.slimeStep)
-                .setBlockName("slime.sapling");
-        TinkerWorld.slimeChannel = new ConveyorBase(Material.water, "greencurrent").setHardness(0.3f)
-                .setStepSound(TinkerWorld.slimeStep).setBlockName("slime.channel");
-        TinkerWorld.bloodChannel = new ConveyorBase(Material.water, "liquid_cow").setHardness(0.3f)
-                .setStepSound(TinkerWorld.slimeStep).setBlockName("blood.channel");
-        TinkerWorld.slimePad = new SlimePad(Material.cloth).setStepSound(TinkerWorld.slimeStep).setHardness(0.3f)
-                .setBlockName("slime.pad");
+    private static void modifyStackSize() {
+        Items.wooden_door.setMaxStackSize(16);
+        Items.iron_door.setMaxStackSize(16);
+        Items.boat.setMaxStackSize(16);
+        Items.minecart.setMaxStackSize(3);
+        // Items.minecartEmpty.setMaxStackSize(3);
+        // Items.minecartCrate.setMaxStackSize(3);
+        // Items.minecartPowered.setMaxStackSize(3);
+        Items.cake.setMaxStackSize(16);
+        // Block.torchWood.setTickRandomly(false);
+    }
 
-        // Decoration
-        TinkerWorld.stoneTorch = new StoneTorch().setBlockName("decoration.stonetorch");
-        TinkerWorld.stoneLadder = new StoneLadder().setBlockName("decoration.stoneladder");
-        TinkerTools.multiBrick = new MultiBrick().setBlockName("Decoration.Brick");
-        TinkerTools.multiBrickFancy = new MultiBrickFancy().setBlockName("Decoration.BrickFancy");
-        TinkerTools.multiBrickMetal = new MultiBrickMetal().setBlockName("Decoration.BrickMetal");
-        // Iguana Tweaks compat for obsidian
-        if (Loader.isModLoaded("IguanaTweaksTConstruct")) {
-            TinkerTools.multiBrick.setHarvestLevel("pickaxe", 5, 0);
-            TinkerTools.multiBrickFancy.setHarvestLevel("pickaxe", 5, 0);
-        }
-
-        // Ores
-        String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe",
-                "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        TinkerWorld.oreBerry = (OreberryBush) new OreberryBush(
-                berryOres,
-                0,
-                4,
-                new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setBlockName("ore.berries.one");
-        String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe",
-                "berry_essence_ripe", "", "" };
-        TinkerWorld.oreBerrySecond = (OreberryBush) new OreberryBushEssence(
-                berryOresTwo,
-                4,
-                2,
-                new String[] { "oreAluminum", "oreSilver" }).setBlockName("ore.berries.two");
-
-        String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin",
-                "ore_aluminum", "ore_slag" };
-        TinkerWorld.oreSlag = new MetalOre(Material.rock, 10.0F, oreTypes).setBlockName("tconstruct.stoneore");
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 4, 1);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 4, 2);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 3);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 4);
-        TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 5);
-
-        TinkerWorld.oreGravel = new GravelOre().setBlockName("GravelOre").setBlockName("tconstruct.gravelore");
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 0);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 2, 1);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 2);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 3);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 4);
-        TinkerWorld.oreGravel.setHarvestLevel("shovel", 4, 5);
-        // Rail
-        TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood)
-                .setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
-
-        GameRegistry.registerBlock(TinkerWorld.meatBlock, HamboneItemBlock.class, "MeatBlock");
-        OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
-        GameRegistry.registerBlock(TinkerWorld.woolSlab1, WoolSlab1Item.class, "WoolSlab1");
-        GameRegistry.registerBlock(TinkerWorld.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
-
-        // Traps
-        GameRegistry.registerBlock(TinkerWorld.punji, "trap.punji");
-        GameRegistry.registerBlock(TinkerWorld.barricadeOak, BarricadeItem.class, "trap.barricade.oak");
-        GameRegistry.registerBlock(TinkerWorld.barricadeSpruce, BarricadeItem.class, "trap.barricade.spruce");
-        GameRegistry.registerBlock(TinkerWorld.barricadeBirch, BarricadeItem.class, "trap.barricade.birch");
-        GameRegistry.registerBlock(TinkerWorld.barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
-        GameRegistry.registerBlock(TinkerWorld.slimeExplosive, MetadataItemBlock.class, "explosive.slime");
-
-        // fluids
-
-        // Slime Islands
-        GameRegistry.registerBlock(TinkerWorld.slimeGel, SlimeGelItemBlock.class, "slime.gel");
-        GameRegistry.registerBlock(TinkerWorld.slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
-        GameRegistry.registerBlock(TinkerWorld.slimeTallGrass, SlimeTallGrassItem.class, "slime.grass.tall");
-        GameRegistry.registerBlock(TinkerWorld.slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
-        GameRegistry.registerBlock(TinkerWorld.slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
-        GameRegistry.registerBlock(TinkerWorld.slimeChannel, "slime.channel");
-        GameRegistry.registerBlock(TinkerWorld.bloodChannel, "blood.channel");
-        GameRegistry.registerBlock(TinkerWorld.slimePad, "slime.pad");
-        // TODO fix this
-        /*
-         * TConstructRegistry.drawbridgeState[TRepo.slimePad] = 1;
-         * TConstructRegistry.drawbridgeState[TRepo.bloodChannel] = 1;
-         */
-
-        // Decoration
-        GameRegistry.registerBlock(TinkerWorld.stoneTorch, "decoration.stonetorch");
-        GameRegistry.registerBlock(TinkerWorld.stoneLadder, "decoration.stoneladder");
-        GameRegistry.registerBlock(TinkerTools.multiBrick, MultiBrickItem.class, "decoration.multibrick");
-        GameRegistry
-                .registerBlock(TinkerTools.multiBrickFancy, MultiBrickFancyItem.class, "decoration.multibrickfancy");
-        GameRegistry
-                .registerBlock(TinkerTools.multiBrickMetal, MultiBrickMetalItem.class, "decoration.multibrickmetal");
-
-        // Ores
-        GameRegistry.registerBlock(TinkerWorld.oreBerry, OreberryBushItem.class, "ore.berries.one");
-        GameRegistry.registerBlock(TinkerWorld.oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
-        GameRegistry.registerBlock(TinkerWorld.oreSlag, MetalOreItemBlock.class, "SearedBrick");
-        GameRegistry.registerBlock(TinkerWorld.oreGravel, GravelOreItem.class, "GravelOre");
-
-        // Rail
-        GameRegistry.registerBlock(TinkerWorld.woodenRail, "rail.wood");
-
-        // Items
+    private static void registerItems() {
         goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F)
                 .setUnlocalizedName("goldenhead");
         GameRegistry.registerItem(goldHead, "goldHead");
@@ -310,24 +204,144 @@ public class TinkerWorld {
                     .addItemStackToDirectory("oreberry" + oreberries[i], new ItemStack(TinkerWorld.oreBerries, 1, i));
         }
         TConstructRegistry.addItemStackToDirectory("blueSlimeFood", new ItemStack(TinkerWorld.strangeFood, 1, 0));
+    }
 
-        // Vanilla stack sizes
-        Items.wooden_door.setMaxStackSize(16);
-        Items.iron_door.setMaxStackSize(16);
-        Items.boat.setMaxStackSize(16);
-        Items.minecart.setMaxStackSize(3);
-        // Items.minecartEmpty.setMaxStackSize(3);
-        // Items.minecartCrate.setMaxStackSize(3);
-        // Items.minecartPowered.setMaxStackSize(3);
-        Items.cake.setMaxStackSize(16);
-        // Block.torchWood.setTickRandomly(false);
+    private static void registerRails() {
+        TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood)
+                .setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
 
-        TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
-        TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
-        GameRegistry.registerBlock(TinkerWorld.metalBlock, MetalItemBlock.class, "MetalBlock");
-        FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
+        GameRegistry.registerBlock(TinkerWorld.meatBlock, HamboneItemBlock.class, "MeatBlock");
+        OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
+        GameRegistry.registerBlock(TinkerWorld.woolSlab1, WoolSlab1Item.class, "WoolSlab1");
+        GameRegistry.registerBlock(TinkerWorld.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
 
-        oreRegistry();
+        GameRegistry.registerBlock(TinkerWorld.woodenRail, "rail.wood");
+    }
+
+    private static void registerOres() {
+        String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe",
+                "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
+        oreBerry = (OreberryBush) new OreberryBush(
+                berryOres,
+                0,
+                4,
+                new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setBlockName("ore.berries.one");
+        String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe",
+                "berry_essence_ripe", "", "" };
+        oreBerrySecond = (OreberryBush) new OreberryBushEssence(
+                berryOresTwo,
+                4,
+                2,
+                new String[] { "oreAluminum", "oreSilver" }).setBlockName("ore.berries.two");
+
+        String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin",
+                "ore_aluminum", "ore_slag" };
+        oreSlag = new MetalOre(Material.rock, 10.0F, oreTypes).setBlockName("tconstruct.stoneore");
+        oreSlag.setHarvestLevel("pickaxe", 4, 1);
+        oreSlag.setHarvestLevel("pickaxe", 4, 2);
+        oreSlag.setHarvestLevel("pickaxe", 1, 3);
+        oreSlag.setHarvestLevel("pickaxe", 1, 4);
+        oreSlag.setHarvestLevel("pickaxe", 1, 5);
+
+        TinkerWorld.oreGravel = new GravelOre().setBlockName("GravelOre").setBlockName("tconstruct.gravelore");
+        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 0);
+        TinkerWorld.oreGravel.setHarvestLevel("shovel", 2, 1);
+        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 2);
+        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 3);
+        TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 4);
+        TinkerWorld.oreGravel.setHarvestLevel("shovel", 4, 5);
+
+        GameRegistry.registerBlock(TinkerWorld.oreBerry, OreberryBushItem.class, "ore.berries.one");
+        GameRegistry.registerBlock(TinkerWorld.oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
+        GameRegistry.registerBlock(TinkerWorld.oreSlag, MetalOreItemBlock.class, "SearedBrick");
+        GameRegistry.registerBlock(TinkerWorld.oreGravel, GravelOreItem.class, "GravelOre");
+    }
+
+    private static void registerDecorations() {
+        stoneTorch = new StoneTorch().setBlockName("decoration.stonetorch");
+        stoneLadder = new StoneLadder().setBlockName("decoration.stoneladder");
+
+        TinkerTools.multiBrick = new MultiBrick().setBlockName("Decoration.Brick");
+        TinkerTools.multiBrickFancy = new MultiBrickFancy().setBlockName("Decoration.BrickFancy");
+        TinkerTools.multiBrickMetal = new MultiBrickMetal().setBlockName("Decoration.BrickMetal");
+        // Iguana Tweaks compat for obsidian
+        if (Loader.isModLoaded("IguanaTweaksTConstruct")) {
+            TinkerTools.multiBrick.setHarvestLevel("pickaxe", 5, 0);
+            TinkerTools.multiBrickFancy.setHarvestLevel("pickaxe", 5, 0);
+        }
+
+        GameRegistry.registerBlock(TinkerWorld.stoneTorch, "decoration.stonetorch");
+        GameRegistry.registerBlock(TinkerWorld.stoneLadder, "decoration.stoneladder");
+        GameRegistry.registerBlock(TinkerTools.multiBrick, MultiBrickItem.class, "decoration.multibrick");
+        GameRegistry
+                .registerBlock(TinkerTools.multiBrickFancy, MultiBrickFancyItem.class, "decoration.multibrickfancy");
+        GameRegistry
+                .registerBlock(TinkerTools.multiBrickMetal, MultiBrickMetalItem.class, "decoration.multibrickmetal");
+    }
+
+    private static void registerSlimeIslands() {
+        slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.gel");
+        slimeGel.setHarvestLevel("axe", 0, 1);
+        slimeGrass = new SlimeGrass().setStepSound(Block.soundTypeGrass).setLightOpacity(0).setBlockName("slime.grass");
+        slimeTallGrass = new SlimeTallGrass().setStepSound(Block.soundTypeGrass).setBlockName("slime.grass.tall");
+        slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TinkerWorld.slimeStep).setBlockName("slime.leaves");
+        slimeSapling = (SlimeSapling) new SlimeSapling().setStepSound(TinkerWorld.slimeStep)
+                .setBlockName("slime.sapling");
+        slimeChannel = new ConveyorBase(Material.water, "greencurrent").setHardness(0.3f)
+                .setStepSound(TinkerWorld.slimeStep).setBlockName("slime.channel");
+        bloodChannel = new ConveyorBase(Material.water, "liquid_cow").setHardness(0.3f)
+                .setStepSound(TinkerWorld.slimeStep).setBlockName("blood.channel");
+        slimePad = new SlimePad(Material.cloth).setStepSound(TinkerWorld.slimeStep).setHardness(0.3f)
+                .setBlockName("slime.pad");
+
+        GameRegistry.registerBlock(TinkerWorld.slimeGel, SlimeGelItemBlock.class, "slime.gel");
+        GameRegistry.registerBlock(TinkerWorld.slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
+        GameRegistry.registerBlock(TinkerWorld.slimeTallGrass, SlimeTallGrassItem.class, "slime.grass.tall");
+        GameRegistry.registerBlock(TinkerWorld.slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
+        GameRegistry.registerBlock(TinkerWorld.slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
+        GameRegistry.registerBlock(TinkerWorld.slimeChannel, "slime.channel");
+        GameRegistry.registerBlock(TinkerWorld.bloodChannel, "blood.channel");
+        GameRegistry.registerBlock(TinkerWorld.slimePad, "slime.pad");
+    }
+
+    private static void registerSlime() {
+        slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
+        blueSlimeFluid = new Fluid("slime.blue");
+
+        if (!FluidRegistry.registerFluid(TinkerWorld.blueSlimeFluid))
+            TinkerWorld.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
+
+        slimePool = new SlimeFluid(TinkerWorld.blueSlimeFluid, Material.water)
+                .setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep)
+                .setBlockName("liquid.slime");
+        GameRegistry.registerBlock(TinkerWorld.slimePool, "liquid.slime");
+
+        blueSlimeFluid.setBlock(TinkerWorld.slimePool);
+    }
+
+    private static void registerTraps() {
+        punji = new Punji().setBlockName("trap.punji");
+        barricadeOak = new BarricadeBlock(Blocks.log, 0).setBlockName("trap.barricade.oak");
+        barricadeSpruce = new BarricadeBlock(Blocks.log, 1).setBlockName("trap.barricade.spruce");
+        barricadeBirch = new BarricadeBlock(Blocks.log, 2).setBlockName("trap.barricade.birch");
+        barricadeJungle = new BarricadeBlock(Blocks.log, 3).setBlockName("trap.barricade.jungle");
+        slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundTypeGrass)
+                .setBlockName("explosive.slime");
+
+        GameRegistry.registerBlock(TinkerWorld.punji, "trap.punji");
+        GameRegistry.registerBlock(TinkerWorld.barricadeOak, BarricadeItem.class, "trap.barricade.oak");
+        GameRegistry.registerBlock(TinkerWorld.barricadeSpruce, BarricadeItem.class, "trap.barricade.spruce");
+        GameRegistry.registerBlock(TinkerWorld.barricadeBirch, BarricadeItem.class, "trap.barricade.birch");
+        GameRegistry.registerBlock(TinkerWorld.barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
+        GameRegistry.registerBlock(TinkerWorld.slimeExplosive, MetadataItemBlock.class, "explosive.slime");
+    }
+
+    private static void registerBlocks() {
+        meatBlock = new MeatBlock().setBlockName("tconstruct.meatblock");
+        woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
+        woolSlab1.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
+        woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
+        woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     @Handler
@@ -345,7 +359,7 @@ public class TinkerWorld {
     @Handler
     public void postInit(FMLPostInitializationEvent evt) {}
 
-    public void createEntities() {
+    public static void createEntities() {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
@@ -412,7 +426,7 @@ public class TinkerWorld {
         }
     }
 
-    private void craftingTableRecipes() {
+    private static void craftingTableRecipes() {
         String[] patBlock = { "###", "###", "###" };
         String[] patSurround = { "###", "#m#", "###" };
 
@@ -833,7 +847,7 @@ public class TinkerWorld {
                 new ItemStack(Items.porkchop));
     }
 
-    private void addRecipesForFurnace() {
+    private static void addRecipesForFurnace() {
         FurnaceRecipes.smelting().func_151394_a(
                 new ItemStack(TinkerTools.craftedSoil, 1, 3),
                 new ItemStack(TinkerTools.craftedSoil, 1, 4),
@@ -1025,14 +1039,7 @@ public class TinkerWorld {
                         "slimeball"));
     }
 
-    public static void ensureOreIsRegistered(String oreName, ItemStack is) {
-        int oreId = OreDictionary.getOreID(is);
-        if (oreId == -1) {
-            OreDictionary.registerOre(oreName, is);
-        }
-    }
-
-    public void addLoot() {
+    public static void addLoot() {
         // Item, min, max, weight
         ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST)
                 .addItem(new WeightedRandomChestContent(new ItemStack(TinkerArmor.heartCanister, 1, 1), 1, 1, 5));

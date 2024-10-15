@@ -92,13 +92,14 @@ public class TConstruct {
 
     public static final Logger logger = LogManager.getLogger(MOD_ID);
     public static final PacketPipeline packetPipeline = new PacketPipeline();
+    private static final String PROXY_CLIENT = "tconstruct.client.TProxyClient";
+    private static final String PROXY_SERVER = "tconstruct.common.TProxyCommon";
     public static Random random = new Random();
-
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance(MOD_ID)
     public static TConstruct instance;
     /* Proxies for sides, used for graphics processing and client controls */
-    @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
+    @SidedProxy(clientSide = PROXY_CLIENT, serverSide = PROXY_SERVER)
     public static TProxyCommon proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
@@ -251,7 +252,7 @@ public class TConstruct {
         IMCHandler.processIMC(FMLInterModComms.fetchRuntimeMessages(this));
     }
 
-    @Mod.EventHandler
+    @EventHandler
     public void missingMapping(FMLMissingMappingsEvent event) {
         // this will be called because the air-block got removed
         for (FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
