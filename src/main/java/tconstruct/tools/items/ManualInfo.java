@@ -9,8 +9,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import mantle.books.BookData;
 import mantle.books.BookDataStore;
-import tconstruct.TConstruct;
 import tconstruct.client.TProxyClient;
+import tconstruct.util.Reference;
 
 /**
  * This class is now just a constructor with side effects, so a glorified method call. TODO: Clean up when breaking API
@@ -55,7 +55,7 @@ public class ManualInfo {
     public BookData initManual(BookData data, String unlocName, String toolTip, Document xmlDoc, String itemImage) {
         data.unlocalizedName = unlocName;
         data.toolTip = unlocName;
-        data.modID = TConstruct.modID;
+        data.modID = Reference.MOD_ID;
         data.itemImage = new ResourceLocation(data.modID, itemImage);
         data.doc = xmlDoc;
         BookDataStore.addBook(data);

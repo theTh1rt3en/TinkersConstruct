@@ -6,8 +6,9 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
+import tconstruct.util.Reference;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(Reference.MOD_ID)
 @Pulse(
         id = "Tinkers Waila Compatibility",
         description = "Tinkers Construct compatibility for Waila",

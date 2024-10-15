@@ -23,8 +23,9 @@ import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.TinkerTools;
+import tconstruct.util.Reference;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(Reference.MOD_ID)
 // TODO handle migration of all items/blocks that were owned by the previously seperate mod
 @Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
 public class TinkerMechworks {

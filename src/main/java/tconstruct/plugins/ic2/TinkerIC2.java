@@ -13,8 +13,9 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
+import tconstruct.util.Reference;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(Reference.MOD_ID)
 @Pulse(
         id = "Tinkers IC2 Compatibility",
         description = "Tinkers Construct compatibility for IndustrialCraft 2",

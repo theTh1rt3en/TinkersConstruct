@@ -18,6 +18,7 @@ import mantle.items.abstracts.CraftingItem;
 import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.util.Reference;
 
 public class Manual extends CraftingItem {
 
@@ -42,7 +43,7 @@ public class Manual extends CraftingItem {
 
     @SideOnly(Side.CLIENT)
     public void openBook(ItemStack stack, World world, EntityPlayer player) {
-        BookData data = BookDataStore.getBookfromName(TConstruct.modID, getBookName(stack.getItemDamage()));
+        BookData data = BookDataStore.getBookfromName(Reference.MOD_ID, getBookName(stack.getItemDamage()));
         if (Objects.nonNull(data)) {
             player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
             FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, data));

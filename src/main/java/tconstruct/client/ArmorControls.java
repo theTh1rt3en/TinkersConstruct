@@ -21,6 +21,7 @@ import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.armor.PlayerAbilityHelper;
 import tconstruct.armor.items.TravelGear;
+import tconstruct.util.Reference;
 import tconstruct.util.network.AccessoryInventoryPacket;
 import tconstruct.util.network.BeltPacket;
 import tconstruct.util.network.DoubleJumpPacket;
@@ -66,7 +67,7 @@ public class ArmorControls {
         }
         isNotEnoughKeysLoaded = Loader.isModLoaded("notenoughkeys");
         if (isNotEnoughKeysLoaded) {
-            Api.registerMod(TConstruct.modID, keyDescs);
+            Api.registerMod(Reference.MOD_ID, keyDescs);
         }
         // Add mc keys
         keys[4] = jumpKey;

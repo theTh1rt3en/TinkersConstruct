@@ -13,10 +13,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.util.Constants;
 import tconstruct.world.TinkerWorld;
 
 @GameRegistry.ObjectHolder(TinkersThermalFoundation.TF_MOD_ID)
@@ -93,7 +93,7 @@ public class TinkersThermalFoundation {
             Smeltery.addMelting(stack, Blocks.coal_block, stack.getItemDamage(), 4000, new FluidStack(coalFluid, 100));
 
         // Alloying
-        int amount = TConstruct.ingotLiquidValue;
+        int amount = Constants.LIQUID_VALUE_INGOT;
         FluidStack result, part1, part2, part3;
 
         // Invar

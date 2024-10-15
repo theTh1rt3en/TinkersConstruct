@@ -1,5 +1,7 @@
 package tconstruct.weaponry;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -9,14 +11,12 @@ import net.minecraftforge.oredict.RecipeSorter;
 import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.Reference;
 
 public class AlternateBoltRecipe implements IRecipe {
 
     static {
         // register the recipe with the recipesorter
-        RecipeSorter
-                .register(Reference.MOD_ID + ":part", AlternateBoltRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+        RecipeSorter.register(MOD_ID + ":part", AlternateBoltRecipe.class, RecipeSorter.Category.SHAPELESS, "");
     }
 
     private ItemStack outputPart;

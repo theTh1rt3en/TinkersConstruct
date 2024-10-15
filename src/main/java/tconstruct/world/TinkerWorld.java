@@ -61,6 +61,7 @@ import tconstruct.tools.entity.LaunchedPotion;
 import tconstruct.tools.itemblocks.MultiBrickFancyItem;
 import tconstruct.tools.itemblocks.MultiBrickItem;
 import tconstruct.tools.itemblocks.MultiBrickMetalItem;
+import tconstruct.util.Reference;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.blocks.ConveyorBase;
 import tconstruct.world.blocks.GravelOre;
@@ -95,7 +96,7 @@ import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(Reference.MOD_ID)
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
 

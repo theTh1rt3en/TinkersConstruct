@@ -21,7 +21,6 @@ import net.minecraftforge.fluids.IFluidTank;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.event.SmelteryCastEvent;
@@ -29,6 +28,7 @@ import tconstruct.library.event.SmelteryCastedEvent;
 import tconstruct.library.event.SmelteryEvent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.util.IPattern;
+import tconstruct.util.Constants;
 
 public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory {
 
@@ -51,7 +51,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     public int updateCapacity() // Only used to initialize
     {
         ItemStack inv = inventory[0];
-        int ret = TConstruct.ingotLiquidValue;
+        int ret = Constants.LIQUID_VALUE_INGOT;
         int rec = liquidCasting.getCastingAmount(this.liquid, inv);
 
         if (rec > 0) ret = rec;
@@ -66,7 +66,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     public int updateCapacity(int capacity) {
-        int ret = TConstruct.ingotLiquidValue;
+        int ret = Constants.LIQUID_VALUE_INGOT;
 
         if (capacity > 0) ret = capacity;
         else {

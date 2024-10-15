@@ -114,6 +114,7 @@ import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.tools.logic.ToolForgeLogic;
 import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.ItemHelper;
+import tconstruct.util.Reference;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.world.TDispenserBehaviorSpawnEgg;
@@ -121,7 +122,7 @@ import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(Reference.MOD_ID)
 @Pulse(
         id = "Tinkers' Tools",
         description = "The main core of the mod! All of the tools, the tables, and the patterns are here.",

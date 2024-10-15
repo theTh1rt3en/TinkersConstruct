@@ -18,10 +18,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 import tconstruct.gadgets.item.ItemSlimeBoots;
 import tconstruct.gadgets.item.ItemSlimeSling;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.util.Reference;
 import tconstruct.world.TinkerWorld;
 
 @Pulse(id = "Tinkers' Gadgets", description = "All the fun toys.", forced = true)
@@ -82,7 +82,7 @@ public class TinkerGadgets {
     }
 
     public static String prefix(String name) {
-        return String.format("%s.%s", TConstruct.modID, name.toLowerCase(Locale.US));
+        return String.format("%s.%s", Reference.MOD_ID, name.toLowerCase(Locale.US));
     }
 
     protected static <T extends Item> T registerItem(T item, String name) {

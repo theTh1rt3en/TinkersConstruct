@@ -10,14 +10,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
-import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.util.Reference;
 
 public class ShapelessToolRecipe extends ShapelessRecipes {
 
     static {
         RecipeSorter.register(
-                TConstruct.modID + ":" + "toolrecipe",
+                Reference.MOD_ID + ":" + "toolrecipe",
                 ShapelessToolRecipe.class,
                 RecipeSorter.Category.SHAPELESS,
                 "");

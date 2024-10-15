@@ -1,13 +1,16 @@
 package tconstruct;
 
+import static tconstruct.util.Reference.DEPENDENCIES;
+import static tconstruct.util.Reference.MOD_ID;
+import static tconstruct.util.Reference.MOD_NAME;
+import static tconstruct.util.Reference.MOD_VERSION;
+
 import java.io.File;
 import java.util.Map;
 import java.util.Random;
 
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,12 +28,12 @@ import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
+import lombok.Getter;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
 import tconstruct.achievements.AchievementEvents;
@@ -66,6 +69,7 @@ import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.IMCHandler;
+import tconstruct.util.SpawnInterceptor;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
@@ -83,46 +87,15 @@ import tconstruct.world.village.VillageToolStationHandler;
  *
  * @author mDiyo
  */
-@Mod(
-        modid = TConstruct.modID,
-        name = "TConstruct",
-        version = TConstruct.modVersion,
-        dependencies = "required-after:Forge@[10.13.3.1384,11.14);"
-                + "required-after:Mantle@[0.3.2,1.7.10),[1.7.10-0.3.2,);"
-                + // make sure we still have the 0.3.2 requirement, even without the 1.7.10 prefix
-                "after:MineFactoryReloaded@[1.7.10R2.8.0RC7,);"
-                + "after:ThermalExpansion@[1.7.10R4.0.0RC2,);"
-                + "after:ThermalFoundation@[1.7.10R1.0.0RC3,);"
-                + "after:armourersWorkshop@[1.7.10-0.28.0,);"
-                + "after:CoFHAPI|energy;"
-                + "after:CoFHCore;"
-                + "after:battlegear2;"
-                + "after:ZeldaItemAPI;"
-                + "after:DynamicSkillsAPI;"
-                + "after:NotEnoughItems;"
-                + "after:Waila;"
-                + "before:GalacticraftCore;"
-                + "before:UndergroundBiomes")
+@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = DEPENDENCIES)
 public class TConstruct {
 
-    public static final String modVersion = Tags.VERSION;
-    /** The value of one ingot in millibuckets */
-    public static final int ingotLiquidValue = 144;
-
-    public static final int oreLiquidValue = ingotLiquidValue * 2;
-    public static final int blockLiquidValue = ingotLiquidValue * 9;
-    public static final int chunkLiquidValue = ingotLiquidValue / 2;
-    public static final int nuggetLiquidValue = ingotLiquidValue / 9;
-    public static final int stoneLiquidValue = ingotLiquidValue / 8;
-
-    public static final int liquidUpdateAmount = 6;
-    public static final String modID = "TConstruct";
-    public static final Logger logger = LogManager.getLogger(modID);
+    public static final Logger logger = LogManager.getLogger(MOD_ID);
     public static final PacketPipeline packetPipeline = new PacketPipeline();
     public static Random random = new Random();
 
     /* Instance of this mod, used for grabbing prototype fields */
-    @Instance(modID)
+    @Instance(MOD_ID)
     public static TConstruct instance;
     /* Proxies for sides, used for graphics processing and client controls */
     @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
@@ -130,8 +103,15 @@ public class TConstruct {
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
     public static PulseManager pulsar = new PulseManager(
-            modID,
+            MOD_ID,
             new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
+    public static TPlayerHandler playerTracker;
+    @Getter
+    public static LiquidCasting tableCasting;
+    @Getter
+    public static LiquidCasting basinCasting;
+    @Getter
+    public static Detailing chiselDetailing;
 
     public TConstruct() {
         if (Loader.isModLoaded("Natura")) {
@@ -142,16 +122,17 @@ public class TConstruct {
         }
     }
 
-    // Force the client and server to have or not have this mod
-    @NetworkCheckHandler()
-    public boolean matchModVersions(Map<String, String> remoteVersions, Side side) {
-        return remoteVersions.containsKey("TConstruct") && modVersion.equals(remoteVersions.get("TConstruct"));
+    private static void registerMaterialTabs() {
+        TConstructRegistry.materialTab = new TConstructCreativeTab("TConstructMaterials");
+        TConstructRegistry.toolTab = new TConstructCreativeTab("TConstructTools");
+        TConstructRegistry.partTab = new TConstructCreativeTab("TConstructParts");
+        TConstructRegistry.blockTab = new TConstructCreativeTab("TConstructBlocks");
+        TConstructRegistry.equipableTab = new TConstructCreativeTab("TConstructEquipables");
+        TConstructRegistry.weaponryTab = new TConstructCreativeTab("TConstructWeaponry");
+        TConstructRegistry.gadgetsTab = new TConstructCreativeTab("TConstructGadgets");
     }
 
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        PHConstruct.initProps(event.getModConfigurationDirectory());
-
+    private static void registerPulses() {
         pulsar.registerPulse(new TinkerWorld());
         pulsar.registerPulse(new TinkerTools());
         pulsar.registerPulse(new TinkerSmeltery());
@@ -172,14 +153,20 @@ public class TConstruct {
         pulsar.registerPulse(new TinkerUBC());
         pulsar.registerPulse(new TinkerGears());
         pulsar.registerPulse(new TinkerRfTools());
+    }
 
-        TConstructRegistry.materialTab = new TConstructCreativeTab("TConstructMaterials");
-        TConstructRegistry.toolTab = new TConstructCreativeTab("TConstructTools");
-        TConstructRegistry.partTab = new TConstructCreativeTab("TConstructParts");
-        TConstructRegistry.blockTab = new TConstructCreativeTab("TConstructBlocks");
-        TConstructRegistry.equipableTab = new TConstructCreativeTab("TConstructEquipables");
-        TConstructRegistry.weaponryTab = new TConstructCreativeTab("TConstructWeaponry");
-        TConstructRegistry.gadgetsTab = new TConstructCreativeTab("TConstructGadgets");
+    // Force the client and server to have or not have this mod
+    @NetworkCheckHandler()
+    public boolean matchModVersions(Map<String, String> remoteVersions, Side side) {
+        return remoteVersions.containsKey(MOD_ID) && MOD_VERSION.equals(remoteVersions.get(MOD_ID));
+    }
+
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        PHConstruct.initProps(event.getModConfigurationDirectory());
+
+        registerPulses();
+        registerMaterialTabs();
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();
@@ -193,7 +180,7 @@ public class TConstruct {
         NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
 
         if (PHConstruct.globalDespawn != 6000 && PHConstruct.globalDespawn != 0) {
-            MinecraftForge.EVENT_BUS.register(new Spawntercepter());
+            MinecraftForge.EVENT_BUS.register(new SpawnInterceptor());
         }
 
         pulsar.preInit(event);
@@ -244,7 +231,9 @@ public class TConstruct {
         }
     }
 
-    /** Called on server shutdown to prevent memory leaks */
+    /**
+     * Called on server shutdown to prevent memory leaks
+     */
     @EventHandler
     public void serverStopping(FMLServerStoppingEvent event) {
         TinkerGadgets.log.info("Cleaning up SlimeBounceHandler data.");
@@ -262,40 +251,11 @@ public class TConstruct {
         IMCHandler.processIMC(FMLInterModComms.fetchRuntimeMessages(this));
     }
 
-    public static LiquidCasting getTableCasting() {
-        return tableCasting;
-    }
-
-    public static LiquidCasting getBasinCasting() {
-        return basinCasting;
-    }
-
-    public static Detailing getChiselDetailing() {
-        return chiselDetailing;
-    }
-
-    public static TPlayerHandler playerTracker;
-    public static LiquidCasting tableCasting;
-    public static LiquidCasting basinCasting;
-    public static Detailing chiselDetailing;
-
     @Mod.EventHandler
     public void missingMapping(FMLMissingMappingsEvent event) {
         // this will be called because the air-block got removed
         for (FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
             if (mapping.name.equals("TConstruct:TankAir")) mapping.ignore();
-        }
-    }
-
-    public static class Spawntercepter {
-
-        @SubscribeEvent
-        public void onEntitySpawn(EntityJoinWorldEvent event) {
-            if (event.entity instanceof EntityItem ourGuy) {
-                if (ourGuy.lifespan == 6000) {
-                    ourGuy.lifespan = PHConstruct.globalDespawn;
-                }
-            }
         }
     }
 }
