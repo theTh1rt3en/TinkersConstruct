@@ -19,8 +19,8 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import tconstruct.client.TProxyClient;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.proxy.TProxyClient;
 import tconstruct.world.entity.BlueSlime;
 import tconstruct.world.entity.KingBlueSlime;
 

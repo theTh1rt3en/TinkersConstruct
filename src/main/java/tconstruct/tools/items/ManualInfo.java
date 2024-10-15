@@ -9,7 +9,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import mantle.books.BookData;
 import mantle.books.BookDataStore;
-import tconstruct.client.TProxyClient;
+import tconstruct.proxy.TProxyClient;
 import tconstruct.util.Reference;
 
 /**

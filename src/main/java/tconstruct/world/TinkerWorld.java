@@ -98,17 +98,18 @@ import tconstruct.world.itemblocks.WoolSlab2Item;
 import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
+import tconstruct.world.proxy.TinkerWorldProxy;
 
 @ObjectHolder(MOD_ID)
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
 
-    private static final String PROXY_CLIENT = "tconstruct.world.TinkerWorldProxyClient";
-    private static final String PROXY_SERVER = "tconstruct.world.TinkerWorldProxyCommon";
+    private static final String PROXY_CLIENT = "tconstruct.world.proxy.TinkerWorldProxyClient";
+    private static final String PROXY_SERVER = "tconstruct.world.proxy.TinkerWorldProxyServer";
     @Instance("TinkerWorld")
     public static TinkerWorld instance;
     @SidedProxy(clientSide = PROXY_CLIENT, serverSide = PROXY_SERVER)
-    public static TinkerWorldProxyCommon proxy;
+    public static TinkerWorldProxy proxy;
 
     public static Item strangeFood;
     // Decoration

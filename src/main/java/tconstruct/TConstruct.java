@@ -1,5 +1,6 @@
 package tconstruct;
 
+import static tconstruct.util.Constants.VILLAGER_ID;
 import static tconstruct.util.Reference.DEPENDENCIES;
 import static tconstruct.util.Reference.MOD_ID;
 import static tconstruct.util.Reference.MOD_NAME;
@@ -16,7 +17,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -42,7 +42,6 @@ import tconstruct.api.TConstructAPI;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.armor.player.TPlayerStats;
-import tconstruct.common.TProxyCommon;
 import tconstruct.gadgets.TinkerGadgets;
 import tconstruct.library.SlimeBounceHandler;
 import tconstruct.library.TConstructCreativeTab;
@@ -66,6 +65,7 @@ import tconstruct.plugins.te4.TinkerTE4;
 import tconstruct.plugins.te4.TinkersThermalFoundation;
 import tconstruct.plugins.ubc.TinkerUBC;
 import tconstruct.plugins.waila.TinkerWaila;
+import tconstruct.proxy.TProxy;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.IMCHandler;
@@ -92,15 +92,15 @@ public class TConstruct {
 
     public static final Logger logger = LogManager.getLogger(MOD_ID);
     public static final PacketPipeline packetPipeline = new PacketPipeline();
-    private static final String PROXY_CLIENT = "tconstruct.client.TProxyClient";
-    private static final String PROXY_SERVER = "tconstruct.common.TProxyCommon";
-    public static Random random = new Random();
+    public static final Random random = new Random();
+    private static final String PROXY_CLIENT = "tconstruct.proxy.TProxyClient";
+    private static final String PROXY_SERVER = "tconstruct.proxy.TProxyServer";
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance(MOD_ID)
     public static TConstruct instance;
     /* Proxies for sides, used for graphics processing and client controls */
     @SidedProxy(clientSide = PROXY_CLIENT, serverSide = PROXY_SERVER)
-    public static TProxyCommon proxy;
+    public static TProxy proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
     public static PulseManager pulsar = new PulseManager(
@@ -114,12 +114,7 @@ public class TConstruct {
     public static Detailing chiselDetailing;
 
     public TConstruct() {
-        if (Loader.isModLoaded("Natura")) {
-            logger.info("Natura, what are we going to do tomorrow night?");
-            LogManager.getLogger("Natura").info("TConstruct, we're going to take over the world!");
-        } else {
-            logger.info("Preparing to take over the world");
-        }
+        logger.info("Starting {}", MOD_NAME);
     }
 
     private static void registerMaterialTabs() {
@@ -153,6 +148,21 @@ public class TConstruct {
         pulsar.registerPulse(new TinkerUBC());
         pulsar.registerPulse(new TinkerGears());
         pulsar.registerPulse(new TinkerRfTools());
+    }
+
+    private static void addToVillages() {
+        // adds to the villager spawner egg
+        VillagerRegistry.instance().registerVillagerId(VILLAGER_ID);
+        // moved down, not needed if 'addToVillages' is false
+        if (PHConstruct.allowVillagerTrading)
+            VillagerRegistry.instance().registerVillageTradeHandler(VILLAGER_ID, new TVillageTrades());
+
+        VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
+        MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+        if (pulsar.isPulseLoaded("Tinkers' Smeltery")) {
+            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+        }
     }
 
     // Force the client and server to have or not have this mod
@@ -194,21 +204,6 @@ public class TConstruct {
         }
 
         TConstructAPI.PROP_NAME = TPlayerStats.PROP_NAME;
-    }
-
-    private static void addToVillages() {
-        // adds to the villager spawner egg
-        VillagerRegistry.instance().registerVillagerId(78943);
-        // moved down, not needed if 'addToVillages' is false
-        if (PHConstruct.allowVillagerTrading)
-            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
-
-        VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
-        MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-        if (pulsar.isPulseLoaded("Tinkers' Smeltery")) {
-            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
-            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-        }
     }
 
     @EventHandler

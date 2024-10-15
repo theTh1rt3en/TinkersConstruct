@@ -1,5 +1,6 @@
 package tconstruct.library.weaponry;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +20,12 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.InterfaceList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battlegear2.api.PlayerEventChild;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
-import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
@@ -35,9 +37,10 @@ import tconstruct.weaponry.client.CrosshairType;
 /**
  * Weapons that utilize ammo that uses the ammo system to shoot projectiles. Bows,...
  */
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
+@InterfaceList(value = { @Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
 public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWeapon, IAccuracy, IWindup {
+
+    public static DecimalFormat df = new DecimalFormat("##.#");
 
     public ProjectileWeapon(int baseDamage, String name) {
         super(baseDamage);
@@ -437,9 +440,7 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
 
         list.remove(list.size() - 1); // remove last item (the damage of the bow itself)
         list.add(currentAmmo.getDisplayName());
-        list.add(
-                StatCollector.translateToLocal("attribute.name.ammo.maxAttackDamage") + ": "
-                        + TProxyClient.df.format(damage));
+        list.add(StatCollector.translateToLocal("attribute.name.ammo.maxAttackDamage") + ": " + df.format(damage));
     }
 
     /*---- Battlegear Support START ----*/

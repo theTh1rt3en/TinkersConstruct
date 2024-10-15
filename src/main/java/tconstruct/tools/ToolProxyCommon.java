@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.common.TProxyCommon;
+import tconstruct.proxy.TProxyServer;
 
 public class ToolProxyCommon implements IGuiHandler {
 
@@ -27,14 +27,14 @@ public class ToolProxyCommon implements IGuiHandler {
     }
 
     protected void registerGuiHandler() {
-        TProxyCommon.registerServerGuiHandler(toolStationID, this);
-        TProxyCommon.registerServerGuiHandler(partBuilderID, this);
-        TProxyCommon.registerServerGuiHandler(patternChestID, this);
-        TProxyCommon.registerServerGuiHandler(stencilTableID, this);
-        TProxyCommon.registerServerGuiHandler(frypanGuiID, this);
-        TProxyCommon.registerServerGuiHandler(toolForgeID, this);
-        TProxyCommon.registerServerGuiHandler(furnaceID, this);
-        TProxyCommon.registerServerGuiHandler(craftingStationID, this);
+        TProxyServer.registerServerGuiHandler(toolStationID, this);
+        TProxyServer.registerServerGuiHandler(partBuilderID, this);
+        TProxyServer.registerServerGuiHandler(patternChestID, this);
+        TProxyServer.registerServerGuiHandler(stencilTableID, this);
+        TProxyServer.registerServerGuiHandler(frypanGuiID, this);
+        TProxyServer.registerServerGuiHandler(toolForgeID, this);
+        TProxyServer.registerServerGuiHandler(furnaceID, this);
+        TProxyServer.registerServerGuiHandler(craftingStationID, this);
     }
 
     @Override

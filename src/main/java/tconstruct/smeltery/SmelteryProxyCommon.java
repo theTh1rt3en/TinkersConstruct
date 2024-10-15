@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.common.TProxyCommon;
+import tconstruct.proxy.TProxyServer;
 
 public class SmelteryProxyCommon implements IGuiHandler {
 
@@ -17,7 +17,7 @@ public class SmelteryProxyCommon implements IGuiHandler {
     }
 
     protected void registerGuiHandler() {
-        TProxyCommon.registerServerGuiHandler(smelteryGuiID, this);
+        TProxyServer.registerServerGuiHandler(smelteryGuiID, this);
     }
 
     @Override

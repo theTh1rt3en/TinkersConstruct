@@ -38,12 +38,12 @@ import tconstruct.client.entity.projectile.LaunchedItemRender;
 import tconstruct.client.pages.MaterialPage;
 import tconstruct.client.pages.ModifierPage;
 import tconstruct.client.pages.ToolPage;
-import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.proxy.TProxyServer;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.client.DaggerEntityRenderer;
 import tconstruct.tools.entity.DaggerEntity;
@@ -594,15 +594,15 @@ public class ToolProxyClient extends ToolProxyCommon {
     @Override
     protected void registerGuiHandler() {
         super.registerGuiHandler();
-        TProxyCommon.registerClientGuiHandler(toolStationID, this);
-        TProxyCommon.registerClientGuiHandler(partBuilderID, this);
-        TProxyCommon.registerClientGuiHandler(patternChestID, this);
-        TProxyCommon.registerClientGuiHandler(stencilTableID, this);
-        TProxyCommon.registerClientGuiHandler(frypanGuiID, this);
-        TProxyCommon.registerClientGuiHandler(toolForgeID, this);
-        TProxyCommon.registerClientGuiHandler(furnaceID, this);
-        TProxyCommon.registerClientGuiHandler(craftingStationID, this);
-        TProxyCommon.registerClientGuiHandler(battlesignTextID, this);
+        TProxyServer.registerClientGuiHandler(toolStationID, this);
+        TProxyServer.registerClientGuiHandler(partBuilderID, this);
+        TProxyServer.registerClientGuiHandler(patternChestID, this);
+        TProxyServer.registerClientGuiHandler(stencilTableID, this);
+        TProxyServer.registerClientGuiHandler(frypanGuiID, this);
+        TProxyServer.registerClientGuiHandler(toolForgeID, this);
+        TProxyServer.registerClientGuiHandler(furnaceID, this);
+        TProxyServer.registerClientGuiHandler(craftingStationID, this);
+        TProxyServer.registerClientGuiHandler(battlesignTextID, this);
     }
 
     @Override

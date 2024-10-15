@@ -1,4 +1,6 @@
-package tconstruct.world;
+package tconstruct.world.proxy;
+
+import static tconstruct.util.Constants.VILLAGER_ID;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -37,6 +39,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 import mantle.lib.client.MantleClientRegistry;
 import tconstruct.mechworks.model.CartRender;
 import tconstruct.tools.TinkerTools;
+import tconstruct.world.TinkerWorld;
 import tconstruct.world.entity.BlueSlime;
 import tconstruct.world.entity.CartEntity;
 import tconstruct.world.entity.KingBlueSlime;
@@ -48,7 +51,10 @@ import tconstruct.world.model.SlimeChannelRender;
 import tconstruct.world.model.SlimePadRender;
 import tconstruct.world.model.SlimeRender;
 
-public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
+@SuppressWarnings("unused")
+public class TinkerWorldProxyClient implements TinkerWorldProxy {
+
+    private Minecraft mc = Minecraft.getMinecraft();
 
     @Override
     public void initialize() {
@@ -57,85 +63,13 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
         registerManualRecipes();
     }
 
-    void registerRenderer() {
-        RenderingRegistry.registerBlockHandler(new OreberryRender());
-        RenderingRegistry.registerBlockHandler(new BarricadeRender());
-        RenderingRegistry.registerBlockHandler(new RenderLandmine());
-        RenderingRegistry.registerBlockHandler(new PunjiRender());
-        RenderingRegistry.registerBlockHandler(new SlimeChannelRender());
-        RenderingRegistry.registerBlockHandler(new SlimePadRender());
-
-        // Entities
-        SlimeRender slimeRender = new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F);
-        RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, slimeRender);
-        RenderingRegistry.registerEntityRenderingHandler(KingBlueSlime.class, slimeRender);
-        RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
-
-        VillagerRegistry.instance()
-                .registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
-    }
-
-    void registerManualIcons() {}
-
-    void registerManualRecipes() {
-        ItemStack netherrack = new ItemStack(Blocks.netherrack);
-        ItemStack coal = new ItemStack(Items.coal);
-        ItemStack log = new ItemStack(Blocks.log, 1, 0);
-
-        ItemStack graveyardsoil = new ItemStack(TinkerTools.craftedSoil, 1, 3);
-        ItemStack consecratedsoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
-
-        MantleClientRegistry.registerManualSmallRecipe(
-                "slimechannel",
-                new ItemStack(TinkerWorld.slimeChannel, 1, 0),
-                new ItemStack(TinkerWorld.slimeGel, 1, 0),
-                new ItemStack(Items.redstone),
-                null,
-                null);
-        MantleClientRegistry.registerManualSmallRecipe(
-                "bouncepad",
-                new ItemStack(TinkerWorld.slimePad, 1, 0),
-                new ItemStack(TinkerWorld.slimeChannel),
-                new ItemStack(Items.slime_ball),
-                null,
-                null);
-
-        MantleClientRegistry.registerManualSmallRecipe(
-                "graveyardsoil",
-                graveyardsoil,
-                new ItemStack(Blocks.dirt),
-                new ItemStack(Items.rotten_flesh),
-                new ItemStack(Items.dye, 1, 15),
-                null);
-        MantleClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
-
-        // Traps
-        ItemStack reed = new ItemStack(Items.reeds);
-        MantleClientRegistry.registerManualLargeRecipe(
-                "punji",
-                new ItemStack(TinkerWorld.punji, 5),
-                reed,
-                null,
-                reed,
-                null,
-                reed,
-                null,
-                reed,
-                null,
-                reed);
-        MantleClientRegistry
-                .registerManualSmallRecipe("barricade", new ItemStack(TinkerWorld.barricadeOak), null, log, null, log);
-    }
-
-    Minecraft mc = Minecraft.getMinecraft();
-
     @Override
     public void spawnParticle(String particle, double xPos, double yPos, double zPos, double velX, double velY,
             double velZ) {
         this.doSpawnParticle(particle, xPos, yPos, zPos, velX, velY, velZ);
     }
 
-    public EntityFX doSpawnParticle(String par1Str, double par2, double par4, double par6, double par8, double par10,
+    private EntityFX doSpawnParticle(String par1Str, double par2, double par4, double par6, double par8, double par10,
             double par12) {
         if (this.mc == null) this.mc = Minecraft.getMinecraft();
 
@@ -229,7 +163,7 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
                             entityfx = new EntitySpellParticleFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
                             ((EntitySpellParticleFX) entityfx).setBaseSpellTextureIndex(144);
                             float f = mc.theWorld.rand.nextFloat() * 0.5F + 0.35F;
-                            entityfx.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
+                            entityfx.setRBGColorF(f, 0.0F * f, f);
                             break;
                         case "note":
                             entityfx = new EntityNoteFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
@@ -318,5 +252,73 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
         } else {
             return null;
         }
+    }
+
+    private void registerRenderer() {
+        RenderingRegistry.registerBlockHandler(new OreberryRender());
+        RenderingRegistry.registerBlockHandler(new BarricadeRender());
+        RenderingRegistry.registerBlockHandler(new RenderLandmine());
+        RenderingRegistry.registerBlockHandler(new PunjiRender());
+        RenderingRegistry.registerBlockHandler(new SlimeChannelRender());
+        RenderingRegistry.registerBlockHandler(new SlimePadRender());
+
+        // Entities
+        SlimeRender slimeRender = new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F);
+        RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, slimeRender);
+        RenderingRegistry.registerEntityRenderingHandler(KingBlueSlime.class, slimeRender);
+        RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
+
+        VillagerRegistry.instance()
+                .registerVillagerSkin(VILLAGER_ID, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
+    }
+
+    private void registerManualIcons() {}
+
+    private void registerManualRecipes() {
+        ItemStack log = new ItemStack(Blocks.log, 1, 0);
+
+        ItemStack graveyardsoil = new ItemStack(TinkerTools.craftedSoil, 1, 3);
+        ItemStack consecratedsoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
+
+        MantleClientRegistry.registerManualSmallRecipe(
+                "slimechannel",
+                new ItemStack(TinkerWorld.slimeChannel, 1, 0),
+                new ItemStack(TinkerWorld.slimeGel, 1, 0),
+                new ItemStack(Items.redstone),
+                null,
+                null);
+        MantleClientRegistry.registerManualSmallRecipe(
+                "bouncepad",
+                new ItemStack(TinkerWorld.slimePad, 1, 0),
+                new ItemStack(TinkerWorld.slimeChannel),
+                new ItemStack(Items.slime_ball),
+                null,
+                null);
+
+        MantleClientRegistry.registerManualSmallRecipe(
+                "graveyardsoil",
+                graveyardsoil,
+                new ItemStack(Blocks.dirt),
+                new ItemStack(Items.rotten_flesh),
+                new ItemStack(Items.dye, 1, 15),
+                null);
+        MantleClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
+
+        // Traps
+        ItemStack reed = new ItemStack(Items.reeds);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "punji",
+                new ItemStack(TinkerWorld.punji, 5),
+                reed,
+                null,
+                reed,
+                null,
+                reed,
+                null,
+                reed,
+                null,
+                reed);
+        MantleClientRegistry
+                .registerManualSmallRecipe("barricade", new ItemStack(TinkerWorld.barricadeOak), null, log, null, log);
     }
 }

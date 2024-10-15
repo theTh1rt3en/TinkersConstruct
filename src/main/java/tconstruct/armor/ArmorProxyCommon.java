@@ -9,7 +9,7 @@ import tconstruct.TConstruct;
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.inventory.KnapsackContainer;
 import tconstruct.armor.player.TPlayerStats;
-import tconstruct.common.TProxyCommon;
+import tconstruct.proxy.TProxyServer;
 
 public class ArmorProxyCommon implements IGuiHandler {
 
@@ -24,9 +24,9 @@ public class ArmorProxyCommon implements IGuiHandler {
     }
 
     protected void registerGuiHandler() {
-        TProxyCommon.registerServerGuiHandler(inventoryGui, this);
-        TProxyCommon.registerServerGuiHandler(armorGuiID, this);
-        TProxyCommon.registerServerGuiHandler(knapsackGuiID, this);
+        TProxyServer.registerServerGuiHandler(inventoryGui, this);
+        TProxyServer.registerServerGuiHandler(armorGuiID, this);
+        TProxyServer.registerServerGuiHandler(knapsackGuiID, this);
     }
 
     @Override

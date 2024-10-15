@@ -20,7 +20,7 @@ import tconstruct.armor.modelblock.DryingRackRender;
 import tconstruct.armor.modelblock.DryingRackSpecialRender;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.pages.BlockCastPage;
-import tconstruct.common.TProxyCommon;
+import tconstruct.proxy.TProxyServer;
 import tconstruct.smeltery.gui.SmelteryGui;
 import tconstruct.smeltery.logic.CastingBasinLogic;
 import tconstruct.smeltery.logic.CastingTableLogic;
@@ -237,8 +237,8 @@ public class SmelteryProxyClient extends SmelteryProxyCommon {
 
     @Override
     protected void registerGuiHandler() {
-        TProxyCommon.registerClientGuiHandler(smelteryGuiID, this);
-        TProxyCommon.registerServerGuiHandler(smelteryGuiID, this);
+        TProxyServer.registerClientGuiHandler(smelteryGuiID, this);
+        TProxyServer.registerServerGuiHandler(smelteryGuiID, this);
     }
 
     @Override

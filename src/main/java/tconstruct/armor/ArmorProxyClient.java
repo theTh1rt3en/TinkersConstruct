@@ -36,10 +36,10 @@ import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.proxy.TProxyServer;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
@@ -184,9 +184,9 @@ public class ArmorProxyClient extends ArmorProxyCommon {
     @Override
     protected void registerGuiHandler() {
         super.registerGuiHandler();
-        TProxyCommon.registerClientGuiHandler(inventoryGui, this);
-        TProxyCommon.registerClientGuiHandler(armorGuiID, this);
-        TProxyCommon.registerClientGuiHandler(knapsackGuiID, this);
+        TProxyServer.registerClientGuiHandler(inventoryGui, this);
+        TProxyServer.registerClientGuiHandler(armorGuiID, this);
+        TProxyServer.registerClientGuiHandler(knapsackGuiID, this);
     }
 
     @Override

@@ -14,4 +14,5 @@ public class Constants {
     public static final int LIQUID_VALUE_NUGGET = LIQUID_VALUE_INGOT / 9;
 
     public static final int LIQUID_UPDATE_AMOUNT = 6;
+    public static final int VILLAGER_ID = 78943;
 }

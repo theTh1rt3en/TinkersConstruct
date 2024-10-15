@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 import tconstruct.Tags;
 
 @UtilityClass
-public final class Reference {
+public class Reference {
 
     public static final String MOD_ID = "TConstruct";
     public static final String MOD_NAME = "Tinkers' Construct";

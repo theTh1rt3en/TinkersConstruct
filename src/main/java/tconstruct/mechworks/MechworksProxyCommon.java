@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.IGuiHandler;
-import tconstruct.common.TProxyCommon;
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
+import tconstruct.proxy.TProxyServer;
 
 public class MechworksProxyCommon implements IGuiHandler {
 
@@ -18,7 +18,7 @@ public class MechworksProxyCommon implements IGuiHandler {
     public static final int landmineID = 10;
 
     protected void registerGuiHandler() {
-        TProxyCommon.registerServerGuiHandler(landmineID, this);
+        TProxyServer.registerServerGuiHandler(landmineID, this);
     }
 
     @Override

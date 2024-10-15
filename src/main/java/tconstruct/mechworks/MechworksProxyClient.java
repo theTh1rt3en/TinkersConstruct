@@ -7,12 +7,12 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import tconstruct.client.entity.item.ExplosiveRender;
-import tconstruct.common.TProxyCommon;
 import tconstruct.mechworks.entity.item.EntityLandmineFirework;
 import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.gui.GuiLandmine;
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
+import tconstruct.proxy.TProxyServer;
 
 public class MechworksProxyClient extends MechworksProxyCommon {
 
@@ -29,7 +29,7 @@ public class MechworksProxyClient extends MechworksProxyCommon {
 
     protected void registerGuiHandler() {
         super.registerGuiHandler();
-        TProxyCommon.registerClientGuiHandler(landmineID, this);
+        TProxyServer.registerClientGuiHandler(landmineID, this);
     }
 
     @Override
