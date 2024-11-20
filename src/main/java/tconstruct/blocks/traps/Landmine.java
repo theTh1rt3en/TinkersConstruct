@@ -24,7 +24,9 @@ import tconstruct.library.TConstructRegistry;
 
 public class Landmine extends MantleBlock {
 
-    /** The mob type that can trigger this pressure plate. */
+    /**
+     * The mob type that can trigger this pressure plate.
+     */
     private final EnumCreatureType triggerMobType;
 
     public Landmine(EnumCreatureType par3EnumCreatureType, Material par4Material) {
@@ -54,13 +56,6 @@ public class Landmine extends MantleBlock {
 
     @Override
     public void registerBlockIcons(IIconRegister par1IconRegister) {}
-
-    /**
-     * How many world ticks before ticking
-     */
-    public int tickRate() {
-        return 20;
-    }
 
     /**
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
@@ -112,7 +107,6 @@ public class Landmine extends MantleBlock {
 
         if (var6) {
             this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-            // par1World.setBlock(par2, par3, par4, 0);
         }
     }
 
@@ -121,10 +115,8 @@ public class Landmine extends MantleBlock {
      */
     @Override
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-        if (!par1World.isRemote) {
-            if (par1World.getBlockMetadata(par2, par3, par4) != 0) {
-                this.setStateIfMobInteractsWithPlate(par1World, par2, par3, par4);
-            }
+        if (!par1World.isRemote && par1World.getBlockMetadata(par2, par3, par4) != 0) {
+            this.setStateIfMobInteractsWithPlate(par1World, par2, par3, par4);
         }
     }
 
@@ -153,32 +145,25 @@ public class Landmine extends MantleBlock {
             var8 = world.getEntitiesWithinAABBExcludingEntity(
                     null,
                     AxisAlignedBB.getBoundingBox(
-                            (float) posX + var7,
+                            posX + var7,
                             posY,
-                            (float) posZ + var7,
-                            (float) (posX + 1) - var7,
-                            (double) posY + 0.25D,
-                            (float) (posZ + 1) - var7));
+                            posZ + var7,
+                            (posX + 1) - var7,
+                            posY + 0.25D,
+                            (posZ + 1) - var7));
         }
 
         if (this.triggerMobType == EnumCreatureType.monster) {
             var8 = world.getEntitiesWithinAABB(
                     EntityLiving.class,
                     AxisAlignedBB.getBoundingBox(
-                            (float) posX + var7,
+                            posX + var7,
                             posY,
-                            (float) posZ + var7,
-                            (float) (posX + 1) - var7,
-                            (double) posY + 0.25D,
-                            (float) (posZ + 1) - var7));
+                            posZ + var7,
+                            (posX + 1) - var7,
+                            posY + 0.25D,
+                            (posZ + 1) - var7));
         }
-
-        /*
-         * if (this.triggerMobType == EnumCreatureType.players) { var8 = world.getEntitiesWithinAABB(
-         * EntityPlayer.class, AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double)
-         * ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D, (double) ((float) (posZ +
-         * 1) - var7))); }
-         */
 
         if (var8 != null && !var8.isEmpty()) {
             for (Entity var10 : var8) {
@@ -192,22 +177,7 @@ public class Landmine extends MantleBlock {
         if (var6 && !var5) {
             WorldHelper.setBlockToAir(world, posX, posY, posZ);
             world.createExplosion(null, posX, posY, posZ, 2.0F, true);
-            /*
-             * par1World.setBlockMetadataWithNotify(posX, posY, posZ, 1); par1World.notifyBlocksOfNeighborChange(posX,
-             * posY, posZ, this.blockID); par1World.notifyBlocksOfNeighborChange(posX, posY - 1, posZ, this.blockID);
-             * par1World.func_147479_m(posX, posY, posZ, posX, posY, posZ); par1World.playSoundEffect((double)posX +
-             * 0.5D, (double)posY + 0.1D, (double)posZ + 0.5D, "random.click", 0.3F, 0.6F);
-             */
         }
-
-        /*
-         * if (!var6 && var5) { par1World.setBlockMetadataWithNotify(posX, posY, posZ, 0);
-         * par1World.notifyBlocksOfNeighborChange(posX, posY, posZ, this.blockID);
-         * par1World.notifyBlocksOfNeighborChange(posX, posY - 1, posZ, this.blockID); par1World.func_147479_m(posX,
-         * posY, posZ, posX, posY, posZ); par1World.playSoundEffect((double)posX + 0.5D, (double)posY + 0.1D,
-         * (double)posZ + 0.5D, "random.click", 0.3F, 0.5F); } if (var6) { par1World.scheduleBlockUpdate(posX, posY,
-         * posZ, this.blockID, this.tickRate()); }
-         */
     }
 
     /**

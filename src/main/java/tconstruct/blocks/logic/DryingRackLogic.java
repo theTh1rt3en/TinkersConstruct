@@ -121,12 +121,10 @@ public class DryingRackLogic extends InventoryLogic {
     @Override
     public void closeInventory() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void openInventory() {
         // TODO Auto-generated method stub
-
     }
 }

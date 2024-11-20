@@ -100,10 +100,6 @@ public class SlimeLeaves extends BlockLeaves {
         if (!world.isRemote) {
             int dropChance = 35;
 
-            /*
-             * if ((meta & 3) == 3) { j1 = 40; }
-             */
-
             if (fortune > 0) {
                 dropChance -= 2 << fortune;
 

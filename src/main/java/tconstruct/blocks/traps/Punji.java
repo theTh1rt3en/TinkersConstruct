@@ -47,9 +47,6 @@ public class Punji extends MantleBlock {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float hitX,
             float hitY, float hitZ) {
-        /*
-         * if (world.isRemote) return false;
-         */
 
         int meta = world.getBlockMetadata(x, y, z);
         if (meta < 4) {
@@ -57,9 +54,9 @@ public class Punji extends MantleBlock {
             if (stack != null && stack.getItem() == Item.getItemFromBlock(TinkerWorld.punji)) {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
                 world.playSoundEffect(
-                        (float) x + 0.5F,
-                        (float) y + 0.5F,
-                        (float) z + 0.5F,
+                        x + 0.5F,
+                        y + 0.5F,
+                        z + 0.5F,
                         this.stepSound.soundName,
                         (this.stepSound.getVolume() + 1.0F) / 2.0F,
                         this.stepSound.getPitch() * 0.8F);

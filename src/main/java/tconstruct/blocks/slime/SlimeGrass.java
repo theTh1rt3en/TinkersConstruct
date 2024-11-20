@@ -28,7 +28,7 @@ public class SlimeGrass extends MantleBlock {
 
     public String[] textureNames = { "slimegrass_green_top", "slimedirt_blue", "slimegrass_green_blue_side",
             "slimegrass_green_dirt_side" }; // green,
-                                            // purple
+    // purple
     public IIcon[] icons;
 
     public SlimeGrass() {
@@ -112,18 +112,13 @@ public class SlimeGrass extends MantleBlock {
                             return;
                         }
                         int blockMeta = world.getBlockMetadata(posX, posY, posZ);
-                        if (block == TinkerTools.craftedSoil) {
-                            if (blockMeta == 5) world.setBlock(posX, posY, posZ, this, 0, 3);
+                        if (block == TinkerTools.craftedSoil && blockMeta == 5) {
+                            world.setBlock(posX, posY, posZ, this, 0, 3);
                         }
                     }
                 }
             }
         }
-    }
-
-    public Block blockDropped(int metadata, Random random, int fortune) {
-        if (metadata == 1) return Blocks.dirt;
-        else return TinkerTools.craftedSoil;
     }
 
     @Override

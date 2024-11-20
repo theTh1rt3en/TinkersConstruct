@@ -4,12 +4,12 @@ import static tconstruct.util.Reference.prefix;
 
 import java.util.HashMap;
 
-import lombok.experimental.UtilityClass;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.AchievementPage;
 
+import lombok.experimental.UtilityClass;
 import tconstruct.achievements.items.AbstractAchievement;
 import tconstruct.achievements.items.BeginnerAchievement;
 import tconstruct.achievements.items.DualConvenienceAchievement;

@@ -37,11 +37,6 @@ public class SlimeGel extends TConstructBlock {
     }
 
     @Override
-    public int damageDropped(int meta) {
-        return meta;
-    }
-
-    @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (entity.motionY < 0) {
             if (entity.motionY < -0.08F) {
@@ -64,17 +59,16 @@ public class SlimeGel extends TConstructBlock {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
+        return AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 0.625D, z + 1.0D);
     }
 
-    @SideOnly(Side.CLIENT)
     /**
      * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
      */
+    @SideOnly(Side.CLIENT)
     public void getSubBlocks(Block b, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
         par3List.add(new ItemStack(b, 1, 0));
         par3List.add(new ItemStack(b, 1, 1));
-        // par3List.add(new ItemStack(par1, 1, 2));
     }
 
     @Override

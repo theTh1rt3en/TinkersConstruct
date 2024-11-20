@@ -54,7 +54,7 @@ public class SlimeFluid extends BlockFluidClassic {
             SlimeBase slime;
             if (rand.nextInt(300) == 0) slime = new KingBlueSlime(world);
             else slime = new BlueSlime(world);
-            slime.setPosition((double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D);
+            slime.setPosition(x + 0.5D, y + 1.5D, z + 0.5D);
             world.spawnEntityInWorld(slime);
         }
     }
