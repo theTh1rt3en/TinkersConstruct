@@ -37,7 +37,7 @@ import lombok.Getter;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
 import tconstruct.achievements.AchievementEvents;
-import tconstruct.achievements.TAchievements;
+import tconstruct.achievements.Achievements;
 import tconstruct.api.TConstructAPI;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
@@ -97,8 +97,10 @@ public class TConstruct {
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance(MOD_ID)
     public static TConstruct instance;
+    private static final String CLIENT_SIDE_PROXY = "tconstruct.client.TProxyClient";
+    private static final String SERVER_SIDE_PROXY = "tconstruct.common.TProxyCommon";
     /* Proxies for sides, used for graphics processing and client controls */
-    @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
+    @SidedProxy(clientSide = CLIENT_SIDE_PROXY, serverSide = SERVER_SIDE_PROXY)
     public static TProxyCommon proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
@@ -195,7 +197,7 @@ public class TConstruct {
         pulsar.preInit(event);
 
         if (PHConstruct.achievementsEnabled) {
-            TAchievements.addDefaultAchievements();
+            Achievements.addDefaultAchievements();
         }
 
         if (PHConstruct.addToVillages) {
@@ -224,7 +226,7 @@ public class TConstruct {
         pulsar.postInit(event);
 
         if (PHConstruct.achievementsEnabled) {
-            TAchievements.registerAchievementPane();
+            Achievements.registerAchievementPane();
             MinecraftForge.EVENT_BUS.register(new AchievementEvents());
         }
     }
@@ -256,5 +258,4 @@ public class TConstruct {
             if (mapping.name.equals("TConstruct:TankAir")) mapping.ignore();
         }
     }
-
 }

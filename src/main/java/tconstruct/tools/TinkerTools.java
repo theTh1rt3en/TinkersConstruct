@@ -41,7 +41,7 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.utils.RecipeRemover;
 import tconstruct.TConstruct;
-import tconstruct.achievements.items.CraftAchievementItem;
+import tconstruct.achievements.CraftAchievementItem;
 import tconstruct.common.itemblocks.MetadataItemBlock;
 import tconstruct.items.tools.Arrow;
 import tconstruct.items.tools.BattleSign;

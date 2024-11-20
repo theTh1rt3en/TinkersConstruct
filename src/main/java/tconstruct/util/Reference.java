@@ -27,12 +27,13 @@ public class Reference {
             + "before:UndergroundBiomes";
 
     public static final String RESOURCE = "tinker";
+    private static final String PREFIX = "tconstruct";
 
     public static String resource(String res) {
         return String.format("%s:%s", RESOURCE, res);
     }
 
     public static String prefix(String name) {
-        return String.format("tconstruct.%s", name);
+        return String.format("%s.%s", PREFIX, name);
     }
 }

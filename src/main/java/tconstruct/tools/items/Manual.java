@@ -18,7 +18,7 @@ import mantle.books.BookDataStore;
 import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;
 import tconstruct.TConstruct;
-import tconstruct.achievements.TAchievements;
+import tconstruct.achievements.Achievements;
 import tconstruct.library.TConstructRegistry;
 
 public class Manual extends CraftingItem {
@@ -34,7 +34,7 @@ public class Manual extends CraftingItem {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        TAchievements.triggerAchievement(player, "tconstruct.beginner");
+        Achievements.triggerAchievement(player, "tconstruct.beginner");
 
         if (world.isRemote) {
             openBook(stack, world, player);

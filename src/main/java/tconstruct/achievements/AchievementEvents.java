@@ -1,5 +1,7 @@
 package tconstruct.achievements;
 
+import static tconstruct.util.Reference.prefix;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -24,48 +26,43 @@ public class AchievementEvents {
     @SubscribeEvent
     public void toolCreate(ToolCraftedEvent event) {
         if (event.player != null) {
-            TAchievements.triggerAchievement(event.player, "tconstruct.tinkerer");
+            Achievements.triggerAchievement(event.player, prefix("tinkerer"));
 
             if (event.tool != null && event.tool.getItem() instanceof Weapon) {
-                TAchievements.triggerAchievement(event.player, "tconstruct.preparedFight");
+                Achievements.triggerAchievement(event.player, prefix("preparedFight"));
             }
 
             if (event.inventory instanceof ToolForgeLogic && event.tool.getItem() instanceof ToolCore
                     && ((ToolCore) event.tool.getItem()).durabilityTypeExtra() != 0) {
-                TAchievements.triggerAchievement(event.player, "tconstruct.proTinkerer");
+                Achievements.triggerAchievement(event.player, prefix("proTinkerer"));
             }
         }
     }
 
     @SubscribeEvent
     public void entitySlain(LivingDeathEvent event) {
-        if (event.source != null && event.source.getEntity() instanceof EntityPlayer) {
-            EntityPlayer murderer = (EntityPlayer) event.source.getEntity();
-
-            if (murderer.getHeldItem() != null && murderer.getHeldItem().getItem() instanceof Weapon) {
-                TAchievements.triggerAchievement(murderer, "tconstruct.enemySlayer");
-            }
+        if (event.source != null && event.source.getEntity() instanceof EntityPlayer murderer
+                && murderer.getHeldItem() != null
+                && murderer.getHeldItem().getItem() instanceof Weapon) {
+            Achievements.triggerAchievement(murderer, prefix("enemySlayer"));
         }
     }
 
     @SubscribeEvent
     public void entityDrops(LivingDropsEvent event) {
-        if (event.source.getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.source.getEntity();
-
-            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof FryingPan) {
-                for (int i = 0; i < event.drops.size(); i++) {
-                    ItemStack is = event.drops.get(i).getEntityItem();
-                    if (FurnaceRecipes.smelting().getSmeltingResult(is) != null
-                            && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood) {
-                        NBTTagCompound stackCompound = is.getTagCompound();
-                        if (stackCompound == null) {
-                            stackCompound = new NBTTagCompound();
-                        }
-
-                        stackCompound.setBoolean("frypanKill", true);
-                        is.setTagCompound(stackCompound);
+        if (event.source.getEntity() instanceof EntityPlayer player && player.getHeldItem() != null
+                && player.getHeldItem().getItem() instanceof FryingPan) {
+            for (int i = 0; i < event.drops.size(); i++) {
+                ItemStack is = event.drops.get(i).getEntityItem();
+                if (FurnaceRecipes.smelting().getSmeltingResult(is) != null
+                        && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood) {
+                    NBTTagCompound stackCompound = is.getTagCompound();
+                    if (stackCompound == null) {
+                        stackCompound = new NBTTagCompound();
                     }
+
+                    stackCompound.setBoolean("frypanKill", true);
+                    is.setTagCompound(stackCompound);
                 }
             }
         }

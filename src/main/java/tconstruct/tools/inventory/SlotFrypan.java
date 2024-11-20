@@ -7,7 +7,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.achievements.TAchievements;
+import tconstruct.achievements.Achievements;
 
 public class SlotFrypan extends Slot {
 
@@ -29,7 +29,7 @@ public class SlotFrypan extends Slot {
                 return;
             }
 
-            TAchievements.triggerAchievement(player, "tconstruct.dualConvenience");
+            Achievements.triggerAchievement(player, "tconstruct.dualConvenience");
         }
     }
 }

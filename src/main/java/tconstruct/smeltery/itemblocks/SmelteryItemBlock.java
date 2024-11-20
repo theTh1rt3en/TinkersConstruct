@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.blocks.abstracts.MultiItemBlock;
-import tconstruct.achievements.TAchievements;
+import tconstruct.achievements.Achievements;
 
 public class SmelteryItemBlock extends MultiItemBlock {
 
@@ -47,6 +47,6 @@ public class SmelteryItemBlock extends MultiItemBlock {
 
     @Override
     public void onCreated(ItemStack item, World world, EntityPlayer player) {
-        TAchievements.triggerAchievement(player, "tconstruct.smelteryMaker");
+        Achievements.triggerAchievement(player, "tconstruct.smelteryMaker");
     }
 }
