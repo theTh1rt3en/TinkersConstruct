@@ -1,5 +1,8 @@
 package tconstruct.plugins.te4;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,7 +23,7 @@ import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers TE4 Compatibility",
         description = "Tinkers Construct compatibility for Thermal Expansion",
@@ -154,7 +157,7 @@ public class TinkerTE4 {
         // last but not least.. a really weird hardened glass recipe
         ItemStack hardenedGlass = GameRegistry.findItemStack("ThermalExpansion", "blockGlassHardened", 1);
         ItemStack obsidian = new ItemStack(Blocks.obsidian);
-        FluidStack lead = new FluidStack(TinkerSmeltery.moltenLeadFluid, TConstruct.ingotLiquidValue / 2);
+        FluidStack lead = new FluidStack(TinkerSmeltery.moltenLeadFluid, LIQUID_VALUE_INGOT / 2);
         TConstructRegistry.getBasinCasting().addCastingRecipe(hardenedGlass, lead, obsidian, true, 150);
     }
 }

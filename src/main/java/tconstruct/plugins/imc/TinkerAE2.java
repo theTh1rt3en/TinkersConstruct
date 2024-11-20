@@ -1,5 +1,7 @@
 package tconstruct.plugins.imc;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,18 +12,13 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers AE2 Compatibility",
         description = "Tinkers Construct compatibility for Applied Energistics 2",
         modsRequired = "appliedenergistics2",
         forced = true)
 public class TinkerAE2 {
-
-    private static final List<String> spatialIOLogics = Arrays.asList(
-            "EssenceExtractorLogic",
-            "GolemPedestalLogic", // TODO What happened to these?
-            "MultiServantLogic"); // TODO Should Mantle handle this?
 
     private static final List<String> spatialIOSmelteryLogics = Arrays.asList(
             "AdaptiveSmelteryLogic",

@@ -1,5 +1,7 @@
 package tconstruct.plugins.ic2;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -14,7 +16,7 @@ import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers IC2 Compatibility",
         description = "Tinkers Construct compatibility for IndustrialCraft 2",

@@ -1,11 +1,12 @@
 package tconstruct.gadgets;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.Locale;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +19,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 import tconstruct.gadgets.item.ItemSlimeBoots;
 import tconstruct.gadgets.item.ItemSlimeSling;
 import tconstruct.library.TConstructRegistry;
@@ -77,12 +77,8 @@ public class TinkerGadgets {
         return String.format("%s:%s", "tinker", res);
     }
 
-    public static ResourceLocation getResource(String res) {
-        return new ResourceLocation("tinker", res);
-    }
-
     public static String prefix(String name) {
-        return String.format("%s.%s", TConstruct.modID, name.toLowerCase(Locale.US));
+        return String.format("%s.%s", MOD_ID, name.toLowerCase(Locale.US));
     }
 
     protected static <T extends Item> T registerItem(T item, String name) {

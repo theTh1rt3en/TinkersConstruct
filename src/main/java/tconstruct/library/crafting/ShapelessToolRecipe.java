@@ -1,5 +1,7 @@
 package tconstruct.library.crafting;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
-import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
 
 public class ShapelessToolRecipe extends ShapelessRecipes {
 
     static {
-        RecipeSorter.register(
-                TConstruct.modID + ":" + "toolrecipe",
-                ShapelessToolRecipe.class,
-                RecipeSorter.Category.SHAPELESS,
-                "");
+        RecipeSorter
+                .register(MOD_ID + ":" + "toolrecipe", ShapelessToolRecipe.class, RecipeSorter.Category.SHAPELESS, "");
     }
 
     public ShapelessToolRecipe(ItemStack par1ItemStack, List par2List) {
@@ -39,7 +37,6 @@ public class ShapelessToolRecipe extends ShapelessRecipes {
                     boolean flag = false;
 
                     for (ItemStack itemstack1 : arraylist) {
-                        // TConstruct.logger.info("Rawr! "+itemstack1.getItemDamage());
                         if (itemstack.getItem() == itemstack1.getItem()) {
                             if (itemstack.getItem() instanceof ToolCore) {
                                 NBTTagCompound tags = itemstack.getTagCompound().getCompoundTag("InfiTool");

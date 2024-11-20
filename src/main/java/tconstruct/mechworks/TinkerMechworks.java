@@ -1,5 +1,7 @@
 package tconstruct.mechworks;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -24,7 +26,7 @@ import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.TinkerTools;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 // TODO handle migration of all items/blocks that were owned by the previously seperate mod
 @Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
 public class TinkerMechworks {
@@ -38,7 +40,6 @@ public class TinkerMechworks {
 
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
-        // NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
         // Traps
         TinkerMechworks.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F)
                 .setStepSound(Block.soundTypeMetal).setCreativeTab(CreativeTabs.tabRedstone).setBlockName("landmine");

@@ -13,6 +13,7 @@ import static net.minecraft.util.EnumChatFormatting.LIGHT_PURPLE;
 import static net.minecraft.util.EnumChatFormatting.RED;
 import static net.minecraft.util.EnumChatFormatting.WHITE;
 import static net.minecraft.util.EnumChatFormatting.YELLOW;
+import static tconstruct.util.Reference.MOD_ID;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -121,7 +122,7 @@ import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers' Tools",
         description = "The main core of the mod! All of the tools, the tables, and the patterns are here.",
@@ -150,7 +151,6 @@ public class TinkerTools {
 
     // Crafting blocks
     public static Block toolStationWood;
-    public static Block toolStationStone;
     public static Block toolForge;
     public static Block craftingStationWood;
     public static Block craftingSlabWood;
@@ -341,8 +341,6 @@ public class TinkerTools {
         TinkerTools.potionLauncher = new PotionLauncher().setUnlocalizedName("tconstruct.PotionLauncher");
         GameRegistry.registerItem(TinkerTools.potionLauncher, "potionLauncher");
 
-        // TinkerTools.pickaxeHead = new ToolPart("_pickaxe_head",
-        // "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
         TinkerTools.pickaxeHead = new DynamicToolPart("_pickaxe_head", "PickaxeHead");
         TinkerTools.shovelHead = new DynamicToolPart("_shovel_head", "ShovelHead");
         TinkerTools.hatchetHead = new DynamicToolPart("_axe_head", "AxeHead");
@@ -510,12 +508,6 @@ public class TinkerTools {
         tool.setTagCompound(compound);
 
         TConstructRegistry.toolTab.init(tool);
-    }
-
-    // @Override
-    public int getBurnTime(ItemStack fuel) {
-        if (fuel.getItem() == TinkerTools.materials && fuel.getItemDamage() == 7) return 26400;
-        return 0;
     }
 
     @Handler
@@ -777,10 +769,6 @@ public class TinkerTools {
         chiseling.addDetailing(Blocks.sandstone, 0, Blocks.sandstone, 2, TinkerTools.chisel);
         chiseling.addDetailing(Blocks.sandstone, 2, Blocks.sandstone, 1, TinkerTools.chisel);
         chiseling.addDetailing(Blocks.sandstone, 1, TinkerTools.multiBrick, 1, TinkerTools.chisel);
-        // chiseling.addDetailing(Block.netherrack, 0, TRepo.multiBrick, 2,
-        // TRepo.chisel);
-        // chiseling.addDetailing(Block.stone_refined, 0, TRepo.multiBrick, 3,
-        // TRepo.chisel);
         chiseling.addDetailing(Items.iron_ingot, 0, TinkerTools.multiBrick, 4, TinkerTools.chisel);
         chiseling.addDetailing(Items.gold_ingot, 0, TinkerTools.multiBrick, 5, TinkerTools.chisel);
         chiseling.addDetailing(Items.dye, 4, TinkerTools.multiBrick, 6, TinkerTools.chisel);
@@ -800,10 +788,6 @@ public class TinkerTools {
         chiseling.addDetailing(Blocks.stonebrick, 0, TinkerTools.multiBrickFancy, 15, TinkerTools.chisel);
         chiseling.addDetailing(TinkerTools.multiBrickFancy, 15, TinkerTools.multiBrickFancy, 14, TinkerTools.chisel);
         chiseling.addDetailing(TinkerTools.multiBrickFancy, 14, Blocks.stonebrick, 3, TinkerTools.chisel);
-        /*
-         * chiseling.addDetailing(TRepo.multiBrick, 14, TRepo.multiBrickFancy, 14, TRepo.chisel);
-         * chiseling.addDetailing(TRepo.multiBrick, 15, TRepo.multiBrickFancy, 15, TRepo.chisel);
-         */
 
         if (TinkerSmeltery.smeltery != null) {
             chiseling.addDetailing(TinkerSmeltery.smeltery, 4, TinkerSmeltery.smeltery, 6, TinkerTools.chisel);
@@ -1577,15 +1561,12 @@ public class TinkerTools {
         TConstructRegistry.addDefaultToolPartMaterial(MaterialID.PigIron);
 
         // Register all the materials for default toolparts
-        // TConstructRegistry.addDefaultShardMaterial(MaterialID.Wood);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Stone);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Flint);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Cactus);
-        // TConstructRegistry.addDefaultShardMaterial(MaterialID.Bone);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Obsidian);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Netherrack);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Slime);
-        // TConstructRegistry.addDefaultShardMaterial(MaterialID.Paper);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.BlueSlime);
 
         if (PHConstruct.craftMetalTools) {

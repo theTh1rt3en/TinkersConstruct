@@ -1,5 +1,7 @@
 package tconstruct.plugins.gears;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import java.util.List;
 
 import net.minecraft.item.Item;
@@ -40,10 +42,10 @@ public class TinkerGears {
     @Handler
     public void postInit(FMLPostInitializationEvent event) {
         ItemStack cast = new ItemStack(gearCast);
-        FluidStack aluCastLiquid = new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue);
+        FluidStack aluCastLiquid = new FluidStack(TinkerSmeltery.moltenAlubrassFluid, LIQUID_VALUE_INGOT);
         FluidStack goldCastLiquid = null;
         if (!PHConstruct.removeGoldCastRecipes) {
-            goldCastLiquid = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2);
+            goldCastLiquid = new FluidStack(TinkerSmeltery.moltenGoldFluid, LIQUID_VALUE_INGOT * 2);
         }
 
         // find all gears in the registry
@@ -73,12 +75,12 @@ public class TinkerGears {
             // found one?
             if (fluid != null) {
                 ItemStack gear = gears.get(0);
-                FluidStack liquid = new FluidStack(fluid.getID(), TConstruct.ingotLiquidValue * 4);
+                FluidStack liquid = new FluidStack(fluid.getID(), LIQUID_VALUE_INGOT * 4);
                 // gear casting
                 TConstructRegistry.getTableCasting().addCastingRecipe(gear, liquid, cast, 55);
                 // and melting it back
                 FluidType ft = FluidType.getFluidType(fluid);
-                if (ft != null) Smeltery.addMelting(ft, gear, 100, TConstruct.ingotLiquidValue * 4);
+                if (ft != null) Smeltery.addMelting(ft, gear, 100, LIQUID_VALUE_INGOT * 4);
                 else Smeltery.addMelting(gear, TinkerSmeltery.glueBlock, 0, 100, liquid);
             }
         }

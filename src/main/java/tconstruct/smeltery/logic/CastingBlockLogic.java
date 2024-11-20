@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -21,7 +23,6 @@ import net.minecraftforge.fluids.IFluidTank;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.event.SmelteryCastEvent;
@@ -51,7 +52,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     public int updateCapacity() // Only used to initialize
     {
         ItemStack inv = inventory[0];
-        int ret = TConstruct.ingotLiquidValue;
+        int ret = LIQUID_VALUE_INGOT;
         int rec = liquidCasting.getCastingAmount(this.liquid, inv);
 
         if (rec > 0) ret = rec;
@@ -66,7 +67,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     public int updateCapacity(int capacity) {
-        int ret = TConstruct.ingotLiquidValue;
+        int ret = LIQUID_VALUE_INGOT;
 
         if (capacity > 0) ret = capacity;
         else {
@@ -248,9 +249,6 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
 
     public void interact(EntityPlayer player) {
         // only server side
-        // if(worldObj.isRemote)
-        // return;
-
         // can't interact with liquid inside
         // todo: maybe let it interact with a bucket or tank!
         if (liquid != null) return;
@@ -373,7 +371,6 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             if (castingDelay == 0) castLiquid();
         }
         if (renderOffset > 0) {
-            // renderOffset -= Math.max(renderOffset/3, 6);
             renderOffset -= 6;
             if (renderOffset < 0) renderOffset = 0;
             worldObj.func_147479_m(xCoord, yCoord, zCoord);

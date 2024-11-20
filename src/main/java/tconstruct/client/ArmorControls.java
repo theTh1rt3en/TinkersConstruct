@@ -1,5 +1,7 @@
 package tconstruct.client;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
@@ -10,7 +12,7 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import mantle.common.network.AbstractPacket;
@@ -46,9 +48,6 @@ public class ArmorControls {
     public static boolean zoom = false;
     boolean activeGoggles = false; // TODO: Set this on server login
 
-    int currentTab = 1;
-    // boolean onStilts = false;
-
     private final KeyBinding[] keys;
     private boolean isNotEnoughKeysLoaded;
 
@@ -66,7 +65,7 @@ public class ArmorControls {
         }
         isNotEnoughKeysLoaded = Loader.isModLoaded("notenoughkeys");
         if (isNotEnoughKeysLoaded) {
-            Api.registerMod(TConstruct.modID, keyDescs);
+            Api.registerMod(MOD_ID, keyDescs);
         }
         // Add mc keys
         keys[4] = jumpKey;
@@ -86,8 +85,8 @@ public class ArmorControls {
         }
     }
 
-    @Optional.Method(modid = "notenoughkeys")
     @SubscribeEvent
+    @Method(modid = "notenoughkeys")
     public void keyEventSpecial(KeyBindingPressedEvent event) {
         if (event.keyBinding != null && event.isKeyBindingPressed) {
             checkAndPerformKeyActions(event.keyBinding, true);
@@ -171,13 +170,6 @@ public class ArmorControls {
     public void landOnGround() {
         midairJumps = 0;
         jumping = false;
-    }
-
-    public void resetControls() {
-        midairJumps = 0;
-        jumping = false;
-        climbing = false;
-        onGround = false;
     }
 
     void resetFallDamage() {

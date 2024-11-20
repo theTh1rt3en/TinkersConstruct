@@ -1,5 +1,8 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_UPDATE_AMOUNT;
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -14,7 +17,6 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
-import tconstruct.TConstruct;
 
 public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler {
 
@@ -45,8 +47,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
             TileEntity tankte = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 
             if (drainte instanceof IFluidHandler && tankte instanceof IFluidHandler) {
-                FluidStack templiquid = ((IFluidHandler) drainte)
-                        .drain(getForgeDirection(), TConstruct.ingotLiquidValue, false);
+                FluidStack templiquid = ((IFluidHandler) drainte).drain(getForgeDirection(), LIQUID_VALUE_INGOT, false);
                 if (templiquid != null) {
                     int drained = ((IFluidHandler) tankte).fill(ForgeDirection.UP, templiquid, false);
                     if (drained > 0) {
@@ -66,7 +67,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void updateEntity() {
         if (liquid != null) {
-            liquid.amount -= TConstruct.liquidUpdateAmount;
+            liquid.amount -= LIQUID_UPDATE_AMOUNT;
             if (liquid.amount <= 0) {
                 liquid = null;
                 if (!activateFaucet()) {
@@ -97,12 +98,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public void setDirection(float yaw, float pitch, EntityLivingBase player) {
-        /*
-         * int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3; switch (facing) { case 0: direction =
-         * 2; break; case 1: direction = 5; break; case 2: direction = 3; break; case 3: direction = 4; break; }
-         */
-    }
+    public void setDirection(float yaw, float pitch, EntityLivingBase player) {}
 
     @Override
     public void readFromNBT(NBTTagCompound tags) {

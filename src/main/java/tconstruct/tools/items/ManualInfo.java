@@ -1,5 +1,7 @@
 package tconstruct.tools.items;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -9,7 +11,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import mantle.books.BookData;
 import mantle.books.BookDataStore;
-import tconstruct.TConstruct;
 import tconstruct.client.TProxyClient;
 
 /**
@@ -55,7 +56,7 @@ public class ManualInfo {
     public BookData initManual(BookData data, String unlocName, String toolTip, Document xmlDoc, String itemImage) {
         data.unlocalizedName = unlocName;
         data.toolTip = unlocName;
-        data.modID = TConstruct.modID;
+        data.modID = MOD_ID;
         data.itemImage = new ResourceLocation(data.modID, itemImage);
         data.doc = xmlDoc;
         BookDataStore.addBook(data);

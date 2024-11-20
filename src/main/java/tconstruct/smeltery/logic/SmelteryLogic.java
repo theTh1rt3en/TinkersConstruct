@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +46,6 @@ import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.SmelteryDamageSource;
 import tconstruct.smeltery.TinkerSmeltery;
@@ -58,7 +59,7 @@ import tconstruct.util.config.PHConstruct;
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic {
 
     private static final int MAX_SMELTERY_SIZE = 7;
-    public static final int MB_PER_BLOCK_CAPACITY = TConstruct.ingotLiquidValue * 10;
+    public static final int MB_PER_BLOCK_CAPACITY = LIQUID_VALUE_INGOT * 10;
 
     public boolean validStructure;
     public boolean tempValidStructure;
@@ -288,10 +289,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             detectEntities();
         }
 
-        /*
-         * if (worldObj.isRemote) return;
-         */
-
         if (tick % 4 == 0) {
             if (useTime > 0) useTime -= 4;
 
@@ -334,7 +331,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         for (Entity o : list) {
             if (o.isDead) return;
 
-            if (moltenMetal.size() >= 1) {
+            if (!moltenMetal.isEmpty()) {
                 Fluid fluid = null;
                 int amount = 0;
                 float damage = 5;
@@ -464,12 +461,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
             currentLiquid += liquid.amount;
             drainComparatorOutputDirty = true;
-            // TConstruct.logger.info("Current liquid: "+currentLiquid);
             boolean added = false;
             for (int i = 0; i < moltenMetal.size(); i++) {
                 FluidStack l = moltenMetal.get(i);
-                // if (l.itemID == liquid.itemID && l.itemMeta ==
-                // liquid.itemMeta)
                 if (l.isFluidEqual(liquid)) {
                     l.amount += liquid.amount;
                     added = true;
@@ -606,12 +600,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return Smeltery.getSmelteryResult(stack);
     }
 
-    /* Inventory */
-    /*
-     * public int getMaxStackStackSize (ItemStack stack) { FluidStack liquid = getResultFor(stack); if (liquid == null)
-     * return 0; return liquid.amount; }
-     */
-
     @Override
     public int getInventoryStackLimit() {
         return 1;
@@ -623,15 +611,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         super.markDirty();
         needsUpdate = true;
-        // worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        // worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
-
-    /*
-     * @Override public void setInventorySlotContents (int slot, ItemStack itemstack) { inventory[slot] = itemstack !=
-     * null ? itemstack.splitStack(1) : null; //May include unintended side effects. Possible fix for max stack size of
-     * 1? }
-     */
 
     /* Multiblock */
     @Override
@@ -718,8 +698,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
      */
     public void checkValidStructure(int x, int y, int z, int[] sides) {
         int checkLayers = 0;
-        // worldObj.setBlock(x,y,z, Blocks.redstone_block);
-        // worldObj.setBlock(x+sides[1]-sides[0],y+1,z+sides[3]-sides[2], Blocks.lapis_block);
 
         tempValidStructure = false;
         // this piece of code here does the complete validity check.
@@ -728,8 +706,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             checkLayers += recurseStructureUp(x, y + 1, z, sides, 0);
             checkLayers += recurseStructureDown(x, y - 1, z, sides, 0);
         }
-
-        // maxLiquid = capacity * 20000;
 
         if (tempValidStructure != validStructure || checkLayers != this.layers) {
             if (tempValidStructure) {
@@ -765,7 +741,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public boolean checkBricksOnLevel(int x, int y, int z, int[] sides) {
         int numBricks = 0;
-        Block block;
         int xMin = x - sides[0];
         int xMax = x + sides[1];
         int zMin = z - sides[2];
@@ -800,7 +775,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         lavaTanks.clear();
         drains.clear();
         boolean check = checkBricksOnLevel(x, y, z, sides);
-        return check && lavaTanks.size() > 0;
+        return check && !lavaTanks.isEmpty();
     }
 
     public int recurseStructureUp(int x, int y, int z, int[] sides, int count) {
@@ -847,8 +822,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     if (this.validBlockID(chunk.getBlock(xx, y, zz)) && chunk.getBlockMetadata(xx, y, zz) >= 2) {
                         TileEntity te = worldObj.getTileEntity(xPos, y, zPos);
 
-                        if (te instanceof MultiServantLogic) {
-                            MultiServantLogic servant = (MultiServantLogic) te;
+                        if (te instanceof MultiServantLogic servant) {
                             if (servant.hasValidMaster()) {
                                 if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
                                     bottomBricks++;
@@ -925,14 +899,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         // don't drain if we're not complete
         if (!validStructure) return null;
 
-        if (moltenMetal.size() == 0) return null;
+        if (moltenMetal.isEmpty()) return null;
 
         FluidStack liquid = moltenMetal.get(0);
         if (liquid != null) {
             if (liquid.amount - maxDrain <= 0) {
                 FluidStack liq = liquid.copy();
                 if (doDrain) {
-                    // liquid = null;
                     moltenMetal.remove(liquid);
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
@@ -959,10 +932,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         // don't fill if we're not complete
         if (!validStructure) return 0;
 
-        if (resource != null && currentLiquid < maxLiquid) // resource.amount +
-        // currentLiquid <
-        // maxLiquid)
-        {
+        if (resource != null && currentLiquid < maxLiquid) {
             if (resource.amount + currentLiquid > maxLiquid) resource.amount = maxLiquid - currentLiquid;
             int amount = resource.amount;
 
@@ -982,7 +952,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     @Override
     public FluidStack getFluid() {
-        if (moltenMetal.size() == 0) return null;
+        if (moltenMetal.isEmpty()) return null;
         return moltenMetal.get(0);
     }
 
@@ -1043,18 +1013,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (fluid != null) moltenMetal.add(fluid);
         }
 
-        // if(maxBlockCapacity != meltingTemps.length)
-        // adjustLayers(layers, true);
-
         if (!tags.getBoolean("ValidStructure")) validStructure = false; // only negative update because we want to do a
                                                                         // clientside structure check too
         else if (!validStructure && worldObj != null) // if the worldobj is null it happens on loading of a world. check
                                                       // shouldn't be done
             // there
             checkValidPlacement();
-
-        // adjustLayers(layers, true);
-        // checkValidPlacement();
     }
 
     @Override

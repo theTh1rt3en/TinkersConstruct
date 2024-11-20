@@ -1,5 +1,7 @@
 package tconstruct.armor;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.EnumSet;
 
 import net.minecraft.block.Block;
@@ -23,7 +25,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 import tconstruct.armor.blocks.DryingRack;
 import tconstruct.armor.items.ArmorBasic;
 import tconstruct.armor.items.DiamondApple;
@@ -39,7 +40,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
-import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.modifiers.accessory.GloveSpeed;
 import tconstruct.modifiers.armor.AModBoolean;
@@ -52,7 +52,7 @@ import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
 public class TinkerArmor {
 
@@ -63,10 +63,6 @@ public class TinkerArmor {
     public static Item jerky;
     public static Block dryingRack;
     // Wearables
-    /*
-     * public static Item heavyHelmet; public static Item heavyChestplate; public static Item heavyPants; public static
-     * Item heavyBoots; public static Item glove;
-     */
     public static Item knapsack;
     public static Item heartCanister;
     // Armor - basic
@@ -109,7 +105,6 @@ public class TinkerArmor {
         GameRegistry.registerItem(TinkerArmor.heartCanister, "heartCanister");
         GameRegistry.registerItem(TinkerArmor.knapsack, "knapsack");
 
-        LiquidCasting basinCasting = TConstruct.getBasinCasting();
         TinkerArmor.materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
         TinkerArmor.helmetWood = new ArmorBasic(TinkerArmor.materialWood, 0, "wood")
                 .setUnlocalizedName("tconstruct.helmetWood");

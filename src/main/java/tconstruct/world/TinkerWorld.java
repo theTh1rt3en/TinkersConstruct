@@ -1,5 +1,7 @@
 package tconstruct.world;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
@@ -95,7 +97,7 @@ import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
 
@@ -269,12 +271,6 @@ public class TinkerWorld {
         GameRegistry.registerBlock(TinkerWorld.slimeChannel, "slime.channel");
         GameRegistry.registerBlock(TinkerWorld.bloodChannel, "blood.channel");
         GameRegistry.registerBlock(TinkerWorld.slimePad, "slime.pad");
-        // TODO fix this
-        /*
-         * TConstructRegistry.drawbridgeState[TRepo.slimePad] = 1;
-         * TConstructRegistry.drawbridgeState[TRepo.bloodChannel] = 1;
-         */
-
         // Decoration
         GameRegistry.registerBlock(TinkerWorld.stoneTorch, "decoration.stonetorch");
         GameRegistry.registerBlock(TinkerWorld.stoneLadder, "decoration.stoneladder");
@@ -315,11 +311,7 @@ public class TinkerWorld {
         Items.iron_door.setMaxStackSize(16);
         Items.boat.setMaxStackSize(16);
         Items.minecart.setMaxStackSize(3);
-        // Items.minecartEmpty.setMaxStackSize(3);
-        // Items.minecartCrate.setMaxStackSize(3);
-        // Items.minecartPowered.setMaxStackSize(3);
         Items.cake.setMaxStackSize(16);
-        // Block.torchWood.setTickRandomly(false);
 
         TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
         TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
@@ -350,13 +342,9 @@ public class TinkerWorld {
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
-        // EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1,
-        // TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         EntityRegistry.registerModEntity(KingBlueSlime.class, "KingSlime", 14, TConstruct.instance, 64, 5, true);
-        // EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13,
-        // TConstruct.instance, 64, 5, true);
 
         if (PHConstruct.naturalSlimeSpawn > 0) {
             EntityRegistry.addSpawn(
@@ -431,8 +419,6 @@ public class TinkerWorld {
                 patBlock,
                 '#',
                 new ItemStack(TinkerTools.materials, 1, 11)); // Aluminum
-        // GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 6),
-        // patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); // Aluminum
         GameRegistry.addRecipe(
                 new ItemStack(TinkerWorld.metalBlock, 1, 4),
                 patBlock,
@@ -600,8 +586,6 @@ public class TinkerWorld {
                 "m",
                 'm',
                 new ItemStack(TinkerTools.materials, 1, 11)); // Aluminum
-        // GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 22), "m",
-        // 'm', new ItemStack(TRepo.materials, 1, 12)); //Aluminum
         GameRegistry.addRecipe(
                 new ItemStack(TinkerTools.materials, 9, 24),
                 "m",
@@ -711,7 +695,6 @@ public class TinkerWorld {
                         "dustRedstone"));
         // Gold Pressure Plate - Vanilla alternative
         // todo: temporarily disabled due to light weighted pressure plate being smeltable to gold
-        // GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate, 0, 1), "ii", 'i', aluBrass);
 
         // Ultra hardcore recipes
         GameRegistry.addRecipe(
@@ -856,11 +839,6 @@ public class TinkerWorld {
                 new ItemStack(TinkerTools.materials, 1, 37),
                 2f); // Nether seared
         // brick
-
-        // FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag,
-        // 1, new ItemStack(TRepo.materials, 1, 3), 3f);
-        // FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag,
-        // 2, new ItemStack(TRepo.materials, 1, 4), 3f);
         FurnaceRecipes.smelting().func_151394_a(
                 new ItemStack(TinkerWorld.oreSlag, 1, 3),
                 new ItemStack(TinkerTools.materials, 1, 9),
@@ -892,9 +870,6 @@ public class TinkerWorld {
                 new ItemStack(TinkerWorld.oreBerries, 1, 4),
                 new ItemStack(TinkerTools.materials, 1, 22),
                 0.2f);
-        // FurnaceRecipes.smelting().func_151394_a(new
-        // ItemStack(TRepo.oreBerries, 5, new ItemStack(TRepo.materials, 1, 23),
-        // 0.2f);
 
         FurnaceRecipes.smelting()
                 .func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 0), new ItemStack(Items.iron_ingot), 0.2f);

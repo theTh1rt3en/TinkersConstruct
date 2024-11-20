@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -19,25 +21,20 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import tconstruct.TConstruct;
 
 /**
  * @author BluSunrize
  */
 public class CastingChannelLogic extends TileEntity implements IFluidHandler {
 
-    public static final int fillMax = TConstruct.ingotLiquidValue * 3;
-    public static final int outputMax = TConstruct.ingotLiquidValue;
-    FluidTank internalTank = new FluidTank(fillMax);
-    HashMap<ForgeDirection, FluidTank> subTanks = new HashMap<>();
+    public static final int fillMax = LIQUID_VALUE_INGOT * 3;
+    public static final int outputMax = LIQUID_VALUE_INGOT;
     public ForgeDirection lastProvider;
     public ArrayList<ForgeDirection> validOutputs = new ArrayList<>();
     public int ticks = 0;
     public int recentlyFilledDelay;
-
-    /*
-     * UNUSED public CastingChannelMode mode = CastingChannelMode.SINGLEDRAIN;
-     */
+    FluidTank internalTank = new FluidTank(fillMax);
+    HashMap<ForgeDirection, FluidTank> subTanks = new HashMap<>();
 
     public CastingChannelLogic() {
         lastProvider = ForgeDirection.UNKNOWN;
@@ -57,17 +54,8 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     public void updateEntity() {
         ticks++;
 
-        // boolean flagActiveFaucet = false;
-
-        TileEntity possibleFaucet = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
-        // if (possibleFaucet instanceof FaucetLogic) {
-        // flagActiveFaucet = ((FaucetLogic) possibleFaucet).active;
-        // }
-
-        if (ticks == 6) // && !flagActiveFaucet)
-            this.distributeFluids();
-        if (ticks >= 12) // && !flagActiveFaucet)
-        {
+        if (ticks == 6) this.distributeFluids();
+        if (ticks >= 12) {
             if (recentlyFilledDelay != 0) recentlyFilledDelay--;
             if (recentlyFilledDelay == 0 || lastProvider == ForgeDirection.UP) this.outputFluids();
 
@@ -76,12 +64,6 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     }
 
     public void changeOutputs(EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        /*
-         * UNUSED if(player.isSneaking()) { if(mode == null || mode == CastingChannelMode.SINGLEDRAIN) mode =
-         * CastingChannelMode.CONTINUEDRAIN; else mode = CastingChannelMode.SINGLEDRAIN; String s =
-         * "Casting Channel Mode "+(worldObj.isRemote?"client side: ":"server side: ");
-         * player.addChatMessage(s+mode.toString()); return; }
-         */
 
         ForgeDirection toggle = ForgeDirection.UNKNOWN;
         if (side == 0 || side == 1) {
@@ -129,9 +111,6 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     }
 
     private void distributeFluids() {
-        /*
-         * DEBUG boolean printDebugLog = false; ArrayList<String> debugLog = new ArrayList();
-         */
         // Move Fluid to Output Tanks
         Set<ForgeDirection> connected = this.getOutputs().keySet();
 
@@ -146,73 +125,39 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
         for (ForgeDirection dirOut : connected) {
             if (this.internalTank.getFluid() == null) break;
 
-            /*
-             * DEBUG debugLog.add("Moving to "+dirOut+"ern SubTank");
-             */
             FluidStack tempFS = new FluidStack(internalTank.getFluid().getFluid(), scaledAmount);
             int fit = subTanks.get(dirOut).fill(tempFS, false);
-            /*
-             * DEBUG debugLog.add("SubTank will accept "+fit+"mb");
-             */
+
             if (fit > 0) fit = internalTank.drain(fit, true).amount;
-            /*
-             * DEBUG debugLog.add("Internal Tank was drained by "+fit+"mb");
-             */
+
             tempFS.amount = fit;
-            fit = subTanks.get(dirOut).fill(tempFS, true);
-            /*
-             * DEBUG debugLog.add("SubTank was filled by "+fit+"mb"); if(fit > 0) printDebugLog = true;
-             * debugLog.add("Internal Tank now contains: "+internalTank.getFluidAmount()+"mb");
-             * debugLog.add("SubTank now contains: "+subTanks.get(dirOut).getFluidAmount()+"mb");
-             */
+
             markDirtyForRendering();
         }
-        /*
-         * DEBUG if(printDebugLog) { for(String s: debugLog) System.out.println(s); debugLog.clear(); } printDebugLog =
-         * false;
-         */
 
         // Get Fluid from most recent InputTank
         FluidTank inputTank = subTanks.get(lastProvider);
         if (inputTank != null && inputTank.getFluid() != null) // Tank can be null if input was received from top
         {
-            /*
-             * DEBUG debugLog.add("Importing from "+lastProvider+"ern SubTank");
-             */
             FluidStack tempFS = new FluidStack(
                     inputTank.getFluid().getFluid(),
                     Math.min(inputTank.getFluidAmount(), outputMax));
             int fit = internalTank.fill(tempFS, false);
-            /*
-             * DEBUG debugLog.add("Internal Tank will accept "+fit+"mb");
-             */
+
             if (fit > 0) fit = inputTank.drain(fit, true).amount;
-            /*
-             * DEBUG debugLog.add("Import Tank was drained by "+fit+"mb");
-             */
+
             tempFS.amount = fit;
-            fit = internalTank.fill(tempFS, true);
-            /*
-             * DEBUG debugLog.add("Internal Tank was filled by "+fit+"mb"); if(fit > 0) printDebugLog = true;
-             * debugLog.add("Internal Tank now contains: "+internalTank.getFluidAmount()+"mb");
-             * debugLog.add("SubTank now contains: "+inputTank.getFluidAmount()+"mb");
-             */
+
             markDirtyForRendering();
         }
-        /*
-         * DEBUG if(printDebugLog) { for(String s: debugLog) System.out.println(s); debugLog.clear(); }
-         */
     }
 
     private void outputFluids() {
-        /*
-         * DEBUG boolean printDebugLog = false; ArrayList<String> debugLog = new ArrayList();
-         */
 
         HashMap<ForgeDirection, TileEntity> connected = this.getOutputs();
         connected.remove(lastProvider);
         if (connected.containsKey(ForgeDirection.DOWN) && this.internalTank.getFluid() != null) // Prioritizes
-                                                                                                // FluidHandlers below
+        // FluidHandlers below
         {
             int output = Math.min(internalTank.getFluid().amount, outputMax);
             FluidStack tempFS = new FluidStack(internalTank.getFluid().getFluid(), output);
@@ -220,39 +165,23 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
                     .fill(ForgeDirection.UP, tempFS, false);
             if (fittingBelow > 0) fittingBelow = this.drain(ForgeDirection.DOWN, fittingBelow, true).amount;
             tempFS.amount = fittingBelow;
-            fittingBelow = ((IFluidHandler) connected.get(ForgeDirection.DOWN)).fill(ForgeDirection.UP, tempFS, true);
 
             connected.remove(ForgeDirection.DOWN);
         }
-        if (connected.size() != 0) {
+        if (!connected.isEmpty()) {
             for (ForgeDirection dir : connected.keySet()) // Iterates to connected FluidHandlers
             {
                 if (subTanks.get(dir) != null && subTanks.get(dir).getFluid() != null) {
-                    /*
-                     * DEBUG debugLog.add("Exporting from "+dir+"ern SubTank");
-                     */
+
                     FluidStack tempFS = new FluidStack(
                             subTanks.get(dir).getFluid().getFluid(),
                             Math.min(subTanks.get(dir).getFluidAmount(), outputMax));
                     int fit = ((IFluidHandler) connected.get(dir)).fill(dir.getOpposite(), tempFS, false);
-                    /*
-                     * DEBUG debugLog.add("New Channel will accept "+fit+"mb");
-                     */
+
                     if (fit > 0) fit = this.drain(dir, fit, true).amount;
-                    /*
-                     * DEBUG debugLog.add("OldSubTank was drained by "+fit+"mb");
-                     */
+
                     tempFS.amount = fit;
-                    fit = ((IFluidHandler) connected.get(dir)).fill(dir.getOpposite(), tempFS, true);
-                    /*
-                     * DEBUG debugLog.add("New Channel was filled by "+fit+"mb");
-                     * debugLog.add("OldSubTank now contains: "+drain(dir, 100000, false).amount+"mb"); if(fit > 0)
-                     * printDebugLog = true;
-                     */
                 }
-                /*
-                 * DEBUG for(String s: debugLog) System.out.println(s); debugLog.clear();
-                 */
             }
         }
     }
@@ -290,8 +219,6 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
         if (doFill) {
             markDirtyForRendering();
             this.lastProvider = from;
-            // if (this.internalTank.getFluid() == null)
-            // this.recentlyFilledDelay = 2;
         }
 
         if (from == ForgeDirection.UP) {
@@ -319,8 +246,6 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        // if(doDrain)
-        // this.worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         if (from == ForgeDirection.DOWN) return this.internalTank.drain(maxDrain, doDrain);
         else if (from == ForgeDirection.NORTH || from == ForgeDirection.SOUTH
                 || from == ForgeDirection.WEST
@@ -372,9 +297,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
             validOutputs = new ArrayList<>();
             for (int i : validFDs) validOutputs.add(convertIntToFD(i));
         }
-        /*
-         * UNUSED this.mode = CastingChannelMode.readFromNBT(tags);
-         */
+
         this.lastProvider = this.convertIntToFD(tags.getInteger("LastProvider"));
     }
 
@@ -401,9 +324,6 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
             it++;
         }
         tags.setIntArray("validOutputs", validFDs);
-        /*
-         * UNUSED CastingChannelMode.writeToNBT(tags, this.mode);
-         */
         tags.setInteger("LastProvider", this.convertFDToInt(this.lastProvider));
     }
 
@@ -421,48 +341,26 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     }
 
     public int convertFDToInt(ForgeDirection dir) {
-        switch (dir) {
-            case DOWN:
-                return 0;
-            case UP:
-                return 1;
-            case NORTH:
-                return 2;
-            case SOUTH:
-                return 3;
-            case WEST:
-                return 4;
-            case EAST:
-                return 5;
-            default:
-                return -1;
-        }
+        return switch (dir) {
+            case DOWN -> 0;
+            case UP -> 1;
+            case NORTH -> 2;
+            case SOUTH -> 3;
+            case WEST -> 4;
+            case EAST -> 5;
+            default -> -1;
+        };
     }
 
     public ForgeDirection convertIntToFD(int i) {
-        switch (i) {
-            case 0:
-                return ForgeDirection.DOWN;
-            case 1:
-                return ForgeDirection.UP;
-            case 2:
-                return ForgeDirection.NORTH;
-            case 3:
-                return ForgeDirection.SOUTH;
-            case 4:
-                return ForgeDirection.WEST;
-            case 5:
-                return ForgeDirection.EAST;
-            default:
-                return ForgeDirection.UNKNOWN;
-        }
+        return switch (i) {
+            case 0 -> ForgeDirection.DOWN;
+            case 1 -> ForgeDirection.UP;
+            case 2 -> ForgeDirection.NORTH;
+            case 3 -> ForgeDirection.SOUTH;
+            case 4 -> ForgeDirection.WEST;
+            case 5 -> ForgeDirection.EAST;
+            default -> ForgeDirection.UNKNOWN;
+        };
     }
-    /*
-     * UNUSED public enum CastingChannelMode { //Will not output while being filled by Faucet, hence only taking one
-     * ingots worth from the Smeltery SINGLEDRAIN, //Will keep the Faucet above it open CONTINUEDRAIN; public static
-     * void writeToNBT(NBTTagCompound tag, CastingChannelMode mode) { if(mode == SINGLEDRAIN)
-     * tag.setString("CastingChannelMode","single"); else tag.setString("CastingChannelMode","continue"); } public
-     * static CastingChannelMode readFromNBT(NBTTagCompound tag) { return (!tag.hasKey("CastingChannelMode") ||
-     * tag.getString("CastingChannelMode")=="single") ? SINGLEDRAIN : CONTINUEDRAIN ; } }
-     */
 }

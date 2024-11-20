@@ -1,5 +1,7 @@
 package tconstruct.world;
 
+import static tconstruct.util.Constants.VILLAGER_ID;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelSlime;
@@ -72,14 +74,12 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
 
         VillagerRegistry.instance()
-                .registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
+                .registerVillagerSkin(VILLAGER_ID, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
     }
 
     void registerManualIcons() {}
 
     void registerManualRecipes() {
-        ItemStack netherrack = new ItemStack(Blocks.netherrack);
-        ItemStack coal = new ItemStack(Items.coal);
         ItemStack log = new ItemStack(Blocks.log, 1, 0);
 
         ItemStack graveyardsoil = new ItemStack(TinkerTools.craftedSoil, 1, 3);
