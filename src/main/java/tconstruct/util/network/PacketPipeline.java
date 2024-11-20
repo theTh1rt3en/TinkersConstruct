@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import mantle.common.network.AbstractPacket;
@@ -30,7 +30,7 @@ import mantle.common.network.PacketUpdateTE;
  *
  * @author sirgingalot some code from: cpw
  */
-@ChannelHandler.Sharable
+@Sharable
 public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, AbstractPacket> {
 
     private EnumMap<Side, FMLEmbeddedChannel> channels;

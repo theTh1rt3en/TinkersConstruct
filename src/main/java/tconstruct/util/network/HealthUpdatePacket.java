@@ -12,8 +12,6 @@ public class HealthUpdatePacket extends AbstractPacket {
 
     private float health;
 
-    public HealthUpdatePacket() {}
-
     public HealthUpdatePacket(float health) {
         this.health = health;
     }

@@ -1,7 +1,6 @@
 package tconstruct.util.network;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
@@ -14,8 +13,6 @@ public class SignDataPacket extends AbstractPacket {
 
     private int dimension, x, y, z, length;
     private String[] text;
-
-    public SignDataPacket() {}
 
     public SignDataPacket(int dimension, int x, int y, int z, String[] text) {
         this.text = text;
@@ -53,11 +50,7 @@ public class SignDataPacket extends AbstractPacket {
 
     @Override
     public void handleClientSide(EntityPlayer player) {
-        TileEntity te = player.worldObj.getTileEntity(x, y, z);
-
-        if (te instanceof BattlesignLogic) {
-            BattlesignLogic logic = (BattlesignLogic) te;
-
+        if (player.worldObj.getTileEntity(x, y, z) instanceof BattlesignLogic logic) {
             logic.setText(text);
         }
     }
@@ -68,11 +61,7 @@ public class SignDataPacket extends AbstractPacket {
             return;
         }
 
-        TileEntity te = player.worldObj.getTileEntity(x, y, z);
-
-        if (te instanceof BattlesignLogic) {
-            BattlesignLogic logic = (BattlesignLogic) te;
-
+        if (player.worldObj.getTileEntity(x, y, z) instanceof BattlesignLogic logic) {
             logic.setText(text);
         }
 

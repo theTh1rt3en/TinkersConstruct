@@ -19,8 +19,6 @@ public class ArmourGuiSyncPacket extends AbstractPacket {
 
     NBTTagCompound playerStats = new NBTTagCompound();
 
-    public ArmourGuiSyncPacket() {}
-
     /**
      * For sending the players TPlayerStats to the client.
      * 

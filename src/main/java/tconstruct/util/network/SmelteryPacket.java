@@ -17,8 +17,6 @@ public class SmelteryPacket extends AbstractPacket {
     int dimension, x, y, z, fluidID;
     boolean isShiftPressed;
 
-    public SmelteryPacket() {}
-
     public SmelteryPacket(int dimension, int x, int y, int z, boolean isShiftPressed, int fluidID) {
         this.dimension = dimension;
         this.x = x;
@@ -53,8 +51,7 @@ public class SmelteryPacket extends AbstractPacket {
 
     @Override
     public void handleServerSide(EntityPlayer player) {
-        if (player.openContainer instanceof SmelteryContainer) {
-            SmelteryContainer container = (SmelteryContainer) player.openContainer;
+        if (player.openContainer instanceof SmelteryContainer container) {
             SmelteryLogic logic = container.logic;
             if (logic != null && logic.hasWorldObj()
                     && logic.getWorldObj().provider.dimensionId == this.dimension

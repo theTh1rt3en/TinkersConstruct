@@ -14,8 +14,6 @@ public class ToolStationPacket extends AbstractPacket {
     private int x, y, z;
     private String toolName;
 
-    public ToolStationPacket() {}
-
     public ToolStationPacket(int x, int y, int z, String toolName) {
         this.x = x;
         this.y = y;
@@ -44,8 +42,7 @@ public class ToolStationPacket extends AbstractPacket {
 
     @Override
     public void handleServerSide(EntityPlayer player) {
-        if (player.openContainer instanceof ToolStationContainer) {
-            ToolStationContainer container = (ToolStationContainer) player.openContainer;
+        if (player.openContainer instanceof ToolStationContainer container) {
             ToolStationLogic logic = container.logic;
             if (logic != null && logic.xCoord == x && logic.yCoord == y && logic.zCoord == z) {
                 logic.setToolname(toolName);

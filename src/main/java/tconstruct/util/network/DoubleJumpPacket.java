@@ -19,8 +19,6 @@ public class DoubleJumpPacket extends AbstractPacket {
 
     @Override
     public void handleServerSide(EntityPlayer player) {
-        // String user = inputStream.readUTF();
-        // EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
         player.fallDistance = 0;
     }
 }

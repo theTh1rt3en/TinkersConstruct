@@ -328,14 +328,6 @@ public class PHConstruct {
     }
 
     // Modules
-    public static boolean worldModule;
-    public static boolean toolModule;
-    public static boolean smelteryModule;
-    public static boolean mechworksModule;
-    public static boolean armorModule;
-    public static boolean prayerModule;
-    public static boolean cropifyModule;
-
     public static boolean capesEnabled;
 
     // Achievements
@@ -426,15 +418,7 @@ public class PHConstruct {
     public static boolean keepHunger;
     public static boolean keepLevels;
     public static boolean deathPenality;
-    public static boolean alphaRegen;
-    public static boolean alphaHunger;
     public static boolean balancedFluxModifier;
-
-    public static boolean disableWoodTools;
-    public static boolean disableStoneTools;
-    public static boolean disableIronTools;
-    public static boolean disableDiamondTools;
-    public static boolean disableGoldTools;
 
     public static boolean enableTWood;
     public static boolean enableTStone;
@@ -476,7 +460,6 @@ public class PHConstruct {
     public static boolean worldBorder;
     public static int worldBorderSize;
     public static boolean freePatterns;
-    public static int goldHead;
 
     // Superfun
     public static boolean superfunWorld;

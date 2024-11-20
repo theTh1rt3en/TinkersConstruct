@@ -15,8 +15,6 @@ public class AccessoryInventoryPacket extends AbstractPacket {
 
     int type;
 
-    public AccessoryInventoryPacket() {}
-
     public AccessoryInventoryPacket(int type) {
         this.type = type;
     }

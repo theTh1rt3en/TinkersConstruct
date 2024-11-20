@@ -16,8 +16,6 @@ public class MovementUpdatePacket extends AbstractPacket {
     public float yaw;
     public float pitch;
 
-    public MovementUpdatePacket() {}
-
     public MovementUpdatePacket(Entity entity) {
         this.entityID = entity.getEntityId();
         this.x = entity.motionX;

@@ -413,15 +413,4 @@ public final class IMCHandler {
                 color);
         else return new ToolMaterial(name, hlvl, durability, speed, attack, handle, reinforced, shoddy, style, color);
     }
-
-    // basically FMLLog.bigWarning
-    public static void bigWarning(String format, Object... data) {
-        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-        TConstruct.logger.error("**********************************************************************");
-        TConstruct.logger.error(String.format("* " + format, data));
-        for (int i = 2; i < 8 && i < trace.length; i++) {
-            TConstruct.logger.error(String.format("*  at %s%s", trace[i].toString(), i == 7 ? "..." : ""));
-        }
-        TConstruct.logger.error("**********************************************************************");
-    }
 }

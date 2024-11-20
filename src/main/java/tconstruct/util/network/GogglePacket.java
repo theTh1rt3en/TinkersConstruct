@@ -11,8 +11,6 @@ public class GogglePacket extends AbstractPacket {
 
     boolean active;
 
-    public GogglePacket() {}
-
     public GogglePacket(boolean active) {
         this.active = active;
     }
@@ -33,8 +31,5 @@ public class GogglePacket extends AbstractPacket {
     @Override
     public void handleServerSide(EntityPlayer player) {
         PlayerAbilityHelper.toggleGoggles(player, active);
-        /*
-         * TPlayerStats stats = TPlayerStats.get(player); stats.activeGoggles = active;
-         */
     }
 }
