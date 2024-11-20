@@ -33,7 +33,6 @@ public class SlimeTreeGen extends WorldGenerator {
     @Override
     public boolean generate(World world, Random random, int xPos, int yPos, int zPos) {
         int height = random.nextInt(this.treeHeightRange) + this.minTreeHeight;
-        boolean flag = true;
         if (seekHeight) {
             yPos = findGround(world, xPos, yPos, zPos);
             if (yPos == -1) return false;
@@ -46,9 +45,6 @@ public class SlimeTreeGen extends WorldGenerator {
 
             if (isSoil) {
                 // TODO Fix this for 1.7
-                // if (!checkClear(world, xPos, yPos, zPos, height))
-                // return false;
-
                 soil.onPlantGrow(world, xPos, yPos - 1, zPos, xPos, yPos, zPos);
                 placeCanopy(world, random, xPos, yPos, zPos, height);
                 placeTrunk(world, xPos, yPos, zPos, height);
@@ -56,25 +52,6 @@ public class SlimeTreeGen extends WorldGenerator {
             }
         }
         return false;
-    }
-
-    boolean checkClear(World world, int x, int y, int z, int treeHeight) {
-        for (int yPos = 0; yPos < treeHeight + 1; yPos++) {
-            int range = 1;
-
-            if (yPos == 0) range = 0;
-            else if (yPos >= treeHeight - 1) range = 2;
-
-            for (int xPos = range; xPos <= range; xPos++) {
-                for (int zPos = range; zPos <= range; zPos++) {
-                    Block blockID = world.getBlock(x + xPos, y + yPos, z + zPos);
-                    if (blockID != null && blockID != TinkerWorld.slimeSapling
-                            && !blockID.isLeaves(world, x + xPos, y + yPos, z + zPos))
-                        return false;
-                }
-            }
-        }
-        return true;
     }
 
     int findGround(World world, int x, int y, int z) {

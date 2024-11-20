@@ -27,8 +27,6 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler {
             int type = meta % 4;
 
             if (meta / 4 == 0) {
-                // if (type >= 0)
-                // TODO setRenderBounds
                 renderer.setRenderBounds(0.125, 0.0, 0.5, 0.375, 1.0, 0.75);
                 renderer.renderStandardBlock(barricade, x, y, z);
 
@@ -49,7 +47,6 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler {
             }
 
             if (meta / 4 == 1) {
-                // if (type >= 0)
                 renderer.setRenderBounds(0.25, 0.0, 0.125, 0.5, 1.0, 0.375);
                 renderer.renderStandardBlock(barricade, x, y, z);
 
@@ -70,7 +67,6 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler {
             }
 
             if (meta / 4 == 2) {
-                // if (type >= 0)
                 renderer.setRenderBounds(0.125, 0.0, 0.25, 0.375, 1.0, 0.5);
                 renderer.renderStandardBlock(barricade, x, y, z);
 
@@ -91,7 +87,6 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler {
             }
 
             if (meta / 4 == 3) {
-                // if (type >= 0)
                 renderer.setRenderBounds(0.5, 0.0, 0.125, 0.75, 1.0, 0.375);
                 renderer.renderStandardBlock(barricade, x, y, z);
 

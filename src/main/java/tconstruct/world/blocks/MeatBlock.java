@@ -1,5 +1,7 @@
 package tconstruct.world.blocks;
 
+import static tconstruct.util.Reference.resource;
+
 import java.util.List;
 import java.util.Random;
 
@@ -19,13 +21,12 @@ import tconstruct.library.TConstructRegistry;
 
 public class MeatBlock extends BlockWood {
 
-    public IIcon[] icons;
-    public String[] textureNames = new String[] { "ham_skin", "ham_bone" };
+    private IIcon[] icons;
+    private final String[] textureNames = new String[] { "ham_skin", "ham_bone" };
 
     public MeatBlock() {
         this.setHardness(1.0F);
         this.setStepSound(Block.soundTypeWood);
-        // setBurnProperties(this.blockID, 5, 20);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -58,7 +59,7 @@ public class MeatBlock extends BlockWood {
         this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i) {
-            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon(resource(textureNames[i]));
         }
     }
 
@@ -68,49 +69,17 @@ public class MeatBlock extends BlockWood {
     }
 
     /**
-     * ejects contained items into the world, and notifies neighbours of an update, as appropriate
-     */
-    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
-        byte b0 = 4;
-        int j1 = b0 + 1;
-
-        if (par1World.checkChunksExist(par2 - j1, par3 - j1, par4 - j1, par2 + j1, par3 + j1, par4 + j1)) {
-            for (int k1 = -b0; k1 <= b0; ++k1) {
-                for (int l1 = -b0; l1 <= b0; ++l1) {
-                    for (int i2 = -b0; i2 <= b0; ++i2) {
-                        Block j2 = par1World.getBlock(par2 + k1, par3 + l1, par4 + i2);
-
-                        if (j2 != null) {
-                            j2.beginLeavesDecay(par1World, par2 + k1, par3 + l1, par4 + i2);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
      */
     @Override
     public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7,
             float par8, int par9) {
         int j1 = par9 & 3;
-        byte b0 = 0;
-
-        switch (par5) {
-            case 0:
-            case 1:
-                b0 = 0;
-                break;
-            case 2:
-            case 3:
-                b0 = 8;
-                break;
-            case 4:
-            case 5:
-                b0 = 4;
-        }
+        byte b0 = switch (par5) {
+            case 2, 3 -> 8;
+            case 4, 5 -> 4;
+            default -> 0;
+        };
 
         return j1 | b0;
     }
@@ -135,18 +104,8 @@ public class MeatBlock extends BlockWood {
         return new ItemStack(this, 1, limitToValidMetadata(par1));
     }
 
-    public boolean isBlockReplaceable(World world, int x, int y, int z) {
-        return false;
-    }
-
-    /*
-     * public void onBlockHarvested (World world, int x, int y, int z, int meta, EntityPlayer player) { if (meta % 4 ==
-     * 1) { if (world.difficultySetting > 2) world.createExplosion(null, x, y, z, 1.75f, false); else
-     * world.createExplosion(null, x, y, z, 2f, false); } }
-     */
-
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item b, CreativeTabs par2CreativeTabs, List par3List) {
         for (int i = 0; i < icons.length / 2; i++) par3List.add(new ItemStack(b, 1, i));
     }

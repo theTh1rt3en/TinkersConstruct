@@ -1,5 +1,7 @@
 package tconstruct.world.blocks;
 
+import static tconstruct.util.Reference.resource;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -20,17 +22,14 @@ import tconstruct.world.model.SlimeChannelRender;
 
 public class ConveyorBase extends MantleBlock {
 
-    String texturename;
+    private final String textureName;
+    private IIcon[] icons;
 
     public ConveyorBase(Material material, String name) {
         super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
-        texturename = name;
-    }
-
-    public boolean isBlockReplaceable(World world, int x, int y, int z) {
-        return false;
+        textureName = name;
     }
 
     @Override
@@ -100,8 +99,6 @@ public class ConveyorBase extends MantleBlock {
         return super.shouldSideBeRendered(world, x, y, z, side);
     }
 
-    public IIcon[] icons;
-
     /* Rendering */
     @Override
     public boolean renderAsNormalBlock() {
@@ -125,11 +122,11 @@ public class ConveyorBase extends MantleBlock {
 
     @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
-        String[] textureNames = new String[] { texturename, texturename + "_flow" };
+        String[] textureNames = new String[] { textureName, textureName + "_flow" };
         this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i) {
-            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon(resource(textureNames[i]));
         }
     }
 

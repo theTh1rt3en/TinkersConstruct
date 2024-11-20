@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Getter;
 
 public class HamboneItemBlock extends ItemBlock {
 
@@ -27,7 +28,6 @@ public class HamboneItemBlock extends ItemBlock {
             healAmount = 20;
             saturationModifier = 3.0f;
         }
-        isWolfsFavoriteMeat = true;
     }
 
     @Override
@@ -41,12 +41,14 @@ public class HamboneItemBlock extends ItemBlock {
     public final int itemUseDuration;
 
     /** The amount this food item heals the player. */
+    @Getter
     private final int healAmount;
 
+    /**
+     * -- GETTER -- gets the saturationModifier of the ItemFood
+     */
+    @Getter
     private final float saturationModifier;
-
-    /** Whether wolves like this food (true for raw and cooked porkchop). */
-    private final boolean isWolfsFavoriteMeat;
 
     /**
      * If this field is true, the food can be consumed even if the player don't need to eat.
@@ -66,13 +68,6 @@ public class HamboneItemBlock extends ItemBlock {
 
     /** probably of the set potion effect occurring */
     private float potionEffectProbability;
-
-    /*
-     * public ItemFood(int par1, int par2, float par3, boolean par4) { super(par1); this.itemUseDuration = 32;
-     * this.healAmount = par2; this.isWolfsFavoriteMeat = par4; this.saturationModifier = par3;
-     * this.setCreativeTab(CreativeTabs.tabFood); } public ItemFood(int par1, int par2, boolean par3) { this(par1, par2,
-     * 0.6F, par3); }
-     */
 
     @Override
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
@@ -116,23 +111,5 @@ public class HamboneItemBlock extends ItemBlock {
         }
 
         return par1ItemStack;
-    }
-
-    public int getHealAmount() {
-        return this.healAmount;
-    }
-
-    /**
-     * gets the saturationModifier of the ItemFood
-     */
-    public float getSaturationModifier() {
-        return this.saturationModifier;
-    }
-
-    /**
-     * Whether wolves like this food (true for raw and cooked porkchop).
-     */
-    public boolean isWolfsFavoriteMeat() {
-        return this.isWolfsFavoriteMeat;
     }
 }

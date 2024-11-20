@@ -75,9 +75,9 @@ public class SlimeExplosive extends TConstructBlock {
         if (!par1World.isRemote) {
             ExplosivePrimed entitytntprimed = new ExplosivePrimed(
                     par1World,
-                    (float) par2 + 0.5F,
-                    (float) par3 + 0.5F,
-                    (float) par4 + 0.5F,
+                    par2 + 0.5F,
+                    par3 + 0.5F,
+                    par4 + 0.5F,
                     par5Explosion.getExplosivePlacedBy());
             entitytntprimed.fuse = par1World.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
             par1World.spawnEntityInWorld(entitytntprimed);
@@ -91,18 +91,17 @@ public class SlimeExplosive extends TConstructBlock {
 
     public void primeTnt(World par1World, int par2, int par3, int par4, int par5,
             EntityLivingBase par6EntityLivingBase) {
-        if (!par1World.isRemote) {
-            if ((par5 % 2) == 1) {
-                ExplosivePrimed entitytntprimed = new ExplosivePrimed(
-                        par1World,
-                        (float) par2 + 0.5F,
-                        (float) par3 + 0.5F,
-                        (float) par4 + 0.5F,
-                        par6EntityLivingBase);
-                par1World.spawnEntityInWorld(entitytntprimed);
-                par1World.playSoundAtEntity(entitytntprimed, "random.fuse", 1.0F, 1.0F);
-            }
+        if (!par1World.isRemote && (par5 % 2) == 1) {
+            ExplosivePrimed explosivePrimed = new ExplosivePrimed(
+                    par1World,
+                    par2 + 0.5F,
+                    par3 + 0.5F,
+                    par4 + 0.5F,
+                    par6EntityLivingBase);
+            par1World.spawnEntityInWorld(explosivePrimed);
+            par1World.playSoundAtEntity(explosivePrimed, "random.fuse", 1.0F, 1.0F);
         }
+
     }
 
     @Override
@@ -121,21 +120,19 @@ public class SlimeExplosive extends TConstructBlock {
 
     @Override
     public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
-        if (par5Entity instanceof EntityArrow entityarrow && !par1World.isRemote) {
-
-            if (entityarrow.isBurning()) {
-                this.primeTnt(
-                        par1World,
-                        par2,
-                        par3,
-                        par4,
-                        1,
-                        entityarrow.shootingEntity instanceof EntityLivingBase
-                                ? (EntityLivingBase) entityarrow.shootingEntity
-                                : null);
-                WorldHelper.setBlockToAir(par1World, par2, par3, par4);
-            }
+        if (par5Entity instanceof EntityArrow entityarrow && !par1World.isRemote && entityarrow.isBurning()) {
+            this.primeTnt(
+                    par1World,
+                    par2,
+                    par3,
+                    par4,
+                    1,
+                    entityarrow.shootingEntity instanceof EntityLivingBase
+                            ? (EntityLivingBase) entityarrow.shootingEntity
+                            : null);
+            WorldHelper.setBlockToAir(par1World, par2, par3, par4);
         }
+
     }
 
     @Override

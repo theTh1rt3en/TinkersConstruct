@@ -16,6 +16,18 @@ import tconstruct.world.TinkerWorld;
 
 public class TBaseWorldGenerator implements IWorldGenerator {
 
+    WorldGenMinable copper;
+    WorldGenMinable tin;
+    WorldGenMinable aluminum;
+    WorldGenMinable cobalt;
+    WorldGenMinable ardite;
+    OreberryBushGen ironBush;
+    OreberryBushGen goldBush;
+    OreberryBushGen copperBush;
+    OreberryBushGen tinBush;
+    OreberryBushGen aluminumBush;
+    OreberryBushGen silverBush;
+
     public TBaseWorldGenerator() {
         copper = new WorldGenMinable(TinkerWorld.oreSlag, 3, 8, Blocks.stone);
         tin = new WorldGenMinable(TinkerWorld.oreSlag, 4, 8, Blocks.stone);
@@ -99,10 +111,6 @@ public class TBaseWorldGenerator implements IWorldGenerator {
                 zPos = zChunk + random.nextInt(16);
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.seaLevel, 0);
                 if (yPos != -1) {
-                    /*
-                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Iron: "+coord.toString());
-                     */
                     ironBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -114,19 +122,11 @@ public class TBaseWorldGenerator implements IWorldGenerator {
                 zPos = zChunk + random.nextInt(16);
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, 32, 0);
                 if (yPos != -1) {
-                    /*
-                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Gold: "+coord.toString());
-                     */
                     goldBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
-        if (PHConstruct.generateCopperBush && random.nextInt(PHConstruct.copperBushRarity + 1) == 0) // &&
-        // random.nextInt(PHConstruct.copperbRarity)
-        // ==
-        // 0)
-        {
+        if (PHConstruct.generateCopperBush && random.nextInt(PHConstruct.copperBushRarity + 1) == 0) {
             for (int i = 0; i < PHConstruct.copperBushDensity; i++) {
                 xPos = xChunk + random.nextInt(16);
                 yPos = (PHConstruct.copperBushMaxY + PHConstruct.copperBushMinY) / 2;
@@ -139,37 +139,22 @@ public class TBaseWorldGenerator implements IWorldGenerator {
                         PHConstruct.copperBushMaxY,
                         PHConstruct.copperBushMinY);
                 if (yPos != -1) {
-                    /*
-                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Copper: "+coord.toString());
-                     */
                     copperBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
-        if (PHConstruct.generateTinBush && random.nextInt(PHConstruct.tinBushRarity + 1) == 0) // &&
-        // random.nextInt(PHConstruct.tinbRarity)
-        // == 0)
-        {
+        if (PHConstruct.generateTinBush && random.nextInt(PHConstruct.tinBushRarity + 1) == 0) {
             for (int i = 0; i < PHConstruct.tinBushDensity; i++) {
                 xPos = xChunk + random.nextInt(16);
                 yPos = (PHConstruct.tinBushMaxY + PHConstruct.tinBushMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.tinBushMaxY, PHConstruct.tinBushMinY);
                 if (yPos != -1) {
-                    /*
-                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Tin: "+coord.toString());
-                     */
                     tinBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
-        if (PHConstruct.generateAluminumBush && random.nextInt(PHConstruct.aluminumBushRarity + 1) == 0) // &&
-        // random.nextInt(PHConstruct.aluminumbRarity)
-        // ==
-        // 0)
-        {
+        if (PHConstruct.generateAluminumBush && random.nextInt(PHConstruct.aluminumBushRarity + 1) == 0) {
             for (int i = 0; i < PHConstruct.aluminumBushDensity; i++) {
                 xPos = xChunk + random.nextInt(16);
                 yPos = (PHConstruct.aluminumBushMaxY + PHConstruct.aluminumBushMinY) / 2;
@@ -182,10 +167,6 @@ public class TBaseWorldGenerator implements IWorldGenerator {
                         PHConstruct.aluminumBushMaxY,
                         PHConstruct.aluminumBushMinY);
                 if (yPos != -1) {
-                    /*
-                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Aluminum: "+coord.toString());
-                     */
                     aluminumBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -197,10 +178,6 @@ public class TBaseWorldGenerator implements IWorldGenerator {
                 zPos = zChunk + random.nextInt(16);
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, 32, 0);
                 if (yPos != -1) {
-                    /*
-                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Silver: "+coord.toString());
-                     */
                     silverBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -258,11 +235,6 @@ public class TBaseWorldGenerator implements IWorldGenerator {
     }
 
     void superfunGenerate(Random random, int chunkX, int chunkZ, World world) {
-        /*
-         * for (int x = 0; x < 16; x++) for (int z = 0; z < 16; z++) world.setBlock(x+chunkX, 192, z+chunkZ,
-         * Block.glowStone);
-         */
-
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 for (int y = 0; y < 128; y++) {
@@ -296,17 +268,4 @@ public class TBaseWorldGenerator implements IWorldGenerator {
             }
         }
     }
-
-    WorldGenMinable copper;
-    WorldGenMinable tin;
-    WorldGenMinable aluminum;
-    WorldGenMinable cobalt;
-    WorldGenMinable ardite;
-
-    OreberryBushGen ironBush;
-    OreberryBushGen goldBush;
-    OreberryBushGen copperBush;
-    OreberryBushGen tinBush;
-    OreberryBushGen aluminumBush;
-    OreberryBushGen silverBush;
 }

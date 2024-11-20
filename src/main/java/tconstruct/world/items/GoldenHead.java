@@ -52,17 +52,17 @@ public class GoldenHead extends ItemFood {
         }
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
+    @Override
+    @SideOnly(Side.CLIENT)
     public void getSubItems(Item b, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(b, 1, 0));
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("tinker:skull_char_gold");
     }

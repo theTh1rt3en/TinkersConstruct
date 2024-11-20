@@ -42,19 +42,20 @@ public class WoolSlab1Item extends MultiItemBlock {
         int trueMeta = meta % 8;
         boolean flag = (b) != null;
 
-        if ((side == 1 && flag || side == 0 && !flag) && b == this.block && trueMeta == stack.getItemDamage()) {
-            if (world.setBlock(x, y, z, Blocks.wool, trueMeta, 3)) {
-                world.playSoundEffect(
-                        (float) x + 0.5F,
-                        (float) y + 0.5F,
-                        (float) z + 0.5F,
-                        this.block.stepSound.soundName,
-                        (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
-                        this.block.stepSound.getPitch() * 0.8F);
-                --stack.stackSize;
-                return true;
-            }
+        if ((side == 1 && flag || side == 0 && !flag) && b == this.block
+                && trueMeta == stack.getItemDamage()
+                && world.setBlock(x, y, z, Blocks.wool, trueMeta, 3)) {
+            world.playSoundEffect(
+                    x + 0.5F,
+                    y + 0.5F,
+                    z + 0.5F,
+                    this.block.stepSound.soundName,
+                    (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
+                    this.block.stepSound.getPitch() * 0.8F);
+            --stack.stackSize;
+            return true;
         }
+
         return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
 }

@@ -1,5 +1,7 @@
 package tconstruct.world.blocks;
 
+import static tconstruct.util.Reference.resource;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -36,8 +38,8 @@ public class WoodRail extends BlockRailBase {
      * is the only chance you get to register icons.
      */
     public void registerBlockIcons(IIconRegister par1IconRegister) {
-        this.blockIcon = par1IconRegister.registerIcon("tinker:woodrail");
-        this.theIcon = par1IconRegister.registerIcon("tinker:woodrail_turn");
+        this.blockIcon = par1IconRegister.registerIcon(resource("woodrail"));
+        this.theIcon = par1IconRegister.registerIcon(resource("woodrail_turn"));
     }
 
     protected void func_94358_a(World par1World, int par2, int par3, int par4, int par5, int par6, Block par7) {

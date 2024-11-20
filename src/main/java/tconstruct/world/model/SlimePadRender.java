@@ -62,25 +62,17 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler {
 
     float[] size(int meta) {
         // xMin, zMin, xMax, zMax
-        switch (meta) {
-            case 0:
-                return new float[] { 0.375f, 0.6875f, 0.625f, 0.9375f };
-            case 1:
-                return new float[] { 0.0625f, 0.6875f, 0.3125f, 0.9375f };
-            case 2:
-                return new float[] { 0.0625f, 0.375f, 0.3125f, 0.625f };
-            case 3:
-                return new float[] { 0.0625f, 0.0625f, 0.3125f, 0.3125f };
-            case 4:
-                return new float[] { 0.375f, 0.0625f, 0.625f, 0.3125f };
-            case 5:
-                return new float[] { 0.6875f, 0.0625f, 0.9375f, 0.3125f };
-            case 6:
-                return new float[] { 0.6875f, 0.375f, 0.9375f, 0.625f };
-            case 7:
-                return new float[] { 0.6875f, 0.6875f, 0.9375f, 0.9375f };
-        }
-        return new float[] { 0.375f, 0.375f, 0.625f, 0.625f };
+        return switch (meta) {
+            case 0 -> new float[] { 0.375f, 0.6875f, 0.625f, 0.9375f };
+            case 1 -> new float[] { 0.0625f, 0.6875f, 0.3125f, 0.9375f };
+            case 2 -> new float[] { 0.0625f, 0.375f, 0.3125f, 0.625f };
+            case 3 -> new float[] { 0.0625f, 0.0625f, 0.3125f, 0.3125f };
+            case 4 -> new float[] { 0.375f, 0.0625f, 0.625f, 0.3125f };
+            case 5 -> new float[] { 0.6875f, 0.0625f, 0.9375f, 0.3125f };
+            case 6 -> new float[] { 0.6875f, 0.375f, 0.9375f, 0.625f };
+            case 7 -> new float[] { 0.6875f, 0.6875f, 0.9375f, 0.9375f };
+            default -> new float[] { 0.375f, 0.375f, 0.625f, 0.625f };
+        };
     }
 
     @Override

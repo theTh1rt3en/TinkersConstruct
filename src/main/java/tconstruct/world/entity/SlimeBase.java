@@ -23,17 +23,20 @@ import net.minecraftforge.common.ForgeHooks;
 import com.kuba6000.mobsinfo.api.IMobInfoProvider;
 import com.kuba6000.mobsinfo.api.MobDrop;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.Method;
 import tconstruct.world.TinkerWorld;
 
-@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobInfoProvider", modid = "mobsinfo")
+@Interface(iface = "com.kuba6000.mobsinfo.api.IMobInfoProvider", modid = "mobsinfo")
 public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoProvider {
 
     public float sizeOffset;
     public float sizeFactor;
     public float sizeHeight;
 
-    /** the time between each jump of the slime, used for counting */
+    /**
+     * the time between each jump of the slime, used for counting
+     */
     protected int slimeJumpDelay = 0;
 
     public SlimeBase(World world) {
@@ -41,20 +44,28 @@ public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoPr
         initializeSlime();
     }
 
-    /** Returns the name of the particle used by the slime */
+    /**
+     * Returns the name of the particle used by the slime
+     */
     protected abstract String getSlimeParticle();
 
-    /** Returns the name of the sound played when the slime jumps. */
+    /**
+     * Returns the name of the sound played when the slime jumps.
+     */
     protected String getJumpSound() {
         return "mob.slime." + (this.getSlimeSize() > 1 ? "big" : "small");
     }
 
-    /** Returns true if the slime makes a sound when it jumps (based upon the slime's size) */
+    /**
+     * Returns true if the slime makes a sound when it jumps (based upon the slime's size)
+     */
     protected boolean makesSoundOnJump() {
         return this.getSlimeSize() > 0;
     }
 
-    /** Returns true if the slime makes a sound when it lands after a jump (based upon the slime's size) */
+    /**
+     * Returns true if the slime makes a sound when it lands after a jump (based upon the slime's size)
+     */
     protected boolean makesSoundOnLand() {
         return this.getSlimeSize() > 2;
     }
@@ -75,15 +86,19 @@ public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoPr
         this.experienceValue = size + 2 ^ (size);
     }
 
-    /** returns the health for the slime depending on its size */
+    /**
+     * returns the health for the slime depending on its size
+     */
     protected float getMaxHealthForSize() {
         int i = this.getSlimeSize();
         if (i == 1) return 4;
 
-        return (float) Math.min(i * i + 8, 49);
+        return Math.min(i * i + 8, 49);
     }
 
-    /** Gets the amount of time the slime needs to wait between jumps. */
+    /**
+     * Gets the amount of time the slime needs to wait between jumps.
+     */
     protected int getJumpDelay() {
         return this.rand.nextInt(120) + 40;
     }
@@ -258,7 +273,7 @@ public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoPr
             int i = this.getSlimeSize();
 
             if (this.canEntityBeSeen(par1EntityPlayer)
-                    && this.getDistanceSqToEntity(par1EntityPlayer) < 0.6D * (double) i * 0.6D * (double) i
+                    && this.getDistanceSqToEntity(par1EntityPlayer) < 0.6D * i * 0.6D * i
                     && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), this.getAttackStrength())) {
                 this.playSound("mob.attack", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             }
@@ -270,8 +285,8 @@ public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoPr
         int size = this.getSlimeSize();
 
         if (!this.worldObj.isRemote && size > 1 && this.getHealth() <= 0 && size < 8) {
-            float f = (-0.5F) * (float) size / 4.0F;
-            float f1 = (-0.5F) * (float) size / 4.0F;
+            float f = (-0.5F) * size / 4.0F;
+            float f1 = (-0.5F) * size / 4.0F;
             SlimeBase entityslime = this.createInstance(this.worldObj);
             entityslime.setSlimeSize(size / 2);
             entityslime.setLocationAndAngles(
@@ -306,8 +321,8 @@ public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoPr
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
     @Override
+    @Method(modid = "mobsinfo")
     public void provideDropsInformation(@Nonnull ArrayList<MobDrop> drops) {
         Item j = this.getDropItem();
         if (j != null) {

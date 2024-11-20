@@ -25,7 +25,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
     private final int gelMeta;
     int randomness = 2;
     Random random = new Random();
-    Block base = TinkerTools.craftedSoil; // Block.dirt.blockID;
+    Block base = TinkerTools.craftedSoil;
     Block top = TinkerWorld.slimeGrass;
     SlimeTreeGen trees = new SlimeTreeGen(false, 5, 4, 1, 0);
 
@@ -45,8 +45,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
             return;
         }
 
-        if (DimensionBlacklist.isDimInBlacklist(world.provider.dimensionId)) {
-            if (random.nextInt(PHConstruct.islandRarity) == 0) generateIsland(world, random, chunkX * 16, chunkZ * 16);
+        if (DimensionBlacklist.isDimInBlacklist(world.provider.dimensionId)
+                && random.nextInt(PHConstruct.islandRarity) == 0) {
+            generateIsland(world, random, chunkX * 16, chunkZ * 16);
         }
     }
 
@@ -78,11 +79,11 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + height;
                     int zPos = z + zChunk;
-                    if (world.getBlock(xPos - 1, yPos + 1, zPos) == base
+                    if (!(world.getBlock(xPos - 1, yPos + 1, zPos) == base
                             && world.getBlock(xPos + 1, yPos + 1, zPos) == base
                             && world.getBlock(xPos, yPos + 1, zPos - 1) == base
                             && world.getBlock(xPos - 1, yPos + 1, zPos + 1) == base
-                            && random.nextInt(100) > randomness) {} else {
+                            && random.nextInt(100) > randomness)) {
                         world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 2);
                     }
                 }
@@ -97,10 +98,10 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + initialHeight - height + 1;
                     int zPos = z + zChunk;
-                    if (world.getBlock(xPos - 1, yPos - 1, zPos) == base
+                    if (!(world.getBlock(xPos - 1, yPos - 1, zPos) == base
                             && world.getBlock(xPos + 1, yPos - 1, zPos) == base
                             && world.getBlock(xPos, yPos - 1, zPos - 1) == base
-                            && world.getBlock(xPos - 1, yPos - 1, zPos + 1) == base) {} else {
+                            && world.getBlock(xPos - 1, yPos - 1, zPos + 1) == base)) {
                         world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 2);
                     }
                 }
@@ -148,9 +149,6 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
     {
         x -= 8;
         z -= 8;
-        /*
-         * for (z -= 8; y > 5 && world.isAirBlock(x, y, z); --y) { ; } if (y <= 4) { return false; } else {
-         */
         y -= 4;
         boolean[] validLocations = new boolean[2048];
         int var7 = rand.nextInt(4) + 4;
@@ -167,9 +165,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
             for (int xIter = 1; xIter < 15; ++xIter) {
                 for (int zIter = 1; zIter < 15; ++zIter) {
                     for (int yIter = 1; yIter < 7; ++yIter) {
-                        double var24 = ((double) xIter - noise4) / (noise1 / 2.0D);
-                        double var26 = ((double) yIter - noise5) / (noise2 / 2.0D);
-                        double var28 = ((double) zIter - noise6) / (noise3 / 2.0D);
+                        double var24 = (xIter - noise4) / (noise1 / 2.0D);
+                        double var26 = (yIter - noise5) / (noise2 / 2.0D);
+                        double var28 = (zIter - noise6) / (noise3 / 2.0D);
                         double validSpot = var24 * var24 + var26 * var26 + var28 * var28;
 
                         if (validSpot < 1.0D) {
@@ -257,6 +255,5 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
         }
 
         return true;
-        // }
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 import com.kuba6000.mobsinfo.api.MobDrop;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Method;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -22,7 +22,6 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
 
     public KingBlueSlime(World world) {
         super(world);
-
         this.experienceValue = 500;
 
         // persistance required. this is used by named entities to not despawn, for example.
@@ -97,7 +96,7 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
         final ItemStack extraStack = tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
 
         String loc = "tool." + tool.getToolName().toLowerCase() + ".kingslime"; // special localization the same way as
-                                                                                // materials
+        // materials
         String name;
         if (StatCollector.canTranslate(loc)) name = StatCollector.translateToLocal(loc);
         else name = StatCollector.translateToLocal("tool.kingslimeprefix") + " " + tool.getLocalizedToolName();
@@ -119,8 +118,8 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
     @Override
+    @Method(modid = "mobsinfo")
     public void provideDropsInformation(@Nonnull ArrayList<MobDrop> drops) {
         super.provideDropsInformation(drops);
         double chance = 1d / TConstructRegistry.tools.size();
@@ -134,7 +133,7 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
             final ItemStack extraStack = tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
 
             String loc = "tool." + tool.getToolName().toLowerCase() + ".kingslime"; // special localization the same way
-                                                                                    // as
+            // as
             // materials
             String name;
             if (StatCollector.canTranslate(loc)) name = StatCollector.translateToLocal(loc);

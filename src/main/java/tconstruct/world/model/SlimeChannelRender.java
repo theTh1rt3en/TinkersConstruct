@@ -35,10 +35,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler {
         return false;
     }
 
-    static final float LIGHT_Y_NEG = 0.5F;
     static final float LIGHT_Y_POS = 1.0F;
-    static final float LIGHT_XZ_NEG = 0.8F;
-    static final float LIGHT_XZ_POS = 0.6F;
 
     public boolean renderRotatedBlock(Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer) {
         Tessellator tessellator = Tessellator.instance;
@@ -81,12 +78,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler {
         tessellator.addVertexWithUV(x + 1, y + 0.5, z + 1, u4, v4);
         tessellator.addVertexWithUV(x + 1, y + 0.5, z + 0, u3, v3);
         renderer.renderStandardBlock(block, x, y, z);
-        /*
-         * int direction = world.getBlockMetadata(x, y, z) % 4; if (direction == 0) renderer.uvRotateTop = 2; if
-         * (direction == 1) renderer.uvRotateTop = 1; if (direction == 2) renderer.uvRotateTop = 0; if (direction == 3)
-         * renderer.uvRotateTop = 3; boolean flag = renderer.renderStandardBlock(block, x, y, z); renderer.uvRotateTop =
-         * 0; return flag;
-         */
+
         return true;
     }
 

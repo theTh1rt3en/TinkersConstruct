@@ -1,5 +1,7 @@
 package tconstruct.world.blocks;
 
+import static tconstruct.util.Reference.resource;
+
 import java.util.List;
 import java.util.Random;
 
@@ -19,8 +21,8 @@ import tconstruct.world.TinkerWorld;
 
 public class GravelOre extends BlockSand {
 
-    public String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
-    public IIcon[] icons;
+    private final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
+    private IIcon[] icons;
 
     public GravelOre() {
         this.blockMaterial = Material.craftedSnow;
@@ -33,7 +35,7 @@ public class GravelOre extends BlockSand {
         this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i) {
-            this.icons[i] = iconRegister.registerIcon("tinker:ore_" + textureNames[i] + "_gravel");
+            this.icons[i] = iconRegister.registerIcon(resource("ore_") + textureNames[i] + "_gravel");
         }
     }
 
@@ -51,18 +53,7 @@ public class GravelOre extends BlockSand {
     }
 
     @Override
-    public int damageDropped(int meta) {
-        /*
-         * if (meta == 1) return 0;
-         */
-        return meta;
-    }
-
-    @Override
     public Item getItemDropped(int par1, Random par2Random, int par3) {
-        /*
-         * if (par1 == 1) return Item.goldNugget.itemID;
-         */
         return Item.getItemFromBlock(TinkerWorld.oreGravel);
     }
 

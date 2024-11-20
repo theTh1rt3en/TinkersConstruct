@@ -19,11 +19,6 @@ public class PlantGen extends WorldGenerator {
     int zSize = 8;
     boolean clumped = true;
 
-    public PlantGen(Block b, int meta) {
-        this.plant = b;
-        this.metadata = meta;
-    }
-
     public PlantGen(Block b, int meta, int count, int range, int height, int width, boolean clumped) {
         this.plant = b;
         this.metadata = meta;

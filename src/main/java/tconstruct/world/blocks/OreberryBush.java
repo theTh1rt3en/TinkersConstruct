@@ -21,7 +21,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,13 +31,13 @@ import tconstruct.world.model.OreberryRender;
 
 public class OreberryBush extends BlockLeavesBase implements IPlantable {
 
-    Random random;
+    private final int subitems;
     public IIcon[] fastIcons;
     public IIcon[] fancyIcons;
     public String[] textureNames;
     public String[] oreTypes;
     public int itemMeat;
-    private final int subitems;
+    Random random;
 
     public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes) {
         super(Material.leaves, false);
@@ -86,29 +85,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int l = world.getBlockMetadata(x, y, z);
         if (l < 4) {
-            return AxisAlignedBB.getBoundingBox(
-                    (double) x + 0.25D,
-                    y,
-                    (double) z + 0.25D,
-                    (double) x + 0.75D,
-                    (double) y + 0.5D,
-                    (double) z + 0.75D);
+            return AxisAlignedBB.getBoundingBox(x + 0.25D, y, z + 0.25D, x + 0.75D, y + 0.5D, z + 0.75D);
         } else if (l < 8) {
-            return AxisAlignedBB.getBoundingBox(
-                    (double) x + 0.125D,
-                    y,
-                    (double) z + 0.125D,
-                    (double) x + 0.875D,
-                    (double) y + 0.75D,
-                    (double) z + 0.875D);
+            return AxisAlignedBB.getBoundingBox(x + 0.125D, y, z + 0.125D, x + 0.875D, y + 0.75D, z + 0.875D);
         } else {
-            return AxisAlignedBB.getBoundingBox(
-                    x + 0.0625,
-                    y,
-                    z + 0.0625,
-                    (double) x + 0.9375D,
-                    (double) y + 0.9375D,
-                    (double) z + 0.9375D);
+            return AxisAlignedBB.getBoundingBox(x + 0.0625, y, z + 0.0625, x + 0.9375D, y + 0.9375D, z + 0.9375D);
         }
     }
 
@@ -116,23 +97,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         int l = world.getBlockMetadata(x, y, z);
         if (l < 4) {
-            return AxisAlignedBB.getBoundingBox(
-                    (double) x + 0.25D,
-                    y,
-                    (double) z + 0.25D,
-                    (double) x + 0.75D,
-                    (double) y + 0.5D,
-                    (double) z + 0.75D);
+            return AxisAlignedBB.getBoundingBox(x + 0.25D, y, z + 0.25D, x + 0.75D, y + 0.5D, z + 0.75D);
         } else if (l < 8) {
-            return AxisAlignedBB.getBoundingBox(
-                    (double) x + 0.125D,
-                    y,
-                    (double) z + 0.125D,
-                    (double) x + 0.875D,
-                    (double) y + 0.75D,
-                    (double) z + 0.875D);
+            return AxisAlignedBB.getBoundingBox(x + 0.125D, y, z + 0.125D, x + 0.875D, y + 0.75D, z + 0.875D);
         } else {
-            return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 1.0D, (double) z + 1.0D);
+            return AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D);
         }
     }
 
@@ -193,11 +162,6 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
     /* Render logic */
 
     @Override
-    public boolean isOpaqueCube() {
-        return false;
-    }
-
-    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
@@ -233,23 +197,12 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
             return;
         }
 
-        if (random1.nextInt(20) == 0) // && world.getBlockLightValue(x, y, z) <= 8)
-        {
-            if (world.getFullBlockLightValue(x, y, z) < 10) {
-                int meta = world.getBlockMetadata(x, y, z);
-                if (meta < 12) {
-                    world.setBlock(x, y, z, this, meta + 4, 3);
-                }
+        if (random1.nextInt(20) == 0 && world.getFullBlockLightValue(x, y, z) < 10) {
+            int meta = world.getBlockMetadata(x, y, z);
+            if (meta < 12) {
+                world.setBlock(x, y, z, this, meta + 4, 3);
             }
-            /*
-             * else if (meta < 8) { world.setBlock(x, y, z, blockID, meta + 4, 3); }
-             */
         }
-    }
-
-    public boolean canSustainPlant(World world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
-        if (plant instanceof OreberryBush) return (world.getBlockMetadata(x, y, z) > 7);
-        return super.canSustainPlant(world, x, y, z, direction, plant);
     }
 
     @Override
@@ -263,8 +216,8 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable {
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int var4 = 8; var4 < 8 + subitems; ++var4) {
             par3List.add(new ItemStack(par1, 1, var4));

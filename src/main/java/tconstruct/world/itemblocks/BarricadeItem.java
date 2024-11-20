@@ -72,16 +72,15 @@ public class BarricadeItem extends ItemBlock {
             return false;
         } else if (world.canPlaceEntityOnSide(this.b, x, y, z, false, side, player, stack)) {
             Block block = this.b;
-            // int meta = this.getMetadata(stack.getItemDamage());
             int rotation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             int meta = rotation * 4;
             int metadata = this.b.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
 
             if (placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata)) {
                 world.playSoundEffect(
-                        (float) x + 0.5F,
-                        (float) y + 0.5F,
-                        (float) z + 0.5F,
+                        x + 0.5F,
+                        y + 0.5F,
+                        z + 0.5F,
                         block.stepSound.soundName,
                         (block.stepSound.getVolume() + 1.0F) / 2.0F,
                         block.stepSound.getPitch() * 0.8F);
@@ -89,8 +88,7 @@ public class BarricadeItem extends ItemBlock {
             }
 
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }

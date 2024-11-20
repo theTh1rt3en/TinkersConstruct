@@ -205,13 +205,10 @@ public class StoneTorch extends MantleBlock {
             if (par1World.getBlock(par2, par3, par4) == this) {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
                 par1World.setBlockToAir(par2, par3, par4);
-                // WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
-
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -240,16 +237,16 @@ public class StoneTorch extends MantleBlock {
         return super.collisionRayTrace(par1World, par2, par3, par4, par5Vec3, par6Vec3);
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
     /**
      * A randomly called display update to be able to add particles or other items for display
      */
+    @Override
+    @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
         int meta = par1World.getBlockMetadata(par2, par3, par4);
-        double d0 = (float) par2 + 0.5F;
-        double d1 = (float) par3 + 0.7F;
-        double d2 = (float) par4 + 0.5F;
+        double d0 = par2 + 0.5F;
+        double d1 = par3 + 0.7F;
+        double d2 = par4 + 0.5F;
         double d3 = 0.2199999988079071D;
         double d4 = 0.27000001072883606D;
 

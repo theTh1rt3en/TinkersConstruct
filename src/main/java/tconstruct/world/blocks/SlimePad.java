@@ -86,10 +86,6 @@ public class SlimePad extends MantleBlock {
         }
     }
 
-    public boolean isBlockReplaceable(World world, int x, int y, int z) {
-        return false;
-    }
-
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
         int face = MathHelper.floor_double((double) (entity.rotationYaw * 8.0F / 360.0F) + 0.5D)

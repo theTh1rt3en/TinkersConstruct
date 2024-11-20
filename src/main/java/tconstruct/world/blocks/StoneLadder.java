@@ -1,7 +1,8 @@
 package tconstruct.world.blocks;
 
+import static tconstruct.util.Reference.resource;
+
 import net.minecraft.block.BlockLadder;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
@@ -10,9 +11,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class StoneLadder extends BlockLadder {
-
-    // Override ladder material
-    public final Material blockMaterial = Material.rock;
 
     private IIcon icon;
 
@@ -25,7 +23,7 @@ public class StoneLadder extends BlockLadder {
 
     @Override
     public void registerBlockIcons(IIconRegister register) {
-        icon = register.registerIcon("tinker:ladder_stone");
+        icon = register.registerIcon(resource("ladder_stone"));
     }
 
     @Override
