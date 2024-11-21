@@ -18,7 +18,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.InterfaceList;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battlegear2.api.PlayerEventChild;
@@ -35,8 +37,7 @@ import tconstruct.weaponry.client.CrosshairType;
 /**
  * Weapons that utilize ammo that uses the ammo system to shoot projectiles. Bows,...
  */
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
+@InterfaceList(value = { @Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon") })
 public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWeapon, IAccuracy, IWindup {
 
     public ProjectileWeapon(int baseDamage, String name) {
@@ -86,13 +87,8 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
 
     public abstract float maxAccuracy(ItemStack itemStack);
 
-    public float getAccuracy(ItemStack itemStack, EntityPlayer player) {
-        return getAccuracy(itemStack, getMaxItemUseDuration(itemStack) - player.getItemInUseCount());
-    }
-
     public float getAccuracy(ItemStack itemStack, int time) {
         float dif = minAccuracy(itemStack) - maxAccuracy(itemStack);
-
         return minAccuracy(itemStack) - dif * getWindupProgress(itemStack, time);
     }
 
@@ -445,44 +441,44 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
     /*---- Battlegear Support START ----*/
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean sheatheOnBack(ItemStack item) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean isOffhandHandDual(ItemStack off) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem,
             ItemStack offhandItem) {
         return false;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return false;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return false;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
         // unused
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
         if (offhand == null) return true;
         return (mainhand != null && mainhand.getItem() != TinkerTools.cleaver

@@ -80,14 +80,6 @@ public class PatternBuilder {
                             // shard
                         } else return new ItemStack[] { toolPart, null };
                     }
-                    /*
-                     * if ( patternValue < totalMaterial ) { if (otherPattern != null) { int otherValue =
-                     * ((IPattern)otherPattern.getItem() ).getPatternCost(otherPattern.getItemDamage()); if
-                     * (patternValue + otherValue <= key.value) { ItemStack otherPart = getMatchingPattern(otherPattern,
-                     * mat); return new ItemStack[] { toolPart, otherPart }; //Material + Material } } } else if (
-                     * patternValue == key.value ) return new ItemStack[] { new ItemStack(toolPart, 1, mat.materialID),
-                     * null }; //Material only else return null; //Not a valid match
-                     */
                 }
             }
         }
@@ -181,10 +173,6 @@ public class PatternBuilder {
         registerMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key);
     }
 
-    public void registerMaterial(Item material, int value, String key) {
-        registerMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key);
-    }
-
     public void registerFullMaterial(Block material, int value, String key, ItemStack shard, ItemStack rod,
             int materialID) {
         registerFullMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key, shard, rod, materialID);
@@ -194,13 +182,4 @@ public class PatternBuilder {
             int materialID) {
         registerFullMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key, shard, rod, materialID);
     }
-
-    /*
-     * public void registerFullMaterial (Block material, int value, String key, int materialID) {
-     * registerFullMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key, new ItemStack(TContent.toolShard,
-     * 1, materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID); } public void registerFullMaterial
-     * (Item material, int value, String key, int materialID) { registerFullMaterial(new ItemStack(material, 1,
-     * Short.MAX_VALUE), value, key, new ItemStack(TContent.toolShard, 1, materialID), new ItemStack(TContent.toolRod,
-     * 1, materialID), materialID); }
-     */
 }

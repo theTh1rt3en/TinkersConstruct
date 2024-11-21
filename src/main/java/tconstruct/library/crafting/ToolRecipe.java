@@ -21,10 +21,6 @@ public class ToolRecipe {
     protected ToolCore result;
     protected Item toolRod = TConstructRegistry.getItem("toolRod");
 
-    /*
-     * public ToolRecipe(Item head, ToolCore tool) { this(head, TContent.toolRod, null, null, tool); }
-     */
-
     public ToolRecipe(Item head, Item handle, ToolCore tool) {
         this(head, handle, null, null, tool);
     }

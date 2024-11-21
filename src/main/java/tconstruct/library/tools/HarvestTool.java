@@ -120,9 +120,6 @@ public abstract class HarvestTool extends ToolCore {
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float clickX, float clickY, float clickZ) {
-        /*
-         * if (world.isRemote) return true;
-         */
 
         boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
@@ -196,11 +193,6 @@ public abstract class HarvestTool extends ToolCore {
             }
         }
 
-        /*
-         * if (used) //Update client { Packet103SetSlot packet = new Packet103SetSlot(player.openContainer.windowId,
-         * itemSlot, nearbyStack); ((EntityPlayerMP)player).playerNetServerHandler.sendPacketToPlayer(packet); }
-         */
-
         return used;
     }
 
@@ -255,7 +247,6 @@ public abstract class HarvestTool extends ToolCore {
         if (!world.isRemote) {
             // serverside we reproduce ItemInWorldManager.tryHarvestBlock
 
-            // ItemInWorldManager.removeBlock
             block.onBlockHarvested(world, x, y, z, meta, player);
 
             if (block.removedByPlayer(world, player, x, y, z, true)) // boolean is if block can be harvested, checked
@@ -271,7 +262,6 @@ public abstract class HarvestTool extends ToolCore {
         }
         // client sided handling
         else {
-            // PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
             // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send
             // any new packets
             // the code above, executed on the server, sends a block-updates that give us the correct state of the block

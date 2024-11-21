@@ -92,8 +92,9 @@ public abstract class ItemModifier {
 
     public void addMatchingEffect(ItemStack input) {
         NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
-        if (tags.hasKey("Effect6") || tags.hasKey(key)) return;
-        else if (tags.hasKey("Effect5")) {
+        if (tags.hasKey("Effect6") || tags.hasKey(key)) {
+            // do nothing
+        } else if (tags.hasKey("Effect5")) {
             tags.setInteger("Effect6", effectIndex);
         } else if (tags.hasKey("Effect4")) {
             tags.setInteger("Effect5", effectIndex);

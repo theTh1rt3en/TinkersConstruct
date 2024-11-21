@@ -29,19 +29,6 @@ public final class TextureHelper {
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean blockTextureExists(String texture) {
-
-        int i = texture.indexOf(':');
-
-        if (i > 0) {
-            texture = texture.substring(0, i) + ":textures/blocks/" + texture.substring(i + 1);
-        } else {
-            texture = "textures/blocks/" + texture;
-        }
-        return textureExists(texture + ".png");
-    }
-
-    @SideOnly(Side.CLIENT)
     public static boolean itemTextureExists(String texture) {
 
         int i = texture.indexOf(':');

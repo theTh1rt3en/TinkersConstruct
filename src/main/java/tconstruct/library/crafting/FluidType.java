@@ -47,12 +47,4 @@ public class FluidType {
         return null;
     }
 
-    public static int getTemperatureByFluid(Fluid searchedFluid) {
-        for (Map.Entry<String, FluidType> stringFluidTypeEntry : fluidTypes.entrySet()) {
-            if (stringFluidTypeEntry.getValue().fluid.equals(searchedFluid)) {
-                return stringFluidTypeEntry.getValue().baseTemperature;
-            }
-        }
-        return 800;
-    }
 }

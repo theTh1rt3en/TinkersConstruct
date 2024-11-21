@@ -77,18 +77,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         // our stuff
         returnStack = stack;
-
-        /*
-         * // fix upward default angle motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F - 0.2f);
-         * setArrowHeading(motionX, motionY, motionZ, speed, 0.0f); // set better position and move it a tad so we don't
-         * hit ourselves. this.setPosition(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-         */
-        /*
-         * double l = Math.sqrt(motionX*motionX + motionY*motionY + motionZ*motionZ); double vx = motionX/l; double vy =
-         * motionY/l; double vz = motionZ/l; posX += vx*1.5f; posY += vy*1.5f; posZ += vz*1.5f;
-         */
-
-        // init();
     }
 
     public ItemStack getEntityItem() {
@@ -213,7 +201,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         float baseAttack = tags.getInteger("BaseAttack");
         float totalAttack = tags.getInteger("Attack");
         float damage = speed * baseAttack; // todo: potentially change this back to MathHelper.ceiling_float_int to get
-                                           // 1/2 heart
+        // 1/2 heart
         // steps back
 
         // add quartz damage
@@ -222,7 +210,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         // this is needed so really high scaling bow&arrow combinations don't get out of hand
         if (this instanceof ArrowEntity) damage = Math.max(0, damage - totalAttack / 2f);
 
-        boolean shotByPlayer = this.shootingEntity != null && this.shootingEntity instanceof EntityPlayer;
+        boolean shotByPlayer = this.shootingEntity instanceof EntityPlayer;
 
         // Damage calculations and stuff. For reference see AbilityHelper.onLeftClickEntity
         ToolCore ammo = (ToolCore) returnStack.getItem();
@@ -315,7 +303,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
                 this.posY = movingobjectposition.entityHit.posY + movingobjectposition.entityHit.height / 2d;
                 this.posZ = movingobjectposition.entityHit.posZ;
                 this.defused = true;
-                // this.shootingEntity = movingobjectposition.entityHit;
             }
         }
     }
@@ -462,16 +449,11 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             if (entity != null) movingobjectposition = new MovingObjectPosition(entity);
 
             // did we hit a player?
-            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
-
-                // can we attack said player?
-                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer
-                        && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))
-                    movingobjectposition = null;
-
-                // this check should probably done inside of the loop for accuracy..
-            }
+            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer entityplayer
+                    && (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer
+                            && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer)))
+                movingobjectposition = null;
+            // this check should probably done inside of the loop for accuracy..
         }
 
         // time to hit the object
@@ -599,14 +581,15 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         }
     }
 
-    /** NBT stuff **/
+    /**
+     * NBT stuff
+     **/
     @Override
     public void writeEntityToNBT(NBTTagCompound tags) {
         super.writeEntityToNBT(tags);
 
         tags.setTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
         tags.setByte("onGround", (byte) (onGround ? 1 : 0));
-        // tags.setBoolean("Retrieval", doNotRetrieve);
     }
 
     @Override
@@ -615,7 +598,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         this.returnStack = ItemStack.loadItemStackFromNBT(tags.getCompoundTag("Throwable"));
         onGround = tags.getByte("onGround") == 1;
-        // doNotRetrieve = tags.getBoolean("Retrieval");
 
         // ensure that nothing can crash because something went wrong in the world...
         if (this.returnStack == null || !(this.returnStack.getItem() instanceof ToolCore)) {

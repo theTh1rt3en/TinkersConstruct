@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.core.item.IEqualityOverrideItem;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tconstruct.library.ActiveToolMod;
@@ -604,7 +605,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
         ItemStack nearbyStack;
@@ -737,7 +737,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     /* IEnergyContainerItem */
     @Override
-    @Optional.Method(modid = "CoFHAPI|energy")
+    @Method(modid = "CoFHAPI|energy")
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
         NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy")) return 0;
@@ -751,14 +751,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         if (!simulate) {
             energy += energyReceived;
             tags.setInteger("Energy", energy);
-            // container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) /
-            // getMaxEnergyStored(container));
         }
         return energyReceived;
     }
 
     @Override
-    @Optional.Method(modid = "CoFHAPI|energy")
+    @Method(modid = "CoFHAPI|energy")
     public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
         NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy")) {
@@ -773,14 +771,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         if (!simulate) {
             energy -= energyExtracted;
             tags.setInteger("Energy", energy);
-            // container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) /
-            // getMaxEnergyStored(container));
         }
         return energyExtracted;
     }
 
     @Override
-    @Optional.Method(modid = "CoFHAPI|energy")
+    @Method(modid = "CoFHAPI|energy")
     public int getEnergyStored(ItemStack container) {
         NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy")) {
@@ -790,7 +786,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     @Override
-    @Optional.Method(modid = "CoFHAPI|energy")
+    @Method(modid = "CoFHAPI|energy")
     public int getMaxEnergyStored(ItemStack container) {
         NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy")) return 0;
@@ -801,7 +797,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     @Override
-    @Optional.Method(modid = "CoFHCore")
+    @Method(modid = "CoFHCore")
     public boolean isLastHeldItemEqual(ItemStack current, ItemStack previous) {
         if (!current.hasTagCompound() || !previous.hasTagCompound()) return false;
 

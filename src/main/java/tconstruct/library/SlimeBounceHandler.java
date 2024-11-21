@@ -16,7 +16,6 @@ import tconstruct.gadgets.item.ItemSlimeBoots;
 /** Logic for entities bouncing */
 public class SlimeBounceHandler {
 
-    public static final float SQRT_2 = sqrt(2.0F);
     private static final double FRAC_BIAS;
     private static final double[] ASINE_TAB;
     private static final double[] COS_TAB;
@@ -168,10 +167,6 @@ public class SlimeBounceHandler {
             }
         }
         return false;
-    }
-
-    public static float sqrt(float value) {
-        return (float) Math.sqrt(value);
     }
 
     public static double atan2(double aArg1, double aArg2) {

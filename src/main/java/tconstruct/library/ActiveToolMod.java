@@ -46,9 +46,6 @@ public class ActiveToolMod {
         return modDamage;
     }
 
-    public void lateAttackEntity() // Unfinished, not called
-    {}
-
     /* Damage tool */
     public boolean damageTool(ItemStack stack, int damage, EntityLivingBase entity) {
         return false;

@@ -1,6 +1,5 @@
 package tconstruct.library.crafting;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,7 @@ public class StencilBuilder {
     public static StencilBuilder instance = new StencilBuilder();
 
     public List<ItemStack> blanks = new LinkedList<>(); // i wish ItemStack would support equals so i could use a Set
-                                                        // here...
+    // here...
     public Map<Integer, ItemStack> stencils = new TreeMap<>();
 
     /**
@@ -23,8 +22,8 @@ public class StencilBuilder {
      */
     public static boolean isBlank(ItemStack stack) {
         for (ItemStack blank : instance.blanks) if (OreDictionary.itemMatches(stack, blank, false)) // this has nothing
-                                                                                                    // to do with the
-                                                                                                    // oredictionary.
+            // to do with the
+            // oredictionary.
             return true;
 
         return false;
@@ -47,10 +46,6 @@ public class StencilBuilder {
         instance.stencils.put(id, pattern);
     }
 
-    public static Collection<ItemStack> getStencils() {
-        return instance.stencils.values();
-    }
-
     /**
      * Returns the index of the given stencil. If no stencil is found, returns -1.
      */
@@ -66,9 +61,5 @@ public class StencilBuilder {
         if (!instance.stencils.containsKey(num)) return null;
 
         return instance.stencils.get(num).copy();
-    }
-
-    public static int getStencilCount() {
-        return instance.stencils.size();
     }
 }

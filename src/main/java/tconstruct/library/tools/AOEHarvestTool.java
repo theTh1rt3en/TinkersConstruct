@@ -42,7 +42,6 @@ public abstract class AOEHarvestTool extends HarvestTool {
         MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(player.worldObj, player, false, 4.5d);
         if (mop == null) return super.onBlockStartBreak(stack, x, y, z, player);
         int sideHit = mop.sideHit;
-        // int sideHit = Minecraft.getMinecraft().objectMouseOver.sideHit;
 
         // we successfully destroyed a block. time to do AOE!
         int xRange = breakRadius;

@@ -52,16 +52,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         this.setCreativeTab(TConstructRegistry.equipableTab);
     }
 
-    public ArmorCore(int baseProtection, ArmorPart part, String type, String textureName) {
-        this(baseProtection, part, type, "armor", textureName);
-    }
-
-    // Temporary?
     public abstract ItemStack getRepairMaterial(ItemStack input);
-
-    public String getArmorName() {
-        return this.getClass().getSimpleName();
-    }
 
     @Override
     public String getBaseTagName() {
@@ -241,7 +232,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
                 }
             }
         }
-        float ratio = ((float) max - (float) damage) / (float) max * (types * 5) + 0.1f;
+        float ratio = ((float) max - (float) damage) / max * (types * 5) + 0.1f;
         int minimum = anyAlive ? 1 : 0;
         if (ratio < minimum) ratio = minimum;
         return (int) ratio;
@@ -335,25 +326,6 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
 
     public boolean isValidArmor(ItemStack stack, int armorType, Entity entity) {
         return this.armorPart.getPartId() == armorType;
-    }
-
-    /* Proper stack damage */
-    public int getItemMaxDamageFromStack(ItemStack stack) {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null) {
-            return 0;
-        }
-
-        return tags.getCompoundTag(getBaseTagName()).getInteger("TotalDurability");
-    }
-
-    public int getItemMaxDamageFromStackForDisplay(ItemStack stack) {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null) {
-            return 0;
-        }
-
-        return tags.getCompoundTag(getBaseTagName()).getInteger("Damage");
     }
 
     private final DecimalFormat df = new DecimalFormat("##.#");

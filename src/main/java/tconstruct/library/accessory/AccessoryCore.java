@@ -47,13 +47,6 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
         return traits;
     }
 
-    /*
-     * public void getSubItems (int id, CreativeTabs tab, List list) { ItemStack glove = new ItemStack(this);
-     * NBTTagCompound baseTag = new NBTTagCompound(); NBTTagCompound tag = new NBTTagCompound(); tag.setBoolean("Built",
-     * true); tag.setInteger("Modifiers", 5); baseTag.setTag(getBaseTag(), tag); glove.setTagCompound(baseTag);
-     * list.add(glove); }
-     */
-
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
@@ -155,7 +148,7 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
                     String tooltip = "Tooltip" + tipNum;
                     if (tags.hasKey(tooltip)) {
                         String tipName = tags.getString(tooltip);
-                        if (!tipName.equals("")) list.add(tipName);
+                        if (!tipName.isEmpty()) list.add(tipName);
                     } else displayToolTips = false;
                 }
             }

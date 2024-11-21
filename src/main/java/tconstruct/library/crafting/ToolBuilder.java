@@ -43,7 +43,6 @@ public class ToolBuilder {
     }
 
     public static void addNormalToolRecipe(ToolCore output, Item head, Item handle, Item accessory) {
-        // instance.combos.add(new ToolRecipe(head, accessory, output));
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null) {
             recipe.addHeadItem(head);
@@ -68,10 +67,6 @@ public class ToolBuilder {
             instance.combos.add(recipe);
             instance.recipeList.put(output.getToolName(), recipe);
         }
-    }
-
-    public static void addCustomToolRecipe(ToolRecipe recipe) {
-        instance.combos.add(recipe);
     }
 
     public static void addToolRecipe(ToolCore output, Item... items) {
@@ -106,10 +101,6 @@ public class ToolBuilder {
 
     public ItemStack buildTool(ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack,
             ItemStack extraStack, String name) {
-        /*
-         * if (headStack != null && headStack.getItem() instanceof ToolCore) return modifyTool(headStack, new
-         * ItemStack[] { handleStack, accessoryStack, extraStack }, name);
-         */
 
         if (headStack == null || handleStack == null) // Nothing to build without these. All tools need at least two
                                                       // parts!
@@ -292,17 +283,6 @@ public class ToolBuilder {
 
         return tool;
     }
-
-    /*
-     * @Deprecated public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack
-     * extraStack, String name) { if (extraStack != null) return null; ItemStack tool = input.copy(); NBTTagCompound
-     * tags = tool.getTagCompound().getCompoundTag("InfiTool"); tags.removeTag("Built"); if (topSlot == null &&
-     * bottomSlot == null) return tool; boolean built = false; for (ToolMod mod : toolMods) { ItemStack[] slots = new
-     * ItemStack[] { topSlot, bottomSlot }; if (mod.matches(slots, tool)) { built = true; mod.addMatchingEffect(tool);
-     * mod.modify(slots, tool); } } tags = tool.getTagCompound(); if (name != null && !name.equals("") &&
-     * !tags.hasKey("display")) { tags.setCompoundTag("display", new NBTTagCompound());
-     * tags.getCompoundTag("display").setString("Name", "\u00A7f" + name); } if (built) return tool; else return null; }
-     */
 
     int buildReinforced(ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat,
             ToolMaterial extraMat) {

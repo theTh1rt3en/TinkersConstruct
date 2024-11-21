@@ -36,10 +36,6 @@ public class DynamicToolPart extends CraftingItem implements IToolPart {
         this(texture, name, "tinker", customMaterialClass);
     }
 
-    public DynamicToolPart(String texture, String name, String domain) {
-        this(texture, name, domain, null);
-    }
-
     public DynamicToolPart(String texture, String name, String domain,
             Class<? extends CustomMaterial> customMaterialClass) {
         super(null, null, "parts/", domain, TConstructRegistry.partTab);

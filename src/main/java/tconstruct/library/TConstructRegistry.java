@@ -118,19 +118,6 @@ public class TConstructRegistry {
         itemstackDirectory.put(name, itemstack);
     }
 
-    /**
-     * Retrieves an itemstack from the directory
-     *
-     * @param name The name of the item to get
-     * @return Item associated with the name, or null if not present.
-     */
-    public static ItemStack getItemStack(String name) {
-        ItemStack ret = itemstackDirectory.get(name);
-        if (ret == null) logger.warn("Could not find " + name + " in the ItemStack directory");
-
-        return ret;
-    }
-
     public static ArrayList<ToolCore> tools = new ArrayList<>(20);
 
     // Parts
@@ -187,7 +174,6 @@ public class TConstructRegistry {
      * @param parts  Pieces to make the tool with
      */
     public static void addToolRecipe(ToolCore output, Item... parts) {
-        ToolBuilder tb = ToolBuilder.instance;
         if (parts.length < 2 || parts.length > 4) logger.warn("Wrong amount of items to craft into a tool");
 
         ToolBuilder.addToolRecipe(output, parts);
@@ -232,44 +218,6 @@ public class TConstructRegistry {
         if (mat == null) {
             mat = new ToolMaterial(
                     materialName,
-                    harvestLevel,
-                    durability,
-                    miningspeed,
-                    attack,
-                    handleModifier,
-                    reinforced,
-                    stonebound,
-                    style,
-                    primaryColor);
-            toolMaterials.put(materialID, mat);
-            toolMaterialStrings.put(materialName, mat);
-        } else throw new IllegalArgumentException(
-                "[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
-    }
-
-    /**
-     * Adds a tool material to the registry
-     *
-     * @param materialID       Unique ID, stored for each part
-     * @param materialName     Unique name for data lookup purposes
-     * @param localizationName The string used to localize the material name
-     * @param harvestLevel     The materials which the tool can harvest. Pickaxe levels - 0: Wood, 1: Stone, 2:
-     *                         Redstone/Diamond, 3: Obsidian, 4: Cobalt/Ardite, 5: Manyullyn
-     * @param durability       Base durability of the tool, affects tool heads.
-     * @param miningspeed      Base mining speed, divided by 100 in use
-     * @param attack           Base attack
-     * @param handleModifier   Durability multiplier on the tool
-     * @param reinforced       Reinforced level
-     * @param stonebound       Amount of Stonebound to put on the tool. Negative numbers are Spiny.
-     */
-    public static void addToolMaterial(int materialID, String materialName, String localizationName, int harvestLevel,
-            int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound,
-            String style, int primaryColor) {
-        ToolMaterial mat = toolMaterials.get(materialID);
-        if (mat == null) {
-            mat = new ToolMaterial(
-                    materialName,
-                    localizationName,
                     harvestLevel,
                     durability,
                     miningspeed,
@@ -399,10 +347,6 @@ public class TConstructRegistry {
         } else throw new IllegalArgumentException("[TCon API] Bow Material ID " + materialID + " is already occupied");
     }
 
-    public static boolean validBowMaterial(int materialID) {
-        return bowMaterials.containsKey(materialID);
-    }
-
     public static BowMaterial getBowMaterial(int materialID) {
         return bowMaterials.get(materialID);
     }
@@ -421,10 +365,6 @@ public class TConstructRegistry {
             arrowMaterials.put(materialID, mat);
         } else
             throw new IllegalArgumentException("[TCon API] Arrow Material ID " + materialID + " is already occupied");
-    }
-
-    public static boolean validArrowMaterial(int materialID) {
-        return arrowMaterials.containsKey(materialID);
     }
 
     public static ArrowMaterial getArrowMaterial(int materialID) {
@@ -507,19 +447,6 @@ public class TConstructRegistry {
         }
         return null;
     }
-
-    /*
-     * public static CustomMaterial getCustomMaterial(ItemStack input, ItemStack pattern) { for (CustomMaterial mat :
-     * customMaterials) { if (mat.matches(input, pattern)) return mat; } return null; }
-     */
-
-    /*
-     * public static ItemStack craftBowString(ItemStack stack) { if (stack.stackSize < 3) return null; for
-     * (BowstringMaterial mat : bowstringMaterials) { if (stack.isItemEqual(mat.input)) return mat.craftingItem.copy();
-     * } return null; } public static BowstringMaterial getBowstringMaterial(ItemStack stack) { if (stack.stackSize < 3)
-     * return null; for (BowstringMaterial mat : bowstringMaterials) { if (stack.isItemEqual(mat.input)) return mat; }
-     * return null; }
-     */
 
     public static LiquidCasting getTableCasting() {
         return instance.tableCasting();

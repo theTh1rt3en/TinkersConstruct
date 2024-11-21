@@ -10,17 +10,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.InterfaceList;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battlegear2.api.PlayerEventChild;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import tconstruct.tools.TinkerTools;
 
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
-        @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword"),
-        @Optional.Interface(modid = "DynamicSkillsAPI", iface = "dynamicswordskills.api.ISword") })
+@InterfaceList(
+        value = { @Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
+                @Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword"),
+                @Interface(modid = "DynamicSkillsAPI", iface = "dynamicswordskills.api.ISword") })
 public abstract class Weapon extends ToolCore
         implements IBattlegearWeapon, zeldaswordskills.api.item.ISword, dynamicswordskills.api.ISword {
 
@@ -121,44 +123,44 @@ public abstract class Weapon extends ToolCore
     /*---- Battlegear Support START ----*/
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean sheatheOnBack(ItemStack item) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean isOffhandHandDual(ItemStack off) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem,
             ItemStack offhandItem) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
         // unused
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
         if (offhand == null) return true;
 

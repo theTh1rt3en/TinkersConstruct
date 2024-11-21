@@ -74,11 +74,6 @@ public class AbilityHelper {
                 NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
                 boolean broken = toolTags.getBoolean("Broken");
 
-                int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
-                float stonebound = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-
-                float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
-
                 int damage = calcDamage(player, entity, stack, tool, toolTags, baseDamage);
                 float knockback = calcKnockback(player, entity, stack, tool, toolTags, baseDamage);
 
@@ -133,7 +128,6 @@ public class AbilityHelper {
                     if (causedDamage) {
                         damageTool(stack, 1, tags, player, false);
 
-                        // damageTool(stack, 1, player, false);
                         tool.onEntityDamaged(player.worldObj, player, entity);
                         if (!necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase
                                 && ((EntityLivingBase) entity).getHealth() <= 0)) {
@@ -170,9 +164,7 @@ public class AbilityHelper {
                         player.setLastAttacker(entity);
 
                         if (entity instanceof EntityLivingBase) {
-                            DamageSource.causeThornsDamage(entity); // (((EntityLivingBase)player,
-                            // (EntityLivingBase)
-                            // entity);
+                            DamageSource.causeThornsDamage(entity);
                         }
                     }
 
@@ -385,8 +377,6 @@ public class AbilityHelper {
                 breakTool(stack, tags, entity);
             } else {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
-                int toolDamage = (damage * 100 / maxDamage) + 1;
-                int stackDamage = stack.getItemDamage();
             }
         }
     }
@@ -397,7 +387,6 @@ public class AbilityHelper {
         NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
         int energy = tags.getInteger("Energy");
         int durability = toolTag.getInteger("Damage");
-        float shoddy = toolTag.getFloat("Shoddy");
 
         float mineSpeed = toolTag.getInteger("MiningSpeed");
         int heads = 1;
@@ -437,9 +426,6 @@ public class AbilityHelper {
 
             energy -= usage;
             tags.setInteger("Energy", energy);
-
-            // stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) /
-            // tool.getMaxEnergyStored(stack));
         }
         return true;
     }
@@ -507,7 +493,6 @@ public class AbilityHelper {
 
     public static void knockbackEntity(EntityLivingBase living, double boost) {
         living.motionX *= boost;
-        // living.motionY *= boost/2;
         living.motionZ *= boost;
     }
 
@@ -532,9 +517,9 @@ public class AbilityHelper {
                     && (block == Blocks.grass || block == Blocks.dirt)) {
                 Block block1 = Blocks.farmland;
                 world.playSoundEffect(
-                        (float) x + 0.5F,
-                        (float) y + 0.5F,
-                        (float) z + 0.5F,
+                        x + 0.5F,
+                        y + 0.5F,
+                        z + 0.5F,
                         block1.stepSound.getStepResourcePath(),
                         (block1.stepSound.getVolume() + 1.0F) / 2.0F,
                         block1.stepSound.getPitch() * 0.8F);
@@ -671,7 +656,7 @@ public class AbilityHelper {
         if (player instanceof EntityPlayerMP) {
             d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
-        Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+        Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
         return world.func_147447_a(vec3, vec31, par3, !par3, par3);
     }
 

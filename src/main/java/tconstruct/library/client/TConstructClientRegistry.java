@@ -1,10 +1,8 @@
 package tconstruct.library.client;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import mantle.lib.client.MantleClientRegistry;
@@ -14,12 +12,10 @@ import tconstruct.library.tools.ToolCore;
 
 public class TConstructClientRegistry {
 
-    public static ArrayList<StencilGuiElement> stencilButtons = new ArrayList<>();
-    public static ArrayList<StencilGuiElement> stencilButtons2 = new ArrayList<>();
-    public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<>(20);
-    public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<>();
-    public static Map<String, ItemStack> manualIcons = new HashMap<>();
-    public static ItemStack defaultStack = new ItemStack(Items.iron_ingot);
+    public static List<StencilGuiElement> stencilButtons = new ArrayList<>();
+    public static List<StencilGuiElement> stencilButtons2 = new ArrayList<>();
+    public static List<ToolGuiElement> toolButtons = new ArrayList<>(20);
+    public static List<ToolGuiElement> tierTwoButtons = new ArrayList<>();
 
     public static void addMaterialRenderMapping(int materialID, String domain, String renderName,
             boolean useDefaultFolder) {
@@ -55,24 +51,6 @@ public class TConstructClientRegistry {
         tool.registerEffectPath(materialID, icon);
     }
 
-    public static void addEffectRenderMapping(int materialID, String domain, String renderName,
-            boolean useDefaultFolder) {
-        for (ToolCore tool : TConstructRegistry.getToolMapping()) {
-            String icon = domain + ":";
-            if (useDefaultFolder) icon += tool.getDefaultFolder() + "/";
-            icon += renderName + tool.getEffectSuffix();
-            tool.registerEffectPath(materialID, icon);
-        }
-    }
-
-    public static void addSingleEffectRenderMapping(ToolCore tool, int materialID, String domain, String renderName,
-            boolean useDefaultFolder) {
-        String icon = domain + ":";
-        if (useDefaultFolder) icon += tool.getDefaultFolder() + "/";
-        icon += renderName + tool.getEffectSuffix();
-        tool.registerEffectPath(materialID, icon);
-    }
-
     public static void registerManualModifier(String name, ItemStack output, ItemStack topinput) {
         registerManualModifier(name, output, topinput, null);
     }
@@ -87,11 +65,6 @@ public class TConstructClientRegistry {
         recipe[1] = topinput;
         recipe[2] = bottominput;
         MantleClientRegistry.recipeIcons.put(name, recipe);
-    }
-
-    public static void registerManualModifier(String name, ItemStack output, ItemStack input1, ItemStack input2,
-            ItemStack input3) {
-        registerManualModifier(name, output, input1, input2, input3, null);
     }
 
     public static void registerManualModifier(String name, ItemStack output, ItemStack input1, ItemStack input2,
@@ -113,17 +86,8 @@ public class TConstructClientRegistry {
         MantleClientRegistry.recipeIcons.put(name, recipe);
     }
 
-    // Gui
-    public static void addStencilButton(StencilGuiElement element) {
-        stencilButtons.add(element);
-    }
-
     public static void addStencilButton(int xButton, int yButton, int index, String domain, String texture) {
         stencilButtons.add(new StencilGuiElement(xButton, yButton, index, domain, texture));
-    }
-
-    public static void addStencilButton2(StencilGuiElement element) {
-        stencilButtons.add(element);
     }
 
     // adds a button to the right side of the stencil table
@@ -148,9 +112,5 @@ public class TConstructClientRegistry {
             String title, String body, String domain, String texture) {
         tierTwoButtons
                 .add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, domain, texture));
-    }
-
-    public static ArrayList<ToolGuiElement> getToolButtons() {
-        return toolButtons;
     }
 }

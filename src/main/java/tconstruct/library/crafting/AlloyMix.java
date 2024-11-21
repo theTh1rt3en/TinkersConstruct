@@ -15,10 +15,6 @@ public class AlloyMix {
         mixers = inputs;
     }
 
-    /*
-     * public boolean matches(List liquids) { ArrayList list = new ArrayList(mixers); return false; }
-     */
-
     public FluidStack mix(List<FluidStack> liquids) {
         ArrayList<FluidStack> copyMix = new ArrayList<>(mixers);
         ArrayList<Integer> effectiveAmount = new ArrayList<>();
@@ -37,7 +33,7 @@ public class AlloyMix {
             }
         }
 
-        if (copyMix.size() > 0) return null;
+        if (!copyMix.isEmpty()) return null;
 
         // Remove old liquids
         int low = getLowestAmount(effectiveAmount);
@@ -46,8 +42,6 @@ public class AlloyMix {
         for (int i = 0; i < liquids.size(); i++) {
             FluidStack liquid = liquids.get(i);
             for (FluidStack mixer : copyMix2) {
-                // if (mixer.itemID == liquid.itemID && mixer.itemMeta ==
-                // liquid.itemMeta)
                 if (mixer.isFluidEqual(liquid)) {
                     int eAmt = low * mixer.amount;
                     liquid.amount -= eAmt;
