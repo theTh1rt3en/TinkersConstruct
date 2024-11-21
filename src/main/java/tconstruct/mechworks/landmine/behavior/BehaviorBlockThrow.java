@@ -26,19 +26,15 @@ public class BehaviorBlockThrow extends Behavior {
             switch (direction) {
                 case 0:
                     vec0 = speed + par1World.rand.nextDouble() * randomnessFactor;
-                    // vec2 = par1World.rand.nextDouble() * randomnessFactor;
                     break;
                 case 1:
                     vec0 = -speed + par1World.rand.nextDouble() * randomnessFactor;
-                    // vec2 = par1World.rand.nextDouble() * randomnessFactor;
                     break;
                 case 2:
                     vec2 = speed + par1World.rand.nextDouble() * randomnessFactor;
-                    // vec0 = par1World.rand.nextDouble() * randomnessFactor;
                     break;
                 case 3:
                     vec2 = -speed + par1World.rand.nextDouble() * randomnessFactor;
-                    // vec0 = par1World.rand.nextDouble() * randomnessFactor;
                     break;
                 case 4:
                     vec0 = speed + par1World.rand.nextDouble() * randomnessFactor;
@@ -63,9 +59,9 @@ public class BehaviorBlockThrow extends Behavior {
 
             EntityFallingBlock entityfallingsand = new EntityFallingBlock(
                     par1World,
-                    (float) par2 + 0.5F,
-                    (float) par3 + 2F,
-                    (float) par4 + 0.5F,
+                    par2 + 0.5F,
+                    par3 + 2F,
+                    par4 + 0.5F,
                     BlockUtils.getBlockFromItemStack(par5ItemStack),
                     par5ItemStack.getItemDamage());
             entityfallingsand.preventEntitySpawning = false;

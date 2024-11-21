@@ -27,22 +27,12 @@ public class ItemBlockLandmine extends ItemBlock {
 
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        String interaction;
-
-        switch (par1ItemStack.getItemDamage()) {
-            case 0:
-                interaction = StatCollector.translateToLocal("landmine1.tooltip");
-                break;
-            case 1:
-                interaction = StatCollector.translateToLocal("landmine2.tooltip");
-                break;
-            case 2:
-                interaction = StatCollector.translateToLocal("landmine3.tooltip");
-                break;
-            default:
-                interaction = StatCollector.translateToLocal("landmine4.tooltip");
-                break;
-        }
+        String interaction = switch (par1ItemStack.getItemDamage()) {
+            case 0 -> StatCollector.translateToLocal("landmine1.tooltip");
+            case 1 -> StatCollector.translateToLocal("landmine2.tooltip");
+            case 2 -> StatCollector.translateToLocal("landmine3.tooltip");
+            default -> StatCollector.translateToLocal("landmine4.tooltip");
+        };
 
         par3List.add(StatCollector.translateToLocal("landmine5.tooltip") + interaction);
     }

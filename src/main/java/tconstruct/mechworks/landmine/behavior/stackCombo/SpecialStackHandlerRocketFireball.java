@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.init.Items;
@@ -40,19 +39,7 @@ public class SpecialStackHandlerRocketFireball extends SpecialStackHandler {
                 par1World.spawnEntityInWorld(fireball);
 
                 if (triggerer instanceof EntityLivingBase) {
-                    boolean shouldRun = true;
-                    if (triggerer instanceof EntityPlayer) {
-                        EntityPlayer player = (EntityPlayer) triggerer;
-                        // if (player.capabilities.isCreativeMode) {
-                        // Remove the bellow comment to make the player in
-                        // creative mode not get launched
-                        // shouldRun = false;
-                        // }
-                    }
-
-                    if (shouldRun) {
-                        triggerer.mountEntity(fireball);
-                    }
+                    triggerer.mountEntity(fireball);
                 }
 
                 this.removeItemFromInventory(par1World, par2, par3, par4, new ItemStack(Items.fireworks, 1));

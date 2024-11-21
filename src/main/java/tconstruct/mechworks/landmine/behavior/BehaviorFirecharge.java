@@ -48,9 +48,4 @@ public class BehaviorFirecharge extends Behavior {
             }
         }
     }
-
-    @Override
-    public boolean isOffensive(ItemStack par1ItemStack) {
-        return true;
-    }
 }

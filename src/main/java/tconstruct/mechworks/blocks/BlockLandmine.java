@@ -46,9 +46,7 @@ import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.world.model.RenderLandmine;
 
 /**
- *
  * @author fuj1n
- *
  */
 public class BlockLandmine extends BlockContainer {
 
@@ -62,17 +60,26 @@ public class BlockLandmine extends BlockContainer {
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
     }
 
+    public static int invertMetadata(int par0) {
+        return switch (par0) {
+            case 0 -> 0;
+            case 1 -> 5;
+            case 2 -> 4;
+            case 3 -> 3;
+            case 4 -> 2;
+            case 5 -> 1;
+            default -> -1;
+        };
+    }
+
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        if (world.getBlock(x, y, z) == this && world.getTileEntity(x, y, z) instanceof TileEntityLandmine) {
-            TileEntityLandmine te = (TileEntityLandmine) world.getTileEntity(x, y, z);
-
-            if (te != null) {
-                if (te.getStackInSlot(3) != null && te.getStackInSlot(3).getItem() instanceof ItemBlock) {
-                    return (BlockUtils.getBlockFromItem(te.getStackInSlot(3).getItem())).getLightValue();
-                }
-            }
+        if (world.getBlock(x, y, z) == this && world.getTileEntity(x, y, z) instanceof TileEntityLandmine te
+                && te.getStackInSlot(3) != null
+                && te.getStackInSlot(3).getItem() instanceof ItemBlock) {
+            return (BlockUtils.getBlockFromItem(te.getStackInSlot(3).getItem())).getLightValue();
         }
+
         return super.getLightValue(world, x, y, z);
     }
 
@@ -133,8 +140,6 @@ public class BlockLandmine extends BlockContainer {
     @Override
     public void breakBlock(World par1World, int par2, int par3, int par4, Block par5Block, int par6) {
         TileEntityLandmine tileentity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
-
-        int metadata = par1World.getBlockMetadata(par2, par3, par4);
 
         if (tileentity != null && (!explodeOnBroken || !hasItems(par1World, par2, par3, par4))
                 && par6 != 193
@@ -219,7 +224,6 @@ public class BlockLandmine extends BlockContainer {
     public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7,
             float par8, int par9) {
         int j1 = par9 & 8;
-        int k1 = par9 & 7;
         byte b0 = -1;
 
         if (par5 == 0 && par1World.isSideSolid(par2, par3 + 1, par4, DOWN)) {
@@ -276,18 +280,6 @@ public class BlockLandmine extends BlockContainer {
             ((TileEntityLandmine) par1World.getTileEntity(par2, par3, par4))
                     .setGuiDisplayName(par6ItemStack.getDisplayName());
         }
-    }
-
-    public static int invertMetadata(int par0) {
-        return switch (par0) {
-            case 0 -> 0;
-            case 1 -> 5;
-            case 2 -> 4;
-            case 3 -> 3;
-            case 4 -> 2;
-            case 5 -> 1;
-            default -> -1;
-        };
     }
 
     @Override
@@ -370,13 +362,7 @@ public class BlockLandmine extends BlockContainer {
             if (hasItems(par1World, par2, par3, par4)) {
                 TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
                 if (te.soundcountything <= 0) {
-                    par1World.playSoundEffect(
-                            (double) par2 + 0.5D,
-                            (double) par3 + 0.1D,
-                            (double) par4 + 0.5D,
-                            "random.click",
-                            0.3F,
-                            0.6F);
+                    par1World.playSoundEffect(par2 + 0.5D, par3 + 0.1D, par4 + 0.5D, "random.click", 0.3F, 0.6F);
                     te.setSoundPlayed();
                 }
                 new LandmineExplodeLogic(par1World, par2, par3, par4, getMineTriggerer(par1World, par2, par3, par4))
@@ -445,7 +431,6 @@ public class BlockLandmine extends BlockContainer {
         float f = 0.125F;
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
-        boolean flag = (l & 8) > 0;
 
         float minX = par2 + f, minY = par3, minZ = par4 + f, maxX = par2 + 1 - f, maxY = par3 + 0.25F,
                 maxZ = par4 + 1 - f;
@@ -529,7 +514,6 @@ public class BlockLandmine extends BlockContainer {
     public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
         int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
-        boolean flag = (l & 8) > 0;
 
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
         switch (dir) {

@@ -18,6 +18,7 @@ import tconstruct.world.entity.CartEntity;
 @SideOnly(Side.CLIENT)
 public class CartRender extends Render {
 
+    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/pullcart.png");
     protected ModelBase modelCart;
     RenderBlocks renderblocks;
 
@@ -31,9 +32,9 @@ public class CartRender extends Render {
         GL11.glPushMatrix();
         long var10 = (long) cart.hashCode() * 493286711L;
         var10 = var10 * var10 * 4392167121L + var10 * 98761L;
-        float var12 = (((float) (var10 >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
-        float var13 = (((float) (var10 >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
-        float var14 = (((float) (var10 >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float var12 = (((var10 >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float var13 = (((var10 >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float var14 = (((var10 >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         GL11.glTranslatef(var12, var13, var14);
         double var15 = cart.lastTickPosX + (cart.posX - cart.lastTickPosX) * (double) par9;
         double var17 = cart.lastTickPosY + (cart.posY - cart.lastTickPosY) * (double) par9;
@@ -85,7 +86,6 @@ public class CartRender extends Render {
         }
 
         if (cart.getCartType() != 0) {
-            // this.loadTexture("/terrain.png");
             float var29 = 0.75F;
             GL11.glScalef(var29, var29, var29);
 
@@ -102,11 +102,8 @@ public class CartRender extends Render {
                 GL11.glTranslatef(0.0F, -0.3125F, 0.0F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             }
-
-            // GL11.glScalef(1.0F / var29, 1.0F / var29, 1.0F / var29);
         }
 
-        // this.loadTexture("/tinkertextures/entity/pullcart.png");
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
         this.modelCart.render(cart, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         GL11.glPopMatrix();
@@ -127,6 +124,4 @@ public class CartRender extends Render {
     protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return texture;
     }
-
-    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/pullcart.png");
 }

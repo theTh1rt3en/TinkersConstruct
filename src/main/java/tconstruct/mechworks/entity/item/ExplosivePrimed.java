@@ -18,7 +18,6 @@ public class ExplosivePrimed extends Entity {
 
     public int metadata;
     public int fuse;
-    private EntityLivingBase tntPlacedBy;
 
     public ExplosivePrimed(World par1World) {
         super(par1World);
@@ -39,7 +38,6 @@ public class ExplosivePrimed extends Entity {
         this.prevPosX = par2;
         this.prevPosY = par4;
         this.prevPosZ = par6;
-        this.tntPlacedBy = par8EntityLivingBase;
     }
 
     @Override
@@ -104,7 +102,6 @@ public class ExplosivePrimed extends Entity {
         explosion.isSmoking = true;
         explosion.doExplosionA();
         explosion.doExplosionB(true);
-        // return explosion;
     }
 
     /**
@@ -127,12 +124,5 @@ public class ExplosivePrimed extends Entity {
     @SideOnly(Side.CLIENT)
     public float getShadowSize() {
         return 0.0F;
-    }
-
-    /**
-     * returns null or the entityliving it was placed or ignited by
-     */
-    public EntityLivingBase getTntPlacedBy() {
-        return this.tntPlacedBy;
     }
 }

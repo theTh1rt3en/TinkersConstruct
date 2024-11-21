@@ -11,22 +11,17 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 /**
- *
  * @author fuj1n
- *
  */
 public class TileEntityLandmine extends TileEntity implements IInventory {
 
-    private ItemStack[] inventory = new ItemStack[getSizeInventory()];
-    private String containerName;
-
     public int soundcountythingmax = 10;
     public int soundcountything = 0;
-
-    private boolean shouldUpdateLogic = true;
-
     public int triggerType;
     public boolean isExploding = false;
+    private ItemStack[] inventory = new ItemStack[getSizeInventory()];
+    private String containerName;
+    private boolean shouldUpdateLogic = true;
 
     public int getSizeTriggerInventory() {
         return 3;
@@ -186,15 +181,6 @@ public class TileEntityLandmine extends TileEntity implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-        //// Should automatic camo insertion be allowed.
-        // if (i == 3) {
-        // return false;
-        // } else {
-        // // Here for mDiyo to decide if he wants automation for
-        // // insertion/extraction of the items to be an option.
-        // // Would be useful for building automated mine laying machines.
-        // return false;
-        // }
         return false;
     }
 

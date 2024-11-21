@@ -12,7 +12,6 @@ public class LandmineSpecialStackLogic {
 
     private final World worldObj;
     private final Entity triggerer;
-    private final TileEntityLandmine tileEntity;
     private final int x, y, z;
     private final boolean isOffensive;
     private final ArrayList<ItemStack> stackEffects;
@@ -20,7 +19,6 @@ public class LandmineSpecialStackLogic {
     public LandmineSpecialStackLogic(World par1World, int par2, int par3, int par4, Entity entity,
             boolean mayHurtPlayer, ArrayList<ItemStack> items) {
         worldObj = par1World;
-        this.tileEntity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
         this.x = par2;
         this.y = par3;
         this.z = par4;

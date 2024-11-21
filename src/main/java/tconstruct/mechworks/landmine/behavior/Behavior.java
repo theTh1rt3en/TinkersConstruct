@@ -20,16 +20,12 @@ import tconstruct.mechworks.landmine.Helper;
 import tconstruct.mechworks.landmine.LandmineStack;
 
 /**
- *
  * @author fuj1n
- *
  */
 public abstract class Behavior {
 
     public static HashMap<LandmineStack, Behavior> behaviorsListItems = new HashMap<>();
     public static HashMap<LandmineStack, Behavior> behaviorsListBlocks = new HashMap<>();
-    protected static Behavior defaultBehavior;
-
     public static Behavior dummy = new BehaviorDummy();
     public static Behavior utilityMode = new BehaviorPreventExplode();
     public static Behavior explosive = new BehaviorExplosive();
@@ -40,6 +36,7 @@ public abstract class Behavior {
     public static Behavior spawn = new BehaviorSpawnEgg();
     public static Behavior shoot = new BehaviorProjectile();
     public static Behavior shear = new BehaviorShears();
+    protected static Behavior defaultBehavior;
 
     public static void registerBuiltInBehaviors() {
         defaultBehavior = new BehaviorDefault();
@@ -61,8 +58,7 @@ public abstract class Behavior {
         // Make sure the part below this comment is executed last(to avoid
         // conflicts)
         for (Object ob : Block.blockRegistry) {
-            if (ob instanceof Block) {
-                Block b = (Block) ob;
+            if (ob instanceof Block b) {
                 if (b.getMaterial().isOpaque() && b.renderAsNormalBlock()
                         && !b.canProvidePower()
                         && !(b instanceof ITileEntityProvider)
@@ -116,6 +112,31 @@ public abstract class Behavior {
         }
     }
 
+    public static int arrayIndexOfStack(ArrayList<ItemStack> stacks, ItemStack item) {
+        Iterator<ItemStack> i1 = stacks.iterator();
+
+        int index = 0;
+
+        while (i1.hasNext()) {
+            ItemStack stack = i1.next();
+            if (stack.isItemEqual(item)) {
+                return index;
+            }
+            index++;
+        }
+
+        return -1;
+    }
+
+    public static boolean arrayContainsEqualStack(ArrayList<ItemStack> stacks, ItemStack item) {
+        for (ItemStack stack : stacks) {
+            if (stack.isItemEqual(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public abstract void executeLogic(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack,
             Entity triggerer, boolean willBlockBeRemoved);
 
@@ -164,31 +185,6 @@ public abstract class Behavior {
 
     public boolean shouldItemBeRemoved(ItemStack par1ItemStack, boolean willBlockGetRemoved) {
         return true;
-    }
-
-    public static int arrayIndexOfStack(ArrayList<ItemStack> stacks, ItemStack item) {
-        Iterator<ItemStack> i1 = stacks.iterator();
-
-        int index = 0;
-
-        while (i1.hasNext()) {
-            ItemStack stack = i1.next();
-            if (stack.isItemEqual(item)) {
-                return index;
-            }
-            index++;
-        }
-
-        return -1;
-    }
-
-    public static boolean arrayContainsEqualStack(ArrayList<ItemStack> stacks, ItemStack item) {
-        for (ItemStack stack : stacks) {
-            if (stack.isItemEqual(item)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean overridesDefault() {

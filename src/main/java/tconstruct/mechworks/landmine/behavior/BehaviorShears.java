@@ -21,9 +21,7 @@ import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 // disappear when used(also does not do anything that can deal damage)
 
 /**
- *
  * @author fuj1n
- *
  */
 public class BehaviorShears extends Behavior {
 
@@ -55,8 +53,7 @@ public class BehaviorShears extends Behavior {
                         }
                         Iterator<ItemStack> i2 = drops.iterator();
                         while (i2.hasNext()) {
-                            if (sheep instanceof Entity) {
-                                Entity ent = (Entity) sheep;
+                            if (sheep instanceof Entity ent) {
                                 dropItem(par1World, (int) ent.posX, (int) ent.posY, (int) ent.posZ, i2.next());
                             } else {
                                 dropItem(par1World, par2, par3, par4, i2.next());
@@ -75,15 +72,10 @@ public class BehaviorShears extends Behavior {
     protected void dropItem(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack) {
         if (!par1World.isRemote && par1World.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
             float f = 0.7F;
-            double d0 = (double) (par1World.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            double d1 = (double) (par1World.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            double d2 = (double) (par1World.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            EntityItem entityitem = new EntityItem(
-                    par1World,
-                    (double) par2 + d0,
-                    (double) par3 + d1,
-                    (double) par4 + d2,
-                    par5ItemStack);
+            double d0 = (double) (par1World.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+            double d1 = (double) (par1World.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+            double d2 = (double) (par1World.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(par1World, par2 + d0, par3 + d1, par4 + d2, par5ItemStack);
             entityitem.delayBeforeCanPickup = 10;
             par1World.spawnEntityInWorld(entityitem);
         }

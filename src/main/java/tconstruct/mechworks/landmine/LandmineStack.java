@@ -37,16 +37,14 @@ public class LandmineStack {
     @Override
     public boolean equals(Object o) {
         // Comparing landmine stacks
-        if (o instanceof LandmineStack) {
-            LandmineStack stack = (LandmineStack) o;
+        if (o instanceof LandmineStack stack) {
             if (isBlock) {
                 return block == stack.block && (meta == stack.meta || meta == -314159265);
             } else {
                 return item == stack.item && (meta == stack.meta || meta == -314159265);
             }
             // Comparing landmine stacks with item stacks
-        } else if (o instanceof ItemStack) {
-            ItemStack stack = (ItemStack) o;
+        } else if (o instanceof ItemStack stack) {
             if (isBlock && stack.getItem() instanceof ItemBlock) {
                 return block == ((ItemBlock) stack.getItem()).field_150939_a
                         && (meta == stack.getItemDamage() || meta == -314159265);

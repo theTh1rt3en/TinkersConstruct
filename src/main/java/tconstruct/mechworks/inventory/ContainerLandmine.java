@@ -63,20 +63,6 @@ public class ContainerLandmine extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
-        // This code actually works perfectly, but does not respect the global
-        // TileEntity stack limit, shift clicking ability disabled.
-        /*
-         * ItemStack itemstack = null; Slot slot = (Slot) this.inventorySlots.get(par2); if (slot != null &&
-         * slot.getHasStack()) { ItemStack itemstack1 = slot.getStack(); itemstack = itemstack1.copy(); if (par2 == 2) {
-         * if (!this.mergeItemStack(itemstack1, 3, 39, true)) { return null; } slot.onSlotChange(itemstack1, itemstack);
-         * } else if (par2 != 1 && par2 != 0) { if (!this.mergeItemStack(itemstack1, 0, 1, false)) { if
-         * (!this.mergeItemStack(itemstack1, 1, 2, false)) { if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
-         * return null; } else if (par2 >= 30 && par2 < 39 && !this.mergeItemStack(itemstack1, 3, 30, false)) { return
-         * null; } } } } else if (!this.mergeItemStack(itemstack1, 3, 39, false)) { return null; } if
-         * (itemstack1.stackSize == 0) { slot.putStack((ItemStack) null); } else { slot.onSlotChanged(); } if
-         * (itemstack1.stackSize == itemstack.stackSize) { return null; } slot.onPickupFromSlot(par1EntityPlayer,
-         * itemstack1); } return itemstack;
-         */
         return null;
     }
 
@@ -106,7 +92,7 @@ public class ContainerLandmine extends Container {
                     this.func_94533_d();
                 }
             } else if (this.field_94536_g == 1) {
-                Slot slot = (Slot) this.inventorySlots.get(par1);
+                Slot slot = this.inventorySlots.get(par1);
 
                 if (slot != null && func_94527_a(slot, inventoryplayer.getItemStack(), true)
                         && slot.isItemValid(inventoryplayer.getItemStack())
@@ -186,7 +172,7 @@ public class ContainerLandmine extends Container {
 
                     Object localObject2;
 
-                    slot2 = (Slot) this.inventorySlots.get(par1);
+                    slot2 = this.inventorySlots.get(par1);
 
                     if (slot2 != null && slot2.canTakeStack(par4EntityPlayer)) {
                         itemstack1 = this.transferStackInSlot(par4EntityPlayer, par1);
@@ -205,7 +191,7 @@ public class ContainerLandmine extends Container {
                         return null;
                     }
 
-                    slot2 = (Slot) this.inventorySlots.get(par1);
+                    slot2 = this.inventorySlots.get(par1);
 
                     boolean shouldDoStuff = slot2 instanceof SlotBehavedOnly;
 
@@ -235,7 +221,7 @@ public class ContainerLandmine extends Container {
                             } else if (shouldDoStuff && itemstack4 != null
                                     && slot2.isItemValid(
                                             new ItemStack(itemstack4.getItem(), 1, itemstack4.getItemDamage()))) {
-                                                k1 = par2 == 0 ? 1 : 1;
+                                                k1 = 1;
 
                                                 if (k1 > slot2.getSlotStackLimit()) {
                                                     k1 = slot2.getSlotStackLimit();
@@ -303,7 +289,7 @@ public class ContainerLandmine extends Container {
                     }
                 }
             } else if (par3 == 2 && par2 >= 0 && par2 < 9) {
-                slot2 = (Slot) this.inventorySlots.get(par1);
+                slot2 = this.inventorySlots.get(par1);
 
                 if (slot2.canTakeStack(par4EntityPlayer)) {
                     itemstack1 = inventoryplayer.getStackInSlot(par2);
@@ -313,7 +299,7 @@ public class ContainerLandmine extends Container {
 
                     if (!flag) {
                         k1 = inventoryplayer.getFirstEmptyStack();
-                        flag |= k1 > -1;
+                        flag = k1 > -1;
                     }
 
                     if (slot2.getHasStack() && flag) {
@@ -341,7 +327,7 @@ public class ContainerLandmine extends Container {
             } else if (par3 == 3 && par4EntityPlayer.capabilities.isCreativeMode
                     && inventoryplayer.getItemStack() == null
                     && par1 >= 0) {
-                        slot2 = (Slot) this.inventorySlots.get(par1);
+                        slot2 = this.inventorySlots.get(par1);
 
                         if (slot2 != null && slot2.getHasStack()) {
                             itemstack1 = slot2.getStack().copy();
@@ -350,7 +336,7 @@ public class ContainerLandmine extends Container {
                         }
                     } else
                 if (par3 == 4 && inventoryplayer.getItemStack() == null && par1 >= 0) {
-                    slot2 = (Slot) this.inventorySlots.get(par1);
+                    slot2 = this.inventorySlots.get(par1);
 
                     if (slot2 != null && slot2.getHasStack() && slot2.canTakeStack(par4EntityPlayer)) {
                         itemstack1 = slot2.decrStackSize(par2 == 0 ? 1 : slot2.getStack().stackSize);
@@ -358,7 +344,7 @@ public class ContainerLandmine extends Container {
                         par4EntityPlayer.dropPlayerItemWithRandomChoice(itemstack1, false);
                     }
                 } else if (par3 == 6 && par1 >= 0) {
-                    slot2 = (Slot) this.inventorySlots.get(par1);
+                    slot2 = this.inventorySlots.get(par1);
                     itemstack1 = inventoryplayer.getItemStack();
 
                     if (itemstack1 != null
@@ -369,7 +355,7 @@ public class ContainerLandmine extends Container {
                         for (int l1 = 0; l1 < 2; ++l1) {
                             for (int i2 = l; i2 >= 0 && i2 < this.inventorySlots.size()
                                     && itemstack1.stackSize < itemstack1.getMaxStackSize(); i2 += k1) {
-                                Slot slot3 = (Slot) this.inventorySlots.get(i2);
+                                Slot slot3 = this.inventorySlots.get(i2);
 
                                 if (slot3.getHasStack() && func_94527_a(slot3, itemstack1, true)
                                         && slot3.canTakeStack(par4EntityPlayer)

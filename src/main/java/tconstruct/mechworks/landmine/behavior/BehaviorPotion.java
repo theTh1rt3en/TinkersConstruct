@@ -15,9 +15,7 @@ import net.minecraft.world.World;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 
 /**
- *
  * @author fuj1n
- *
  */
 public class BehaviorPotion extends Behavior {
 
@@ -42,13 +40,11 @@ public class BehaviorPotion extends Behavior {
         } else {
             if (triggerer instanceof EntityPlayer) {
                 Items.potionitem.onEaten(par5ItemStack, par1World, (EntityPlayer) triggerer);
-            } else if (triggerer instanceof EntityLivingBase) {
-                if (!par1World.isRemote) {
-                    List<PotionEffect> list = Items.potionitem.getEffects(par5ItemStack);
-                    if (list != null) {
-                        for (PotionEffect potioneffect : list) {
-                            ((EntityLivingBase) triggerer).addPotionEffect(new PotionEffect(potioneffect));
-                        }
+            } else if (triggerer instanceof EntityLivingBase && !par1World.isRemote) {
+                List<PotionEffect> list = Items.potionitem.getEffects(par5ItemStack);
+                if (list != null) {
+                    for (PotionEffect potioneffect : list) {
+                        ((EntityLivingBase) triggerer).addPotionEffect(new PotionEffect(potioneffect));
                     }
                 }
             }

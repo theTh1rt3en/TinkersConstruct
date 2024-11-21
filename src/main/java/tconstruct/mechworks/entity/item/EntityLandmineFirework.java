@@ -22,13 +22,6 @@ public class EntityLandmineFirework extends Entity {
 
     private Entity rider;
 
-    private int moveDirection = 0;
-
-    public EntityLandmineFirework(World par1World) {
-        super(par1World);
-        this.setSize(0.25F, 0.25F);
-    }
-
     @Override
     protected void entityInit() {
         this.dataWatcher.addObjectByDataType(8, 5);
@@ -72,7 +65,6 @@ public class EntityLandmineFirework extends Entity {
         this.motionZ = this.rand.nextGaussian() * 0.001D;
         this.motionY = 0.05D;
         this.lifetime = 10 * i + this.rand.nextInt(6) + this.rand.nextInt(7);
-        this.moveDirection = moveDirection;
     }
 
     @Override

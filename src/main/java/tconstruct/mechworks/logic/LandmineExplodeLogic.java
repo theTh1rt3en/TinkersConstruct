@@ -14,7 +14,6 @@ import tconstruct.mechworks.landmine.behavior.Behavior;
  * will be awarded)
  *
  * @author fuj1n
- *
  */
 public class LandmineExplodeLogic {
 
@@ -87,28 +86,24 @@ public class LandmineExplodeLogic {
 
         for (ItemStack currentStack : stacks) {
             Behavior b = Behavior.getBehaviorFromStack(currentStack);
-            if (b != null) {
-                if (isOffensive || !b.isOffensive(currentStack)) {
-                    b.executeLogic(worldObj, x, y, z, currentStack, triggerer, !preventExplode);
-                    if (b.shouldItemBeRemoved(currentStack, !preventExplode)) {
-                        if (b.effectStacks()) {
-                            for (int i = 0; i < tileEntity.getSizeTriggerInventory(); i++) {
-                                if (tileEntity.getStackInSlot(i) != null) {
-                                    if (tileEntity.getStackInSlot(i).isItemEqual(currentStack)) {
-                                        tileEntity.setInventorySlotContents(i, null);
-                                    }
+            if (b != null && (isOffensive || !b.isOffensive(currentStack))) {
+                b.executeLogic(worldObj, x, y, z, currentStack, triggerer, !preventExplode);
+                if (b.shouldItemBeRemoved(currentStack, !preventExplode)) {
+                    if (b.effectStacks()) {
+                        for (int i = 0; i < tileEntity.getSizeTriggerInventory(); i++) {
+                            if (tileEntity.getStackInSlot(i) != null) {
+                                if (tileEntity.getStackInSlot(i).isItemEqual(currentStack)) {
+                                    tileEntity.setInventorySlotContents(i, null);
                                 }
                             }
-                        } else {
-                            boolean hasRemoved = false;
-
-                            for (int i = 0; i < tileEntity.getSizeTriggerInventory() && !hasRemoved; i++) {
-                                if (tileEntity.getStackInSlot(i) != null) {
-                                    if (tileEntity.getStackInSlot(i).isItemEqual(currentStack)) {
-                                        tileEntity.setInventorySlotContents(i, null);
-                                        hasRemoved = true;
-                                    }
-                                }
+                        }
+                    } else {
+                        boolean hasRemoved = false;
+                        for (int i = 0; i < tileEntity.getSizeTriggerInventory() && !hasRemoved; i++) {
+                            if (tileEntity.getStackInSlot(i) != null
+                                    && tileEntity.getStackInSlot(i).isItemEqual(currentStack)) {
+                                tileEntity.setInventorySlotContents(i, null);
+                                hasRemoved = true;
                             }
                         }
                     }
@@ -121,7 +116,7 @@ public class LandmineExplodeLogic {
             defBeh.executeLogic(worldObj, x, y, z, null, triggerer, !preventExplode);
         }
 
-        if (hasExploded || defBeh != null && !preventExplode) {
+        if (defBeh != null && !preventExplode) {
             worldObj.removeTileEntity(x, y, z);
             WorldHelper.setBlockToAir(worldObj, x, y, z);
         } else {

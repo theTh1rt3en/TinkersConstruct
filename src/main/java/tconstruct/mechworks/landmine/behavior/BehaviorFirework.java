@@ -1,7 +1,6 @@
 package tconstruct.mechworks.landmine.behavior;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -31,19 +30,7 @@ public class BehaviorFirework extends Behavior {
                     facing.ordinal()).setRider(i == 0 ? triggerer : null);
             par1World.spawnEntityInWorld(entityfireworkrocket);
 
-            boolean shouldRun = true;
-            if (triggerer instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) triggerer;
-                // if (player.capabilities.isCreativeMode) {
-                // Remove the bellow comment to make the player in creative
-                // mode not get launched
-                // shouldRun = false;
-                // }
-            }
-
-            if (shouldRun) {
-                triggerer.mountEntity(entityfireworkrocket);
-            }
+            triggerer.mountEntity(entityfireworkrocket);
         }
     }
 

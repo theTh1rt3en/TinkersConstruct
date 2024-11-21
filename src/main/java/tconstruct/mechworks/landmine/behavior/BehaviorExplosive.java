@@ -1,7 +1,5 @@
 package tconstruct.mechworks.landmine.behavior;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.init.Blocks;
@@ -11,9 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
- *
  * @author fuj1n
- *
  */
 public class BehaviorExplosive extends Behavior {
 
@@ -34,24 +30,6 @@ public class BehaviorExplosive extends Behavior {
                 par4,
                 explodeStrenght,
                 true);
-    }
-
-    @Override
-    public void getInformation(ItemStack par1ItemStack, List par2List) {
-        String str = "UNDEFINED";
-        if (par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.tnt)) {
-            str = "medium";
-        } else if (par1ItemStack.getItem() == Items.gunpowder) {
-            str = "small";
-        }
-
-        // par2List.add("This item explodes with " + str +
-        // " power when the landmine is triggered.");
-    }
-
-    @Override
-    public boolean isOffensive(ItemStack par1ItemStack) {
-        return true;
     }
 
     @Override

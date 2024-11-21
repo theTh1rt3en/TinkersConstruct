@@ -52,11 +52,4 @@ public class BehaviorProjectile extends Behavior {
         par1World.spawnEntityInWorld((Entity) entity);
         par1World.playAuxSFX(1002, par2, par3, par4, 0);
     }
-
-    // Projectiles: snowballs, arrows
-
-    @Override
-    public boolean isOffensive(ItemStack par1ItemStack) {
-        return true;
-    }
 }
