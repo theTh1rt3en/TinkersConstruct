@@ -28,16 +28,12 @@ public class ThrowingKnife extends AmmoWeapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_knife_blade";
-            case 1:
-                return ""; // no broken, since it runs out of ammo
-            case 2:
-                return "_knife_handle";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_knife_blade";
+            case 1 -> ""; // no broken, since it runs out of ammo
+            case 2 -> "_knife_handle";
+            default -> "";
+        };
     }
 
     @Override
@@ -94,8 +90,8 @@ public class ThrowingKnife extends AmmoWeapon {
         return 2.2f;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public CrosshairType getCrosshairType() {
         return CrosshairType.SPIKE;
     }
@@ -105,8 +101,7 @@ public class ThrowingKnife extends AmmoWeapon {
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         // aiming with throwing knives slows down much less than with a bow
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP) {
-            EntityPlayerSP player = (EntityPlayerSP) entity;
+        if (entity instanceof EntityPlayerSP player) {
             ItemStack usingItem = player.getItemInUse();
             if (usingItem != null && usingItem.getItem() == this) {
                 player.movementInput.moveForward *= 3.0F;

@@ -25,9 +25,6 @@ public class RenderEventHandler {
 
     @SubscribeEvent
     public void onRenderPlayer(RenderPlayerEvent.Pre event) {
-        // if (event.entityPlayer.getCurrentEquippedItem() != null &&
-        // event.entityPlayer.getCurrentEquippedItem().getItem() == TinkerWeaponry.javelin) {
-        // }
 
         if (event.entityPlayer.getItemInUse() == null) return;
 

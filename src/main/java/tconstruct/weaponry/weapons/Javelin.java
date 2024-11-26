@@ -93,18 +93,8 @@ public class Javelin extends AmmoWeapon {
     }
 
     @Override
-    public float maxAccuracy(ItemStack itemStack) {
-        return 0.5f;
-    }
-
-    @Override
     public int getWindupTime(ItemStack itemStack) {
         return 17;
-    }
-
-    @Override
-    public int getPartAmount() {
-        return 3;
     }
 
     @Override

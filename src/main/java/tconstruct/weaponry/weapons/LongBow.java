@@ -52,20 +52,14 @@ public class LongBow extends BowBaseAmmo {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_bow_top";
-            case 1:
-                return "_bowstring_broken";
-            case 2:
-                return "_bowstring";
-            case 3:
-                return "_bow_bottom";
-            case 4:
-                return "_bow_grip";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_bow_top";
+            case 1 -> "_bowstring_broken";
+            case 2 -> "_bowstring";
+            case 3 -> "_bow_bottom";
+            case 4 -> "_bow_grip";
+            default -> "";
+        };
     }
 
     @Override

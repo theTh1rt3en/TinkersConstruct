@@ -12,10 +12,6 @@ public class JavelinEntity extends ProjectileBase {
 
     public int roll = 0;
 
-    public JavelinEntity(World world) {
-        super(world);
-    }
-
     public JavelinEntity(World world, double d, double d1, double d2) {
         super(world, d, d1, d2);
     }
@@ -42,10 +38,5 @@ public class JavelinEntity extends ProjectileBase {
 
     protected double getGravity() {
         return 0.07;
-    }
-
-    @Override
-    protected double getStuckDepth() {
-        return 0.5f;
     }
 }

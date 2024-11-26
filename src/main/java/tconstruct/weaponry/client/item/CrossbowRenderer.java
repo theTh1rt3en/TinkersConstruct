@@ -44,8 +44,6 @@ public class CrossbowRenderer extends FlexibleToolRenderer {
             }
 
             if (ammo != null && ammo.hasTagCompound()) {
-                // float progress = crossbow.getWindupProgress(item, player);
-                float progress = 1f;
                 dummy.returnStack = ammo;
                 if (!(ammo.getItem() instanceof BoltAmmo)) dummy.returnStack = TinkerWeaponry.creativeBolt;
 
@@ -53,9 +51,7 @@ public class CrossbowRenderer extends FlexibleToolRenderer {
 
                 GL11.glPushMatrix();
                 // adjust position
-                // GL11.glScalef(2, 2, 2); // bigger
                 GL11.glRotatef(95, 0, 1, 0); // rotate it into the same direction as the bow
-                // GL11.glRotatef(15, 0, 1, 0); // rotate it a bit more so it's not directly inside the bow
                 GL11.glRotatef(-45, 1, 0, 0); // sprite is rotated by 45° in the graphics, correct that
                 GL11.glTranslatef(0.05f, 0, 0); // same as the not-inside-bow-rotation
 

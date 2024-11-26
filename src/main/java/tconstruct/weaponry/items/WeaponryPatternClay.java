@@ -30,8 +30,7 @@ public class WeaponryPatternClay extends Pattern {
     @Override
     public void getSubItems(Item b, CreativeTabs tab, List list) {
         for (int i = 0; i < patternName.length; i++) {
-            // if (i != 23)
-            if (!(patternName[i].equals(""))) list.add(new ItemStack(b, 1, i));
+            if (!(patternName[i].isEmpty())) list.add(new ItemStack(b, 1, i));
         }
     }
 

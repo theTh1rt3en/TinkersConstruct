@@ -28,8 +28,6 @@ public class ThrowingKnifeRenderer extends AmmoItemRenderer {
             GL11.glScalef(2.5f, 2.5f, 2.5f);
             // rotate it, otherwise it's drawn over our item :(
             GL11.glTranslatef(0.5f, -0.6f, 0f);
-            // GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
-            // GL11.glRotatef(-85.0F, 0.0F, 0.0F, 1.0F);
 
             GL11.glRotatef(-25.0F, 0.0F, 0.0F, 1.0F);
 
@@ -44,21 +42,11 @@ public class ThrowingKnifeRenderer extends AmmoItemRenderer {
             mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
 
             // rotate it aroooound
-            // GL11.glRotatef(-180, 0, 0, 1);
-            // GL11.glTranslatef(0.5f, -0.6f, 0f);
-            // GL11.glRotatef(-25.0F, 0.0F, 0.0F, 1.0F);
-
             GL11.glTranslatef(1.3f, 0.4f, -0.2f);
-
-            // GL11.glTranslatef(-0.5f, 0.6f, 0f);
-            // GL11.glTranslatef(0.f, 1f, 0f);
-            // GL11.glTranslatef(progress * -1.5f, 0.0f, 0f);
             GL11.glTranslatef(0.0f, -1.85f, 0f);
             GL11.glRotatef(progress * 35.0F, 0.0F, 0.0F, 1.0F);
             GL11.glTranslatef(0.0f, 1.85f, 0f);
             GL11.glRotatef(progress * -15.0F, 0.0F, 0.0F, 1.0F);
-            // GL11.glTranslatef(-0.f, -1f, 0f);
-            // GL11.glTranslatef(0.5f, -0.6f, 0f);
 
             GL11.glScalef(1.5f, 1.5f, 1.5f);
 

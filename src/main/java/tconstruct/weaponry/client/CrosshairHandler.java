@@ -37,9 +37,7 @@ public class CrosshairHandler {
 
         ItemStack equipped = mc.thePlayer.getCurrentEquippedItem();
         if (equipped == null || equipped.getItem() == null) return;
-        if (!(equipped.getItem() instanceof IWindup)) return;
-
-        IWindup weapon = (IWindup) equipped.getItem();
+        if (!(equipped.getItem() instanceof IWindup weapon)) return;
 
         float width = event.resolution.getScaledWidth();
         float height = event.resolution.getScaledHeight();
@@ -47,9 +45,6 @@ public class CrosshairHandler {
         int type = 0;
         ResourceLocation tex;
         switch (weapon.getCrosshairType()) {
-            case SQUARE:
-                tex = crossHairSquare;
-                break;
             case TIP:
                 tex = crossHairTip;
                 break;
@@ -63,7 +58,7 @@ public class CrosshairHandler {
                 break;
             default:
                 tex = crossHairSquare;
-                type = 0;
+                break;
         }
 
         mc.getTextureManager().bindTexture(tex);

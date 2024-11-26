@@ -27,18 +27,13 @@ public class ArrowAmmo extends AmmoItem {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_arrow_head";
-            case 1:
-                return ""; // Doesn't break
-            case 2:
-                return "_arrow_shaft";
-            case 3:
-                return "_arrow_fletching";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_arrow_head";
+            case 1 -> ""; // Doesn't break
+            case 2 -> "_arrow_shaft";
+            case 3 -> "_arrow_fletching";
+            default -> "";
+        };
     }
 
     @Override

@@ -27,8 +27,6 @@ public class ArrowEntityRenderer extends ProjectileBaseRenderer<ArrowEntity> {
 
     @Override
     public void customRendering(ArrowEntity entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
-        // flip it, flop it, pop it, pull it, push it, rotate it, translate it, TECHNOLOGY
-
         GL11.glScalef(size, size, size);
 
         // rotate it into the direction we threw it

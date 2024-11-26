@@ -9,10 +9,6 @@ import tconstruct.weaponry.TinkerWeaponry;
 
 public class ThrowingKnifeEntity extends ProjectileBase {
 
-    public ThrowingKnifeEntity(World world) {
-        super(world);
-    }
-
     public ThrowingKnifeEntity(World world, double d, double d1, double d2) {
         super(world, d, d1, d2);
     }

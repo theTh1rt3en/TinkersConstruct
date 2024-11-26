@@ -13,12 +13,6 @@ public class ShurikenEntity extends ProjectileBase {
     public int spin = 0;
     public int rollAngle = 0;
 
-    public ShurikenEntity(World world) {
-        super(world);
-        setSize(0.3f, 0.1f);
-        this.bounceOnNoDamage = false;
-    }
-
     public ShurikenEntity(World world, double d, double d1, double d2) {
         super(world, d, d1, d2);
         setSize(0.3f, 0.1f);
@@ -42,9 +36,6 @@ public class ShurikenEntity extends ProjectileBase {
     @Override
     public void readSpawnData(ByteBuf data) {
         super.readSpawnData(data);
-
-        // this is only relevant clientside only, so we don't actually have it on the server
-        // rollAngle = (TinkerWeaponry.random.nextInt(3)-1)*45 + TinkerWeaponry.random.nextInt(30)-15;
         spin = TinkerWeaponry.random.nextInt(360);
     }
 

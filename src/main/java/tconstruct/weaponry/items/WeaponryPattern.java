@@ -28,7 +28,6 @@ public class WeaponryPattern extends Pattern {
     @Override
     public void getSubItems(Item b, CreativeTabs tab, List list) {
         for (int i = 0; i < patternName.length; i++) {
-            // if (i != 23)
             list.add(new ItemStack(b, 1, i));
         }
     }

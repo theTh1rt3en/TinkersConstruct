@@ -28,11 +28,8 @@ public class BowRenderer extends FlexibleToolRenderer {
         GL11.glScalef(0.5f, 0.5f, 0.5f);
 
         if (type == ItemRenderType.EQUIPPED) {
-            // GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
             GL11.glTranslatef(0.2F, -0.4F, 0.2f);
             GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
-            // GL11.glScalef(f1, -f1, f1);
-            // GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
         }
 
@@ -40,8 +37,6 @@ public class BowRenderer extends FlexibleToolRenderer {
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON && player.isUsingItem()) {
             float progress = ((IWindup) item.getItem()).getWindupProgress(item, player);
 
-            // GL11.glScalef(1.2f, 1.2f, 1.2f);
-            // float progress = ((IWindup) item.getItem()).getWindupProgress(item, Minecraft.getMinecraft().thePlayer);;
             GL11.glRotatef(-18.0F, 0.0F, 0.0F, 1.0F); // tilts the bow forward a bit
             GL11.glRotatef(-6.0F, 0.0F, 1.0F, 0.0F); // rotates the bow so it faces more forward
             GL11.glRotatef(8.0F, 1.0F, 0.0F, 0.0F); // rotates the bow forward

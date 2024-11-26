@@ -140,7 +140,6 @@ public class Crossbow extends ProjectileWeapon {
         // load ammo into nbt
         NBTTagCompound ammotag = new NBTTagCompound();
         copy.writeToNBT(ammotag);
-        // ammotag.getCompoundTag("tag"; // set ammo count to 1
         tags.setTag("LoadedItem", ammotag);
         tags.setBoolean("Loaded", true);
 

@@ -275,7 +275,6 @@ public class TinkerWeaponry {
             LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
             for (int i = 0; i < patternOutputs.length; i++) {
                 ItemStack cast = new ItemStack(metalPattern, 1, i);
-                ItemStack clay_cast = new ItemStack(clayPattern, 1, i);
 
                 tableCasting.addCastingRecipe(
                         cast,

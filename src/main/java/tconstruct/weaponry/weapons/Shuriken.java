@@ -53,17 +53,11 @@ public class Shuriken extends AmmoWeapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-            case 2:
-            case 3:
-            case 4:
-                return "_shuriken";
-            case 1:
-                return ""; // no broken, since it runs out of ammo
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0, 2, 3, 4 -> "_shuriken";
+            case 1 -> ""; // no broken, since it runs out of ammo
+            default -> "";
+        };
     }
 
     @Override
@@ -177,8 +171,8 @@ public class Shuriken extends AmmoWeapon {
         }
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public CrosshairType getCrosshairType() {
         return CrosshairType.TIP;
     }

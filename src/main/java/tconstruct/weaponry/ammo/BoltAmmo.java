@@ -23,18 +23,13 @@ public class BoltAmmo extends AmmoItem {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_bolt_head";
-            case 1:
-                return ""; // Doesn't break
-            case 2:
-                return "_bolt_shaft";
-            case 3:
-                return "_bolt_fletching";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_bolt_head";
+            case 1 -> ""; // Doesn't break
+            case 2 -> "_bolt_shaft";
+            case 3 -> "_bolt_fletching";
+            default -> "";
+        };
     }
 
     @Override
@@ -86,7 +81,6 @@ public class BoltAmmo extends AmmoItem {
         ItemStack headStack = DualMaterialToolPart.createDualMaterial(getHeadItem(), id, TinkerTools.MaterialID.Iron); // material
                                                                                                                        // shaft
         ItemStack handleStack = new ItemStack(getAccessoryItem(), 1, 0); // feather Fletchling
-        // ItemStack accessoryStack = new ItemStack(getAccessoryItem(), 1, 0); // feather fletchling
 
         ItemStack tool = ToolBuilder.instance.buildTool(headStack, handleStack, null, null, "");
         if (tool != null) {

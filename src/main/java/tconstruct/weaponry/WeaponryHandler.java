@@ -51,25 +51,24 @@ public class WeaponryHandler {
     @SubscribeEvent
     public void onCrafting(PlayerEvent.ItemCraftedEvent event) {
         Item item = event.crafting.getItem();
-        if (!event.player.worldObj.isRemote) {
-            if (item == Item.getItemFromBlock(TinkerTools.toolStationWood)) {
-                if (!PHConstruct.beginnerBook) {
-                    return;
-                }
+        if (!event.player.worldObj.isRemote && item == Item.getItemFromBlock(TinkerTools.toolStationWood)) {
+            if (!PHConstruct.beginnerBook) {
+                return;
+            }
 
-                TPlayerStats stats = TPlayerStats.get(event.player);
-                if (!stats.weaponryManual) {
-                    stats.weaponryManual = true;
-                    AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TinkerTools.manualBook, 1, 4));
-                }
+            TPlayerStats stats = TPlayerStats.get(event.player);
+            if (!stats.weaponryManual) {
+                stats.weaponryManual = true;
+                AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TinkerTools.manualBook, 1, 4));
             }
         }
+
     }
 
     // Provides ammo-items with the necessary NBT
     @SubscribeEvent
     public void onAmmoCrafted(ToolCraftEvent.NormalTool event) {
-        if (!(event.tool instanceof IAmmo)) return;
+        if (!(event.tool instanceof IAmmo ammoItem)) return;
 
         NBTTagCompound tags = event.toolTag.getCompoundTag("InfiTool");
 
@@ -158,7 +157,6 @@ public class WeaponryHandler {
 
         // now that durability has been handled...
         // fill the ammo full and at the same time provide the missing NBT tag
-        IAmmo ammoItem = (IAmmo) event.tool;
         tags.setInteger("Ammo", ammoItem.getMaxAmmo(tags));
     }
 
@@ -167,7 +165,6 @@ public class WeaponryHandler {
         if (!(event.tool instanceof ProjectileWeapon)) return;
 
         NBTTagCompound tags = event.toolTag.getCompoundTag("InfiTool");
-        ProjectileWeapon weapon = (ProjectileWeapon) event.tool;
 
         int drawSpeed;
         float flightSpeed;
@@ -409,10 +406,9 @@ public class WeaponryHandler {
     public void entityJoin(EntityJoinWorldEvent event) {
         // This prevents invalid projectiles to be created
         // This can happen because of ID remaps.
-        if (event.entity instanceof ProjectileBase) {
-            ProjectileBase projectile = (ProjectileBase) event.entity;
-            if (projectile.returnStack == null || !(projectile.returnStack.getItem() instanceof ToolCore))
-                event.setCanceled(true);
-        }
+        if (event.entity instanceof ProjectileBase projectile
+                && (projectile.returnStack == null || !(projectile.returnStack.getItem() instanceof ToolCore)))
+            event.setCanceled(true);
+
     }
 }
