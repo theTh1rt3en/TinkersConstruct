@@ -25,15 +25,6 @@ public class AModInteger extends ArmorMod {
         tooltipName = tip;
     }
 
-    public AModInteger(int effect, String dataKey, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int increase1,
-            int increase2, String c, String tip) {
-        super(effect, dataKey, armorTypes, items);
-        initialIncrease = increase1;
-        secondaryIncrease = increase2;
-        color = c;
-        tooltipName = tip;
-    }
-
     @Override
     public void modify(ItemStack[] recipe, ItemStack input) {
         NBTTagCompound tags = getModifierTag(input);

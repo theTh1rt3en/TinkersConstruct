@@ -57,8 +57,7 @@ public class ModAttack extends ItemModTypeFilter {
             if (Arrays.asList(((ToolCore) tool.getItem()).getTraits()).contains("ammo") != ammoOnly) return false;
         }
 
-        if (tool.getItem() instanceof IModifyable) {
-            IModifyable toolItem = (IModifyable) tool.getItem();
+        if (tool.getItem() instanceof IModifyable toolItem) {
             if (!validType(toolItem)) return false;
 
             if (matchingAmount(input) > max) return false;

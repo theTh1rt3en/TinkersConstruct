@@ -20,8 +20,6 @@ public class AModThaumicVision extends ArmorMod {
 
     public AModThaumicVision(ItemStack thaumometer) {
         super(-1, "", EnumSet.of(ArmorPart.Head), new ItemStack[] { thaumometer });
-        // super(effect, "Thaumic Vision", EnumSet.of(ArmorPart.Head), new ItemStack[]{},
-        // EnumChatFormatting.DARK_PURPLE.toString(), "Thaumic Vision");
 
         this.thaumometer = thaumometer.getItem();
         thaumicSensesMod = new AModBoolean(

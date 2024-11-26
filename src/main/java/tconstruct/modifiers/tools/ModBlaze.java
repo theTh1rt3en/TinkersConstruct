@@ -21,8 +21,7 @@ public class ModBlaze extends ItemModTypeFilter {
 
     @Override
     protected boolean canModify(ItemStack tool, ItemStack[] input) {
-        if (tool.getItem() instanceof ToolCore) {
-            ToolCore toolItem = (ToolCore) tool.getItem();
+        if (tool.getItem() instanceof ToolCore toolItem) {
             if (!validType(toolItem)) return false;
 
             if (matchingAmount(input) > max) return false;

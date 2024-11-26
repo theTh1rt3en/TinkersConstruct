@@ -21,15 +21,6 @@ public class ModInteger extends ItemModifier {
         tooltipName = tip;
     }
 
-    public ModInteger(ItemStack[] items, int effect, String dataKey, int increase1, int increase2, String c,
-            String tip) {
-        super(items, effect, dataKey);
-        initialIncrease = increase1;
-        secondaryIncrease = increase2;
-        color = c;
-        tooltipName = tip;
-    }
-
     @Override
     public void modify(ItemStack[] input, ItemStack tool) {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

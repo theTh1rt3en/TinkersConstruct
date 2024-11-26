@@ -22,8 +22,7 @@ public class ModRedstone extends ItemModTypeFilter {
 
     @Override
     protected boolean canModify(ItemStack tool, ItemStack[] input) {
-        if (tool.getItem() instanceof ToolCore) {
-            ToolCore toolItem = (ToolCore) tool.getItem();
+        if (tool.getItem() instanceof ToolCore toolItem) {
             if (!validType(toolItem)) return false;
 
             if (matchingAmount(input) > max) return false;
@@ -76,8 +75,7 @@ public class ModRedstone extends ItemModTypeFilter {
         int miningSpeed = tags.getInteger("MiningSpeed");
         int boost = 8 + ((current - 1) / 50 * 2);
         Item temp = tool.getItem();
-        if (temp instanceof ToolCore) {
-            ToolCore toolcore = (ToolCore) temp;
+        if (temp instanceof ToolCore toolcore) {
             if (toolcore.durabilityTypeHandle() == 2) boost += 2;
             if (toolcore.durabilityTypeAccessory() == 2) boost += 2;
             if (toolcore.durabilityTypeExtra() == 2) boost += 2;

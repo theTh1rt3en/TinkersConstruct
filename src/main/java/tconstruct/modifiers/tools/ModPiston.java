@@ -20,8 +20,7 @@ public class ModPiston extends ItemModTypeFilter {
 
     @Override
     protected boolean canModify(ItemStack tool, ItemStack[] input) {
-        if (tool.getItem() instanceof ToolCore) {
-            ToolCore toolItem = (ToolCore) tool.getItem();
+        if (tool.getItem() instanceof ToolCore toolItem) {
             if (!validType(toolItem)) return false;
 
             if (matchingAmount(input) > max) return false;
@@ -67,7 +66,7 @@ public class ModPiston extends ItemModTypeFilter {
 
         float knockback = tags.getFloat("Knockback");
 
-        knockback += 0.1 * increase;
+        knockback += 0.1F * increase;
         tags.setFloat("Knockback", knockback);
     }
 

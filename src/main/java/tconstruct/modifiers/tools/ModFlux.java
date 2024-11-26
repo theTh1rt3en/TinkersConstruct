@@ -59,8 +59,6 @@ public class ModFlux extends ModBoolean {
             // only allow if it's an upgrade
             // remark: we use the ToolCores function here instead of accessing the tag directly, to achieve backwards
             // compatibility with tools without tags.
-            int a = ((IEnergyContainerItem) foundBattery.getItem()).getMaxEnergyStored(foundBattery);
-            int b = ((ToolCore) tool.getItem()).getMaxEnergyStored(tool);
             return ((IEnergyContainerItem) foundBattery.getItem()).getMaxEnergyStored(foundBattery)
                     > ((ToolCore) tool.getItem()).getMaxEnergyStored(tool);
         }
@@ -136,8 +134,5 @@ public class ModFlux extends ModBoolean {
         tags.setInteger("EnergyReceiveRate", maxReceive);
 
         tags.setInteger(key, 1);
-        ToolCore toolcore = (ToolCore) tool.getItem();
-        // tool.setItemDamage(1 + (toolcore.getMaxEnergyStored(tool) - charge) * (tool.getMaxDamage() - 1) /
-        // toolcore.getMaxEnergyStored(tool));
     }
 }

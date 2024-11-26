@@ -14,12 +14,11 @@ public class ModCreativeToolModifier extends ItemModifier {
 
     @Override
     protected boolean canModify(ItemStack tool, ItemStack[] input) {
-        if (tool.getItem() instanceof ToolCore) {
-            ToolCore toolItem = (ToolCore) tool.getItem();
+        if (tool.getItem() instanceof ToolCore toolItem) {
             for (ItemStack stack : input) {
                 if (stack != null && stack.hasTagCompound()) {
                     String targetLock = stack.getTagCompound().getString("TargetLock");
-                    if (!targetLock.equals("") && !targetLock.equals(toolItem.getToolName())) return false;
+                    if (!targetLock.isEmpty() && !targetLock.equals(toolItem.getToolName())) return false;
                 }
             }
             return true;
