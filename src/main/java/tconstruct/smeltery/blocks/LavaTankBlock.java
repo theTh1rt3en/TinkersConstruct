@@ -101,10 +101,6 @@ public class LavaTankBlock extends BlockContainer {
         return 0;
     }
 
-    /*
-     * @Override public int getRenderBlockPass() { return 1; }
-     */
-
     @Override
     public int getRenderType() {
         return TankRender.tankModelID;
@@ -205,23 +201,6 @@ public class LavaTankBlock extends BlockContainer {
             if (!player.inventory.addItemStackToInventory(replacement)) {
                 player.dropPlayerItemWithRandomChoice(replacement, false);
             }
-        }
-    }
-
-    /**
-     * This was probably not meant to be public and should ideally be removed. It's a direct copy of code found in
-     * buildcraft.core.lib.inventory.InvUtils.
-     * <p>
-     * In any case it is no longer useful here.
-     */
-    public static ItemStack consumeItem(ItemStack stack) {
-        if (stack.stackSize == 1) {
-            if (stack.getItem().hasContainerItem()) return stack.getItem().getContainerItem(stack);
-            else return null;
-        } else {
-            stack.splitStack(1);
-
-            return stack;
         }
     }
 

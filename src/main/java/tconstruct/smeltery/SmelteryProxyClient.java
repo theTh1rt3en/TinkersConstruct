@@ -73,8 +73,6 @@ public class SmelteryProxyClient extends SmelteryProxyCommon {
         MantleClientRegistry.registerManualIcon("smeltery", new ItemStack(TinkerSmeltery.smeltery));
         MantleClientRegistry.registerManualIcon("blankcast", new ItemStack(TinkerTools.blankPattern, 1, 1));
         MantleClientRegistry.registerManualIcon("castingtable", new ItemStack(TinkerSmeltery.searedBlock));
-        // MantleClientRegistry.registerManualIcon("liquidiron", new
-        // ItemStack(TRepo.liquidMetalStill));
         MantleClientRegistry.registerManualIcon("lavatank", new ItemStack(TinkerSmeltery.lavaTank));
         MantleClientRegistry.registerManualIcon("searedbrick", new ItemStack(TinkerSmeltery.smeltery, 1, 2));
         MantleClientRegistry.registerManualIcon("drain", new ItemStack(TinkerSmeltery.smeltery, 1, 1));
@@ -98,7 +96,6 @@ public class SmelteryProxyClient extends SmelteryProxyCommon {
 
         ItemStack grout = new ItemStack(TinkerTools.craftedSoil, 2, 1);
         ItemStack searedbrick = new ItemStack(TinkerTools.materials, 1, 2);
-        ItemStack searedbrickBlock = new ItemStack(TinkerSmeltery.smeltery, 1, 2);
         ItemStack plankSlab = new ItemStack(Blocks.wooden_slab, 1, 0);
 
         MantleClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);

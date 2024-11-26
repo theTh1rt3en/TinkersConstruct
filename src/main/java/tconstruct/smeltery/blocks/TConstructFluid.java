@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.Fluid;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Setter;
 import tconstruct.library.TConstructRegistry;
 
 public class TConstructFluid extends BlockFluidClassic {
@@ -17,17 +18,13 @@ public class TConstructFluid extends BlockFluidClassic {
     public IIcon stillIcon;
     public IIcon flowIcon;
     boolean overwriteFluidIcons = true;
+    @Setter
     private Fluid fluid = null;
 
     public TConstructFluid(Fluid fluid, Material material, String texture) {
         super(fluid, material);
         this.texture = texture;
         this.setCreativeTab(TConstructRegistry.blockTab);
-    }
-
-    public TConstructFluid(Fluid fluid, Material material, String texture, boolean alpha) {
-        this(fluid, material, texture);
-        this.alpha = alpha;
     }
 
     @Override
@@ -56,7 +53,4 @@ public class TConstructFluid extends BlockFluidClassic {
         overwriteFluidIcons = false;
     }
 
-    public void setFluid(Fluid fluid) {
-        this.fluid = fluid;
-    }
 }

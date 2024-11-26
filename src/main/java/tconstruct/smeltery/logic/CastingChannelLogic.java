@@ -93,7 +93,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
             }
         }
 
-        if (toggle != ForgeDirection.UNKNOWN && toggle != ForgeDirection.UP) {
+        if (toggle != ForgeDirection.UNKNOWN) {
             TileEntity tile = worldObj
                     .getTileEntity(xCoord + toggle.offsetX, yCoord + toggle.offsetY, zCoord + toggle.offsetZ);
             if (tile instanceof IFluidHandler) if (validOutputs.contains(toggle)) {

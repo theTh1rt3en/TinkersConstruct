@@ -24,10 +24,18 @@ import tconstruct.smeltery.TinkerSmeltery;
 
 public class FilledBucket extends ItemBucket {
 
+    public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt",
+            "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel", "Glass", "Stone", "Villager",
+            "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime", "Glue", "PigIron",
+            "Lumium", "Signalum", "Mithril", "Enderium", "Quartz" };
+    public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt",
+            "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass", "stone", "emerald",
+            "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime", "glue", "pigiron",
+            "lumium", "signalum", "mithril", "enderium", "quartz" };
+    public IIcon[] icons;
+
     public FilledBucket(Block b) {
         super(b);
-        // setTextureFile(TRepo.craftingTexture);
-        // setIconIndex(224);
         setUnlocalizedName("tconstruct.bucket");
         setContainerItem(Items.bucket);
         this.setHasSubtypes(true);
@@ -35,67 +43,52 @@ public class FilledBucket extends ItemBucket {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        float var4 = 1.0F;
-        double trueX = player.prevPosX + (player.posX - player.prevPosX) * (double) var4;
-        double trueY = player.prevPosY + (player.posY - player.prevPosY) * (double) var4
-                + 1.62D
-                - (double) player.yOffset;
-        double trueZ = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) var4;
         boolean wannabeFull = false;
         MovingObjectPosition position = this.getMovingObjectPositionFromPlayer(world, player, wannabeFull);
 
-        if (position != null) {
-            /*
-             * FillBucketEvent event = new FillBucketEvent(player, stack, world, position); if
-             * (MinecraftForge.EVENT_BUS.post(event)) { return stack; } if (event.getResult() == Event.Result.ALLOW) {
-             * if (player.capabilities.isCreativeMode) { return stack; } if (--stack.stackSize <= 0) { return
-             * event.result; } if (!player.inventory.addItemStackToInventory(event.result)) {
-             * player.dropPlayerItem(event.result); } return stack; }
-             */
+        if (position != null && position.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+            int clickX = position.blockX;
+            int clickY = position.blockY;
+            int clickZ = position.blockZ;
 
-            if (position.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                int clickX = position.blockX;
-                int clickY = position.blockY;
-                int clickZ = position.blockZ;
+            if (!world.canMineBlock(player, clickX, clickY, clickZ)) {
+                return stack;
+            }
 
-                if (!world.canMineBlock(player, clickX, clickY, clickZ)) {
-                    return stack;
-                }
+            if (position.sideHit == 0) {
+                --clickY;
+            }
 
-                if (position.sideHit == 0) {
-                    --clickY;
-                }
+            if (position.sideHit == 1) {
+                ++clickY;
+            }
 
-                if (position.sideHit == 1) {
-                    ++clickY;
-                }
+            if (position.sideHit == 2) {
+                --clickZ;
+            }
 
-                if (position.sideHit == 2) {
-                    --clickZ;
-                }
+            if (position.sideHit == 3) {
+                ++clickZ;
+            }
 
-                if (position.sideHit == 3) {
-                    ++clickZ;
-                }
+            if (position.sideHit == 4) {
+                --clickX;
+            }
 
-                if (position.sideHit == 4) {
-                    --clickX;
-                }
+            if (position.sideHit == 5) {
+                ++clickX;
+            }
 
-                if (position.sideHit == 5) {
-                    ++clickX;
-                }
+            if (!player.canPlayerEdit(clickX, clickY, clickZ, position.sideHit, stack)) {
+                return stack;
+            }
 
-                if (!player.canPlayerEdit(clickX, clickY, clickZ, position.sideHit, stack)) {
-                    return stack;
-                }
-
-                if (this.tryPlaceContainedLiquid(world, clickX, clickY, clickZ, stack.getItemDamage())
-                        && !player.capabilities.isCreativeMode) {
-                    return new ItemStack(Items.bucket);
-                }
+            if (this.tryPlaceContainedLiquid(world, clickX, clickY, clickZ, stack.getItemDamage())
+                    && !player.capabilities.isCreativeMode) {
+                return new ItemStack(Items.bucket);
             }
         }
+
         return stack;
     }
 
@@ -111,7 +104,7 @@ public class FilledBucket extends ItemBucket {
                 if (TinkerSmeltery.fluidBlocks[type] instanceof BlockFluidFinite) metadata = 7;
 
                 world.setBlock(clickX, clickY, clickZ, TinkerSmeltery.fluidBlocks[type], metadata, 3); // TODO: Merge
-                                                                                                       // liquids
+                // liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
                 TConstruct.logger.warn("AIOBE occured when placing bucket into world; " + ex);
                 return false;
@@ -125,8 +118,6 @@ public class FilledBucket extends ItemBucket {
     public void getSubItems(Item b, CreativeTabs tab, List list) {
         for (int i = 0; i < icons.length; i++) list.add(new ItemStack(b, 1, i));
     }
-
-    public IIcon[] icons;
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -149,14 +140,4 @@ public class FilledBucket extends ItemBucket {
         int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, materialNames.length);
         return getUnlocalizedName() + "." + materialNames[arr];
     }
-
-    public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt",
-            "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel", "Glass", "Stone", "Villager",
-            "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime", "Glue", "PigIron",
-            "Lumium", "Signalum", "Mithril", "Enderium", "Quartz" };
-
-    public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt",
-            "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass", "stone", "emerald",
-            "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime", "glue", "pigiron",
-            "lumium", "signalum", "mithril", "enderium", "quartz" };
 }

@@ -336,8 +336,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 int amount = 0;
                 float damage = 5;
 
-                if (o instanceof EntityVillager && PHConstruct.meltableVillagers) {
-                    EntityVillager villager = (EntityVillager) o;
+                if (o instanceof EntityVillager villager && PHConstruct.meltableVillagers) {
                     fluid = TinkerSmeltery.moltenEmeraldFluid;
                     amount = villager.isChild() ? 5 : 40;
                 } else if (o instanceof EntityEnderman) {
@@ -349,13 +348,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 } else if (o instanceof EntityHorse && PHConstruct.meltableHorses) {
                     fluid = TinkerSmeltery.glueFluid;
                     amount = 108;
-                } else if (o instanceof EntityLivingBase) {
-                    EntityLivingBase living = (EntityLivingBase) o;
+                } else if (o instanceof EntityLivingBase living) {
                     fluid = TinkerSmeltery.bloodFluid;
                     amount = living.isChild() || living instanceof EntityPlayer ? 5 : 40;
                 }
 
-                if (fluid != null && amount > 0 && damage > 0) {
+                if (fluid != null && amount > 0) {
                     boolean canFill = o.attackEntityFrom(new SmelteryDamageSource(), damage);
 
                     if (canFill && amount > 0) this.fill(new FluidStack(fluid, amount), true);
@@ -857,8 +855,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             TileEntity te = worldObj.getTileEntity(x, y, z);
             if (te == this) {
                 tempBricks++;
-            } else if (te instanceof MultiServantLogic) {
-                MultiServantLogic servant = (MultiServantLogic) te;
+            } else if (te instanceof MultiServantLogic servant) {
 
                 if (servant.hasValidMaster()) {
                     if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord)) tempBricks++;

@@ -57,7 +57,6 @@ public class CastingChannelBlock extends BlockContainer {
 
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-        CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
         float minZ = 0F;
         float maxZ = 1F;
         float minX = 0F;

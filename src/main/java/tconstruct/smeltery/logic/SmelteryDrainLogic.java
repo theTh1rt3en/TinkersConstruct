@@ -21,11 +21,6 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     byte direction;
 
     @Override
-    public boolean canUpdate() {
-        return false;
-    }
-
-    @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         if (hasValidMaster() && resource != null && canFill(from, resource.getFluid())) {
             SmelteryLogic smeltery = (SmelteryLogic) worldObj
@@ -61,7 +56,6 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
         return true;
-        // return from == getForgeDirection();//.getOpposite();
     }
 
     @Override
@@ -81,7 +75,6 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
                 }
             }
         }
-        // return from == getForgeDirection().getOpposite() && containsFluid;
         return containsFluid;
     }
 
@@ -92,7 +85,6 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
             SmelteryLogic smeltery = (SmelteryLogic) worldObj
                     .getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getMultiTankInfo();
-            // return new FluidTankInfo[] { smeltery.getInfo() };
         }
         return null;
     }

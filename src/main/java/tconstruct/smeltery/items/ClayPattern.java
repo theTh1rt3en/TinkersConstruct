@@ -17,7 +17,7 @@ public class ClayPattern extends Pattern {
     protected static String[] getPatternNames(String partType) {
         String[] names = new String[patternName.length];
         for (int i = 0; i < patternName.length; i++)
-            if (!(patternName[i].equals(""))) names[i] = partType + patternName[i];
+            if (!(patternName[i].isEmpty())) names[i] = partType + patternName[i];
             else names[i] = "";
         return names;
     }
@@ -29,6 +29,6 @@ public class ClayPattern extends Pattern {
     @Override
     public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_, List p_150895_3_) {
         for (int i = 0; i < patternName.length; i++)
-            if (!(patternName[i].equals(""))) p_150895_3_.add(new ItemStack(p_150895_1_, 1, i));
+            if (!(patternName[i].isEmpty())) p_150895_3_.add(new ItemStack(p_150895_1_, 1, i));
     }
 }

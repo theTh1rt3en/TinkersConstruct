@@ -44,7 +44,6 @@ public class TankItemRenderer implements IItemRenderer {
 
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         renderblocks.setRenderBounds(0, 0, 0, 1, 1, 1);
-        // ItemHelper.renderStandardInvBlock(renderblocks, block, meta);
         RenderingRegistry.instance().renderInventoryBlock(renderblocks, block, meta, TankRender.tankModelID);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
     }

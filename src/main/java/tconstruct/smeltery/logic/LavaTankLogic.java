@@ -75,11 +75,6 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler {
         return new FluidTankInfo[] { new FluidTankInfo(fluid, tank.getCapacity()) };
     }
 
-    /*
-     * @Override public IFluidTank[] getTanks (ForgeDirection direction) { return new IFluidTank[] { tank }; }
-     * @Override public IFluidTank getTank (ForgeDirection direction, FluidStack type) { return tank; }
-     */
-
     public float getFluidAmountScaled() {
         return (float) (tank.getFluid().amount - renderOffset) / (tank.getCapacity() * 1.01F);
     }

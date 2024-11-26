@@ -21,7 +21,6 @@ public class SpeedBlock extends TConstructBlock {
 
     public SpeedBlock() {
         super(Material.rock, 3.0f, textureNames);
-        // this.setBlockBounds(0f, 0f, 0f, 1.0f, 0.5f, 1.0f);
     }
 
     @Override

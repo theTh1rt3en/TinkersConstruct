@@ -27,9 +27,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler {
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelID,
             RenderBlocks renderer) {
         if (modelID == model) {
-            // renderer.setOverrideBlockTexture(((PaneBase)block).getIcon(0, world.getBlockMetadata(x,y,z)));
             return renderer.renderBlockStainedGlassPane(block, x, y, z);
-            // return renderPaneInWorld(renderer, world, x, y, z, (PaneBase) block);
         } else {
             return false;
         }

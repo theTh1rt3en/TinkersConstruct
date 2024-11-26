@@ -21,7 +21,6 @@ public class MetalOre extends TConstructBlock {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta <= 2) return 10f;
         else return 3f;
-        // return this.blockHardness;
     }
 
     @Override

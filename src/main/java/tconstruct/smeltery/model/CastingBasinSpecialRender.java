@@ -47,7 +47,6 @@ public class CastingBasinSpecialRender extends TileEntitySpecialRenderer {
         entityitem.hoverStart = 0.0F;
         GL11.glPushMatrix();
         GL11.glTranslatef(1F, 0.675F, 1.0F);
-        // GL11.glRotatef(90F, 1, 0F, 0F);
         GL11.glScalef(1.75F, 1.75F, 1.75F);
         if (stack.getItem() instanceof ItemBlock) {
             GL11.glScalef(1.6F, 1.6F, 1.6F);

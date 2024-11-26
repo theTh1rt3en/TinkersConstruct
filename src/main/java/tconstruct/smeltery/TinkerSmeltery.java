@@ -1565,7 +1565,7 @@ public class TinkerSmeltery {
                         TinkerSmeltery.moltenAlubrassFluid,
                         (int) (LIQUID_VALUE_NUGGET * PHConstruct.ingotsAluminumBrassAlloy)),
                 new FluidStack(TinkerSmeltery.moltenAluminumFluid, LIQUID_VALUE_NUGGET * 3),
-                new FluidStack(TinkerSmeltery.moltenCopperFluid, LIQUID_VALUE_NUGGET * 1)); // Aluminum Brass
+                new FluidStack(TinkerSmeltery.moltenCopperFluid, LIQUID_VALUE_NUGGET)); // Aluminum Brass
         Smeltery.addAlloyMixing(
                 new FluidStack(
                         TinkerSmeltery.moltenAlumiteFluid,

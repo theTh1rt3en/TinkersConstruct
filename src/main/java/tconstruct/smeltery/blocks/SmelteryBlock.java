@@ -120,23 +120,8 @@ public class SmelteryBlock extends InventoryBlock {
         return icons[3 + meta];
     }
 
-    /*
-     * @Override public int getRenderBlockPass() { return 1; }
-     */
-
-    @Override
-    public int damageDropped(int meta) {
-        return meta;
-    }
-
-    @Override
-    public int quantityDropped(Random random) {
-        return 1;
-    }
-
     @Override
     public Integer getGui(World world, int x, int y, int z, EntityPlayer entityplayer) {
-        // return -1;
         return SmelteryProxyCommon.smelteryGuiID;
     }
 
@@ -146,9 +131,9 @@ public class SmelteryBlock extends InventoryBlock {
             TileEntity logic = world.getTileEntity(x, y, z);
             byte face = 0;
             if (logic instanceof IFacingLogic) face = ((IFacingLogic) logic).getRenderDirection();
-            float f = (float) x + 0.5F;
-            float f1 = (float) y + 0.5F + (random.nextFloat() * 6F) / 16F;
-            float f2 = (float) z + 0.5F;
+            float f = x + 0.5F;
+            float f1 = y + 0.5F + (random.nextFloat() * 6F) / 16F;
+            float f2 = z + 0.5F;
             float f3 = 0.52F;
             float f4 = random.nextFloat() * 0.6F - 0.3F;
             switch (face) {
@@ -195,15 +180,12 @@ public class SmelteryBlock extends InventoryBlock {
 
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
-        switch (metadata) {
-            case 0:
-                return new SmelteryLogic();
-            case 1:
-                return new SmelteryDrainLogic();
-            case 3:
-                return null; // Furnace
-        }
-        return new MultiServantLogic();
+        return switch (metadata) {
+            case 0 -> new SmelteryLogic();
+            case 1 -> new SmelteryDrainLogic();
+            case 3 -> null;
+            default -> new MultiServantLogic();
+        };
     }
 
     @Override
@@ -217,11 +199,6 @@ public class SmelteryBlock extends InventoryBlock {
         logic.checkValidPlacement();
     }
 
-    /*
-     * @Override public void breakBlock (World world, int x, int y, int z, int par5, int par6) //Don't drop inventory {
-     * world.removeBlockTileEntity(x, y, z); }
-     */
-
     @Override
     public void getSubBlocks(Item id, CreativeTabs tab, List<ItemStack> list) {
         for (int iter = 0; iter < 12; iter++) {
@@ -232,7 +209,6 @@ public class SmelteryBlock extends InventoryBlock {
     /* Updating */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // System.out.println("Neighbor changed");
         TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic) {
             ((IServantLogic) logic).notifyMasterOfChange();
