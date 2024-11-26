@@ -6,7 +6,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
 import tconstruct.library.event.ToolCraftedEvent;
@@ -72,8 +71,6 @@ public class ToolForgeContainer extends ToolStationContainer {
     @Override
     protected void craftTool(ItemStack stack) {
         if (stack.getItem() instanceof IModifyable) {
-            NBTTagCompound tags = stack.getTagCompound()
-                    .getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null
                     || logic.getStackInSlot(4) != null);
             for (int i = 2; i <= 4; i++) logic.decrStackSize(i, 1);

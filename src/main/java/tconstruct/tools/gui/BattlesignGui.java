@@ -2,7 +2,6 @@ package tconstruct.tools.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -40,9 +39,9 @@ public class BattlesignGui extends GuiScreen {
 
                 int bgCol = TConstructRegistry.getMaterial(head).primaryColor();
 
-                bgColR = (float) (bgCol >> 16 & 255) / 255.0F;
-                bgColG = (float) (bgCol >> 8 & 255) / 255.0F;
-                bgColB = (float) (bgCol & 255) / 255.0F;
+                bgColR = (bgCol >> 16 & 255) / 255.0F;
+                bgColG = (bgCol >> 8 & 255) / 255.0F;
+                bgColB = (bgCol & 255) / 255.0F;
             }
         }
     }
@@ -63,8 +62,6 @@ public class BattlesignGui extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float something) {
-        Tessellator t = Tessellator.instance;
-
         GL11.glColor4f(bgColR, bgColG, bgColB, 1F);
         this.mc.getTextureManager().bindTexture(background);
         int k = (this.width - 100) / 2;

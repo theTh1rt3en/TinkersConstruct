@@ -44,24 +44,6 @@ public class GuiBorderWidget {
         this.height = height;
     }
 
-    /** Sets the size so that the given point is the upper left corner of the inside */
-    public void setPosInner(int x, int y) {
-        setPosition(x - cornerTopLeft.w, y - cornerTopLeft.h);
-    }
-
-    /** Sets the size so that it surrounds the given area */
-    public void sedSizeInner(int width, int height) {
-        setSize(width + borderLeft.w + borderRight.w, height + borderTop.h + borderBottom.h);
-    }
-
-    public int getWidthWithBorder(int width) {
-        return width + borderRight.w + borderLeft.w;
-    }
-
-    public int getHeightWithBorder(int height) {
-        return height + borderTop.h + borderBottom.h;
-    }
-
     public void draw() {
         int x = xPos;
         int y = yPos;

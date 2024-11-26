@@ -21,10 +21,6 @@ public abstract class EquipLogic extends InventoryLogic {
         inventory[0] = stack.copy();
     }
 
-    public boolean hasEquipmentItem() {
-        return inventory[0] != null;
-    }
-
     public ItemStack getEquipmentItem() {
         return inventory[0];
     }

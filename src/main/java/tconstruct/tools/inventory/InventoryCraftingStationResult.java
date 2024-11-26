@@ -1,6 +1,5 @@
 package tconstruct.tools.inventory;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.item.ItemStack;
 
@@ -15,34 +14,11 @@ public class InventoryCraftingStationResult extends InventoryCraftResult {
     }
 
     /**
-     * Returns the number of slots in the inventory.
-     */
-    @Override
-    public int getSizeInventory() {
-        return 1;
-    }
-
-    /**
      * Returns the stack in slot i
      */
     @Override
     public ItemStack getStackInSlot(int par1) {
-        return logic.getStackInSlot(0); // this.stackResult[0];
-    }
-
-    /**
-     * Returns the name of the inventory.
-     */
-    public String getInvName() {
-        return "Result";
-    }
-
-    /**
-     * If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's
-     * language. Otherwise it will be used directly.
-     */
-    public boolean isInvNameLocalized() {
-        return false;
+        return logic.getStackInSlot(0);
     }
 
     /**
@@ -92,22 +68,4 @@ public class InventoryCraftingStationResult extends InventoryCraftResult {
     @Override
     public void markDirty() {}
 
-    /**
-     * Do not make give this method the name canInteractWith because it clashes with Container
-     */
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
-        return true;
-    }
-
-    public void openChest() {}
-
-    public void closeChest() {}
-
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
-     */
-    public boolean isStackValidForSlot(int par1, ItemStack par2ItemStack) {
-        return true;
-    }
 }

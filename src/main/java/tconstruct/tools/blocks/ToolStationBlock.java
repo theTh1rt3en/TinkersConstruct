@@ -40,8 +40,6 @@ public class ToolStationBlock extends InventoryBlock {
         this.setStepSound(Block.soundTypeWood);
     }
 
-    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
-
     /* Rendering */
     @Override
     public String[] getTextureNames() {
@@ -137,8 +135,6 @@ public class ToolStationBlock extends InventoryBlock {
         else if (md < 5) return 1;
         else if (md < 10) return 2;
         else return 3;
-
-        // return -1;
     }
 
     @Override
@@ -156,15 +152,6 @@ public class ToolStationBlock extends InventoryBlock {
             list.add(new ItemStack(id, 1, iter));
         }
     }
-
-    /*
-     * @Override public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase par5EntityLiving,
-     * ItemStack par6ItemStack) { if (PHConstruct.freePatterns) { int meta = world.getBlockMetadata(x, y, z); if (meta
-     * == 5) { PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z); for (int i = 1; i <= 13; i++)
-     * { logic.setInventorySlotContents(i - 1, new ItemStack(TinkerTools.woodPattern, 1, i)); }
-     * logic.setInventorySlotContents(13, new ItemStack(TinkerTools.woodPattern, 1, 22)); } }
-     * super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack); }
-     */
 
     @Override
     public String getTextureDomain(int textureNameIndex) {
@@ -194,15 +181,10 @@ public class ToolStationBlock extends InventoryBlock {
                 // Spawn item
                 if (!player.capabilities.isCreativeMode || player.isSneaking()) {
                     float f = 0.7F;
-                    double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(
-                            world,
-                            (double) x + d0,
-                            (double) y + d1,
-                            (double) z + d2,
-                            chest);
+                    double d0 = (double) (world.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    double d1 = (double) (world.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    double d2 = (double) (world.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, chest);
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
                 }

@@ -157,7 +157,7 @@ public class CraftingStationContainer extends Container {
     }
 
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int index) {
-        Slot slot = (Slot) this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot == null || !slot.getHasStack()) {
             return null;
@@ -186,13 +186,13 @@ public class CraftingStationContainer extends Container {
             }
 
             slot.onSlotChange(itemstack, ret);
-        } else if (index >= 1 && index < 10) { // From Crafting Grid
+        } else if (index < 10) { // From Crafting Grid
             // First refill the attached chests
             nothingDone &= this.refillChest(itemstack);
 
             // Then try moving to player inventory
             nothingDone &= moveToPlayerInventory(itemstack);
-        } else if (index >= 10 && index < 46) { // From Player Inv or Hotbar
+        } else if (index < 46) { // From Player Inv or Hotbar
             // First to the crafting Matrix
             nothingDone &= moveToCraftingGrid(itemstack);
 
@@ -364,7 +364,7 @@ public class CraftingStationContainer extends Container {
 
         if (stack.isStackable()) {
             while (stack.stackSize > 0 && (!useEndIndex && k < endIndex || useEndIndex && k >= startIndex)) {
-                slot = (Slot) this.inventorySlots.get(k);
+                slot = this.inventorySlots.get(k);
                 itemstack1 = slot.getStack();
 
                 if (itemstack1 != null && itemstack1.getItem() == stack.getItem()
@@ -405,7 +405,7 @@ public class CraftingStationContainer extends Container {
         int k = useEndIndex ? endIndex - 1 : startIndex;
 
         while (!useEndIndex && k < endIndex || useEndIndex && k >= startIndex) {
-            final Slot slot = (Slot) this.inventorySlots.get(k);
+            final Slot slot = this.inventorySlots.get(k);
             ItemStack itemstack1 = slot.getStack();
 
             if ((itemstack1 == null || itemstack1.stackSize == 0) && slot.isItemValid(stack)

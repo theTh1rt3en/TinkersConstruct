@@ -4,7 +4,6 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,7 +12,6 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -137,9 +135,9 @@ public class FancyItemRender extends Render {
 
                                     if (this.renderWithColor) {
                                         i = itemstack.getItem().getColorFromItemStack(itemstack, k);
-                                        f5 = (float) (i >> 16 & 255) / 255.0F;
-                                        f4 = (float) (i >> 8 & 255) / 255.0F;
-                                        f6 = (float) (i & 255) / 255.0F;
+                                        f5 = (i >> 16 & 255) / 255.0F;
+                                        f4 = (i >> 8 & 255) / 255.0F;
+                                        f6 = (i & 255) / 255.0F;
                                         GL11.glColor4f(f5 * f8, f4 * f8, f6 * f8, 1.0F);
                                         this.renderDroppedItem(
                                                 par1EntityItem,
@@ -166,9 +164,9 @@ public class FancyItemRender extends Render {
 
                                 if (this.renderWithColor) {
                                     int l = itemstack.getItem().getColorFromItemStack(itemstack, 0);
-                                    f8 = (float) (l >> 16 & 255) / 255.0F;
-                                    float f9 = (float) (l >> 8 & 255) / 255.0F;
-                                    f5 = (float) (l & 255) / 255.0F;
+                                    f8 = (l >> 16 & 255) / 255.0F;
+                                    float f9 = (l >> 8 & 255) / 255.0F;
+                                    f5 = (l & 255) / 255.0F;
                                     f4 = 1.0F;
                                     this.renderDroppedItem(par1EntityItem, icon1, b0, par9, f8 * f4, f9 * f4, f5 * f4);
                                 } else {
@@ -210,7 +208,6 @@ public class FancyItemRender extends Render {
         float f5 = par2Icon.getMaxU();
         float f6 = par2Icon.getMinV();
         float f7 = par2Icon.getMaxV();
-        float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
         float f11;
@@ -231,17 +228,15 @@ public class FancyItemRender extends Render {
         float f12 = 0.0625F;
         f11 = 0.021875F;
         ItemStack itemstack = par1EntityItem.getEntityItem();
-        int j = itemstack.stackSize;
         byte b0 = getMiniItemCount(itemstack);
 
-        GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float) b0 / 2.0F));
+        GL11.glTranslatef(-f9, -f10, -((f12 + f11) * b0 / 2.0F));
 
         for (int k = 0; k < b0; ++k) {
             // Makes items offset when in 3D, like when in 2D, looks much better. Considered a vanilla bug...
             if (k > 0 && shouldSpreadItems()) {
                 float x = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
                 float y = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
-                float z = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
                 GL11.glTranslatef(x, y, f12 + f11);
             } else {
                 GL11.glTranslatef(0f, 0f, f12 + f11);
@@ -296,265 +291,6 @@ public class FancyItemRender extends Render {
         }
 
         GL11.glPopMatrix();
-    }
-
-    /**
-     * Renders the item's icon or block into the UI at the specified position.
-     */
-    public void renderItemIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5) {
-        renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, false);
-    }
-
-    public void renderItemIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5, boolean renderEffect) {
-        Item k = par3ItemStack.getItem();
-        int l = par3ItemStack.getItemDamage();
-        IIcon object = par3ItemStack.getIconIndex();
-        float f;
-        int i1;
-        float f1;
-        float f2;
-
-        Block block = Block.getBlockFromItem(k); // (k < Block.blocksList.length ? Block.blocksList[k] : null);
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null
-                && RenderBlocks.renderItemIn3d(block.getRenderType())) {
-            par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
-            GL11.glPushMatrix();
-            GL11.glTranslatef((float) (par4 - 2), (float) (par5 + 3), -3.0F + this.zLevel);
-            GL11.glScalef(10.0F, 10.0F, 10.0F);
-            GL11.glTranslatef(1.0F, 0.5F, 1.0F);
-            GL11.glScalef(1.0F, 1.0F, -1.0F);
-            GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            i1 = k.getColorFromItemStack(par3ItemStack, 0);
-            f = (float) (i1 >> 16 & 255) / 255.0F;
-            f1 = (float) (i1 >> 8 & 255) / 255.0F;
-            f2 = (float) (i1 & 255) / 255.0F;
-
-            if (this.renderWithColor) {
-                GL11.glColor4f(f, f1, f2, 1.0F);
-            }
-
-            GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
-            this.itemRenderBlocks.useInventoryTint = this.renderWithColor;
-            this.itemRenderBlocks.renderBlockAsItem(block, l, 1.0F);
-            this.itemRenderBlocks.useInventoryTint = true;
-            GL11.glPopMatrix();
-        } else if (k.requiresMultipleRenderPasses()) {
-            GL11.glDisable(GL11.GL_LIGHTING);
-
-            for (int j1 = 0; j1 < k.getRenderPasses(l); ++j1) {
-                par2TextureManager.bindTexture(
-                        par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture
-                                : TextureMap.locationItemsTexture);
-                IIcon icon = k.getIcon(par3ItemStack, j1);
-                int k1 = k.getColorFromItemStack(par3ItemStack, j1);
-                f1 = (float) (k1 >> 16 & 255) / 255.0F;
-                f2 = (float) (k1 >> 8 & 255) / 255.0F;
-                float f3 = (float) (k1 & 255) / 255.0F;
-
-                if (this.renderWithColor) {
-                    GL11.glColor4f(f1, f2, f3, 1.0F);
-                }
-
-                this.renderIcon(par4, par5, icon, 16, 16);
-
-                if (par3ItemStack.hasEffect(j1)) {
-                    renderEffect(par2TextureManager, par4, par5);
-                }
-            }
-
-            GL11.glEnable(GL11.GL_LIGHTING);
-        } else {
-            GL11.glDisable(GL11.GL_LIGHTING);
-            ResourceLocation resourcelocation = par2TextureManager
-                    .getResourceLocation(par3ItemStack.getItemSpriteNumber());
-            par2TextureManager.bindTexture(resourcelocation);
-
-            if (object == null) {
-                object = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(resourcelocation))
-                        .getAtlasSprite("missingno");
-            }
-
-            i1 = k.getColorFromItemStack(par3ItemStack, 0);
-            f = (float) (i1 >> 16 & 255) / 255.0F;
-            f1 = (float) (i1 >> 8 & 255) / 255.0F;
-            f2 = (float) (i1 & 255) / 255.0F;
-
-            if (this.renderWithColor) {
-                GL11.glColor4f(f, f1, f2, 1.0F);
-            }
-
-            this.renderIcon(par4, par5, object, 16, 16);
-            GL11.glEnable(GL11.GL_LIGHTING);
-
-            if (par3ItemStack.hasEffect(0)) {
-                renderEffect(par2TextureManager, par4, par5);
-            }
-        }
-
-        GL11.glEnable(GL11.GL_CULL_FACE);
-    }
-
-    private void renderEffect(TextureManager manager, int x, int y) {
-        GL11.glDepthFunc(GL11.GL_GREATER);
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDepthMask(false);
-        manager.bindTexture(field_110798_h);
-        this.zLevel -= 50.0F;
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
-        GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F);
-        this.renderGlint(x * 431278612 + y * 32178161, x - 2, y - 2, 20, 20);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glDepthMask(true);
-        this.zLevel += 50.0F;
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glDepthFunc(GL11.GL_LEQUAL);
-    }
-
-    /**
-     * Render the item's icon or block into the GUI, including the glint effect.
-     */
-    public void renderItemAndEffectIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5) {
-        if (par3ItemStack != null) {
-            if (!ForgeHooksClient.renderInventoryItem(
-                    field_147909_c,
-                    par2TextureManager,
-                    par3ItemStack,
-                    renderWithColor,
-                    zLevel,
-                    (float) par4,
-                    (float) par5)) {
-                this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
-            }
-
-            /*
-             * Modders must handle this themselves if they use custom renderers! if (par3ItemStack.hasEffect()) {
-             * GL11.glDepthFunc(GL11.GL_GREATER); GL11.glDisable(GL11.GL_LIGHTING); GL11.glDepthMask(false);
-             * par2TextureManager.bindTexture(field_110798_h); this.zLevel -= 50.0F; GL11.glEnable(GL11.GL_BLEND);
-             * GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR); GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F);
-             * this.renderGlint(par4 * 431278612 + par5 * 32178161, par4 - 2, par5 - 2, 20, 20);
-             * GL11.glDisable(GL11.GL_BLEND); GL11.glDepthMask(true); this.zLevel += 50.0F;
-             * GL11.glEnable(GL11.GL_LIGHTING); GL11.glDepthFunc(GL11.GL_LEQUAL); }
-             */
-        }
-    }
-
-    private void renderGlint(int par1, int par2, int par3, int par4, int par5) {
-        for (int j1 = 0; j1 < 2; ++j1) {
-            if (j1 == 0) {
-                GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
-            }
-
-            if (j1 == 1) {
-                GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
-            }
-
-            float f = 0.00390625F;
-            float f1 = 0.00390625F;
-            float f2 = (float) (Minecraft.getSystemTime() % (long) (3000 + j1 * 1873)) / (3000.0F + (float) (j1 * 1873))
-                    * 256.0F;
-            float f3 = 0.0F;
-            Tessellator tessellator = Tessellator.instance;
-            float f4 = 4.0F;
-
-            if (j1 == 1) {
-                f4 = -1.0F;
-            }
-
-            tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(
-                    par2 + 0,
-                    par3 + par5,
-                    this.zLevel,
-                    (f2 + (float) par5 * f4) * f,
-                    (f3 + (float) par5) * f1);
-            tessellator.addVertexWithUV(
-                    par2 + par4,
-                    par3 + par5,
-                    this.zLevel,
-                    (f2 + (float) par4 + (float) par5 * f4) * f,
-                    (f3 + (float) par5) * f1);
-            tessellator.addVertexWithUV(par2 + par4, par3 + 0, this.zLevel, (f2 + (float) par4) * f, (f3 + 0.0F) * f1);
-            tessellator.addVertexWithUV(par2 + 0, par3 + 0, this.zLevel, (f2 + 0.0F) * f, (f3 + 0.0F) * f1);
-            tessellator.draw();
-        }
-    }
-
-    /**
-     * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the
-     * specified position.
-     */
-    public void renderItemOverlayIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5) {
-        this.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, null);
-    }
-
-    public void renderItemOverlayIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5, String par6Str) {
-        if (par3ItemStack != null) {
-            if (par3ItemStack.stackSize > 1 || par6Str != null) {
-                String s1 = par6Str == null ? String.valueOf(par3ItemStack.stackSize) : par6Str;
-                GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glDisable(GL11.GL_DEPTH_TEST);
-                par1FontRenderer.drawStringWithShadow(
-                        s1,
-                        par4 + 19 - 2 - par1FontRenderer.getStringWidth(s1),
-                        par5 + 6 + 3,
-                        16777215);
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glEnable(GL11.GL_DEPTH_TEST);
-            }
-
-            if (par3ItemStack.isItemDamaged()) {
-                int k = (int) Math.round(
-                        13.0D - (double) par3ItemStack.getItemDamageForDisplay() * 13.0D
-                                / (double) par3ItemStack.getMaxDamage());
-                int l = (int) Math.round(
-                        255.0D - (double) par3ItemStack.getItemDamageForDisplay() * 255.0D
-                                / (double) par3ItemStack.getMaxDamage());
-                GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glDisable(GL11.GL_DEPTH_TEST);
-                GL11.glDisable(GL11.GL_TEXTURE_2D);
-                Tessellator tessellator = Tessellator.instance;
-                int i1 = 255 - l << 16 | l << 8;
-                int j1 = (255 - l) / 4 << 16 | 16128;
-                this.renderQuad(tessellator, par4 + 2, par5 + 13, 13, 2, 0);
-                this.renderQuad(tessellator, par4 + 2, par5 + 13, 12, 1, j1);
-                this.renderQuad(tessellator, par4 + 2, par5 + 13, k, 1, i1);
-                GL11.glEnable(GL11.GL_TEXTURE_2D);
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glEnable(GL11.GL_DEPTH_TEST);
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            }
-        }
-    }
-
-    /**
-     * Adds a quad to the tesselator at the specified position with the set width and height and color. Args:
-     * tessellator, x, y, width, height, color
-     */
-    private void renderQuad(Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6) {
-        par1Tessellator.startDrawingQuads();
-        par1Tessellator.setColorOpaque_I(par6);
-        par1Tessellator.addVertex(par2 + 0, par3 + 0, 0.0D);
-        par1Tessellator.addVertex(par2 + 0, par3 + par5, 0.0D);
-        par1Tessellator.addVertex(par2 + par4, par3 + par5, 0.0D);
-        par1Tessellator.addVertex(par2 + par4, par3 + 0, 0.0D);
-        par1Tessellator.draw();
-    }
-
-    public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5) {
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(par1 + 0, par2 + par5, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
-        tessellator.addVertexWithUV(par1 + par4, par2 + par5, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
-        tessellator.addVertexWithUV(par1 + par4, par2 + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
-        tessellator.addVertexWithUV(par1 + 0, par2 + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV());
-        tessellator.draw();
     }
 
     @Override

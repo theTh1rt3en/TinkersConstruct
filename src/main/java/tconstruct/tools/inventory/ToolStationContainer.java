@@ -8,7 +8,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
 import tconstruct.library.event.ToolCraftedEvent;
@@ -87,7 +86,7 @@ public class ToolStationContainer extends ActiveContainer {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
         ItemStack stack = null;
-        Slot slot = (Slot) this.inventorySlots.get(slotID);
+        Slot slot = this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack slotStack = slot.getStack();
@@ -122,8 +121,6 @@ public class ToolStationContainer extends ActiveContainer {
 
     protected void craftTool(ItemStack stack) {
         if (stack.getItem() instanceof IModifyable) {
-            NBTTagCompound tags = stack.getTagCompound()
-                    .getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
             for (int i = 2; i <= 3; i++) logic.decrStackSize(i, 1);
             ItemStack compare = logic.getStackInSlot(1);
@@ -159,14 +156,10 @@ public class ToolStationContainer extends ActiveContainer {
     protected boolean mergeCraftedStack(ItemStack stack, int slotsStart, int slotsTotal, boolean playerInventory,
             EntityPlayer player) {
         boolean failedToMerge = false;
-        int slotIndex = slotsStart;
-
-        if (playerInventory) {
-            slotIndex = slotsTotal - 1;
-        }
+        int slotIndex;
 
         Slot otherInventorySlot;
-        ItemStack copyStack = null;
+        ItemStack copyStack;
 
         if (stack.stackSize > 0) {
             if (playerInventory) {
@@ -176,7 +169,7 @@ public class ToolStationContainer extends ActiveContainer {
             }
 
             while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart) {
-                otherInventorySlot = (Slot) this.inventorySlots.get(slotIndex);
+                otherInventorySlot = this.inventorySlots.get(slotIndex);
                 copyStack = otherInventorySlot.getStack();
 
                 if (copyStack == null) {

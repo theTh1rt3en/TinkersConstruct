@@ -15,14 +15,6 @@ public class DaggerEntity extends ProjectileBase {
 
     public int roll;
 
-    public DaggerEntity(World world) {
-        super(world);
-    }
-
-    public DaggerEntity(World world, double d, double d1, double d2) {
-        super(world, d, d1, d2);
-    }
-
     public DaggerEntity(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
         super(world, player, speed, accuracy, stack);
 
@@ -63,7 +55,6 @@ public class DaggerEntity extends ProjectileBase {
                 movingobjectposition.entityHit,
                 (ToolCore) returnStack.getItem(),
                 PHConstruct.daggerAdditionalThrowDamage);
-        // super.onHitEntity(movingobjectposition);
     }
 
     @Override

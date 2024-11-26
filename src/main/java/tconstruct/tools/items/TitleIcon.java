@@ -115,21 +115,14 @@ public class TitleIcon extends Item {
             posX += Facing.offsetsXForSide[par7];
             posY += Facing.offsetsYForSide[par7];
             posZ += Facing.offsetsZForSide[par7];
-            double d0 = 0.0D;
-
-            if (par7 == 1 && b != null && b.getRenderType() == 11) {
-                d0 = 0.5D;
-            }
 
             int damage = stack.getItemDamage();
-            switch (damage) {
-                case 0:
-                    spawnEntity(posX, posY, posZ, new BlueSlime(world), world, player);
-                    break;
-                case 1:
-                    spawnBossSlime(posX, posY, posZ, new KingBlueSlime(world), world, player);
-                    break;
+            if (damage == 0) {
+                spawnEntity(posX, posY, posZ, new BlueSlime(world), world, player);
+            } else if (damage == 1) {
+                spawnBossSlime(posX, posY, posZ, new KingBlueSlime(world), world, player);
             }
+
             if (!player.capabilities.isCreativeMode) {
                 --stack.stackSize;
             }
@@ -143,24 +136,18 @@ public class TitleIcon extends Item {
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];
-        double d0 = 0.0D;
-
-        if (par7 == 1 && b != null && b.getRenderType() == 11) {
-            d0 = 0.5D;
-        }
 
         int damage = stack.getItemDamage();
         EntityLiving entity = null;
-        switch (damage) {
-            case 0:
-                entity = new BlueSlime(world);
-                spawnEntity(posX, posY, posZ, entity, world);
-                break;
-            case 1:
-                entity = new KingBlueSlime(world);
-                spawnBossSlime(posX, posY, posZ, new KingBlueSlime(world), world);
-                break;
+
+        if (damage == 0) {
+            entity = new BlueSlime(world);
+            spawnEntity(posX, posY, posZ, entity, world);
+        } else if (damage == 1) {
+            entity = new KingBlueSlime(world);
+            spawnBossSlime(posX, posY, posZ, new KingBlueSlime(world), world);
         }
+
         return entity;
     }
 

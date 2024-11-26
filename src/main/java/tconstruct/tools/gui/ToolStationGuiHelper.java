@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
+import lombok.experimental.UtilityClass;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.modifier.IModifyable;
@@ -23,10 +24,8 @@ import tconstruct.library.weaponry.AmmoWeapon;
 import tconstruct.library.weaponry.IAmmo;
 import tconstruct.library.weaponry.ProjectileWeapon;
 
-public final class ToolStationGuiHelper {
-
-    // non-instantiable
-    private ToolStationGuiHelper() {}
+@UtilityClass
+public class ToolStationGuiHelper {
 
     private static final FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
     private static int xPos, yPos;
@@ -54,8 +53,7 @@ public final class ToolStationGuiHelper {
         yPos = y + 8;
 
         // get the correct tags
-        if (item instanceof IModifyable) {
-            IModifyable modifyable = (IModifyable) item;
+        if (item instanceof IModifyable modifyable) {
             tags = tags.getCompoundTag(modifyable.getBaseTagName());
             categories = Arrays.asList(modifyable.getTraits());
         }

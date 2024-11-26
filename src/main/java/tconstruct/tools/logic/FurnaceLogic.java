@@ -158,14 +158,6 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         return fuel > 0;
     }
 
-    public ItemStack getResultFor(ItemStack stack) {
-        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
-        if (result != null) // Only valid for food
-            return result.copy();
-
-        return null;
-    }
-
     public static int getItemBurnTime(ItemStack stack) {
         if (stack == null) {
             return 0;

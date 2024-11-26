@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import tconstruct.TConstruct;
 import tconstruct.library.client.StencilGuiElement;
 import tconstruct.library.client.TConstructClientRegistry;
@@ -25,7 +25,7 @@ import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.util.network.PatternTablePacket;
 
-@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+@Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class StencilTableGui extends GuiContainer implements INEIGuiHandler {
 
     int[] buttonsLeftRect = new int[] { Integer.MAX_VALUE, Integer.MIN_VALUE };
@@ -150,11 +150,11 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler {
 
     private void setActiveButton(int id) {
         // deactivate old button
-        ((GuiButton) this.buttonList.get(activeButton)).enabled = true;
+        this.buttonList.get(activeButton).enabled = true;
         // update active button
         activeButton = id;
         // activate the button
-        ((GuiButton) this.buttonList.get(activeButton)).enabled = false;
+        this.buttonList.get(activeButton).enabled = false;
     }
 
     void updateServer(ItemStack stack) {

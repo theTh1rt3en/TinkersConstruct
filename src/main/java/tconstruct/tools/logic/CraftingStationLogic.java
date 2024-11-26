@@ -27,7 +27,6 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     public WeakReference<IInventory> patternChest;
     public WeakReference<IInventory> furnace;
     public boolean tinkerTable;
-    public boolean stencilTable;
     public boolean doubleFirst;
 
     public int invRows, invColumns, slotCount;

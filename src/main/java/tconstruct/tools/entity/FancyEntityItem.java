@@ -25,14 +25,6 @@ public class FancyEntityItem extends EntityItem {
                 : par8ItemStack.getItem().getEntityLifespan(par8ItemStack, par1World));
     }
 
-    public FancyEntityItem(World par1World) {
-        super(par1World);
-        if (PHConstruct.indestructible) {
-            this.isImmuneToFire = true;
-            this.lifespan = 72000;
-        }
-    }
-
     public FancyEntityItem(World world, Entity original, ItemStack stack) {
         this(world, original.posX, original.posY, original.posZ);
         this.delayBeforeCanPickup = 20;

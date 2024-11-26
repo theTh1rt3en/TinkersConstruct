@@ -4,6 +4,7 @@ import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Getter;
 
 /*
  * Taken from Mantle 1.12-1.3.3.49 under the MIT License The MIT License (MIT) Copyright (c) 2013-2014 Slime Knights
@@ -41,7 +42,9 @@ public class GuiSliderWidget {
     protected int increment;
     // positioning info
     protected int currentValue;
+    @Getter
     protected boolean enabled;
+    @Getter
     protected boolean hidden;
 
     protected boolean isScrolling;
@@ -83,11 +86,6 @@ public class GuiSliderWidget {
         this.yPos = y;
     }
 
-    public void setSize(int width, int height) {
-        this.width = width;
-        this.height = height;
-    }
-
     /**
      * Sets the height of the whole slider and slidebar
      */
@@ -125,28 +123,12 @@ public class GuiSliderWidget {
         return Math.min(maxValue, Math.max(minValue, currentValue));
     }
 
-    public boolean isHidden() {
-        return this.hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     public void enable() {
         this.enabled = true;
     }
 
     public void disable() {
         this.enabled = false;
-    }
-
-    public boolean isEnabled() {
-        return this.enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public void hide() {
@@ -189,8 +171,8 @@ public class GuiSliderWidget {
     }
 
     private int getSliderTop() {
-        float d = maxValue - minValue;
-        d = (float) (currentValue - minValue) / d;
+        float d = (float) maxValue - minValue;
+        d = (currentValue - minValue) / d;
         d *= getUsableSlidebarHeight() - slider.h;
 
         return (int) d + slideBarTop.h;
@@ -230,13 +212,13 @@ public class GuiSliderWidget {
         // button pressed and scrolling -> update position of slider
         else if (isScrolling) {
             float d = maxValue - minValue;
-            float val = (float) (y - clickY) / (float) (getUsableSlidebarHeight() - slider.h);
+            float val = (y - clickY) / (float) (getUsableSlidebarHeight() - slider.h);
             val *= d;
 
-            if (val < (float) increment / 2f) {
+            if (val < increment / 2f) {
                 // < 1/2 increment
                 setSliderValue(minValue);
-            } else if (val > maxValue - ((float) increment / 2f)) {
+            } else if (val > maxValue - (increment / 2f)) {
                 // > max-1/2 increment
                 setSliderValue(maxValue);
             } else {

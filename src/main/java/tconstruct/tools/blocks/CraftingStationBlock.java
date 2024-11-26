@@ -31,8 +31,6 @@ public class CraftingStationBlock extends InventoryBlock {
         this.setStepSound(Block.soundTypeWood);
     }
 
-    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
-
     /* Rendering */
     @Override
     public String[] getTextureNames() {

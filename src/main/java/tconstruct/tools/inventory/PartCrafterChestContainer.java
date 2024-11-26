@@ -16,7 +16,6 @@ import tconstruct.tools.logic.PatternChestLogic;
 public class PartCrafterChestContainer extends ActiveContainer {
 
     protected PatternChestLogic patternLogic;
-    protected InventoryPlayer invPlayer;
     protected PartBuilderLogic logic;
     protected Slot[] input;
     protected Slot[] inventory;
@@ -66,7 +65,7 @@ public class PartCrafterChestContainer extends ActiveContainer {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
         ItemStack stack = null;
-        Slot slot = (Slot) this.inventorySlots.get(slotID);
+        Slot slot = this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack slotStack = slot.getStack();

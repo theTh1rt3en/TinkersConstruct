@@ -7,7 +7,6 @@ import java.util.List;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +19,8 @@ import org.lwjgl.opengl.GL11;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import lombok.Getter;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.modifier.IModifyable;
@@ -28,7 +28,7 @@ import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
 
-@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+@Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
     /*
@@ -83,6 +83,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
     private int chestLeft = 0;
     private int chestTop = 0;
+    @Getter
     private int chestWidth = 0;
     private int chestHeight = 0;
 
@@ -391,10 +392,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         return h;
     }
 
-    public int getChestWidth() {
-        return chestWidth;
-    }
-
     // updatePosition
     public void updateChest() {
         chestHeight = calcCappedYSize(CraftingStationGui.slotElement.h * 10);
@@ -416,7 +413,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         // Leaving out the xSize increase by chestSize and adjusting where it's used, because otherwise it shifts both
         // the bookmarks and item panel
         // way too far out. If anything (mouseClick, for example) relies on xSize, you'll need to hack it like below.
-        // xSize += guiLeft - chestLeft;
         guiLeft = chestLeft;
 
         border.setPosition(chestLeft, chestTop);
@@ -465,8 +461,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
     // updates slot visibility
     protected void updateChestSlots() {
         if (!hasChest()) return;
-
-        final IInventory secondInventory = logic.getSecondInventory();
 
         int xOffset = border.w;
         int yOffset = border.h;

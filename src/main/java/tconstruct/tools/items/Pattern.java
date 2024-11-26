@@ -47,7 +47,6 @@ public class Pattern extends CraftingItem implements IPattern {
     @Override
     public void getSubItems(Item b, CreativeTabs tab, List list) {
         for (int i = 1; i < patternName.length; i++) {
-            // if (i != 23)
             list.add(new ItemStack(b, 1, i));
         }
     }
@@ -105,16 +104,6 @@ public class Pattern extends CraftingItem implements IPattern {
         if (cost > 0) {
             if (cost - (int) cost < 0.1) list.add(StatCollector.translateToLocal("pattern1.tooltip") + (int) cost);
             else list.add(StatCollector.translateToLocal("pattern2.tooltip") + cost);
-        }
-    }
-
-    public static Map<Integer, Integer> getPatternCosts() {
-        return patternCosts;
-    }
-
-    public static void setPatternCost(Integer index, Integer newCost) {
-        if (patternCosts.containsKey(index)) {
-            patternCosts.put(index, newCost);
         }
     }
 

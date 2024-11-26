@@ -1,5 +1,7 @@
 package tconstruct.tools.gui;
 
+import static cpw.mods.fml.common.Optional.*;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +20,6 @@ import org.lwjgl.opengl.GL11;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tconstruct.TConstruct;
@@ -29,7 +30,7 @@ import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.network.ToolStationPacket;
 
 @SideOnly(Side.CLIENT)
-@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+@Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class ToolStationGui extends GuiContainer implements INEIGuiHandler {
 
     public ToolStationLogic logic;
@@ -117,7 +118,7 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        ((GuiButton) this.buttonList.get(guiType)).enabled = true;
+        this.buttonList.get(guiType).enabled = true;
         guiType = button.id;
         button.enabled = false;
 
@@ -246,23 +247,8 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler {
     }
 
     void updateServer(String name) {
-        /*
-         * ByteArrayOutputStream bos = new ByteArrayOutputStream(8); DataOutputStream outputStream = new
-         * DataOutputStream(bos); try { outputStream.writeByte(1);
-         * outputStream.writeInt(logic.getWorld().provider.dimensionId); outputStream.writeInt(logic.xCoord);
-         * outputStream.writeInt(logic.yCoord); outputStream.writeInt(logic.zCoord); outputStream.writeUTF(name); }
-         * catch (Exception ex) { ex.printStackTrace(); } Packet250CustomPayload packet = new Packet250CustomPayload();
-         * packet.channel = "TConstruct"; packet.data = bos.toByteArray(); packet.length = bos.size();
-         * PacketDispatcher.sendPacketToServer(packet);
-         */
-
         TConstruct.packetPipeline.sendToServer(new ToolStationPacket(logic.xCoord, logic.yCoord, logic.zCoord, name));
     }
-
-    /*
-     * protected void mouseClicked(int par1, int par2, int par3) { super.mouseClicked(par1, par2, par3);
-     * text.mouseClicked(par1, par2, par3); }
-     */
 
     @Override
     public VisiblityData modifyVisiblity(GuiContainer gui, VisiblityData currentVisibility) {

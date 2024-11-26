@@ -190,15 +190,10 @@ public class CraftingSlab extends InventorySlab {
                 // Spawn item
                 if (!player.capabilities.isCreativeMode || player.isSneaking()) {
                     float f = 0.7F;
-                    double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(
-                            world,
-                            (double) x + d0,
-                            (double) y + d1,
-                            (double) z + d2,
-                            chest);
+                    double d0 = (double) (world.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    double d1 = (double) (world.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    double d2 = (double) (world.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, chest);
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
                 }
@@ -209,7 +204,8 @@ public class CraftingSlab extends InventorySlab {
 
     @Override
     public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
-        if (meta != 4) super.harvestBlock(world, player, x, y, z, meta);
-        // Do nothing
+        if (meta != 4) {
+            super.harvestBlock(world, player, x, y, z, meta);
+        }
     }
 }

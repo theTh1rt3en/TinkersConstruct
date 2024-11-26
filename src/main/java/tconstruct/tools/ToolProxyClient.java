@@ -96,11 +96,8 @@ public class ToolProxyClient extends ToolProxyCommon {
         RenderingRegistry
                 .registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Items.potionitem, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerEntityRenderer());
-        // RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
-        // RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
-        // MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
         FlexibleToolRenderer renderer = new FlexibleToolRenderer();
         MinecraftForgeClient.registerItemRenderer(TinkerTools.pickaxe, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.shovel, renderer);
@@ -120,8 +117,6 @@ public class ToolProxyClient extends ToolProxyCommon {
         MinecraftForgeClient.registerItemRenderer(TinkerTools.rapier, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.scythe, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
-        // ToolCoreRenderer daggerRenderer = new ToolCoreRenderer(true);
-        // MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, daggerRenderer); // todo proper renderer
 
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(BattlesignLogic.class, new BattlesignTesr());
     }
@@ -206,12 +201,6 @@ public class ToolProxyClient extends ToolProxyCommon {
                         new ItemStack(TinkerTools.toolRod, 1, 11),
                         null,
                         ""));
-        // MantleClientRegistry.registerManualIcon("shortbowIcon", ToolBuilder.instance.buildTool(new
-        // ItemStack(TinkerTools.toolRod, 1, 10), new ItemStack(TinkerWeaponry.bowstring, 1, 0), new
-        // ItemStack(TinkerTools.toolRod, 1, 12), ""));
-        // MantleClientRegistry.registerManualIcon("arrowIcon", ToolBuilder.instance.buildTool(new
-        // ItemStack(TinkerWeaponry.arrowhead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new
-        // ItemStack(TinkerWeaponry.fletching, 1, 0), ""));
 
         MantleClientRegistry.registerManualIcon(
                 "hammericon",
@@ -658,16 +647,6 @@ public class ToolProxyClient extends ToolProxyCommon {
 
     @SubscribeEvent
     public void onSound(SoundLoadEvent event) {
-        // try {
-        /*
-         * SoundManager soundmanager = event.manager; soundmanager.addSound("tinker:frypan_hit.ogg");
-         * soundmanager.addSound("tinker:little_saw.ogg"); soundmanager.addSound("tinker:launcher_clank.ogg");
-         * TConstruct.logger.info("Successfully loaded sounds.");
-         */
-        // } catch (Exception e) {
-        // TConstruct.logger.error("Failed to register one or more sounds");
-        // }
-
         MinecraftForge.EVENT_BUS.unregister(this);
     }
 
@@ -827,10 +806,6 @@ public class ToolProxyClient extends ToolProxyCommon {
                 "pigiron" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic",
                 "flux", "lapis", "quartz", "silk", "beheading", "smite", "spider", "reinforced", "flux" };
-        int[] universalEffects = { 0, 1, 4, 9, 16 };
-        int[] weaponEffects = { 3, 5, 7, 13, 14, 15 };
-        int[] harvestEffects = { 2 };
-        int[] nonUtility = { 6, 8, 10, 11, 12 };
 
         for (int partIter = 0; partIter < partTypes.length; partIter++) {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);

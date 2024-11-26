@@ -47,15 +47,13 @@ public class TActiveOmniMod extends ActiveToolMod {
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350
                         : 1150;
                 // REGROWING AMMO :OOoo
-                if (tool instanceof IAmmo && random.nextInt(check * 3) < chance) // ammo regenerates at a much slower
-                                                                                 // rate
+                if (tool instanceof IAmmo ammothing && random.nextInt(check * 3) < chance) // ammo regenerates at a much
+                                                                                           // slower
+                // rate
                 {
-                    IAmmo ammothing = (IAmmo) tool;
                     if (ammothing.getAmmoCount(stack) > 0) // must have ammo
                         ammothing.addAmmo(1, stack);
-                }
-                // selfrepairing tool. LAAAAAME
-                else if (random.nextInt(check) < chance) {
+                } else if (random.nextInt(check) < chance) {
                     AbilityHelper.healTool(stack, 1, (EntityLivingBase) entity, true);
                 }
             }
@@ -132,10 +130,9 @@ public class TActiveOmniMod extends ActiveToolMod {
                     if (f == 0.0F) {
                         i = 0;
                     } else if (f < 1.0F) {
-                        j = MathHelper.floor_float((float) i * f);
+                        j = MathHelper.floor_float(i * f);
 
-                        if (j < MathHelper.ceiling_float_int((float) i * f)
-                                && (float) Math.random() < (float) i * f - (float) j) {
+                        if (j < MathHelper.ceiling_float_int(i * f) && (float) Math.random() < i * f - j) {
                             ++j;
                         }
 
@@ -149,9 +146,9 @@ public class TActiveOmniMod extends ActiveToolMod {
                     }
                 }
                 for (int i = 0; i < 5; i++) {
-                    float f = (float) x + random.nextFloat();
-                    float f1 = (float) y + random.nextFloat();
-                    float f2 = (float) z + random.nextFloat();
+                    float f = x + random.nextFloat();
+                    float f1 = y + random.nextFloat();
+                    float f2 = z + random.nextFloat();
                     float f3 = 0.52F;
                     float f4 = random.nextFloat() * 0.6F - 0.3F;
                     world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);

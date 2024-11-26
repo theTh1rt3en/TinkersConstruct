@@ -411,12 +411,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                // TODO is this needed???
-                // crashreportcategory.addCrashSection("Item ID",
-                // Integer.valueOf(par1ItemStack.itemID));
                 crashreportcategory.addCrashSection("Item data", par1ItemStack.getItemDamage());
-                // crashreportcategory.addCrashSectionCallable("Item name", new
-                // CallableItemName(this, par1ItemStack));
                 throw new ReportedException(crashreport);
             }
         }

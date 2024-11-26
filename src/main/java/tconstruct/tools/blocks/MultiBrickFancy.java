@@ -94,10 +94,6 @@ public class MultiBrickFancy extends TConstructBlock {
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
-    /*
-     * @Override public int getRenderType () { return BrickRender.model; }
-     */
-
     @Override
     public boolean canProvidePower() {
         return true;

@@ -19,7 +19,6 @@ import tconstruct.util.network.ToolStationPacket;
 
 public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory {
 
-    ItemStack previousTool;
     String toolName;
 
     public ToolForgeLogic() {
@@ -56,14 +55,10 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory 
                         .buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
                 if (inventory[0] == null) output = tool;
                 else if (tool != null) {
-                    // NBTTagCompound tags = tool.getTagCompound();
-                    // if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
-                    // {
                     output = tool;
-                    // }
                 }
             }
-            if (!name.equals("")) // Name item
+            if (!name.isEmpty()) // Name item
                 output = tryRenameTool(output, name);
         }
         inventory[0] = output;
@@ -72,10 +67,4 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory 
                     .sendToServer(new ToolStationPacket(xCoord, yCoord, zCoord, output.getDisplayName()));
         }
     }
-    /*
-     * public void buildTool (String name) { toolName = name; ItemStack tool =
-     * ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name); if (inventory[0] ==
-     * null) inventory[0] = tool; else { NBTTagCompound tags = inventory[0].getTagCompound(); if
-     * (!tags.getCompoundTag("InfiTool").hasKey("Built")) { inventory[0] = tool; } } }
-     */
 }

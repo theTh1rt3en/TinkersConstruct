@@ -35,7 +35,8 @@ import com.kuba6000.mobsinfo.api.MobDrop;
 import com.kuba6000.mobsinfo.api.MobRecipe;
 import com.kuba6000.mobsinfo.loader.extras.Translations;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -56,7 +57,7 @@ import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.MovementUpdatePacket;
 
-@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
+@Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
 public class TinkerToolEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
@@ -218,7 +219,6 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
     public void onAttack(LivingAttackEvent event) {
-        // System.out.println("Damage: "+event.ammount);
         if (event.entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             // Cutlass
@@ -271,8 +271,6 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
                             projectile.motionX /= -0.10000000149011612D;
                             projectile.motionY /= -0.10000000149011612D;
                             projectile.motionZ /= -0.10000000149011612D;
-                            // projectile.rotationYaw -= 180.0F;
-                            // projectile.prevRotationYaw -= 180.0F;
 
                             // not needed at the client since it gets the absolute values sent
 
@@ -321,7 +319,6 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
             }
 
             if (event.entityLiving.getClass() == EntityZombie.class) {
-                EntityZombie enemy = (EntityZombie) event.entityLiving;
 
                 if (event.source.damageType.equals("player")) {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
@@ -345,7 +342,6 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
             }
 
             if (event.entityLiving.getClass() == EntityCreeper.class) {
-                EntityCreeper enemy = (EntityCreeper) event.entityLiving;
 
                 if (event.source.damageType.equals("player")) {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
@@ -361,8 +357,7 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
             }
         }
 
-        if (event.entityLiving instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
+        if (event.entityLiving instanceof EntityPlayer player) {
 
             if (PHConstruct.dropPlayerHeads) {
                 ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
@@ -388,8 +383,8 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
     @Override
+    @Method(modid = "mobsinfo")
     public void provideExtraDropsInformation(@Nonnull String entityString, @Nonnull ArrayList<MobDrop> drops,
             @Nonnull MobRecipe recipe) {
         if (recipe.entity instanceof EntitySkeleton) {

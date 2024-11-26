@@ -34,11 +34,6 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
         return new PatternShaperContainer(inventoryplayer, this);
     }
 
-    /*
-     * @Override public void onInventoryChanged() { if (inventory[0] == null) inventory[1] = null;
-     * super.onInventoryChanged(); }
-     */
-
     public void setSelectedPattern(ItemStack stack) {
         selectedStack = stack;
         this.setInventorySlotContents(1, stack);
@@ -70,20 +65,6 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
             ItemStack ret = super.decrStackSize(slot, quantity);
             if (inventory[0] == null) super.decrStackSize(1, 1);
             return ret;
-        }
-    }
-
-    public void altDecrStackSize(int slot, int quantity) {
-        if (inventory[slot] != null) {
-            if (inventory[slot].stackSize <= quantity) {
-                ItemStack stack = inventory[slot];
-                inventory[slot] = null;
-                return;
-            }
-            ItemStack split = inventory[slot].splitStack(quantity);
-            if (inventory[slot].stackSize == 0) {
-                inventory[slot] = null;
-            }
         }
     }
 

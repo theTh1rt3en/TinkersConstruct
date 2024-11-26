@@ -13,9 +13,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 public class LaunchedPotion extends EntityThrowable {
 
     /**
@@ -23,27 +20,9 @@ public class LaunchedPotion extends EntityThrowable {
      */
     private ItemStack potionDamage;
 
-    public LaunchedPotion(World par1World) {
-        super(par1World);
-    }
-
-    public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, int par3) {
-        this(par1World, par2EntityLiving, new ItemStack(Items.potionitem, 1, par3));
-    }
-
     public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, ItemStack par3ItemStack) {
         super(par1World, par2EntityLiving);
         this.potionDamage = par3ItemStack;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public LaunchedPotion(World par1World, double par2, double par4, double par6, int par8) {
-        this(par1World, par2, par4, par6, new ItemStack(Items.potionitem, 1, par8));
-    }
-
-    public LaunchedPotion(World par1World, double par2, double par4, double par6, ItemStack par8ItemStack) {
-        super(par1World, par2, par4, par6);
-        this.potionDamage = par8ItemStack;
     }
 
     /**

@@ -1,6 +1,5 @@
 package tconstruct.tools.inventory;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -48,14 +47,6 @@ public class InventoryCraftingStation extends InventoryCrafting {
         } else {
             return null;
         }
-    }
-
-    public String getInvName() {
-        return "container.crafting";
-    }
-
-    public boolean isInvNameLocalized() {
-        return false;
     }
 
     @Override
@@ -109,22 +100,4 @@ public class InventoryCraftingStation extends InventoryCrafting {
     @Override
     public void markDirty() {}
 
-    /**
-     * Do not make give this method the name canInteractWith because it clashes with Container
-     */
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
-        return true;
-    }
-
-    public void openChest() {}
-
-    public void closeChest() {}
-
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
-     */
-    public boolean isStackValidForSlot(int par1, ItemStack par2ItemStack) {
-        return true;
-    }
 }

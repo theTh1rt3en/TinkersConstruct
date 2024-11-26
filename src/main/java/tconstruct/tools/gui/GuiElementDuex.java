@@ -72,19 +72,4 @@ public class GuiElementDuex {
         GuiScreen.func_146110_a(xPos, yPos, x, y, w, h, texW, texH);
         return w;
     }
-
-    public static class Builder {
-
-        public int w;
-        public int h;
-
-        public Builder(int w, int h) {
-            this.w = w;
-            this.h = h;
-        }
-
-        public GuiElementDuex get(int x, int y, int w, int h) {
-            return new GuiElementDuex(x, y, w, h, this.w, this.h);
-        }
-    }
 }

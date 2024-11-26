@@ -31,8 +31,8 @@ public class BattlesignBlock extends EquipBlock {
         return BattlesignRender.battlesignModelID;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
         return side == 0 && this.minY > 0.0D || (side == 1 && this.maxY < 1.0D
                 || (side == 2 && this.minZ > 0.0D || (side == 3 && this.maxZ < 1.0D || (side == 4 && this.minX > 0.0D
@@ -52,7 +52,6 @@ public class BattlesignBlock extends EquipBlock {
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         int newMeta = switch (i3) {
-            case 3 -> 0;
             case 0 -> 3;
             case 1 -> 1;
             case 2 -> 2;

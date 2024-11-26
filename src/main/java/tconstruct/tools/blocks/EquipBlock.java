@@ -34,7 +34,6 @@ public class EquipBlock extends InventoryBlock {
         super(material);
         this.setHardness(0.3f);
         this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
-        // this.setCreativeTab(ToolConstruct.materialTab);
     }
 
     @Override
@@ -55,10 +54,7 @@ public class EquipBlock extends InventoryBlock {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister par1IconRegister) {
-        // this.blockIcon =
-        // par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
-    }
+    public void registerBlockIcons(IIconRegister par1IconRegister) {}
 
     @Override
     public boolean renderAsNormalBlock() {
@@ -88,9 +84,9 @@ public class EquipBlock extends InventoryBlock {
     @Override
     public void randomDisplayTick(World world, int x, int y, int z, Random random) {
         if (isActive(world, x, y, z)) {
-            float f = (float) x + 0.5F;
-            float f1 = (float) y + 0.25F + (random.nextFloat() * 6F) / 16F;
-            float f2 = (float) z + 0.5F;
+            float f = x + 0.5F;
+            float f1 = y + 0.25F + (random.nextFloat() * 6F) / 16F;
+            float f2 = z + 0.5F;
             float f4 = random.nextFloat() * 0.6F - 0.3F;
             world.spawnParticle("smoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
             world.spawnParticle("flame", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
@@ -104,7 +100,6 @@ public class EquipBlock extends InventoryBlock {
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         int newMeta = switch (i3) {
-            case 3 -> 0;
             case 0 -> 3;
             case 1 -> 1;
             case 2 -> 2;
@@ -137,9 +132,9 @@ public class EquipBlock extends InventoryBlock {
                         stack.stackSize -= itemSize;
                         EntityItem entityitem = new EntityItem(
                                 par1World,
-                                (float) x + jumpX,
-                                (float) y + jumpY,
-                                (float) z + jumpZ,
+                                x + jumpX,
+                                y + jumpY,
+                                z + jumpZ,
                                 new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                         if (stack.hasTagCompound()) {
