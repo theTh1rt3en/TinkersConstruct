@@ -10,30 +10,21 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import lombok.Setter;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
 
+@Setter
 public class FlexibleToolRenderer implements IItemRenderer {
 
     public float depth = 1 / 32f;
-
-    public void setDepth(float d) {
-        depth = d;
-    }
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         if (!item.hasTagCompound()) return false;
 
         switch (type) {
-            case ENTITY:
-                // GL11.glTranslatef(-0.0625F, -0.0625F, 0F);
-                return true;
-            case EQUIPPED:
-                // GL11.glTranslatef(0.03f, 0F, -0.09375F);
-            case EQUIPPED_FIRST_PERSON:
-                return true;
-            case INVENTORY:
+            case ENTITY, EQUIPPED, EQUIPPED_FIRST_PERSON, INVENTORY:
                 return true;
             default:
                 TConstruct.logger.warn("[TCon] Unhandled render case!");
@@ -215,7 +206,6 @@ public class FlexibleToolRenderer implements IItemRenderer {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.5F);
-        // GL11.glDisable(GL11.GL_BLEND);
 
         tess.startDrawingQuads();
 
@@ -235,7 +225,6 @@ public class FlexibleToolRenderer implements IItemRenderer {
         }
         tess.draw();
 
-        // GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
         GL11.glEnable(GL11.GL_LIGHTING);
@@ -243,7 +232,7 @@ public class FlexibleToolRenderer implements IItemRenderer {
     }
 
     public int getIcons(ItemStack item, ItemRenderType type, Entity ent, IIcon[] parts) {
-        int iconParts = toolIcons; // tool.getRenderPasses(item.getItemDamage());
+        int iconParts = toolIcons;
         // TODO: have the tools define how many render passes they have
         // (requires more logic rewrite than it sounds like)
 

@@ -99,8 +99,6 @@ public class MaterialPage extends BookPage {
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
         manual.renderitem.zLevel = 100;
-        // renderitem.renderItemAndEffectIntoGUI(fonts, getMC().renderEngine,
-        // icons[0], localWidth + 50, localHeight + 0);
         manual.renderitem.renderItemAndEffectIntoGUI(
                 manual.fonts,
                 manual.getMC().renderEngine,
@@ -179,7 +177,7 @@ public class MaterialPage extends BookPage {
 
         int offset = 0;
         String ability = material.ability();
-        if (!ability.equals("")) {
+        if (!ability.isEmpty()) {
             manual.fonts.drawString(materialTrait + ": " + ability, localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
             if (material.name().equals("Paper") || material.name().equals("Thaumium"))
@@ -203,14 +201,12 @@ public class MaterialPage extends BookPage {
                     localWidth,
                     localHeight + 120 + 10 * offset,
                     0);
-            offset++;
         } else if (material.shoddy() < 0) {
             manual.fonts.drawString(
                     splinteringLevel + ": " + -material.shoddy(),
                     localWidth,
                     localHeight + 120 + 10 * offset,
                     0);
-            offset++;
         }
     }
 }

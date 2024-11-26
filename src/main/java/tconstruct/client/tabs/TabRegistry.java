@@ -22,10 +22,6 @@ public class TabRegistry {
         tabList.add(tab);
     }
 
-    public static ArrayList<AbstractTab> getTabList() {
-        return tabList;
-    }
-
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void guiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
@@ -79,12 +75,12 @@ public class TabRegistry {
                     Class<?> c = Class.forName("codechicken.nei.NEIClientConfig");
                     Object hidden = c.getMethod("isHidden").invoke(null);
                     Object enabled = c.getMethod("isEnabled").invoke(null);
-                    if (hidden instanceof Boolean && enabled instanceof Boolean) {
-                        if ((Boolean) hidden || !((Boolean) enabled)) {
-                            // If NEI is disabled or hidden, offset the tabs by 60
-                            return 60;
-                        }
+                    if (hidden instanceof Boolean && enabled instanceof Boolean
+                            && ((Boolean) hidden || !((Boolean) enabled))) {
+                        // If NEI is disabled or hidden, offset the tabs by 60
+                        return 60;
                     }
+
                 } catch (Exception ignored) {}
             } else {
                 // If NEI is not installed, offset the tabs

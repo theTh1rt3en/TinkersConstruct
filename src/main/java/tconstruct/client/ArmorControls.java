@@ -43,8 +43,6 @@ public class ArmorControls {
 
     boolean jumping;
     int midairJumps = 0;
-    boolean climbing = false;
-    boolean onGround = false;
     public static boolean zoom = false;
     boolean activeGoggles = false; // TODO: Set this on server login
 
@@ -148,14 +146,15 @@ public class ArmorControls {
 
     private void checkAndToggleNightVision() {
         ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
-        if (goggles != null && goggles.getItem() instanceof TravelGear) { // TODO: Genericize this
-            if (goggles.hasTagCompound() && goggles.getTagCompound()
-                    .getCompoundTag(((TravelGear) goggles.getItem()).getBaseTagName()).getBoolean("Night Vision")) {
-                activeGoggles = !activeGoggles;
-                PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
-                toggleGoggles();
-            }
+        if (goggles != null && goggles.getItem() instanceof TravelGear
+                && goggles.hasTagCompound()
+                && goggles.getTagCompound().getCompoundTag(((TravelGear) goggles.getItem()).getBaseTagName())
+                        .getBoolean("Night Vision")) {
+            activeGoggles = !activeGoggles;
+            PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
+            toggleGoggles();
         }
+
     }
 
     public static boolean doBeltSwapIfPossible() {

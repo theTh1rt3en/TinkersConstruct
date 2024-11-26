@@ -18,8 +18,7 @@ public class TableDataProvider implements IWailaDataProvider {
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof CastingTableLogic) {
-            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
+        if (accessor.getTileEntity() instanceof CastingTableLogic te) {
             return te.getStackInSlot(0);
         }
         return null;
@@ -34,8 +33,7 @@ public class TableDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof CastingTableLogic && config.getConfig("tcon.table", true)) {
-            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
+        if (accessor.getTileEntity() instanceof CastingTableLogic te && config.getConfig("tcon.table", true)) {
             if (te.getStackInSlot(1) != null) {
                 currenttip.add(
                         StatCollector.translateToLocal("tconstruct.waila.contains")

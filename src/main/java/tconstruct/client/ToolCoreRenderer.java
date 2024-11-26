@@ -18,14 +18,6 @@ public class ToolCoreRenderer implements IItemRenderer {
     private final boolean isEntity;
     private final boolean noEntityTranslation;
 
-    public ToolCoreRenderer() {
-        this(false, false);
-    }
-
-    public ToolCoreRenderer(boolean isEntity) {
-        this(isEntity, false);
-    }
-
     public ToolCoreRenderer(boolean isEntity, boolean noEntityTranslation) {
         this.isEntity = isEntity;
         this.noEntityTranslation = noEntityTranslation;
@@ -65,14 +57,13 @@ public class ToolCoreRenderer implements IItemRenderer {
         Entity ent = null;
         if (data.length > 1) ent = (Entity) data[1];
 
-        int iconParts = toolIcons; // tool.getRenderPasses(item.getItemDamage());
+        int iconParts = toolIcons;
         // TODO: have the tools define how many render passes they have
         // (requires more logic rewrite than it sounds like)
 
         IIcon[] tempParts = new IIcon[iconParts];
         label: {
-            if (!isInventory && ent instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) ent;
+            if (!isInventory && ent instanceof EntityPlayer player) {
                 ItemStack itemInUse = player.getItemInUse();
                 if (itemInUse != null) {
                     int useCount = player.getItemInUseCount();
@@ -95,7 +86,6 @@ public class ToolCoreRenderer implements IItemRenderer {
         if (iconParts <= 0) {
             iconParts = 1;
             // TODO: assign default sprite
-            // parts = new Icon[]{ defaultSprite };
         }
 
         Tessellator tess = Tessellator.instance;
@@ -134,10 +124,6 @@ public class ToolCoreRenderer implements IItemRenderer {
 
         if (type == ItemRenderType.INVENTORY) {
 
-            // TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-            // texturemanager.getResourceLocation(item.getItemSpriteNumber());
-            // TextureUtil.func_152777_a(false, false, 1.0F);
-
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_ALPHA_TEST);
             GL11.glDisable(GL11.GL_BLEND);
@@ -154,10 +140,6 @@ public class ToolCoreRenderer implements IItemRenderer {
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glEnable(GL11.GL_BLEND);
-
-            // GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-            // texturemanager.bindTexture(texturemanager.getResourceLocation(item.getItemSpriteNumber()));
-            // TextureUtil.func_147945_b();
         } else {
             switch (type) {
                 case EQUIPPED_FIRST_PERSON:

@@ -2,10 +2,8 @@ package tconstruct.client.entity.projectile;
 
 import java.util.Random;
 
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -55,31 +53,6 @@ public class ArrowRenderCustom extends Render {
         ForgeHooksClient.renderEntityItem(null, item, 0, 0, random, renderManager.renderEngine, field_147909_c, 1);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
-    }
-
-    /**
-     * Renders the item's icon or block into the UI at the specified position.
-     */
-    public void renderItemIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5) {
-        renderer.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
-    }
-
-    /**
-     * Render the item's icon or block into the GUI, including the glint effect.
-     */
-    public void renderItemAndEffectIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5) {
-        renderer.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
-    }
-
-    /**
-     * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the
-     * specified position.
-     */
-    public void renderItemOverlayIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager,
-            ItemStack par3ItemStack, int par4, int par5) {
-        renderer.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
 
     /**

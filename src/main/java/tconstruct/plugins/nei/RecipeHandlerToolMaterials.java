@@ -213,11 +213,10 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(this.getRecipeID())) {
-            ToolMaterial mat;
             for (int matID : TConstructRegistry.toolMaterials.keySet()) {
                 List<ItemStack> toolParts = new ArrayList<>();
 
-                mat = TConstructRegistry.toolMaterials.get(matID);
+                TConstructRegistry.toolMaterials.get(matID);
                 for (ItemKey key : PatternBuilder.instance.materials) {
                     MaterialSet set = PatternBuilder.instance.materialSets.get(key.key);
                     if (set.materialID == matID) {
@@ -241,7 +240,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
                     }
                 }
 
-                if (toolParts.size() > 0) {
+                if (!toolParts.isEmpty()) {
                     this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, matID));
                     this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, matID, true));
                 }
@@ -257,7 +256,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
             int materialID = ((IToolPart) ingred.getItem()).getMaterialID(ingred);
             if (materialID >= 0) {
                 List toolParts = getSingleList(ingred);
-                if (toolParts.size() > 0) {
+                if (!toolParts.isEmpty()) {
                     this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID));
                     this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID, true));
                 }
@@ -265,7 +264,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
         } else if (PatternBuilder.instance.getPartID(ingred) < Short.MAX_VALUE) {
             int materialID = PatternBuilder.instance.getPartID(ingred);
             List toolParts = getSingleList(ingred);
-            if (toolParts.size() > 0) {
+            if (!toolParts.isEmpty()) {
                 this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID));
                 this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID, true));
             }

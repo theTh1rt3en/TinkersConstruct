@@ -46,9 +46,7 @@ public class BlockSkinRenderHelper {
         Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(983055);
 
-        if (render.getBlockIcon(block).getIconName().equals("grass_top")) {
-            flag1 = false;
-        } else if (render.hasOverrideBlockTexture()) {
+        if (render.getBlockIcon(block).getIconName().equals("grass_top") || render.hasOverrideBlockTexture()) {
             flag1 = false;
         }
 
@@ -902,8 +900,6 @@ public class BlockSkinRenderHelper {
             flag = true;
         }
 
-        IIcon icon;
-
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)) {
             tessellator.setBrightness(
                     render.renderMinZ > 0.0D ? l
@@ -959,11 +955,9 @@ public class BlockSkinRenderHelper {
 
     public static boolean renderLiquidBlock(IIcon stillIcon, IIcon flowingIcon, int x, int y, int z,
             RenderBlocks renderer, IBlockAccess world, boolean extraBright, int color) {
-        Block block = Blocks.stone;
-        float alpha = (float) (color >> 24 & 255) / 255.0F;
-        float red = (float) (color >> 16 & 255) / 255.0F;
-        float green = (float) (color >> 8 & 255) / 255.0F;
-        float blue = (float) (color & 255) / 255.0F;
+        float red = (color >> 16 & 255) / 255.0F;
+        float green = (color >> 8 & 255) / 255.0F;
+        float blue = (color & 255) / 255.0F;
 
         if (EntityRenderer.anaglyphEnable) {
             float var9 = (red * 30.0F + green * 59.0F + blue * 11.0F) / 100.0F;
@@ -1029,9 +1023,7 @@ public class BlockSkinRenderHelper {
         Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(983055);
 
-        if (render.getBlockIcon(block).getIconName().equals("grass_top")) {
-            flag1 = false;
-        } else if (render.hasOverrideBlockTexture()) {
+        if (render.getBlockIcon(block).getIconName().equals("grass_top") || render.hasOverrideBlockTexture()) {
             flag1 = false;
         }
 
@@ -1879,8 +1871,6 @@ public class BlockSkinRenderHelper {
             render.renderFaceYPos(block, xPos, yPos, zPos, stillIcon);
             flag = true;
         }
-
-        IIcon icon;
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)) {
             tessellator.setBrightness(

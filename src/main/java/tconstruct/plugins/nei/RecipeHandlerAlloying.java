@@ -62,11 +62,6 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase {
         }
 
         @Override
-        public PositionedStack getIngredient() {
-            return null;
-        }
-
-        @Override
         public PositionedStack getResult() {
             return null;
         }

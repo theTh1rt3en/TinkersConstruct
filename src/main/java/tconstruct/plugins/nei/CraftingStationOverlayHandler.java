@@ -16,8 +16,7 @@ public class CraftingStationOverlayHandler extends DefaultOverlayHandler {
 
     @Override
     public void overlayRecipe(GuiContainer gui, IRecipeHandler recipe, int recipeIndex, boolean shift) {
-        if (gui.inventorySlots instanceof CraftingStationContainer) {
-            final CraftingStationContainer station = (CraftingStationContainer) gui.inventorySlots;
+        if (gui.inventorySlots instanceof CraftingStationContainer station) {
             if (station.logic.chest != null && gui instanceof CraftingStationGui) {
                 offsetx = 5 + ((CraftingStationGui) gui).getChestWidth();
             } else {

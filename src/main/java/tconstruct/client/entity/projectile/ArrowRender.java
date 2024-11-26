@@ -40,8 +40,6 @@ public class ArrowRender extends Render {
     /** Defines the zLevel of rendering of item on GUI. */
     public float zLevel;
 
-    public static boolean renderInFrame;
-
     public ArrowRender() {
         this.shadowSize = 0.15F;
         this.shadowOpaque = 0.75F;
@@ -172,22 +170,20 @@ public class ArrowRender extends Render {
         float f5 = par2Icon.getMaxU();
         float f6 = par2Icon.getMinV();
         float f7 = par2Icon.getMaxV();
-        float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
         float f11;
 
         GL11.glPushMatrix();
 
-        GL11.glRotatef((((float) 0 + par4) / 20.0F + 0) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(((0 + par4) / 20.0F + 0) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
 
         float f12 = 0.0625F;
         f11 = 0.021875F;
         ItemStack itemstack = arrow.getEntityItem();
-        int j = itemstack.stackSize;
         byte b0 = 1;
 
-        GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float) b0 / 2.0F));
+        GL11.glTranslatef(-f9, -f10, -((f12 + f11) * b0 / 2.0F));
 
         for (int k = 0; k < b0; ++k) {
             GL11.glRotatef(
@@ -205,7 +201,6 @@ public class ArrowRender extends Render {
             if (k > 0 && shouldSpreadItems()) {
                 float x = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
                 float y = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
-                float z = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
                 GL11.glTranslatef(x, y, f12 + f11);
             } else {
                 GL11.glTranslatef(0f, 0f, f12 + f11);

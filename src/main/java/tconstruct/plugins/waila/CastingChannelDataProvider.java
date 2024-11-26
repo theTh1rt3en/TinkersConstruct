@@ -34,8 +34,7 @@ public class CastingChannelDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof CastingChannelLogic) {
-            CastingChannelLogic te = (CastingChannelLogic) accessor.getTileEntity();
+        if (accessor.getTileEntity() instanceof CastingChannelLogic te) {
             FluidTankInfo internalTank = te.getTankInfo(null)[0];
             FluidTankInfo northTank = te.getTankInfo(ForgeDirection.NORTH)[0];
             FluidTankInfo southTank = te.getTankInfo(ForgeDirection.SOUTH)[0];

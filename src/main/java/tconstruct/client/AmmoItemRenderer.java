@@ -9,14 +9,8 @@ import org.lwjgl.opengl.GL11;
 import tconstruct.library.weaponry.IAmmo;
 
 public class AmmoItemRenderer extends FlexibleToolRenderer {
-    // public static FontRenderer fontRenderer;
 
-    public AmmoItemRenderer() {
-        // super(true);
-        // fontRenderer = new FontRenderer(Minecraft.getMinecraft().gameSettings, new
-        // ResourceLocation(Reference.RESOURCE, "textures/font/border_numbers.png"),
-        // Minecraft.getMinecraft().renderEngine, false);
-    }
+    public AmmoItemRenderer() {}
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -29,9 +23,6 @@ public class AmmoItemRenderer extends FlexibleToolRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         // render the item regularly
         super.renderItem(type, item, data);
-        // RenderItem.getInstance().renderItemIntoGUI(Minecraft.getMinecraft().fontRenderer,
-        // Minecraft.getMinecraft().renderEngine, item, 0,0);
-
         if (item.getTagCompound() == null || type != ItemRenderType.INVENTORY) return;
 
         // render custom stacksize

@@ -117,7 +117,7 @@ public class HealthBarRenderer extends Gui {
 
         // Render vanilla hearts
         for (int i = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F) - 1; i >= 0; --i) {
-            final int row = MathHelper.ceiling_float_int((float) (i + 1) / 10.0F) - 1;
+            final int row = MathHelper.ceiling_float_int((i + 1) / 10.0F) - 1;
             int x = left + i % 10 * 8;
             int y = top - row * rowHeight;
 
@@ -155,8 +155,6 @@ public class HealthBarRenderer extends Gui {
             // Render tinkers' hearts
             mc.getTextureManager().bindTexture(TINKER_HEARTS);
             for (int i = Math.max(0, health / 20 - 2); i < health / 20; i++) {
-                // uncomment the line below to help with debugging
-                // yBasePos -=20;
                 final int heartIndexMax = Math.min(10, (health - 20 * (i + 1)) / 2);
                 for (int j = 0; j < heartIndexMax; j++) {
                     int y = 0;

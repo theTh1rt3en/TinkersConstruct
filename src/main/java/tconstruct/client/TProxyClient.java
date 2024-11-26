@@ -7,7 +7,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,8 +19,6 @@ import cpw.mods.fml.common.Loader;
 import mantle.client.SmallFontRenderer;
 import mantle.lib.client.MantleClientRegistry;
 import tconstruct.TConstruct;
-import tconstruct.armor.ArmorProxyClient;
-import tconstruct.armor.player.TPlayerStats;
 import tconstruct.common.TProxyCommon;
 import tconstruct.tools.items.ManualInfo;
 
@@ -33,7 +30,6 @@ public class TProxyClient extends TProxyCommon {
     public static SmallFontRenderer smallFontRenderer;
     public static IIcon metalBall;
     public static Minecraft mc;
-    public static RenderItem itemRenderer = new RenderItem();
 
     public void initialize() {
         registerRenderer();
@@ -119,22 +115,4 @@ public class TProxyClient extends TProxyCommon {
 
     void initManualPages() {}
 
-    public static Document getManualFromStack(ItemStack stack) {
-        switch (stack.getItemDamage()) {
-            case 0:
-                return volume1;
-            case 1:
-                return volume2;
-            case 2:
-                return smelter;
-            case 3:
-                return diary;
-        }
-
-        return null;
-    }
-
-    public void recalculateHealth() {
-        ArmorProxyClient.armorExtended.recalculateHealth(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
-    }
 }

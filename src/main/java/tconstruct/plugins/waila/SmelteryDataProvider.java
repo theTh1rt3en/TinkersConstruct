@@ -32,11 +32,10 @@ public class SmelteryDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof SmelteryLogic && config.getConfig("tcon.smeltery", true)) {
-            SmelteryLogic te = (SmelteryLogic) accessor.getTileEntity();
+        if (accessor.getTileEntity() instanceof SmelteryLogic te && config.getConfig("tcon.smeltery", true)) {
             if (te.validStructure) {
                 List<FluidStack> fls = te.moltenMetal;
-                if (fls.size() <= 0) {
+                if (fls.isEmpty()) {
                     currenttip.add(SpecialChars.ITALIC + StatCollector.translateToLocal("tconstruct.waila.empty"));
                 } else {
                     for (FluidStack st : fls) {

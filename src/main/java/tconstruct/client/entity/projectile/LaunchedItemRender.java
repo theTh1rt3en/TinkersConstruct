@@ -28,10 +28,6 @@ public class LaunchedItemRender extends Render {
         this.field_94150_f = par2;
     }
 
-    public LaunchedItemRender(Item par1Item) {
-        this(par1Item, 0);
-    }
-
     /**
      * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
      * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
@@ -52,9 +48,9 @@ public class LaunchedItemRender extends Render {
 
             if (icon == ItemPotion.func_94589_d("bottle_splash")) {
                 int i = PotionHelper.func_77915_a(((LaunchedPotion) par1Entity).getPotionDamage(), false);
-                float f2 = (float) (i >> 16 & 255) / 255.0F;
-                float f3 = (float) (i >> 8 & 255) / 255.0F;
-                float f4 = (float) (i & 255) / 255.0F;
+                float f2 = (i >> 16 & 255) / 255.0F;
+                float f3 = (i >> 8 & 255) / 255.0F;
+                float f4 = (i & 255) / 255.0F;
                 GL11.glColor3f(f2, f3, f4);
                 GL11.glPushMatrix();
                 this.func_77026_a(tessellator, ItemPotion.func_94589_d("overlay"));
