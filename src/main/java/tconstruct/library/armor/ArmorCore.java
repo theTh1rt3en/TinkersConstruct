@@ -357,7 +357,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
                 if (StatCollector.canTranslate(locString)) tipName = tipName.replace(
                         EnumChatFormatting.getTextWithoutFormattingCodes(tipName),
                         StatCollector.translateToLocal(locString));
-                if (!tipName.equals("")) list.add(tipName);
+                if (!tipName.isEmpty()) list.add(tipName);
             } else displayToolTips = false;
         }
     }

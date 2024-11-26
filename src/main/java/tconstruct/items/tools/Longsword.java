@@ -41,15 +41,6 @@ public class Longsword extends Weapon {
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int useCount) {
-        /*
-         * if (player.onGround) { int time = this.getMaxItemUseDuration(stack) - useCount; if (time > 5) {
-         * player.addExhaustion(0.2F); player.setSprinting(true); float speed = 0.05F * time; if (speed > 0.925f) speed
-         * = 0.925f; float increase = (float) (0.02 * time + 0.2); if (increase > 0.56f) increase = 0.56f;
-         * player.motionY += increase + speed/3; player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F
-         * * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed); player.motionZ
-         * = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) *
-         * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed); } }
-         */
         int time = this.getMaxItemUseDuration(stack) - useCount;
         if (time > 5) {
             player.addExhaustion(0.2F);
@@ -74,8 +65,7 @@ public class Longsword extends Weapon {
     @SideOnly(Side.CLIENT)
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP) {
-            EntityPlayerSP player = (EntityPlayerSP) entity;
+        if (entity instanceof EntityPlayerSP player) {
             ItemStack usingItem = player.getItemInUse();
             if (usingItem != null && usingItem.getItem() == this) {
                 player.movementInput.moveForward *= 5.0F;
@@ -96,18 +86,13 @@ public class Longsword extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_longsword_blade";
-            case 1:
-                return "_longsword_blade_broken";
-            case 2:
-                return "_longsword_handle";
-            case 3:
-                return "_longsword_accessory";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_longsword_blade";
+            case 1 -> "_longsword_blade_broken";
+            case 2 -> "_longsword_handle";
+            case 3 -> "_longsword_accessory";
+            default -> "";
+        };
     }
 
     @Override

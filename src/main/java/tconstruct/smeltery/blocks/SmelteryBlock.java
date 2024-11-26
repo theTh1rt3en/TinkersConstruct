@@ -63,7 +63,7 @@ public class SmelteryBlock extends InventoryBlock {
                 "drain_basin", "searedbrick", "searedstone", "searedcobble", "searedpaver", "searedbrickcracked",
                 "searedroad", "searedbrickfancy", "searedbricksquare", "searedcreeper" };
 
-        if (!texturePrefix.equals(""))
+        if (!texturePrefix.isEmpty())
             for (int i = 0; i < textureNames.length; i++) textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
@@ -93,7 +93,7 @@ public class SmelteryBlock extends InventoryBlock {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
+        short direction = (logic instanceof IFacingLogic iFacingLogic) ? iFacingLogic.getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 0) // Smeltery
         {
@@ -130,7 +130,7 @@ public class SmelteryBlock extends InventoryBlock {
         if (isActive(world, x, y, z)) {
             TileEntity logic = world.getTileEntity(x, y, z);
             byte face = 0;
-            if (logic instanceof IFacingLogic) face = ((IFacingLogic) logic).getRenderDirection();
+            if (logic instanceof IFacingLogic iFacingLogic) face = iFacingLogic.getRenderDirection();
             float f = x + 0.5F;
             float f1 = y + 0.5F + (random.nextFloat() * 6F) / 16F;
             float f2 = z + 0.5F;
@@ -210,10 +210,10 @@ public class SmelteryBlock extends InventoryBlock {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic instanceof IServantLogic) {
-            ((IServantLogic) logic).notifyMasterOfChange();
-        } else if (logic instanceof IMasterLogic) {
-            ((IMasterLogic) logic).notifyChange(null, x, y, z);
+        if (logic instanceof IServantLogic iServantLogic) {
+            iServantLogic.notifyMasterOfChange();
+        } else if (logic instanceof IMasterLogic iMasterLogic) {
+            iMasterLogic.notifyChange(null, x, y, z);
         }
     }
 
@@ -222,8 +222,8 @@ public class SmelteryBlock extends InventoryBlock {
         // TE is not valid anymore at this point. :/
 
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic instanceof IServantLogic) {
-            ((IServantLogic) logic).notifyMasterOfChange();
+        if (logic instanceof IServantLogic iServantLogic) {
+            iServantLogic.notifyMasterOfChange();
         }
         super.breakBlock(world, x, y, z, blockID, meta);
     }

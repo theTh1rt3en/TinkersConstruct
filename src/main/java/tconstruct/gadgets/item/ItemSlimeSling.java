@@ -82,8 +82,7 @@ public class ItemSlimeSling extends Item {
 
             player.addVelocity(vec.xCoord * -power, -height, vec.zCoord * -power);
 
-            if (player instanceof EntityPlayerMP) {
-                EntityPlayerMP playerMP = (EntityPlayerMP) player;
+            if (player instanceof EntityPlayerMP playerMP) {
                 TConstruct.packetPipeline.sendTo(new MovementUpdatePacket(player), playerMP);
                 playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
             }

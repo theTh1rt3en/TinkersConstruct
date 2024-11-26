@@ -64,7 +64,7 @@ public abstract class AmmoWeapon extends AmmoItem implements IBattlegearWeapon, 
     }
 
     public float getWindupProgress(ItemStack itemStack, int timeInUse) {
-        float time = (float) timeInUse;
+        float time = timeInUse;
         float windup = getWindupTime(itemStack);
         if (time > windup) time = windup;
 

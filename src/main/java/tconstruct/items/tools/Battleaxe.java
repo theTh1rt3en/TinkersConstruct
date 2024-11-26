@@ -15,7 +15,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.InterfaceList;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battlegear2.api.PlayerEventChild;
@@ -24,10 +26,12 @@ import tconstruct.library.tools.AOEHarvestTool;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
-        @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword") })
+@InterfaceList(
+        value = { @Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
+                @Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword") })
 public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon {
+
+    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.gourd };
 
     public Battleaxe() {
         super(4, 1, 1);
@@ -51,8 +55,6 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon {
 
         return AbilityHelper.onBlockChanged(itemstack, world, b, x, y, z, player, random);
     }
-
-    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.gourd };
 
     @Override
     public Item getHeadItem() {
@@ -101,20 +103,14 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_battleaxe_fronthead";
-            case 1:
-                return "_battleaxe_fronthead_broken";
-            case 2:
-                return "_battleaxe_handle";
-            case 3:
-                return "_battleaxe_backhead";
-            case 4:
-                return "_battleaxe_binding";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_battleaxe_fronthead";
+            case 1 -> "_battleaxe_fronthead_broken";
+            case 2 -> "_battleaxe_handle";
+            case 3 -> "_battleaxe_backhead";
+            case 4 -> "_battleaxe_binding";
+            default -> "";
+        };
     }
 
     @Override
@@ -147,47 +143,42 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        // player.rotationYaw += 1;
-        // if (player.onGround)
-        // {
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-        // }
         return stack;
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int useCount) {
-        // if (player.onGround)
-        {
-            int time = this.getMaxItemUseDuration(stack) - useCount;
-            int boost = time / 100;
-            if (boost > 2) boost = 2;
 
-            if (!world.isRemote) {
-                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time * 4, boost));
-                player.addPotionEffect(new PotionEffect(Potion.jump.id, time * 4, boost));
-                player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time * 4, 0));
-                player.addPotionEffect(new PotionEffect(Potion.hunger.id, time * 2, 0));
-            }
-            if (time > 5 && player.onGround) {
-                player.addExhaustion(0.2F);
-                player.setSprinting(true);
+        int time = this.getMaxItemUseDuration(stack) - useCount;
+        int boost = time / 100;
+        if (boost > 2) boost = 2;
 
-                float speed = 0.025F * time;
-                if (speed > 0.925f) speed = 0.925f;
-
-                float increase = (float) (0.02 * time + 0.2);
-                if (increase > 0.56f) increase = 0.56f;
-                player.motionY += increase;
-
-                player.motionX = -MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI)
-                        * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI)
-                        * speed;
-                player.motionZ = MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI)
-                        * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI)
-                        * speed;
-            }
+        if (!world.isRemote) {
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time * 4, boost));
+            player.addPotionEffect(new PotionEffect(Potion.jump.id, time * 4, boost));
+            player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time * 4, 0));
+            player.addPotionEffect(new PotionEffect(Potion.hunger.id, time * 2, 0));
         }
+        if (time > 5 && player.onGround) {
+            player.addExhaustion(0.2F);
+            player.setSprinting(true);
+
+            float speed = 0.025F * time;
+            if (speed > 0.925f) speed = 0.925f;
+
+            float increase = (float) (0.02 * time + 0.2);
+            if (increase > 0.56f) increase = 0.56f;
+            player.motionY += increase;
+
+            player.motionX = -MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI)
+                    * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI)
+                    * speed;
+            player.motionZ = MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI)
+                    * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI)
+                    * speed;
+        }
+
     }
 
     @Override
@@ -205,8 +196,7 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon {
     @SideOnly(Side.CLIENT)
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP) {
-            EntityPlayerSP player = (EntityPlayerSP) entity;
+        if (entity instanceof EntityPlayerSP player) {
             ItemStack usingItem = player.getItemInUse();
             if (usingItem != null && usingItem.getItem() == this) {
                 player.movementInput.moveForward *= 5.0F;
@@ -218,44 +208,44 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon {
     /*---- Battlegear Support START ----*/
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean sheatheOnBack(ItemStack item) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean isOffhandHandDual(ItemStack off) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem,
             ItemStack offhandItem) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
         // unused
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
         if (offhand == null) return true;
 

@@ -309,36 +309,19 @@ public class Crossbow extends ProjectileWeapon {
         }
 
         // get the correct icon
-        switch (renderPass) {
-            case 0:
-                return getCorrectAnimationIcon(animationHandleIcons, tags.getInteger("RenderHandle"), progress);
-            case 1:
-                return getCorrectAnimationIcon(animationHeadIcons, tags.getInteger("RenderHead"), progress);
-            case 2:
-                return getCorrectAnimationIcon(animationAccessoryIcons, tags.getInteger("RenderAccessory"), progress);
-            case 3:
-                return getCorrectAnimationIcon(animationExtraIcons, tags.getInteger("RenderExtra"), progress);
-        }
-
-        return emptyIcon;
+        return getIIcon(renderPass, tags, progress);
     }
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_crossbow_bow"; // head
-            case 1:
-                return ""; // broken
-            case 2:
-                return "_crossbow_body"; // handle
-            case 3:
-                return "_crossbow_string"; // accessory
-            case 4:
-                return "_crossbow_binding"; // extra
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_crossbow_bow"; // head
+            case 1 -> ""; // broken
+            case 2 -> "_crossbow_body"; // handle
+            case 3 -> "_crossbow_string"; // accessory
+            case 4 -> "_crossbow_binding"; // extra
+            default -> "";
+        };
     }
 
     @Override

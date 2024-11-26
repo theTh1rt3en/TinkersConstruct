@@ -22,7 +22,6 @@ import tconstruct.util.network.ToolStationPacket;
 
 public class ToolStationLogic extends InventoryLogic implements ISidedInventory {
 
-    public ItemStack previousTool;
     public String toolName;
 
     public ToolStationLogic() {

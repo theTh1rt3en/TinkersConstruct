@@ -87,8 +87,7 @@ public class MultiBrick extends TConstructBlock {
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta == 10 || meta == 11)
-            return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
+        if (meta == 10 || meta == 11) return AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 0.625D, z + 1.0D);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 

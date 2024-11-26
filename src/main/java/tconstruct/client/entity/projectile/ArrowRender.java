@@ -110,9 +110,9 @@ public class ArrowRender extends Render {
 
                         if (this.renderWithColor) {
                             i = itemstack.getItem().getColorFromItemStack(itemstack, k);
-                            f5 = (float) (i >> 16 & 255) / 255.0F;
-                            f4 = (float) (i >> 8 & 255) / 255.0F;
-                            f6 = (float) (i & 255) / 255.0F;
+                            f5 = (i >> 16 & 255) / 255.0F;
+                            f4 = (i >> 8 & 255) / 255.0F;
+                            f6 = (i & 255) / 255.0F;
                             GL11.glColor4f(f5 * f8, f4 * f8, f6 * f8, 1.0F);
                             this.renderDroppedItem(par1ArrowEntity, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8, k);
                         } else {
@@ -126,9 +126,9 @@ public class ArrowRender extends Render {
 
                     if (this.renderWithColor) {
                         int l = itemstack.getItem().getColorFromItemStack(itemstack, 0);
-                        f8 = (float) (l >> 16 & 255) / 255.0F;
-                        float f9 = (float) (l >> 8 & 255) / 255.0F;
-                        f5 = (float) (l & 255) / 255.0F;
+                        f8 = (l >> 16 & 255) / 255.0F;
+                        float f9 = (l >> 8 & 255) / 255.0F;
+                        f5 = (l & 255) / 255.0F;
                         f4 = 1.0F;
                         this.renderDroppedItem(par1ArrowEntity, icon1, b0, par9, f8 * f4, f9 * f4, f5 * f4);
                     } else {

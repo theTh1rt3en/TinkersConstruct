@@ -52,6 +52,8 @@ import tconstruct.world.model.SlimeRender;
 
 public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
 
+    Minecraft mc = Minecraft.getMinecraft();
+
     @Override
     public void initialize() {
         registerRenderer();
@@ -127,8 +129,6 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
                 .registerManualSmallRecipe("barricade", new ItemStack(TinkerWorld.barricadeOak), null, log, null, log);
     }
 
-    Minecraft mc = Minecraft.getMinecraft();
-
     @Override
     public void spawnParticle(String particle, double xPos, double yPos, double zPos, double velX, double velY,
             double velZ) {
@@ -193,119 +193,161 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
                     return null;
                 } else {
                     switch (par1Str) {
-                        case "bubble":
-                            entityfx = new EntityBubbleFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "suspended":
-                            entityfx = new EntitySuspendFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "depthsuspend":
-                        case "townaura":
-                            entityfx = new EntityAuraFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "crit":
-                            entityfx = new EntityCritFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "smoke":
-                            entityfx = new EntitySmokeFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "mobSpell":
+                        case "bubble" -> entityfx = new EntityBubbleFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "suspended" -> entityfx = new EntitySuspendFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "depthsuspend", "townaura" -> entityfx = new EntityAuraFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "crit" -> entityfx = new EntityCritFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
+                        case "smoke" -> entityfx = new EntitySmokeFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
+                        case "mobSpell" -> {
                             entityfx = new EntitySpellParticleFX(mc.theWorld, par2, par4, par6, 0.0D, 0.0D, 0.0D);
                             entityfx.setRBGColorF((float) par8, (float) par10, (float) par12);
-                            break;
-                        case "mobSpellAmbient":
+                        }
+                        case "mobSpellAmbient" -> {
                             entityfx = new EntitySpellParticleFX(mc.theWorld, par2, par4, par6, 0.0D, 0.0D, 0.0D);
                             entityfx.setAlphaF(0.15F);
                             entityfx.setRBGColorF((float) par8, (float) par10, (float) par12);
-                            break;
-                        case "spell":
-                            entityfx = new EntitySpellParticleFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "instantSpell":
+                        }
+                        case "spell" -> entityfx = new EntitySpellParticleFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "instantSpell" -> {
                             entityfx = new EntitySpellParticleFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
                             ((EntitySpellParticleFX) entityfx).setBaseSpellTextureIndex(144);
-                            break;
-                        case "witchMagic":
+                        }
+                        case "witchMagic" -> {
                             entityfx = new EntitySpellParticleFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
                             ((EntitySpellParticleFX) entityfx).setBaseSpellTextureIndex(144);
                             float f = mc.theWorld.rand.nextFloat() * 0.5F + 0.35F;
                             entityfx.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
-                            break;
-                        case "note":
-                            entityfx = new EntityNoteFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "portal":
-                            entityfx = new EntityPortalFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "enchantmenttable":
-                            entityfx = new EntityEnchantmentTableParticleFX(
-                                    mc.theWorld,
-                                    par2,
-                                    par4,
-                                    par6,
-                                    par8,
-                                    par10,
-                                    par12);
-                            break;
-                        case "explode":
-                            entityfx = new EntityExplodeFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "flame":
-                            entityfx = new EntityFlameFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "lava":
-                            entityfx = new EntityLavaFX(mc.theWorld, par2, par4, par6);
-                            break;
-                        case "footstep":
-                            entityfx = new EntityFootStepFX(mc.renderEngine, mc.theWorld, par2, par4, par6);
-                            break;
-                        case "splash":
-                            entityfx = new EntitySplashFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "largesmoke":
-                            entityfx = new EntitySmokeFX(mc.theWorld, par2, par4, par6, par8, par10, par12, 2.5F);
-                            break;
-                        case "cloud":
-                            entityfx = new EntityCloudFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "reddust":
-                            entityfx = new EntityReddustFX(
-                                    mc.theWorld,
-                                    par2,
-                                    par4,
-                                    par6,
-                                    (float) par8,
-                                    (float) par10,
-                                    (float) par12);
-                            break;
-                        case "snowballpoof":
-                            entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Items.snowball);
-                            break;
-                        case "dripWater":
-                            entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.water);
-                            break;
-                        case "dripLava":
-                            entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.lava);
-                            break;
-                        case "snowshovel":
-                            entityfx = new EntitySnowShovelFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "blueslime":
-                            entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, TinkerWorld.strangeFood);
-                            break;
-                        case "heart":
-                            entityfx = new EntityHeartFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                            break;
-                        case "angryVillager":
+                        }
+                        case "note" -> entityfx = new EntityNoteFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
+                        case "portal" -> entityfx = new EntityPortalFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "enchantmenttable" -> entityfx = new EntityEnchantmentTableParticleFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "explode" -> entityfx = new EntityExplodeFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "flame" -> entityfx = new EntityFlameFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
+                        case "lava" -> entityfx = new EntityLavaFX(mc.theWorld, par2, par4, par6);
+                        case "footstep" -> entityfx = new EntityFootStepFX(
+                                mc.renderEngine,
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6);
+                        case "splash" -> entityfx = new EntitySplashFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "largesmoke" -> entityfx = new EntitySmokeFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12,
+                                2.5F);
+                        case "cloud" -> entityfx = new EntityCloudFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
+                        case "reddust" -> entityfx = new EntityReddustFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                (float) par8,
+                                (float) par10,
+                                (float) par12);
+                        case "snowballpoof" -> entityfx = new EntityBreakingFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                Items.snowball);
+                        case "dripWater" -> entityfx = new EntityDropParticleFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                Material.water);
+                        case "dripLava" -> entityfx = new EntityDropParticleFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                Material.lava);
+                        case "snowshovel" -> entityfx = new EntitySnowShovelFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                par8,
+                                par10,
+                                par12);
+                        case "blueslime" -> entityfx = new EntityBreakingFX(
+                                mc.theWorld,
+                                par2,
+                                par4,
+                                par6,
+                                TinkerWorld.strangeFood);
+                        case "heart" -> entityfx = new EntityHeartFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
+                        case "angryVillager" -> {
                             entityfx = new EntityHeartFX(mc.theWorld, par2, par4 + 0.5D, par6, par8, par10, par12);
                             entityfx.setParticleTextureIndex(81);
                             entityfx.setRBGColorF(1.0F, 1.0F, 1.0F);
-                            break;
-                        case "happyVillager":
+                        }
+                        case "happyVillager" -> {
                             entityfx = new EntityAuraFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
                             entityfx.setParticleTextureIndex(82);
                             entityfx.setRBGColorF(1.0F, 1.0F, 1.0F);
-                            break;
+                        }
                     }
 
                     if (entityfx != null) {

@@ -76,6 +76,45 @@ import tconstruct.weaponry.TinkerWeaponry;
 
 public class ToolProxyClient extends ToolProxyCommon {
 
+    static int[][] itemIconsT1 = { new int[] { 1, 4, 0 }, // Pickaxe
+            new int[] { 2, 5, 0 }, // Shovel
+            new int[] { 2, 6, 0 }, // Hatchet
+            new int[] { 3, 8, 0 }, // Mattock
+            new int[] { 1, 0, 1 }, // Broadsword
+            new int[] { 1, 1, 1 }, // Longsword
+            new int[] { 1, 2, 1 }, // Rapier
+            new int[] { 1, 5, 1 }, // Dagger
+            new int[] { 2, 3, 1 }, // Frying pan
+            new int[] { 2, 4, 1 }, // Battlesign
+            new int[] { 2, 6, 1 } // Chisel
+    };
+    static int[][] iconCoordsT1 = { new int[] { 0, 0, 1, 13 }, new int[] { 2, 3, 3, 13 }, // Pickaxe
+            new int[] { 3, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Shovel
+            new int[] { 2, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Hatchet
+            new int[] { 2, 0, 3, 13 }, new int[] { 2, 3, 2, 13 }, // Mattock
+            new int[] { 1, 0, 2, 13 }, new int[] { 2, 3, 3, 13 }, // Broadsword
+            new int[] { 1, 0, 3, 13 }, new int[] { 2, 3, 3, 13 }, // Longsword
+            new int[] { 1, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, // Rapier
+            new int[] { 7, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, // Dagger
+            new int[] { 4, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Frying Pan
+            new int[] { 5, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Battlesign
+            new int[] { 7, 0, 13, 13 }, new int[] { 3, 3, 13, 13 } // Chisel
+    };
+    static int[][] itemIconsT2 = { new int[] { 6, 13, 0, }, // Hammer
+            new int[] { 5, 11, 0, }, // Lumberaxe
+            new int[] { 5, 12, 0, }, // Excavator
+            new int[] { 4, 10, 0, }, // Scythe
+            new int[] { 5, 7, 1, }, // Cleaver
+            new int[] { 5, 8, 1, }, // Battleaxe
+    };
+    static int[][] iconCoordsT2 = { new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, // Hammer
+            new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, // Lumberaxe
+            new int[] { 10, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, // Excavator
+            new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, // Scythe
+            new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, // Cleaver
+            new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, // Battleaxe
+    };
+
     @Override
     public void initialize() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -686,48 +725,6 @@ public class ToolProxyClient extends ToolProxyCommon {
     void addStencilButton(int xButton, int yButton, int index) {
         TConstructClientRegistry.addStencilButton(xButton, yButton, index, "tinker", "textures/gui/icons.png");
     }
-
-    static int[][] itemIconsT1 = { new int[] { 1, 4, 0 }, // Pickaxe
-            new int[] { 2, 5, 0 }, // Shovel
-            new int[] { 2, 6, 0 }, // Hatchet
-            new int[] { 3, 8, 0 }, // Mattock
-            new int[] { 1, 0, 1 }, // Broadsword
-            new int[] { 1, 1, 1 }, // Longsword
-            new int[] { 1, 2, 1 }, // Rapier
-            new int[] { 1, 5, 1 }, // Dagger
-            new int[] { 2, 3, 1 }, // Frying pan
-            new int[] { 2, 4, 1 }, // Battlesign
-            new int[] { 2, 6, 1 } // Chisel
-    };
-
-    static int[][] iconCoordsT1 = { new int[] { 0, 0, 1, 13 }, new int[] { 2, 3, 3, 13 }, // Pickaxe
-            new int[] { 3, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Shovel
-            new int[] { 2, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Hatchet
-            new int[] { 2, 0, 3, 13 }, new int[] { 2, 3, 2, 13 }, // Mattock
-            new int[] { 1, 0, 2, 13 }, new int[] { 2, 3, 3, 13 }, // Broadsword
-            new int[] { 1, 0, 3, 13 }, new int[] { 2, 3, 3, 13 }, // Longsword
-            new int[] { 1, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, // Rapier
-            new int[] { 7, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, // Dagger
-            new int[] { 4, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Frying Pan
-            new int[] { 5, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Battlesign
-            new int[] { 7, 0, 13, 13 }, new int[] { 3, 3, 13, 13 } // Chisel
-    };
-
-    static int[][] itemIconsT2 = { new int[] { 6, 13, 0, }, // Hammer
-            new int[] { 5, 11, 0, }, // Lumberaxe
-            new int[] { 5, 12, 0, }, // Excavator
-            new int[] { 4, 10, 0, }, // Scythe
-            new int[] { 5, 7, 1, }, // Cleaver
-            new int[] { 5, 8, 1, }, // Battleaxe
-    };
-
-    static int[][] iconCoordsT2 = { new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, // Hammer
-            new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, // Lumberaxe
-            new int[] { 10, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, // Excavator
-            new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, // Scythe
-            new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, // Cleaver
-            new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, // Battleaxe
-    };
 
     void addToolButtons() {
         final ToolCore[] tier1Tools = { pickaxe, shovel, hatchet, mattock, broadsword, longsword, rapier, dagger,

@@ -37,7 +37,7 @@ public class BattlesignGui extends GuiScreen {
             if (tag != null) {
                 int head = tag.getInteger("Head");
 
-                int bgCol = TConstructRegistry.getMaterial(head).primaryColor();
+                int bgCol = TConstructRegistry.getMaterial(head).getPrimaryColor();
 
                 bgColR = (bgCol >> 16 & 255) / 255.0F;
                 bgColG = (bgCol >> 8 & 255) / 255.0F;
@@ -104,19 +104,13 @@ public class BattlesignGui extends GuiScreen {
             }
         } else {
             switch (i) {
-                case 14:
-                    if (text[currentLine].length() > 0) {
+                case 14 -> {
+                    if (!text[currentLine].isEmpty()) {
                         text[currentLine] = text[currentLine].substring(0, text[currentLine].length() - 1);
                     }
-
-                    break;
-                case 28:
-                case 208:
-                    moveLine(1);
-                    break;
-                case 200:
-                    moveLine(-1);
-                    break;
+                }
+                case 28, 208 -> moveLine(1);
+                case 200 -> moveLine(-1);
             }
         }
     }

@@ -262,23 +262,12 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     @Override
     @Deprecated
     public void setDirection(float yaw, float pitch, EntityLivingBase player) {
-        int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
+        int facing = MathHelper.floor_double((yaw / 360) + 0.5D) & 3;
         switch (facing) {
-            case 0:
-                direction = 2;
-                break;
-
-            case 1:
-                direction = 5;
-                break;
-
-            case 2:
-                direction = 3;
-                break;
-
-            case 3:
-                direction = 4;
-                break;
+            case 0 -> direction = 2;
+            case 1 -> direction = 5;
+            case 2 -> direction = 3;
+            case 3 -> direction = 4;
         }
     }
 

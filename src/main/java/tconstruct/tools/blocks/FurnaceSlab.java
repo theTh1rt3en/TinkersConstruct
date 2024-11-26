@@ -61,7 +61,7 @@ public class FurnaceSlab extends InventorySlab {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
+        short direction = (logic instanceof IFacingLogic iFacingLogic) ? iFacingLogic.getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z) % 8;
 
         if (meta == 0) {
@@ -107,37 +107,35 @@ public class FurnaceSlab extends InventorySlab {
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random random) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
+        short direction = (logic instanceof IFacingLogic iFacingLogic) ? iFacingLogic.getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z);
         int metaType = meta % 8;
         int metaPos = meta / 8;
 
-        if (metaType == 0) {
-            if (((IActiveLogic) logic).getActive()) {
-                float offset = random.nextFloat() * 0.6F - 0.3F;
-                float offsetY = random.nextFloat() * 6.0F / 16.0F;
+        if (metaType == 0 && ((IActiveLogic) logic).getActive()) {
+            float offset = random.nextFloat() * 0.6F - 0.3F;
+            float offsetY = random.nextFloat() * 6.0F / 16.0F;
 
-                if (metaPos == 1) {
-                    offsetY += 0.5F;
-                }
+            if (metaPos == 1) {
+                offsetY += 0.5F;
+            }
 
-                if (direction == 4) {
-                    world.spawnParticle("smoke", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
-                } else if (direction == 5) {
-                    world.spawnParticle("smoke", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
-                } else if (direction == 2) {
-                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
-                } else if (direction == 3) {
-                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
-                }
+            if (direction == 4) {
+                world.spawnParticle("smoke", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+            } else if (direction == 5) {
+                world.spawnParticle("smoke", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+            } else if (direction == 2) {
+                world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
+            } else if (direction == 3) {
+                world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
             }
         }
     }

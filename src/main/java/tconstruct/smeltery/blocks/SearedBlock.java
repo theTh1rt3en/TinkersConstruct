@@ -108,7 +108,7 @@ public class SearedBlock extends InventoryBlock {
         String[] textureNames = { "castingtable_top", "castingtable_side", "castingtable_bottom", "faucet",
                 "blockcast_top", "blockcast_side", "blockcast_bottom" };
 
-        if (!texturePrefix.equals(""))
+        if (!texturePrefix.isEmpty())
             for (int i = 0; i < textureNames.length; i++) textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
@@ -226,13 +226,7 @@ public class SearedBlock extends InventoryBlock {
                         break;
                 }
 
-                return AxisAlignedBB.getBoundingBox(
-                        (float) x + xMin,
-                        (double) y + 0.25,
-                        (float) z + zMin,
-                        (float) x + xMax,
-                        (double) y + 0.625,
-                        (float) z + zMax);
+                return AxisAlignedBB.getBoundingBox(x + xMin, y + 0.25, z + zMin, x + xMax, y + 0.625, z + zMax);
             }
         }
 

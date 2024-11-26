@@ -42,8 +42,6 @@ public class Rapier extends Weapon {
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase mob, EntityLivingBase player) {
-        // AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);
-        // AbilityHelper.knockbackEntity(mob, 0.8f);
         mob.motionY *= 0.8;
         if (mob.hurtResistantTime > 18) mob.hurtResistantTime -= 5;
         return true;
@@ -58,10 +56,6 @@ public class Rapier extends Weapon {
     public float getDamageModifier() {
         return 0.8f;
     }
-
-    /*
-     * public float chargeAttack () { return 1.0f; }
-     */
 
     @Override
     public boolean pierceArmor() {
@@ -80,18 +74,13 @@ public class Rapier extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_rapier_blade";
-            case 1:
-                return "_rapier_blade_broken";
-            case 2:
-                return "_rapier_handle";
-            case 3:
-                return "_rapier_accessory";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_rapier_blade";
+            case 1 -> "_rapier_blade_broken";
+            case 2 -> "_rapier_handle";
+            case 3 -> "_rapier_accessory";
+            default -> "";
+        };
     }
 
     @Override

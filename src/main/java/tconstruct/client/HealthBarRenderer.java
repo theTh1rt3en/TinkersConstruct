@@ -186,7 +186,5 @@ public class HealthBarRenderer extends Gui {
         mc.mcProfiler.endSection();
         event.setCanceled(true);
         MinecraftForge.EVENT_BUS.post(new RenderGameOverlayEvent.Post(event, HEALTH));
-
     }
-
 }

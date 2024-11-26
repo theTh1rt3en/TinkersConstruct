@@ -13,24 +13,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class Helper {
 
     public static ForgeDirection convertMetaToForgeOrientation(int metadata) {
-        switch (metadata) {
-            case 6:
-            case 5:
-                return ForgeDirection.DOWN;
-            case 7:
-            case 0:
-                return ForgeDirection.UP;
-            case 1:
-                return ForgeDirection.WEST;
-            case 3:
-                return ForgeDirection.NORTH;
-            case 2:
-                return ForgeDirection.EAST;
-            case 4:
-                return ForgeDirection.SOUTH;
-        }
+        return switch (metadata) {
+            case 6, 5 -> ForgeDirection.DOWN;
+            case 7, 0 -> ForgeDirection.UP;
+            case 1 -> ForgeDirection.WEST;
+            case 3 -> ForgeDirection.NORTH;
+            case 2 -> ForgeDirection.EAST;
+            case 4 -> ForgeDirection.SOUTH;
+            default -> ForgeDirection.UNKNOWN;
+        };
 
-        return ForgeDirection.UNKNOWN;
     }
 
     public static void renderInventoryCube(Block block, int metadata, int modelID, RenderBlocks renderer) {

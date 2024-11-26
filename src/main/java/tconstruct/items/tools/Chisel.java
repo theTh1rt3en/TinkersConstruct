@@ -50,10 +50,6 @@ public class Chisel extends ToolCore {
                 && par1ItemStack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken");
     }
 
-    boolean performDetailing(World world, int x, int y, int z, int blockID, int blockMeta) {
-        return false;
-    }
-
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float clickX, float clickY, float clickZ) {
@@ -112,8 +108,7 @@ public class Chisel extends ToolCore {
     @SideOnly(Side.CLIENT)
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP) {
-            EntityPlayerSP player = (EntityPlayerSP) entity;
+        if (entity instanceof EntityPlayerSP player) {
             ItemStack usingItem = player.getItemInUse();
             if (usingItem != null && usingItem.getItem() == this) {
                 player.movementInput.moveForward *= 2.0;
@@ -151,16 +146,12 @@ public class Chisel extends ToolCore {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_chisel_head";
-            case 1:
-                return "_chisel_head_broken";
-            case 2:
-                return "_chisel_handle";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_chisel_head";
+            case 1 -> "_chisel_head_broken";
+            case 2 -> "_chisel_handle";
+            default -> "";
+        };
     }
 
     @Override

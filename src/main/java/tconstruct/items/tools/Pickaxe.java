@@ -38,18 +38,13 @@ public class Pickaxe extends HarvestTool {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_pickaxe_head";
-            case 1:
-                return "_pickaxe_head_broken";
-            case 2:
-                return "_pickaxe_handle";
-            case 3:
-                return "_pickaxe_accessory";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_pickaxe_head";
+            case 1 -> "_pickaxe_head_broken";
+            case 2 -> "_pickaxe_handle";
+            case 3 -> "_pickaxe_accessory";
+            default -> "";
+        };
     }
 
     @Override

@@ -186,7 +186,6 @@ public abstract class HarvestTool extends ToolCore {
                         nearbyStack.stackSize = count;
                     }
                     if (nearbyStack.stackSize < 1) {
-                        nearbyStack = null;
                         player.inventory.setInventorySlotContents(itemSlot, null);
                     }
                 }
@@ -202,8 +201,7 @@ public abstract class HarvestTool extends ToolCore {
         if (world.isAirBlock(x, y, z)) return;
 
         // what?
-        if (!(playerEntity instanceof EntityPlayerMP)) return;
-        EntityPlayerMP player = (EntityPlayerMP) playerEntity;
+        if (!(playerEntity instanceof EntityPlayerMP player)) return;
 
         // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
         // or precious ores you can't harvest while mining stone

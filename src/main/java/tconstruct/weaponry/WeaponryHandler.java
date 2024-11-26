@@ -104,13 +104,13 @@ public class WeaponryHandler {
                 return;
             }
 
-            int durability = (int) ((float) head.durability() * shaft.durabilityModifier
+            int durability = (int) ((float) head.getDurability() * shaft.durabilityModifier
                     * fletching.durabilityModifier);
             float weight = arrow.mass + shaft.weight;
             float accuracy = fletching.accuracy;
             float breakChance = shaft.fragility * arrow.breakChance + fletching.breakChance;
 
-            setAmmoData(tags, durability, weight, breakChance, accuracy, head.shoddy(), head.reinforced());
+            setAmmoData(tags, durability, weight, breakChance, accuracy, head.getStonebound(), head.getReinforced());
 
             // Blaze shafts give fiery
             if (tags.getInteger("Handle") == 3) {
@@ -141,13 +141,13 @@ public class WeaponryHandler {
                 return;
             }
 
-            int durability = (int) ((float) headMat.durability() * coreMat.handleDurability()
+            int durability = (int) ((float) headMat.getDurability() * coreMat.getHandleModifier()
                     * fletching.durabilityModifier);
             float weight = head.mass + core.mass * 1.5f;
             float accuracy = (100f + fletching.accuracy) / 2f;
             float breakChance = (fletching.breakChance * 2 + 0.15f * core.breakChance) * head.breakChance / 2f;
-            float shoddy = (headMat.shoddy() + coreMat.shoddy()) / 2f;
-            int reinforced = Math.max(headMat.reinforced(), coreMat.reinforced());
+            float shoddy = (headMat.getStonebound() + coreMat.getStonebound()) / 2f;
+            int reinforced = Math.max(headMat.getReinforced(), coreMat.getReinforced());
 
             setAmmoData(tags, durability, weight, breakChance, accuracy, shoddy, reinforced);
 

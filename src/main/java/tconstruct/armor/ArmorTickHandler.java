@@ -11,8 +11,8 @@ public class ArmorTickHandler {
 
     private final Minecraft mc = Minecraft.getMinecraft();
 
-    @SideOnly(Side.CLIENT)
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void tickEnd(ClientTickEvent event) {
         if (mc.thePlayer != null && mc.thePlayer.onGround) ArmorProxyClient.controlInstance.landOnGround();
     }

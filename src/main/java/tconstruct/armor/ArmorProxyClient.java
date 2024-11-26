@@ -306,8 +306,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
         float pitch;
         final float zeropointsixtwofive = 0.0625F;
 
-        if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase) {
-            EntityLivingBase entitylivingbase1 = (EntityLivingBase) player.ridingEntity;
+        if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase entitylivingbase1) {
             yawOffset = this.interpolateRotation(
                     entitylivingbase1.prevRenderYawOffset,
                     entitylivingbase1.renderYawOffset,

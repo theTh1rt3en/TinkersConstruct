@@ -57,7 +57,6 @@ public abstract class BowBase extends ToolCore {
                 || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
         int slotID = getInventorySlotContainItem(TinkerTools.arrow, player.inventory);
         int arrowID = getInventorySlotContainItem(Items.arrow, player.inventory);
-        int arrowState = 0;
         ItemStack tinkerArrow = null;
         if (slotID != -1) tinkerArrow = player.inventory.getStackInSlot(slotID);
 
@@ -65,10 +64,10 @@ public abstract class BowBase extends ToolCore {
             NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
             float drawTime = toolTag.getInteger("DrawSpeed");
             float flightSpeed = toolTag.getFloat("FlightSpeed");
-            float speedBase = (float) time / drawTime;
+            float speedBase = time / drawTime;
             speedBase = (speedBase * speedBase + speedBase * 2.0F) / 3.0F;
 
-            if ((double) speedBase < 0.1D) {
+            if (speedBase < 0.1D) {
                 return;
             }
 
@@ -77,7 +76,6 @@ public abstract class BowBase extends ToolCore {
             }
 
             EntityArrow arrowEntity;
-            // if (tinkerArrow != null)
             if (slotID != -1 && (arrowID == -1 || slotID < arrowID)) {
                 ItemStack arrowStack = tinkerArrow.copy();
                 arrowStack.stackSize = 1;
@@ -93,14 +91,13 @@ public abstract class BowBase extends ToolCore {
             int var9 = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, stack);
 
             if (var9 > 0) {
-                arrowEntity.setDamage(arrowEntity.getDamage() + (double) var9 * 0.5D + 0.5D);
+                arrowEntity.setDamage(arrowEntity.getDamage() + var9 * 0.5D + 0.5D);
             }
 
             int var10 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
 
             if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 ((ArrowEntity) arrowEntity).setKnockbackModStrength(toolTag.getFloat("Knockback"));
-            // var10 += toolTag.getFloat("Knockback");
 
             if (var10 > 0) {
                 arrowEntity.setKnockbackStrength(var10);
@@ -126,7 +123,6 @@ public abstract class BowBase extends ToolCore {
             if (creative) {
                 arrowEntity.canBePickedUp = 2;
             } else {
-                // if (tinkerArrow != null)
                 if (slotID != -1 && (arrowID == -1 || slotID < arrowID)) {
                     player.inventory.consumeInventoryItem(TinkerTools.arrow);
                 } else {
@@ -148,10 +144,6 @@ public abstract class BowBase extends ToolCore {
         }
 
         return -1;
-    }
-
-    public ItemStack onFoodEaten(ItemStack stack, World par2World, EntityPlayer par3EntityPlayer) {
-        return stack;
     }
 
     /**
@@ -417,8 +409,6 @@ public abstract class BowBase extends ToolCore {
     @Override
     public void registerPartPaths(int index, String[] location) {
         headStrings.put(index, location[0]);
-        // brokenHeadStrings.put(index, location[1]);
-        // handleStrings.put(index, location[2]);
         if (location.length > 3) accessoryStrings.put(index, location[3]);
         if (location.length > 4) extraStrings.put(index, location[4]);
     }

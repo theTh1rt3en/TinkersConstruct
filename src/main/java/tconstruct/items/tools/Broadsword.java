@@ -29,18 +29,13 @@ public class Broadsword extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_sword_blade";
-            case 1:
-                return "_sword_blade_broken";
-            case 2:
-                return "_sword_handle";
-            case 3:
-                return "_sword_accessory";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_sword_blade";
+            case 1 -> "_sword_blade_broken";
+            case 2 -> "_sword_handle";
+            case 3 -> "_sword_accessory";
+            default -> "";
+        };
     }
 
     @Override
@@ -52,12 +47,4 @@ public class Broadsword extends Weapon {
     public String getDefaultFolder() {
         return "broadsword";
     }
-
-    /*
-     * @Override
-     * @SideOnly(Side.CLIENT) public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
-     * { super.onUpdate(stack, world, entity, par4, par5); if (entity instanceof EntityPlayerSP) { EntityPlayerSP player
-     * = (EntityPlayerSP) entity; if (player.itemInUse != null && player.itemInUse.getItem() == this) {
-     * player.movementInput.moveForward *= 5.0F; player.movementInput.moveStrafe *= 5.0F; } } }
-     */
 }

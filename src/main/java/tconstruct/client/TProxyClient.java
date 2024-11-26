@@ -64,13 +64,13 @@ public class TProxyClient extends TProxyCommon {
 
     private void readTinkersConstructManuals() {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        String CurrentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
+        var currentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
 
-        Document diary_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/diary.xml", dbFactory);
-        Document volume1_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/firstday.xml", dbFactory);
-        Document volume2_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/materials.xml", dbFactory);
-        Document smelter_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/smeltery.xml", dbFactory);
-        Document weaponry_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/weaponry.xml", dbFactory);
+        Document diary_cl = readManual("/assets/tinker/manuals/" + currentLanguage + "/diary.xml", dbFactory);
+        Document volume1_cl = readManual("/assets/tinker/manuals/" + currentLanguage + "/firstday.xml", dbFactory);
+        Document volume2_cl = readManual("/assets/tinker/manuals/" + currentLanguage + "/materials.xml", dbFactory);
+        Document smelter_cl = readManual("/assets/tinker/manuals/" + currentLanguage + "/smeltery.xml", dbFactory);
+        Document weaponry_cl = readManual("/assets/tinker/manuals/" + currentLanguage + "/weaponry.xml", dbFactory);
 
         diary = diary_cl != null ? diary_cl : readManual("/assets/tinker/manuals/en_US/diary.xml", dbFactory);
         volume1 = volume1_cl != null ? volume1_cl : readManual("/assets/tinker/manuals/en_US/firstday.xml", dbFactory);

@@ -1,5 +1,7 @@
 package tconstruct.plugins.nei;
 
+import static tconstruct.library.tools.ToolCore.getReinforcedRoman;
+
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +122,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
                     0x404040,
                     false);
             GuiDraw.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter6") + crecipe.material.miningspeed / 100F,
+                    StatCollector.translateToLocal("gui.partcrafter6") + crecipe.material.miningSpeed / 100F,
                     35,
                     50,
                     0x404040,
@@ -134,7 +136,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
                     false);
             String heart = crecipe.material.attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8")
                     : StatCollector.translateToLocal("gui.partcrafter9");
-            if (crecipe.material.attack() % 2 == 0) {
+            if (crecipe.material.getAttack() % 2 == 0) {
                 GuiDraw.drawString(
                         StatCollector.translateToLocal("gui.partcrafter10") + crecipe.material.attack / 2 + heart,
                         35,
@@ -154,7 +156,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
                 GuiDraw.drawString(getReinforcedString(crecipe.material.reinforced), 35, 85, 0x404040, false);
                 abilityY += 10;
             }
-            String ability = crecipe.material.ability();
+            String ability = crecipe.material.getAbility();
             if (ability != null) {
                 if (crecipe.material.stonebound != 0) {
                     GuiDraw.drawString(
@@ -276,38 +278,6 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase {
     public static String getReinforcedString(int reinforced) {
         if (reinforced > 9) return "Unbreakable";
         String ret = "Reinforced ";
-        switch (reinforced) {
-            case 1:
-                ret += "I";
-                break;
-            case 2:
-                ret += "II";
-                break;
-            case 3:
-                ret += "III";
-                break;
-            case 4:
-                ret += "IV";
-                break;
-            case 5:
-                ret += "V";
-                break;
-            case 6:
-                ret += "VI";
-                break;
-            case 7:
-                ret += "VII";
-                break;
-            case 8:
-                ret += "VIII";
-                break;
-            case 9:
-                ret += "IX";
-                break;
-            default:
-                ret += "X";
-                break;
-        }
-        return ret;
+        return getReinforcedRoman(reinforced, ret);
     }
 }

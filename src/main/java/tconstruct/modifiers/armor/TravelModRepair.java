@@ -20,8 +20,7 @@ public class TravelModRepair extends ItemModifier {
 
     @Override
     protected boolean canModify(ItemStack input, ItemStack[] recipe) {
-        if (input.getItem() instanceof TravelGear) {
-            TravelGear gear = (TravelGear) input.getItem();
+        if (input.getItem() instanceof TravelGear gear) {
             NBTTagCompound tags = input.getTagCompound().getCompoundTag(gear.getBaseTagName());
             int damage = tags.getInteger("Damage");
             if (damage > 0) {

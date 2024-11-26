@@ -74,11 +74,6 @@ public class BehaviorBlockThrow extends Behavior {
     }
 
     @Override
-    public boolean isOffensive(ItemStack par1ItemStack) {
-        return true;
-    }
-
-    @Override
     public int getStackLimit(ItemStack par1ItemStack) {
         return 64;
     }

@@ -31,18 +31,13 @@ public class Arrow extends ToolCore {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_arrow_head";
-            case 1:
-                return ""; // Doesn't break
-            case 2:
-                return "_arrow_shaft";
-            case 3:
-                return "_arrow_fletching";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_arrow_head";
+            case 1 -> ""; // Doesn't break
+            case 2 -> "_arrow_shaft";
+            case 3 -> "_arrow_fletching";
+            default -> "";
+        };
     }
 
     @Override
@@ -169,7 +164,6 @@ public class Arrow extends ToolCore {
         NBTTagCompound tags = stack.getTagCompound();
         if (tags.hasKey("Energy")) {
             String color = "";
-            // double joules = this.getJoules(stack);
             int power = tags.getInteger("Energy");
 
             if (power != 0) {
@@ -189,10 +183,10 @@ public class Arrow extends ToolCore {
                 int handle = tags.getCompoundTag("InfiTool").getInteger("Handle");
 
                 String headName = getAbilityNameForType(head, 0);
-                if (!headName.equals("")) list.add(getStyleForType(head) + headName);
+                if (!headName.isEmpty()) list.add(getStyleForType(head) + headName);
 
                 String handleName = getAbilityNameForType(handle, 0);
-                if (!handleName.equals("") && handle != head) list.add(getStyleForType(handle) + handleName);
+                if (!handleName.isEmpty() && handle != head) list.add(getStyleForType(handle) + handleName);
 
                 boolean displayToolTips = true;
                 int tipNum = 0;
@@ -201,7 +195,7 @@ public class Arrow extends ToolCore {
                     String tooltip = "Tooltip" + tipNum;
                     if (tags.getCompoundTag("InfiTool").hasKey(tooltip)) {
                         String tipName = tags.getCompoundTag("InfiTool").getString(tooltip);
-                        if (!tipName.equals("")) list.add(tipName);
+                        if (!tipName.isEmpty()) list.add(tipName);
                     } else displayToolTips = false;
                 }
             }

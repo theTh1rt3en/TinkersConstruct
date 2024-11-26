@@ -78,20 +78,14 @@ public class Excavator extends AOEHarvestTool {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_excavator_head";
-            case 1:
-                return "_excavator_head_broken";
-            case 2:
-                return "_excavator_handle";
-            case 3:
-                return "_excavator_binding";
-            case 4:
-                return "_excavator_grip";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_excavator_head";
+            case 1 -> "_excavator_head_broken";
+            case 2 -> "_excavator_handle";
+            case 3 -> "_excavator_binding";
+            case 4 -> "_excavator_grip";
+            default -> "";
+        };
     }
 
     @Override

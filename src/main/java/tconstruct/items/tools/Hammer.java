@@ -81,20 +81,14 @@ public class Hammer extends AOEHarvestTool {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_hammer_head";
-            case 1:
-                return "_hammer_handle_broken";
-            case 2:
-                return "_hammer_handle";
-            case 3:
-                return "_hammer_front";
-            case 4:
-                return "_hammer_back";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_hammer_head";
+            case 1 -> "_hammer_handle_broken";
+            case 2 -> "_hammer_handle";
+            case 3 -> "_hammer_front";
+            case 4 -> "_hammer_back";
+            default -> "";
+        };
     }
 
     @Override

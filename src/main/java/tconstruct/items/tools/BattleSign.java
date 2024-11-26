@@ -49,16 +49,12 @@ public class BattleSign extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_battlesign_head";
-            case 1:
-                return "_battlesign_head_broken";
-            case 2:
-                return "_battlesign_handle";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_battlesign_head";
+            case 1 -> "_battlesign_head_broken";
+            case 2 -> "_battlesign_handle";
+            default -> "";
+        };
     }
 
     @Override

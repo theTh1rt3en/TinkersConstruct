@@ -60,7 +60,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        // Check that the drain is coming from the from the front of the block
+        // Check that the drain is coming from the front of the block
         // and that the fluid to be drained is in the smeltery.
         if (!hasValidMaster()) return false;
 
@@ -107,23 +107,12 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         if (pitch > 45) direction = 1;
         else if (pitch < -45) direction = 0;
         else {
-            int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
+            int facing = MathHelper.floor_double((yaw / 360) + 0.5D) & 3;
             switch (facing) {
-                case 0:
-                    direction = 2;
-                    break;
-
-                case 1:
-                    direction = 5;
-                    break;
-
-                case 2:
-                    direction = 3;
-                    break;
-
-                case 3:
-                    direction = 4;
-                    break;
+                case 0 -> direction = 2;
+                case 1 -> direction = 5;
+                case 2 -> direction = 3;
+                case 3 -> direction = 4;
             }
         }
     }

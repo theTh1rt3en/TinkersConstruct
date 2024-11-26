@@ -71,20 +71,14 @@ public class Cleaver extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_cleaver_head";
-            case 1:
-                return "_cleaver_head_broken";
-            case 2:
-                return "_cleaver_handle";
-            case 3:
-                return "_cleaver_shield";
-            case 4:
-                return "_cleaver_guard";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_cleaver_head";
+            case 1 -> "_cleaver_head_broken";
+            case 2 -> "_cleaver_handle";
+            case 3 -> "_cleaver_shield";
+            case 4 -> "_cleaver_guard";
+            default -> "";
+        };
     }
 
     @Override
@@ -102,12 +96,6 @@ public class Cleaver extends Weapon {
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         if (AbilityHelper.onLeftClickEntity(stack, player, entity, this)) {
             entity.hurtResistantTime += 7;
-
-            /*
-             * if (entity instanceof EntityLiving) { EntityLiving living = (EntityLiving) entity; if (living.getHealth()
-             * <= 0) { } }
-             */
-            // if (entity.getHealth() <= 0)
         }
         return true;
     }
@@ -115,17 +103,11 @@ public class Cleaver extends Weapon {
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
+        if (entity instanceof EntityPlayer player) {
             ItemStack equipped = player.getCurrentEquippedItem();
             if (equipped == stack) {
                 player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 2, 2, true));
             }
         }
     }
-
-    /*
-     * @Override public boolean onEntitySwing (EntityLiving entity, ItemStack stack) { entity.swingProgressInt /= 2;
-     * return false; }
-     */
 }

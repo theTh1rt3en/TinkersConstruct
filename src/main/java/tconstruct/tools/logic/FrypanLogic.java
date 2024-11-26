@@ -28,14 +28,47 @@ import tconstruct.tools.inventory.FrypanContainer;
 
 public class FrypanLogic extends EquipLogic implements IActiveLogic {
 
-    boolean active;
     public int fuel;
     public int fuelGague;
     public int progress;
+    boolean active;
 
     public FrypanLogic() {
         super(10);
         active = false;
+    }
+
+    public static int getItemBurnTime(ItemStack stack) {
+        if (stack == null) {
+            return 0;
+        } else {
+            Item item = stack.getItem();
+
+            if (stack.getItem() instanceof ItemBlock && BlockUtils.getBlockFromItem(item) != null) {
+                Block block = BlockUtils.getBlockFromItem(item);
+
+                if (block == Blocks.wooden_slab) {
+                    return 150;
+                }
+
+                if (block == Blocks.log) {
+                    return 2400;
+                }
+
+                if (block.getMaterial() == Material.wood) {
+                    return 300;
+                }
+            }
+            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item == Items.stick) return 100;
+            if (item == Items.coal) return 800;
+            if (item == Items.lava_bucket) return 20000;
+            if (new ItemStack(item).equals(new ItemStack(Blocks.sapling))) return 100;
+            if (item == Items.blaze_rod) return 2400;
+            return GameRegistry.getFuelValue(stack);
+        }
     }
 
     @Override
@@ -163,9 +196,8 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic {
                 continue;
 
             for (int slotid = 2; slotid < 10; slotid++) {
-                if (inventory[slotid] == null) return true;
-                else if (inventory[slotid].isItemEqual(result)
-                        && inventory[slotid].stackSize + result.stackSize <= inventory[slotid].getMaxStackSize())
+                if (inventory[slotid] == null || (inventory[slotid].isItemEqual(result)
+                        && inventory[slotid].stackSize + result.stackSize <= inventory[slotid].getMaxStackSize()))
                     return true;
             }
         }
@@ -183,39 +215,6 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic {
                 return result.copy();
         }
         return null;
-    }
-
-    public static int getItemBurnTime(ItemStack stack) {
-        if (stack == null) {
-            return 0;
-        } else {
-            Item item = stack.getItem();
-
-            if (stack.getItem() instanceof ItemBlock && BlockUtils.getBlockFromItem(item) != null) {
-                Block block = BlockUtils.getBlockFromItem(item);
-
-                if (block == Blocks.wooden_slab) {
-                    return 150;
-                }
-
-                if (block == Blocks.log) {
-                    return 2400;
-                }
-
-                if (block.getMaterial() == Material.wood) {
-                    return 300;
-                }
-            }
-            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item == Items.stick) return 100;
-            if (item == Items.coal) return 800;
-            if (item == Items.lava_bucket) return 20000;
-            if (new ItemStack(item).equals(new ItemStack(Blocks.sapling))) return 100;
-            if (item == Items.blaze_rod) return 2400;
-            return GameRegistry.getFuelValue(stack);
-        }
     }
 
     /* NBT */

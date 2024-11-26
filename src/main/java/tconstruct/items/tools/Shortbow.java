@@ -29,18 +29,13 @@ public class Shortbow extends BowBase {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_bow_top";
-            case 1:
-                return "_bowstring_broken";
-            case 2:
-                return "_bowstring";
-            case 3:
-                return "_bow_bottom";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_bow_top";
+            case 1 -> "_bowstring_broken";
+            case 2 -> "_bowstring";
+            case 3 -> "_bow_bottom";
+            default -> "";
+        };
     }
 
     @Override
@@ -88,8 +83,7 @@ public class Shortbow extends BowBase {
     @SideOnly(Side.CLIENT)
     public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP) {
-            EntityPlayerSP player = (EntityPlayerSP) entity;
+        if (entity instanceof EntityPlayerSP player) {
             ItemStack usingItem = player.getItemInUse();
             if (usingItem != null && usingItem.getItem() == this) {
                 player.movementInput.moveForward *= 2.0F;
@@ -106,7 +100,6 @@ public class Shortbow extends BowBase {
         NBTTagCompound tags = stack.getTagCompound();
         if (tags.hasKey("Energy")) {
             String color = "";
-            // double joules = this.getJoules(stack);
             int power = tags.getInteger("Energy");
 
             if (power != 0) {
@@ -128,26 +121,26 @@ public class Shortbow extends BowBase {
                 int extra = tags.getCompoundTag("InfiTool").getInteger("Extra");
 
                 String headName = getAbilityNameForType(head, 0);
-                if (!headName.equals("")) list.add(getStyleForType(head) + headName);
+                if (!headName.isEmpty()) list.add(getStyleForType(head) + headName);
 
                 String handleName = getBowstringName(handle);
-                if (!handleName.equals("") && handle != head) list.add(handleName);
+                if (!handleName.isEmpty() && handle != head) list.add(handleName);
 
                 if (getPartAmount() >= 3) {
                     String bindingName = getAbilityNameForType(binding, 0);
-                    if (!bindingName.equals("") && binding != head && binding != handle)
+                    if (!bindingName.isEmpty() && binding != head && binding != handle)
                         list.add(getStyleForType(binding) + bindingName);
                 }
 
                 if (getPartAmount() >= 4) {
                     String extraName = getAbilityNameForType(extra, 0);
-                    if (!extraName.equals("") && extra != head && extra != handle && extra != binding)
+                    if (!extraName.isEmpty() && extra != head && extra != handle && extra != binding)
                         list.add(getStyleForType(extra) + extraName);
                 }
 
                 int unbreaking = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
                 String reinforced = getReinforcedName(head, handle, binding, extra, unbreaking);
-                if (!reinforced.equals("")) list.add(reinforced);
+                if (!reinforced.isEmpty()) list.add(reinforced);
 
                 boolean displayToolTips = true;
                 int tipNum = 0;
@@ -156,7 +149,7 @@ public class Shortbow extends BowBase {
                     String tooltip = "Tooltip" + tipNum;
                     if (tags.getCompoundTag("InfiTool").hasKey(tooltip)) {
                         String tipName = tags.getCompoundTag("InfiTool").getString(tooltip);
-                        if (!tipName.equals("")) list.add(tipName);
+                        if (!tipName.isEmpty()) list.add(tipName);
                     } else displayToolTips = false;
                 }
             }
@@ -169,13 +162,9 @@ public class Shortbow extends BowBase {
     }
 
     public String getBowstringName(int type) {
-        switch (type) {
-            case 1:
-                return "\u00A7bEnchanted";
-            case 0:
-            default:
-                return "";
+        if (type == 1) {
+            return "\u00A7bEnchanted";
         }
-        // return TConstructRegistry.getMaterial(type).ability();
+        return "";
     }
 }

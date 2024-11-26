@@ -478,11 +478,6 @@ public class AbilityHelper {
             entity.worldObj.playSound(entity.posX, entity.posY, entity.posZ, "random.break", 1f, 1f, true);
     }
 
-    public static void repairTool(ItemStack stack, NBTTagCompound tags) {
-        tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
-        tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
-    }
-
     public static DamageSource causePiercingDamage(EntityLivingBase mob) {
         return new PiercingEntityDamage("mob", mob);
     }
@@ -581,14 +576,6 @@ public class AbilityHelper {
     }
 
     /* Ranged weapons */
-
-    public static void forceAddToInv(EntityPlayer entityplayer, ItemStack itemstack, int i, boolean flag) {
-        ItemStack itemstack1 = entityplayer.inventory.getStackInSlot(i);
-        entityplayer.inventory.setInventorySlotContents(i, itemstack);
-        if (itemstack1 != null) {
-            addToInv(entityplayer, itemstack1, flag);
-        }
-    }
 
     public static boolean addToInv(EntityPlayer entityplayer, ItemStack itemstack, boolean flag) {
         return addToInv(entityplayer, itemstack, entityplayer.inventory.currentItem, flag);

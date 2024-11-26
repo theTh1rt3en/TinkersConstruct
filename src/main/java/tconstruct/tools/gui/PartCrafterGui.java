@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
@@ -23,15 +23,8 @@ import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.PartBuilderLogic;
 
-@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+@Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
-
-    PartBuilderLogic logic;
-    String title, otherTitle = "";
-    boolean drawChestPart;
-    boolean hasTop, hasBottom;
-    ItemStack topMaterial, bottomMaterial;
-    ToolMaterial topEnum, bottomEnum;
 
     private static final int CRAFT_WIDTH = 176;
     private static final int CRAFT_HEIGHT = 166;
@@ -39,17 +32,25 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
     private static final int DESC_HEIGHT = 166;
     private static final int CHEST_WIDTH = 122;
     private static final int CHEST_HEIGHT = 114;
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
+    private static final ResourceLocation minichest = new ResourceLocation(
+            "tinker",
+            "textures/gui/patternchestmini.png");
+    private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
+    PartBuilderLogic logic;
+    String title, otherTitle = "";
+    boolean drawChestPart;
 
     // Panel positions
-
+    boolean hasTop, hasBottom;
+    ItemStack topMaterial, bottomMaterial;
+    ToolMaterial topEnum, bottomEnum;
     private int craftingLeft = 0;
     private int craftingTop = 0;
     private int craftingTextLeft = 0;
-
     private int descLeft = 0;
     private int descTop = 0;
     private int descTextLeft = 0;
-
     private int chestLeft = 0;
     private int chestTop = 0;
 
@@ -149,28 +150,28 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
         if (hasTop) {
             this.drawCenteredString(fontRendererObj, title, descTextLeft + DESC_WIDTH / 2, offset, 16777215);
             this.fontRendererObj.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(),
+                    StatCollector.translateToLocal("gui.partcrafter4") + topEnum.getDurability(),
                     descTextLeft + 8,
                     offset + 16,
                     16777215);
             this.fontRendererObj.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x",
+                    StatCollector.translateToLocal("gui.partcrafter5") + topEnum.getHandleModifier() + "x",
                     descTextLeft + 8,
                     offset + 27,
                     16777215);
             this.fontRendererObj.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f,
+                    StatCollector.translateToLocal("gui.partcrafter6") + topEnum.getMiningSpeed() / 100f,
                     descTextLeft + 8,
                     offset + 38,
                     16777215);
             this.fontRendererObj.drawString(
                     StatCollector.translateToLocal("gui.partcrafter7")
-                            + HarvestLevels.getHarvestLevelName(topEnum.harvestLevel()),
+                            + HarvestLevels.getHarvestLevelName(topEnum.getHarvestLevel()),
                     descTextLeft + 8,
                     offset + 49,
                     16777215);
 
-            int attack = topEnum.attack();
+            int attack = topEnum.getAttack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8")
                     : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0) this.fontRendererObj.drawString(
@@ -189,27 +190,27 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
         if (hasBottom) {
             this.drawCenteredString(fontRendererObj, otherTitle, descTextLeft + DESC_WIDTH / 2, offset, 16777215);
             this.fontRendererObj.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(),
+                    StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.getDurability(),
                     descTextLeft + 8,
                     offset + 16,
                     16777215);
             this.fontRendererObj.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x",
+                    StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.getHandleModifier() + "x",
                     descTextLeft + 8,
                     offset + 27,
                     16777215);
             this.fontRendererObj.drawString(
-                    StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f,
+                    StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.getMiningSpeed() / 100f,
                     descTextLeft + 8,
                     offset + 38,
                     16777215);
             this.fontRendererObj.drawString(
                     StatCollector.translateToLocal("gui.partcrafter7")
-                            + HarvestLevels.getHarvestLevelName(bottomEnum.harvestLevel()),
+                            + HarvestLevels.getHarvestLevelName(bottomEnum.getHarvestLevel()),
                     descTextLeft + 8,
                     offset + 49,
                     16777215);
-            int attack = bottomEnum.attack();
+            int attack = bottomEnum.getAttack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8")
                     : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0) this.fontRendererObj.drawString(
@@ -226,12 +227,6 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
 
         if (!hasTop && !hasBottom) drawDefaultInformation();
     }
-
-    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
-    private static final ResourceLocation minichest = new ResourceLocation(
-            "tinker",
-            "textures/gui/patternchestmini.png");
-    private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {

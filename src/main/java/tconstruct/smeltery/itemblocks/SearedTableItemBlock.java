@@ -21,18 +21,12 @@ public class SearedTableItemBlock extends MultiItemBlock {
 
     @Override
     public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
-        String tooltip = "";
-        switch (p_77624_1_.getItemDamage()) {
-            case 0:
-                tooltip = "smeltery.castingtable.tooltip";
-                break;
-            case 1:
-                tooltip = "smeltery.castingfaucet.tooltip";
-                break;
-            case 2:
-                tooltip = "smeltery.castingbasin.tooltip";
-                break;
-        }
+        String tooltip = switch (p_77624_1_.getItemDamage()) {
+            case 0 -> "smeltery.castingtable.tooltip";
+            case 1 -> "smeltery.castingfaucet.tooltip";
+            case 2 -> "smeltery.castingbasin.tooltip";
+            default -> "";
+        };
 
         if (StatCollector.canTranslate(tooltip)) p_77624_3_.add(StatCollector.translateToLocal(tooltip));
     }

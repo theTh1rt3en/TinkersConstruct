@@ -105,7 +105,7 @@ public class DualMaterialToolPart extends DynamicToolPart {
             int matId = getMaterialID2(stack);
             if (matId > icons2.length || matId < 0) return super.getColorFromItemStack(stack, renderpass);
 
-            if (icons[matId] == null) return TConstructRegistry.getMaterial(matId).primaryColor();
+            if (icons[matId] == null) return TConstructRegistry.getMaterial(matId).getPrimaryColor();
 
             return super.getColorFromItemStack(stack, renderpass);
         }

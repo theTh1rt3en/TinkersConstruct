@@ -47,9 +47,10 @@ public class PatternTablePacket extends AbstractPacket {
     public void handleServerSide(EntityPlayer player) {
         if (player.openContainer instanceof PatternShaperContainer container) {
             StencilTableLogic logic = container.logic;
-            if (logic != null && logic.xCoord == this.x && logic.yCoord == this.y && logic.zCoord == this.z)
-                if (this.contents == null) logic.setSelectedPattern(null);
-                else {
+            if (logic != null && logic.xCoord == this.x && logic.yCoord == this.y && logic.zCoord == this.z) {
+                if (this.contents == null) {
+                    logic.setSelectedPattern(null);
+                } else {
                     ItemStack stackBlank = logic.getStackInSlot(0);
                     if (stackBlank != null && stackBlank.stackSize > 0 && StencilBuilder.isBlank(stackBlank)) {
                         boolean warning = true;
@@ -66,6 +67,7 @@ public class PatternTablePacket extends AbstractPacket {
                         else logic.setSelectedPattern(this.contents);
                     }
                 }
+            }
         }
     }
 }

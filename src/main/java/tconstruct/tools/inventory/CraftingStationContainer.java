@@ -318,7 +318,7 @@ public class CraftingStationContainer extends Container {
 
         if (stack.stackSize > 0) {
             while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart) {
-                otherInventorySlot = (Slot) this.inventorySlots.get(slotIndex);
+                otherInventorySlot = this.inventorySlots.get(slotIndex);
                 copyStack = otherInventorySlot.getStack();
 
                 if (copyStack == null && otherInventorySlot.isItemValid(stack)) {

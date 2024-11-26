@@ -59,7 +59,6 @@ public class FryingPan extends Weapon {
     public void getSubItems(Item id, CreativeTabs tab, List list) {
         super.getSubItems(id, tab, list);
 
-        Item accessory = getAccessoryItem();
         ItemStack tool = ToolBuilder.instance.buildTool(
                 new ItemStack(getHeadItem(), 1, 2),
                 new ItemStack(getHandleItem(), 1, 16),
@@ -159,16 +158,12 @@ public class FryingPan extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_frypan_head";
-            case 1:
-                return "_frypan_head_broken";
-            case 2:
-                return "_frypan_handle";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_frypan_head";
+            case 1 -> "_frypan_head_broken";
+            case 2 -> "_frypan_handle";
+            default -> "";
+        };
     }
 
     @Override

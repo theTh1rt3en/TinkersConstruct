@@ -22,7 +22,6 @@ public class Dagger extends Weapon {
         ItemStack stack = itemstack.copy();
         if (!world.isRemote) {
             DaggerEntity dagger = new DaggerEntity(world, player, 1.5f, 0, stack);
-            // dagger.motionY++;
             if (player.capabilities.isCreativeMode) dagger.canBePickedUp = 2;
             world.spawnEntityInWorld(dagger);
         }
@@ -35,7 +34,6 @@ public class Dagger extends Weapon {
         ItemStack stack = itemstack.copy();
         if (!world.isRemote) {
             DaggerEntity dagger = new DaggerEntity(world, player, 1.5f, 0, stack);
-            // dagger.motionY++;
             world.spawnEntityInWorld(dagger);
         }
         itemstack.stackSize--;
@@ -57,24 +55,15 @@ public class Dagger extends Weapon {
         return 10;
     }
 
-    public boolean rangedTool() {
-        return true;
-    }
-
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_dagger_blade";
-            case 1:
-                return "_dagger_blade_broken";
-            case 2:
-                return "_dagger_handle";
-            case 3:
-                return "_dagger_accessory";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_dagger_blade";
+            case 1 -> "_dagger_blade_broken";
+            case 2 -> "_dagger_handle";
+            case 3 -> "_dagger_accessory";
+            default -> "";
+        };
     }
 
     @Override

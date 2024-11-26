@@ -70,7 +70,7 @@ public class TConstructRegistry {
      */
     public static void addItemToDirectory(String name, Item itemstack) {
         Item add = itemDirectory.get(name);
-        if (add != null) logger.warn(name + " is already present in the Item directory");
+        if (add != null) logger.warn("{} is already present in the Item directory", name);
 
         itemDirectory.put(name, itemstack);
     }
@@ -83,7 +83,7 @@ public class TConstructRegistry {
      */
     public static Item getItem(String name) {
         Item ret = itemDirectory.get(name);
-        if (ret == null) logger.warn("Could not find " + name + " in the Item directory");
+        if (ret == null) logger.warn("Could not find {} in the Item directory", name);
 
         return ret;
     }
@@ -113,7 +113,7 @@ public class TConstructRegistry {
      */
     public static void addItemStackToDirectory(String name, ItemStack itemstack) {
         ItemStack add = itemstackDirectory.get(name);
-        if (add != null) logger.warn(name + " is already present in the ItemStack directory");
+        if (add != null) logger.warn("{} is already present in the ItemStack directory", name);
 
         itemstackDirectory.put(name, itemstack);
     }

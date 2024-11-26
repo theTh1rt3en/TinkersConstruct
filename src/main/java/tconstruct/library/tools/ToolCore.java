@@ -22,7 +22,8 @@ import net.minecraft.world.World;
 
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.core.item.IEqualityOverrideItem;
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.InterfaceList;
 import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -55,8 +56,9 @@ import tconstruct.weaponry.TinkerWeaponry;
  *      Modifiers have their own tags.
  * @see ItemModifier
  */
-@Optional.InterfaceList({ @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyContainerItem"),
-        @Optional.Interface(modid = "CoFHCore", iface = "cofh.core.item.IEqualityOverrideItem") })
+@InterfaceList(
+        value = { @Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyContainerItem"),
+                @Interface(modid = "CoFHCore", iface = "cofh.core.item.IEqualityOverrideItem") })
 public abstract class ToolCore extends Item implements IEnergyContainerItem, IEqualityOverrideItem, IModifyable {
 
     protected Random random = new Random();
@@ -288,26 +290,26 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                 int extra = tags.getCompoundTag("InfiTool").getInteger("Extra");
 
                 String headName = getAbilityNameForType(head, 0);
-                if (!headName.equals("")) list.add(getStyleForType(head) + headName);
+                if (!headName.isEmpty()) list.add(getStyleForType(head) + headName);
 
                 String handleName = getAbilityNameForType(handle, 1);
-                if (!handleName.equals("") && handle != head) list.add(getStyleForType(handle) + handleName);
+                if (!handleName.isEmpty() && handle != head) list.add(getStyleForType(handle) + handleName);
 
                 if (getPartAmount() >= 3) {
                     String bindingName = getAbilityNameForType(binding, 2);
-                    if (!bindingName.equals("") && binding != head && binding != handle)
+                    if (!bindingName.isEmpty() && binding != head && binding != handle)
                         list.add(getStyleForType(binding) + bindingName);
                 }
 
                 if (getPartAmount() >= 4) {
                     String extraName = getAbilityNameForType(extra, 3);
-                    if (!extraName.equals("") && extra != head && extra != handle && extra != binding)
+                    if (!extraName.isEmpty() && extra != head && extra != handle && extra != binding)
                         list.add(getStyleForType(extra) + extraName);
                 }
 
                 int unbreaking = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
                 String reinforced = getReinforcedName(head, handle, binding, extra, unbreaking);
-                if (!reinforced.equals("")) list.add(reinforced);
+                if (!reinforced.isEmpty()) list.add(reinforced);
 
                 boolean displayToolTips = true;
                 int tipNum = 0;
@@ -316,7 +318,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                     String tooltip = "Tooltip" + tipNum;
                     if (tags.getCompoundTag("InfiTool").hasKey(tooltip)) {
                         String tipName = tags.getCompoundTag("InfiTool").getString(tooltip);
-                        if (!tipName.equals("")) {
+                        if (!tipName.isEmpty()) {
                             // let's see if we can translate it somehow
                             // strip color information
                             String locString = "modifier.tooltip."
@@ -341,14 +343,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     public static String getStyleForType(int type) {
-        return TConstructRegistry.getMaterial(type).style();
+        return TConstructRegistry.getMaterial(type).getTipStyle();
     }
 
     /**
      * Returns the localized name of the materials ability. Only use this for display purposes, not for logic.
      */
     public String getAbilityNameForType(int type, int part) {
-        return TConstructRegistry.getMaterial(type).ability();
+        return TConstructRegistry.getMaterial(type).getAbility();
     }
 
     public String getReinforcedName(int head, int handle, int accessory, int extra, int unbreaking) {
@@ -359,27 +361,27 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
         int reinforced = 0;
         String style = "";
-        int current = headMat.reinforced();
+        int current = headMat.getReinforced();
         if (current > 0) {
-            style = headMat.style();
+            style = headMat.getTipStyle();
             reinforced = current;
         }
-        current = handleMat.reinforced();
+        current = handleMat.getReinforced();
         if (current > 0 && current > reinforced) {
-            style = handleMat.style();
+            style = handleMat.getTipStyle();
             reinforced = current;
         }
         if (getPartAmount() >= 3) {
-            current = accessoryMat.reinforced();
+            current = accessoryMat.getReinforced();
             if (current > 0 && current > reinforced) {
-                style = accessoryMat.style();
+                style = accessoryMat.getTipStyle();
                 reinforced = current;
             }
         }
         if (getPartAmount() >= 4) {
-            current = extraMat.reinforced();
+            current = extraMat.getReinforced();
             if (current > 0 && current > reinforced) {
-                style = extraMat.style();
+                style = extraMat.getTipStyle();
                 reinforced = current;
             }
         }
@@ -395,37 +397,21 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     String getReinforcedString(int reinforced) {
         if (reinforced > 9) return StatCollector.translateToLocal("tool.unbreakable");
         String ret = StatCollector.translateToLocal("tool.reinforced") + " ";
+        return getReinforcedRoman(reinforced, ret);
+    }
+
+    public static String getReinforcedRoman(int reinforced, String ret) {
         switch (reinforced) {
-            case 1:
-                ret += "I";
-                break;
-            case 2:
-                ret += "II";
-                break;
-            case 3:
-                ret += "III";
-                break;
-            case 4:
-                ret += "IV";
-                break;
-            case 5:
-                ret += "V";
-                break;
-            case 6:
-                ret += "VI";
-                break;
-            case 7:
-                ret += "VII";
-                break;
-            case 8:
-                ret += "VIII";
-                break;
-            case 9:
-                ret += "IX";
-                break;
-            default:
-                ret += "X";
-                break;
+            case 1 -> ret += "I";
+            case 2 -> ret += "II";
+            case 3 -> ret += "III";
+            case 4 -> ret += "IV";
+            case 5 -> ret += "V";
+            case 6 -> ret += "VI";
+            case 7 -> ret += "VII";
+            case 8 -> ret += "VIII";
+            case 9 -> ret += "IX";
+            default -> ret += "X";
         }
         return ret;
     }
@@ -598,7 +584,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     protected int getDefaultColor(int renderPass, int materialID) {
         if (TConstructRegistry.getMaterial(materialID) != null)
-            return TConstructRegistry.getMaterial(materialID).primaryColor();
+            return TConstructRegistry.getMaterial(materialID).getPrimaryColor();
 
         return 0xffffffff;
     }
@@ -637,18 +623,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-        return false;
-    }
-
-    @Override
     public boolean isRepairable() {
         return false;
-    }
-
-    @Override
-    public int getItemEnchantability() {
-        return 0;
     }
 
     @Override

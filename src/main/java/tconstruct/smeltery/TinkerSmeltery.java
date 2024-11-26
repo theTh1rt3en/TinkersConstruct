@@ -1917,7 +1917,7 @@ public class TinkerSmeltery {
         LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name)) {
             // don't do oreberries. That'd be silly.
-            if (ore.getItem() != null && ore.getItem() instanceof OreBerries) {
+            if (ore.getItem() instanceof OreBerries) {
                 boolean isOreberry = false;
                 for (int id : OreDictionary.getOreIDs(ore))
                     if (OreDictionary.getOreName(id).startsWith("oreberry")) isOreberry = true;

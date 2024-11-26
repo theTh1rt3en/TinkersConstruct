@@ -61,18 +61,13 @@ public class Mattock extends DualHarvestTool {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_mattock_head";
-            case 1:
-                return "_mattock_head_broken";
-            case 2:
-                return "_mattock_handle";
-            case 3:
-                return "_mattock_back";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_mattock_head";
+            case 1 -> "_mattock_head_broken";
+            case 2 -> "_mattock_handle";
+            case 3 -> "_mattock_back";
+            default -> "";
+        };
     }
 
     @Override

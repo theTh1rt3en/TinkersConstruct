@@ -50,7 +50,6 @@ public class GuiElementScalable extends GuiElementDuex {
         // remainder that doesn't fit total width
         int remainder = height % h;
         if (remainder > 0) {
-            // drawModalRectWithCustomSizedTexture
             GuiScreen.func_146110_a(xPos, yPos + height - remainder, x, y, w, remainder, texW, texH);
         }
 

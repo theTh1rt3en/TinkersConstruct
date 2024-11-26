@@ -6,9 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 import cpw.mods.fml.common.Optional.InterfaceList;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import mods.battlegear2.api.PlayerEventChild;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
@@ -150,19 +150,19 @@ public abstract class AmmoItem extends ToolCore implements IBattlegearWeapon, IA
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean sheatheOnBack(ItemStack item) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean isOffhandHandDual(ItemStack off) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem,
             ItemStack offhandItem) {
         event.cancelParent = false;
@@ -172,27 +172,27 @@ public abstract class AmmoItem extends ToolCore implements IBattlegearWeapon, IA
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         event.setCanceled(false);
         return false;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         event.setCanceled(false);
         return false;
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
         // unused
     }
 
     @Override
-    @Optional.Method(modid = "battlegear2")
+    @Method(modid = "battlegear2")
     public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
         if (offhand == null) return true;
         return (mainhand != null && mainhand.getItem() != TinkerTools.cleaver

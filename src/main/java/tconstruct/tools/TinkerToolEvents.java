@@ -60,6 +60,25 @@ import tconstruct.util.network.MovementUpdatePacket;
 @Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
 public class TinkerToolEvents implements IMobExtraInfoProvider {
 
+    public static ItemStack craftBowString(ItemStack stack) {
+        if (stack.stackSize < 3) return null;
+
+        BowstringMaterial mat = (BowstringMaterial) TConstructRegistry
+                .getCustomMaterial(stack, BowstringMaterial.class);
+        if (mat != null) return mat.craftingItem.copy();
+        return null;
+    }
+
+    public static ItemStack craftFletching(ItemStack stack) {
+        FletchingMaterial mat = (FletchingMaterial) TConstructRegistry
+                .getCustomMaterial(stack, FletchingMaterial.class);
+        // maybe it's a leaf fletchling
+        if (mat == null)
+            mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchlingLeafMaterial.class);
+        if (mat != null) return mat.craftingItem.copy();
+        return null;
+    }
+
     @SubscribeEvent
     public void onCrafting(ItemCraftedEvent event) {
         if (event.crafting == null || event.player == null
@@ -161,7 +180,7 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
         if (toolTag.getInteger("Extra") == TinkerTools.MaterialID.Thaumium) thaum++;
 
         // each part gives 0.5 modifiers, rounded up
-        int bonusModifiers = (int) Math.ceil((double) thaum / 2d);
+        int bonusModifiers = (int) Math.ceil(thaum / 2d);
 
         // 2-part tools get 1 modifier per part
         if (tool.getPartAmount() == 2) bonusModifiers = thaum;
@@ -196,25 +215,6 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
                 event.overrideResult(new ItemStack[] { result, null });
             }
         }
-    }
-
-    public static ItemStack craftBowString(ItemStack stack) {
-        if (stack.stackSize < 3) return null;
-
-        BowstringMaterial mat = (BowstringMaterial) TConstructRegistry
-                .getCustomMaterial(stack, BowstringMaterial.class);
-        if (mat != null) return mat.craftingItem.copy();
-        return null;
-    }
-
-    public static ItemStack craftFletching(ItemStack stack) {
-        FletchingMaterial mat = (FletchingMaterial) TConstructRegistry
-                .getCustomMaterial(stack, FletchingMaterial.class);
-        // maybe it's a leaf fletchling
-        if (mat == null)
-            mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchlingLeafMaterial.class);
-        if (mat != null) return mat.craftingItem.copy();
-        return null;
     }
 
     @SubscribeEvent
@@ -298,9 +298,7 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
         if (event.entityLiving == null) return;
 
         if (event.recentlyHit) {
-            if (event.entityLiving instanceof EntitySkeleton) {
-                EntitySkeleton enemy = (EntitySkeleton) event.entityLiving;
-
+            if (event.entityLiving instanceof EntitySkeleton enemy) {
                 if (event.source.damageType.equals("player")) {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
                     ItemStack stack = player.getCurrentEquippedItem();
@@ -318,43 +316,38 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
                 }
             }
 
-            if (event.entityLiving.getClass() == EntityZombie.class) {
+            if (event.entityLiving.getClass() == EntityZombie.class && event.source.damageType.equals("player")) {
+                EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                ItemStack stack = player.getCurrentEquippedItem();
 
-                if (event.source.damageType.equals("player")) {
-                    EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                    ItemStack stack = player.getCurrentEquippedItem();
-
-                    if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore) {
-                        int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack != null && stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver)
-                            beheading += 2;
-                        if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 10) {
-                            ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 2));
-                        }
-                    }
-
-                    if (stack != null && stack.hasTagCompound()
-                            && stack.getItem() == TinkerTools.cleaver
-                            && TConstruct.random.nextInt(100) < 10) {
+                if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore) {
+                    int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                    if (stack != null && stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver)
+                        beheading += 2;
+                    if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 10) {
                         ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 2));
                     }
                 }
+
+                if (stack != null && stack.hasTagCompound()
+                        && stack.getItem() == TinkerTools.cleaver
+                        && TConstruct.random.nextInt(100) < 10) {
+                    ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 2));
+                }
             }
 
-            if (event.entityLiving.getClass() == EntityCreeper.class) {
-
-                if (event.source.damageType.equals("player")) {
-                    EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                    ItemStack stack = player.getCurrentEquippedItem();
-                    if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore) {
-                        int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack.getItem() == TinkerTools.cleaver) beheading += 2;
-                        if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 5) {
-                            ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 4));
-                        }
+            if (event.entityLiving.getClass() == EntityCreeper.class && event.source.damageType.equals("player")) {
+                EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                ItemStack stack = player.getCurrentEquippedItem();
+                if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore) {
+                    int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                    if (stack.getItem() == TinkerTools.cleaver) beheading += 2;
+                    if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 5) {
+                        ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 4));
                     }
                 }
             }
+
         }
 
         if (event.entityLiving instanceof EntityPlayer player) {
@@ -459,6 +452,60 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
         }
     }
 
+    @SubscribeEvent
+    public void registerOre(OreRegisterEvent evt) {
+
+        if (evt.Name.equals("crystalQuartz")) {
+            TinkerTools.modAttack.addStackToMatchList(evt.Ore, 2);
+        } else if (evt.Name.equals("crystalCertusQuartz")) {
+            TinkerTools.modAttack.addStackToMatchList(evt.Ore, 24);
+        }
+    }
+
+    @SubscribeEvent
+    public void damageToolsOnDeath(PlayerDropsEvent event) {
+        if (!PHConstruct.deathPenality) return;
+
+        EnumDifficulty difficulty = event.entityPlayer.worldObj.difficultySetting;
+        // easy and peaceful don't punish
+        if (difficulty == EnumDifficulty.PEACEFUL || difficulty == EnumDifficulty.EASY) return;
+
+        int punishment = 20; // normal has 5%
+        if (difficulty == EnumDifficulty.HARD) punishment = 10; // hard has 10%
+
+        // check if we have to reduce it
+        // did the player live long enough to receive derp-protection?
+        // (yes, you receive protection every time you log in. we're that nice.)
+        int derp = 1;
+        if (event.entityPlayer.ticksExisted < 60 * 5 * 20) {
+            derp = TPlayerStats.get(event.entityPlayer).derpLevel;
+            if (derp <= 0) derp = 1;
+            punishment *= derp;
+        }
+
+        boolean damaged = false;
+        for (EntityItem drop : event.drops) {
+            // we're only interested in tools
+            if (!(drop.getEntityItem().getItem() instanceof ToolCore) || !drop.getEntityItem().hasTagCompound())
+                continue;
+
+            // damage tools by 10% of their total durability!
+            NBTTagCompound tags = drop.getEntityItem().getTagCompound().getCompoundTag("InfiTool");
+            int dur = tags.getInteger("TotalDurability");
+            dur /= punishment;
+
+            AbilityHelper.damageTool(drop.getEntityItem(), dur, event.entityPlayer, true);
+            damaged = true;
+        }
+
+        if (damaged) {
+            derp++;
+        }
+
+        // increase derplevel by 1. Minimal derp level is 1.
+        TPlayerStats.get(event.entityPlayer).derpLevel = derp + 1;
+    }
+
     private static class BeheadingModifier implements IChanceModifier {
 
         double m1, m2;
@@ -515,59 +562,5 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
             m1 = byteBuf.readDouble();
             m2 = byteBuf.readDouble();
         }
-    }
-
-    @SubscribeEvent
-    public void registerOre(OreRegisterEvent evt) {
-
-        if (evt.Name.equals("crystalQuartz")) {
-            TinkerTools.modAttack.addStackToMatchList(evt.Ore, 2);
-        } else if (evt.Name.equals("crystalCertusQuartz")) {
-            TinkerTools.modAttack.addStackToMatchList(evt.Ore, 24);
-        }
-    }
-
-    @SubscribeEvent
-    public void damageToolsOnDeath(PlayerDropsEvent event) {
-        if (!PHConstruct.deathPenality) return;
-
-        EnumDifficulty difficulty = event.entityPlayer.worldObj.difficultySetting;
-        // easy and peaceful don't punish
-        if (difficulty == EnumDifficulty.PEACEFUL || difficulty == EnumDifficulty.EASY) return;
-
-        int punishment = 20; // normal has 5%
-        if (difficulty == EnumDifficulty.HARD) punishment = 10; // hard has 10%
-
-        // check if we have to reduce it
-        // did the player live long enough to receive derp-protection?
-        // (yes, you receive protection every time you log in. we're that nice.)
-        int derp = 1;
-        if (event.entityPlayer.ticksExisted < 60 * 5 * 20) {
-            derp = TPlayerStats.get(event.entityPlayer).derpLevel;
-            if (derp <= 0) derp = 1;
-            punishment *= derp;
-        }
-
-        boolean damaged = false;
-        for (EntityItem drop : event.drops) {
-            // we're only interested in tools
-            if (!(drop.getEntityItem().getItem() instanceof ToolCore) || !drop.getEntityItem().hasTagCompound())
-                continue;
-
-            // damage tools by 10% of their total durability!
-            NBTTagCompound tags = drop.getEntityItem().getTagCompound().getCompoundTag("InfiTool");
-            int dur = tags.getInteger("TotalDurability");
-            dur /= punishment;
-
-            AbilityHelper.damageTool(drop.getEntityItem(), dur, event.entityPlayer, true);
-            damaged = true;
-        }
-
-        if (damaged) {
-            derp++;
-        }
-
-        // increase derplevel by 1. Minimal derp level is 1.
-        TPlayerStats.get(event.entityPlayer).derpLevel = derp + 1;
     }
 }

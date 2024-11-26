@@ -73,15 +73,6 @@ public class LumberAxe extends AOEHarvestTool {
 
     static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.gourd };
 
-    /* Lumber axe specific */
-
-    /*
-     * @Override public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5) {
-     * super.onUpdate(stack, world, entity, par4, par5); if (entity instanceof EntityPlayer) { EntityPlayer player =
-     * (EntityPlayer) entity; ItemStack equipped = player.getCurrentEquippedItem(); if (equipped == stack) {
-     * player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1)); } } }
-     */
-
     @Override
     public float breakSpeedModifier() {
         return 0.4f;
@@ -305,20 +296,14 @@ public class LumberAxe extends AOEHarvestTool {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_lumberaxe_head";
-            case 1:
-                return "_lumberaxe_head_broken";
-            case 2:
-                return "_lumberaxe_handle";
-            case 3:
-                return "_lumberaxe_shield";
-            case 4:
-                return "_lumberaxe_binding";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_lumberaxe_head";
+            case 1 -> "_lumberaxe_head_broken";
+            case 2 -> "_lumberaxe_handle";
+            case 3 -> "_lumberaxe_shield";
+            case 4 -> "_lumberaxe_binding";
+            default -> "";
+        };
     }
 
     @Override

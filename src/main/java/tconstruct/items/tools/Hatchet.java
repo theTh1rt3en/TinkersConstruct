@@ -63,16 +63,12 @@ public class Hatchet extends HarvestTool {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_axe_head";
-            case 1:
-                return "_axe_head_broken";
-            case 2:
-                return "_axe_handle";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_axe_head";
+            case 1 -> "_axe_head_broken";
+            case 2 -> "_axe_handle";
+            default -> "";
+        };
     }
 
     @Override

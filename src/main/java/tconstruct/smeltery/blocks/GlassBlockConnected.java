@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Getter;
 import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.config.PHConstruct;
@@ -20,8 +21,8 @@ import tconstruct.util.config.PHConstruct;
  */
 public class GlassBlockConnected extends MantleBlock {
 
+    @Getter
     protected IIcon[] icons = new IIcon[16];
-    private final boolean shouldRenderSelectionBox = true;
     protected String folder;
     private final int renderPass;
 
@@ -32,11 +33,6 @@ public class GlassBlockConnected extends MantleBlock {
         renderPass = hasAlpha ? 1 : 0;
         setHardness(0.3F);
         this.setCreativeTab(TConstructRegistry.blockTab);
-    }
-
-    // For FMP support
-    public IIcon[] getIcons() {
-        return icons;
     }
 
     @Override
@@ -542,11 +538,7 @@ public class GlassBlockConnected extends MantleBlock {
 
     @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-        if (shouldRenderSelectionBox) {
-            return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
-        } else {
-            return AxisAlignedBB.getBoundingBox(0D, 0D, 0D, 0D, 0D, 0D);
-        }
+        return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
     }
 
     @Override

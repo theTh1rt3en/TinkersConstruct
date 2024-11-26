@@ -27,9 +27,7 @@ public class ModAmmoRestock extends ItemModifier {
 
     @Override
     protected boolean canModify(ItemStack tool, ItemStack[] input) {
-        if (!(tool.getItem() instanceof AmmoItem)) return false;
-
-        IAmmo ammo = (IAmmo) tool.getItem();
+        if (!(tool.getItem() instanceof AmmoItem ammo)) return false;
 
         // full?
         if (ammo.getAmmoCount(tool) >= ammo.getMaxAmmo(tool)) return false;

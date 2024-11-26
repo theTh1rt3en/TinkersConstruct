@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
 public class ModRedstone extends ItemModTypeFilter {
@@ -99,10 +98,6 @@ public class ModRedstone extends ItemModTypeFilter {
         String tip = "ModifierTip" + keys[2];
         String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
-    }
-
-    public boolean validType(IModifyable input) {
-        return input.getModifyType().equals("Tool");
     }
 
     public boolean validType(ToolCore tool) {

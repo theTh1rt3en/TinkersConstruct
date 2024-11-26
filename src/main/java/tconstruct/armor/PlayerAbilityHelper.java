@@ -57,10 +57,8 @@ public class PlayerAbilityHelper {
             int j = nbttagcompound.getByte("Slot") & 255;
             ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
 
-            if (itemstack != null) {
-                if (j >= 0 && j < hotbar.mainInventory.length) {
-                    hotbar.mainInventory[j] = itemstack;
-                }
+            if (itemstack != null && j < hotbar.mainInventory.length) {
+                hotbar.mainInventory[j] = itemstack;
             }
         }
         belt.getTagCompound().setTag("Inventory", slots);

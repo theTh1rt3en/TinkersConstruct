@@ -2,20 +2,31 @@ package tconstruct.library.tools;
 
 import net.minecraft.util.StatCollector;
 
+import lombok.Getter;
+
 /*
  * Dynamic substitute for an enum. It carries a lot of information
  */
 public class ToolMaterial {
 
     public final String materialName;
+    @Getter
     public final int harvestLevel;
+    @Getter
     public final int durability;
-    public final int miningspeed; // <-- divided by 100
+    @Getter
+    public final int miningSpeed; // <-- divided by 100
+    @Getter
     public final int attack;
+    @Getter
     public final float handleModifier;
+    @Getter
     public final int reinforced;
+    @Getter
     public final float stonebound;
+    @Getter
     public final String tipStyle;
+    @Getter
     public final int primaryColor;
 
     public final String localizationString;
@@ -65,7 +76,7 @@ public class ToolMaterial {
         this.materialName = name;
         this.harvestLevel = level;
         this.durability = durability;
-        this.miningspeed = speed;
+        this.miningSpeed = speed;
         this.attack = damage;
         this.handleModifier = handle;
         this.reinforced = reinforced;
@@ -76,7 +87,7 @@ public class ToolMaterial {
         this.localizationString = localizationString;
 
         this.displayName = prefixName();
-        this.ability = ability();
+        this.ability = getAbility();
     }
 
     public String name() {
@@ -94,47 +105,11 @@ public class ToolMaterial {
         return localizedName();
     }
 
-    public int durability() {
-        return this.durability;
-    }
-
-    public int toolSpeed() {
-        return this.miningspeed;
-    }
-
-    public int attack() {
-        return this.attack;
-    }
-
-    public int harvestLevel() {
-        return this.harvestLevel;
-    }
-
-    public float handleDurability() {
-        return this.handleModifier;
-    }
-
-    public int reinforced() {
-        return this.reinforced;
-    }
-
-    public float shoddy() {
-        return this.stonebound;
-    }
-
-    public String style() {
-        return this.tipStyle;
-    }
-
-    public int primaryColor() {
-        return this.primaryColor;
-    }
-
     /**
      * Returns the ability of the tool to display. ONLY USE THIS FOR DISPLAY PURPOSES. It is not data you can rely on.
      * Use the material-ids for that.
      */
-    public String ability() {
+    public String getAbility() {
         if (StatCollector.canTranslate(String.format("%s.ability", localizationString)))
             return StatCollector.translateToLocal(String.format("%s.ability", localizationString));
         return "";

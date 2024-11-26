@@ -182,7 +182,7 @@ public class EquipBlock extends InventoryBlock {
                 if (tag != null) {
                     int head = tag.getInteger("Head");
 
-                    return TConstructRegistry.getMaterial(head).primaryColor();
+                    return TConstructRegistry.getMaterial(head).getPrimaryColor();
                 }
             }
         }

@@ -230,23 +230,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     @Override
     public void setDirection(float yaw, float pitch, EntityLivingBase player) {
-        int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
+        int facing = MathHelper.floor_double((yaw / 360) + 0.5D) & 3;
         switch (facing) {
-            case 0:
-                direction = 2;
-                break;
-
-            case 1:
-                direction = 5;
-                break;
-
-            case 2:
-                direction = 3;
-                break;
-
-            case 3:
-                direction = 4;
-                break;
+            case 0 -> direction = 2;
+            case 1 -> direction = 5;
+            case 2 -> direction = 3;
+            case 3 -> direction = 4;
         }
     }
 
@@ -445,7 +434,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     boolean addMoltenMetal(FluidStack liquid, boolean first) {
         needsUpdate = true;
-        if (moltenMetal.size() == 0) {
+        if (moltenMetal.isEmpty()) {
             // does it fit in?
             if (liquid.amount > this.getCapacity()) return false;
 
@@ -508,7 +497,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         int capacity = info[0].capacity;
         fuelAmount = info[0].fluid.amount;
-        fuelGague = (int) ((float) fuelAmount * 52f / (float) capacity);
+        fuelGague = (int) (fuelAmount * 52f / capacity);
     }
 
     // actually is updateFuel.
@@ -567,7 +556,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
             // yes it is, but does it contain a liquid?
             FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
-            if (info.length <= 0 || info[0].fluid == null || info[0].fluid.amount <= 0) continue;
+            if (info.length == 0 || info[0].fluid == null || info[0].fluid.amount <= 0) continue;
 
             // is it also a smeltery fuel?
             if (!Smeltery.isSmelteryFuel(info[0].fluid.getFluid())) continue;
@@ -619,18 +608,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void checkValidPlacement() {
         switch (getRenderDirection()) {
-            case 2: // +z
-                alignInitialPlacement(xCoord, yCoord, zCoord + 1);
-                break;
-            case 3: // -z
-                alignInitialPlacement(xCoord, yCoord, zCoord - 1);
-                break;
-            case 4: // +x
-                alignInitialPlacement(xCoord + 1, yCoord, zCoord);
-                break;
-            case 5: // -x
-                alignInitialPlacement(xCoord - 1, yCoord, zCoord);
-                break;
+            case 2 -> alignInitialPlacement(xCoord, yCoord, zCoord + 1); // +z
+            case 3 -> alignInitialPlacement(xCoord, yCoord, zCoord - 1); // -z
+            case 4 -> alignInitialPlacement(xCoord + 1, yCoord, zCoord); // +x
+            case 5 -> alignInitialPlacement(xCoord - 1, yCoord, zCoord); // -x
         }
     }
 

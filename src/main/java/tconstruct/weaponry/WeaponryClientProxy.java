@@ -71,8 +71,6 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
 
         MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.arrowAmmo, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.boltAmmo, renderer);
-
-        // MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.boneana, );
     }
 
     private void registerEntityRendering() {
@@ -133,7 +131,6 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
         TConstructClientRegistry.addStencilButton2(2, 4, 26, Reference.RESOURCE, tex); // crossbow body
 
         TConstructClientRegistry.addStencilButton2(3, 4, 27, Reference.RESOURCE, tex); // bow limb
-        // TConstructClientRegistry.addStencilButton2(4, 4, index, Reference.RESOURCE, "textures/gui/icons.png"); //
         // bolt
 
         // Tool Station

@@ -24,18 +24,13 @@ public class Cutlass extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_cutlass_blade";
-            case 1:
-                return "_cutlass_blade_broken";
-            case 2:
-                return "_cutlass_handle";
-            case 3:
-                return "_cutlass_guard";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_cutlass_blade";
+            case 1 -> "_cutlass_blade_broken";
+            case 2 -> "_cutlass_handle";
+            case 3 -> "_cutlass_guard";
+            default -> "";
+        };
     }
 
     @Override

@@ -32,22 +32,18 @@ import tconstruct.tools.TinkerTools;
 
 public class Scythe extends Weapon {
 
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves,
+            Material.vine, Material.gourd };
+
     public Scythe() {
         super(4);
         this.setUnlocalizedName("InfiTool.Scythe");
     }
 
-    /*
-     * @Override protected String getHarvestType() { return "sword"; }
-     */
-
     @Override
     protected Material[] getEffectiveMaterials() {
         return materials;
     }
-
-    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves,
-            Material.vine, Material.gourd };
 
     @Override
     public Item getHeadItem() {
@@ -76,20 +72,14 @@ public class Scythe extends Weapon {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_scythe_head";
-            case 1:
-                return "_scythe_head_broken";
-            case 2:
-                return "_scythe_handle";
-            case 3:
-                return "_scythe_binding";
-            case 4:
-                return "_scythe_accessory";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_scythe_head";
+            case 1 -> "_scythe_head_broken";
+            case 2 -> "_scythe_handle";
+            case 3 -> "_scythe_binding";
+            case 4 -> "_scythe_accessory";
+            default -> "";
+        };
     }
 
     @Override
@@ -159,10 +149,7 @@ public class Scythe extends Weapon {
                             int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                             float localHardness = localBlock == null ? Float.MAX_VALUE
                                     : localBlock.getBlockHardness(world, xPos, yPos, zPos);
-                            if (localBlock != null) // && (block.blockMaterial == Material.leaves ||
-                                                    // block.isLeaves(world,
-                            // xPos, yPos, zPos)))
-                            {
+                            if (localBlock != null) {
                                 for (Material material : materials) {
                                     if (material == localBlock.getMaterial()) {
                                         if (!player.capabilities.isCreativeMode) {
@@ -182,17 +169,14 @@ public class Scythe extends Weapon {
 
                                                 if (!world.isRemote) for (ItemStack dropStack : drops) {
                                                     float f = 0.7F;
-                                                    double d = (double) (rand.nextFloat() * f)
-                                                            + (double) (1.0F - f) * 0.5D;
-                                                    double d1 = (double) (rand.nextFloat() * f)
-                                                            + (double) (1.0F - f) * 0.5D;
-                                                    double d2 = (double) (rand.nextFloat() * f)
-                                                            + (double) (1.0F - f) * 0.5D;
+                                                    double d = (rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                                                    double d1 = (rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                                                    double d2 = (rand.nextFloat() * f) + (1.0F - f) * 0.5D;
                                                     EntityItem entityitem = new EntityItem(
                                                             player.worldObj,
-                                                            (double) xPos + d,
-                                                            (double) yPos + d1,
-                                                            (double) zPos + d2,
+                                                            xPos + d,
+                                                            yPos + d1,
+                                                            zPos + d2,
                                                             dropStack);
                                                     entityitem.delayBeforeCanPickup = 10;
                                                     player.worldObj.spawnEntityInWorld(entityitem);
@@ -232,8 +216,7 @@ public class Scythe extends Weapon {
                                                 if (world.isRemote) {
                                                     INetHandler handler = FMLClientHandler.instance()
                                                             .getClientPlayHandler();
-                                                    if (handler instanceof NetHandlerPlayClient) {
-                                                        NetHandlerPlayClient handlerClient = (NetHandlerPlayClient) handler;
+                                                    if (handler instanceof NetHandlerPlayClient handlerClient) {
                                                         handlerClient.addToSendQueue(
                                                                 new C07PacketPlayerDigging(
                                                                         0,

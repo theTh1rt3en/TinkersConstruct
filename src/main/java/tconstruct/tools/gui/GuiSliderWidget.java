@@ -49,8 +49,6 @@ public class GuiSliderWidget {
 
     protected boolean isScrolling;
     protected boolean isHighlighted;
-    // where the slider was clicked on the slider itself (not on the bar, on the thing that slides)
-    private int clickX;
     private int clickY;
     private boolean clickedBar; // if the bar has already been clicked and not released
 
@@ -231,7 +229,7 @@ public class GuiSliderWidget {
             isHighlighted = true;
             if (mouseDown) {
                 isScrolling = true;
-                clickX = x - sliderOffset;
+                // where the slider was clicked on the slider itself (not on the bar, on the thing that slides)
                 clickY = y - getSliderTop();
             }
         }

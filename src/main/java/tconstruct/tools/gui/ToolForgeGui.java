@@ -105,46 +105,46 @@ public class ToolForgeGui extends ToolStationGui {
     @Override
     void setSlotType(int type) {
         switch (type) {
-            case 0:
+            case 0 -> {
                 slotX = new int[] { 56, 38, 38, 14 }; // Repair
                 slotY = new int[] { 37, 28, 46, 37 };
-                break;
-            case 1:
+            }
+            case 1 -> {
                 slotX = new int[] { 56, 56, 56, 14 }; // Three parts
                 slotY = new int[] { 19, 55, 37, 37 };
-                break;
-            case 2:
+            }
+            case 2 -> {
                 slotX = new int[] { 56, 56, 14, 14 }; // Two parts
                 slotY = new int[] { 28, 46, 28, 46 };
-                break;
-            case 3:
+            }
+            case 3 -> {
                 slotX = new int[] { 38, 47, 56, 14 }; // Double head
                 slotY = new int[] { 28, 46, 28, 37 };
-                break;
-            case 4:
+            }
+            case 4 -> {
                 slotX = new int[] { 47, 38, 56, 47 }; // Four parts
                 slotY = new int[] { 19, 37, 37, 55 };
-                break;
-            case 5:
+            }
+            case 5 -> {
                 slotX = new int[] { 38, 47, 56, 47 }; // Four parts, double head
                 slotY = new int[] { 19, 55, 19, 37 };
-                break;
-            case 6:
+            }
+            case 6 -> {
                 slotX = new int[] { 38, 38, 20, 56 }; // Double head
                 slotY = new int[] { 28, 46, 28, 28 };
-                break;
-            case 7:
+            }
+            case 7 -> {
                 slotX = new int[] { 56, 56, 56, 14 }; // Three parts reverse
                 slotY = new int[] { 19, 37, 55, 37 };
-                break;
-            case 8:
+            }
+            case 8 -> {
                 slotX = new int[] { 20, 38, 56, 38 }; // Double head middle
                 slotY = new int[] { 28, 46, 28, 28 };
-                break;
-            case 9:
+            }
+            case 9 -> {
                 slotX = new int[] { 38, 56, 47, 47 }; // Four parts, crossbow.
                 slotY = new int[] { 37, 37, 55, 19 };
-                break;
+            }
         }
         toolSlots.resetSlots(slotX, slotY);
     }

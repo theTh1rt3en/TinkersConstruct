@@ -146,17 +146,6 @@ public class PotionLauncher extends Item {
         return false;
     }
 
-    ItemStack findPotion(EntityLivingBase living) {
-        if (living instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) living;
-            int potionSlot = getInventorySlotContainItem(Items.potionitem, player.inventory);
-            if (potionSlot >= 0) {
-                return player.inventory.getStackInSlot(potionSlot);
-            }
-        }
-        return null;
-    }
-
     int getInventorySlotContainItem(Item item, InventoryPlayer inventory) {
         for (int j = 0; j < inventory.mainInventory.length; ++j) {
             if (inventory.mainInventory[j] != null && inventory.mainInventory[j].getItem() == item) {

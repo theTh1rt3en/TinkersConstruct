@@ -52,7 +52,7 @@ public class LavaTankBlock extends BlockContainer {
         String[] textureNames = { "lavatank_side", "lavatank_top", "searedgague_top", "searedgague_side",
                 "searedgague_bottom", "searedwindow_top", "searedwindow_side", "searedwindow_bottom" };
 
-        if (!texturePrefix.equals(""))
+        if (!texturePrefix.isEmpty())
             for (int i = 0; i < textureNames.length; i++) textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
@@ -124,7 +124,6 @@ public class LavaTankBlock extends BlockContainer {
     public int getTextureIndex(int side) {
         if (side == 0) return 2;
         if (side == 1) return 0;
-
         return 1;
     }
 
@@ -159,7 +158,7 @@ public class LavaTankBlock extends BlockContainer {
             // taking liquit out of the tank
             else if (FluidContainerRegistry.isContainer(current)) {
                 FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
-                FluidStack fillFluid = tanks[0].fluid; // getFluid();
+                FluidStack fillFluid = tanks[0].fluid;
                 if (!world.isRemote) {
                     ItemStack fillStack = FluidContainerRegistry.fillFluidContainer(fillFluid, current);
                     if (fillStack != null) {
@@ -225,8 +224,8 @@ public class LavaTankBlock extends BlockContainer {
     /* Updates */
     public void onNeighborBlockChange(World world, int x, int y, int z, Block nBlockID) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic instanceof IServantLogic) {
-            ((IServantLogic) logic).notifyMasterOfChange();
+        if (logic instanceof IServantLogic iServantLogic) {
+            iServantLogic.notifyMasterOfChange();
         }
     }
 

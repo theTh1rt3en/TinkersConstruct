@@ -49,14 +49,14 @@ public class DiamondApple extends ItemFood {
         }
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int meta) {
         return icons[meta];
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[textureNames.length];
 

@@ -26,6 +26,9 @@ import tconstruct.tools.TinkerTools;
 public abstract class Weapon extends ToolCore
         implements IBattlegearWeapon, zeldaswordskills.api.item.ISword, dynamicswordskills.api.ISword {
 
+    public static Material[] web = new Material[] { Material.web, Material.cloth, Material.coral, Material.cake };
+    public static Material[] none = new Material[0];
+
     public Weapon(int baseDamage) {
         super(baseDamage);
     }
@@ -116,9 +119,6 @@ public abstract class Weapon extends ToolCore
     public String[] getTraits() {
         return new String[] { "weapon", "melee" };
     }
-
-    public static Material[] web = new Material[] { Material.web, Material.cloth, Material.coral, Material.cake };
-    public static Material[] none = new Material[0];
 
     /*---- Battlegear Support START ----*/
 

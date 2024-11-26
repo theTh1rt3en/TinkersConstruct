@@ -1,6 +1,6 @@
 package tconstruct.tools.gui;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,14 +31,17 @@ import tconstruct.tools.logic.CraftingStationLogic;
 @Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
+    public static final GuiElementScalable slotElement = new GuiElementScalable(7, 7, 18, 18, 64, 64);
+    public static final GuiElementScalable slotEmptyElement = new GuiElementScalable(7 + 18, 7, 18, 18, 64, 64);
+    /*
+     * Hide the deprecated stuff at the bottom
+     */
+    @Deprecated
+    public static final int CHEST_WIDTH = 116;
     /*
      * Slider/slots related. Taken & adapted from Tinkers Construct 1.12 under the MIT License
      */
     private static final ResourceLocation gui_inventory = new ResourceLocation("tinker", "textures/gui/generic.png");
-
-    public static final GuiElementScalable slotElement = new GuiElementScalable(7, 7, 18, 18, 64, 64);
-    public static final GuiElementScalable slotEmptyElement = new GuiElementScalable(7 + 18, 7, 18, 18, 64, 64);
-
     private static final GuiElementDuex sliderNormal = new GuiElementDuex(7, 25, 10, 15, 64, 64);
     private static final GuiElementDuex sliderLow = new GuiElementDuex(17, 25, 10, 15, 64, 64);
     private static final GuiElementDuex sliderHigh = new GuiElementDuex(27, 25, 10, 15, 64, 64);
@@ -46,7 +49,9 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
     private static final GuiElementDuex sliderBottom = new GuiElementDuex(43, 38, 12, 1, 64, 64);
     private static final GuiElementScalable sliderBackground = new GuiElementScalable(43, 8, 12, 30, 64, 64);
     private static final GuiElementScalable textBackground = new GuiElementScalable(7 + 18, 7, 18, 10, 64, 64);
-
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/tinkertable.png");
+    private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
+    private static final ResourceLocation icons = new ResourceLocation("tinker", "textures/gui/icons.png");
     private final GuiSliderWidget slider = new GuiSliderWidget(
             sliderNormal,
             sliderHigh,
@@ -54,33 +59,24 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             sliderTop,
             sliderBottom,
             sliderBackground);
-    private final GuiBorderWidget border = new GuiBorderWidget();
-
-    private int firstSlotId;
-    private int lastSlotId;
-    private int chestSlotCount;
 
     /* end slider/slots */
-
-    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/tinkertable.png");
-    private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
-    private static final ResourceLocation icons = new ResourceLocation("tinker", "textures/gui/icons.png");
-
+    private final GuiBorderWidget border = new GuiBorderWidget();
     public boolean active;
-
     // Panel positions
     public String toolName;
     public GuiTextField text;
     public String title, body;
     CraftingStationLogic logic;
-
+    private int firstSlotId;
+    private int lastSlotId;
+    private int chestSlotCount;
     private int craftingLeft = 0;
     private int craftingTop = 0;
     private int craftingTextLeft = 0;
     private int descLeft = 0;
     private int descTop = 0;
     private int descTextLeft = 0;
-
     private int chestLeft = 0;
     private int chestTop = 0;
     @Getter
@@ -127,13 +123,13 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         if (logic.chest != null) {
-            if (logic.chest.get() instanceof TileEntity te) {
-                if (te.getWorldObj().getTileEntity(te.xCoord, te.yCoord, te.zCoord) == null
-                        && te.getWorldObj().isRemote) {
-                    mc.thePlayer.closeScreen();
-                    return;
-                }
+            if (logic.chest.get() instanceof TileEntity te
+                    && te.getWorldObj().getTileEntity(te.xCoord, te.yCoord, te.zCoord) == null
+                    && te.getWorldObj().isRemote) {
+                mc.thePlayer.closeScreen();
+                return;
             }
+
             this.fontRendererObj
                     .drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), 8, 6, 0x202020);
         }
@@ -192,28 +188,28 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
         drawCenteredString(this.fontRendererObj, centerTitle, baseX + 55, baseY, 16777215);
 
         this.fontRendererObj.drawString(
-                StatCollector.translateToLocal("gui.partcrafter4") + materialEnum.durability(),
+                StatCollector.translateToLocal("gui.partcrafter4") + materialEnum.getDurability(),
                 baseX,
                 baseY + 16,
                 16777215);
         this.fontRendererObj.drawString(
-                StatCollector.translateToLocal("gui.partcrafter5") + materialEnum.handleDurability() + "x",
+                StatCollector.translateToLocal("gui.partcrafter5") + materialEnum.getHandleModifier() + "x",
                 baseX,
                 baseY + 27,
                 16777215);
         this.fontRendererObj.drawString(
-                StatCollector.translateToLocal("gui.partcrafter6") + materialEnum.toolSpeed() / 100f,
+                StatCollector.translateToLocal("gui.partcrafter6") + materialEnum.getMiningSpeed() / 100f,
                 baseX,
                 baseY + 38,
                 16777215);
         this.fontRendererObj.drawString(
                 StatCollector.translateToLocal("gui.partcrafter7")
-                        + HarvestLevels.getHarvestLevelName(materialEnum.harvestLevel()),
+                        + HarvestLevels.getHarvestLevelName(materialEnum.getHarvestLevel()),
                 baseX,
                 baseY + 49,
                 16777215);
 
-        int attack = materialEnum.attack();
+        int attack = materialEnum.getAttack();
         String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8")
                 : StatCollector.translateToLocal("gui.partcrafter9");
         if (attack % 2 == 0) this.fontRendererObj.drawString(
@@ -514,10 +510,4 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             slotEmptyElement.drawScaledX(xPos + slotsLeft * slotElement.w, yPos + y, width - slotsLeft * slotElement.w);
         }
     }
-
-    /*
-     * Hide the deprecated stuff at the bottom
-     */
-    @Deprecated
-    public static final int CHEST_WIDTH = 116;
 }

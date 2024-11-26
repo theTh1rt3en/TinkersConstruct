@@ -67,13 +67,13 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
 
         ForgeDirection toggle = ForgeDirection.UNKNOWN;
         if (side == 0 || side == 1) {
-            if (hitX > 0.3125 && hitX < 0.6875) if (hitZ > 0 && hitZ < 0.3125) toggle = ForgeDirection.NORTH;
-            if (hitX > 0.3125 && hitX < 0.6875) if (hitZ > 0.6875 && hitZ < 1) toggle = ForgeDirection.SOUTH;
-            if (hitZ > 0.3125 && hitZ < 0.6875) if (hitX > 0 && hitX < 0.3125) toggle = ForgeDirection.WEST;
-            if (hitZ > 0.3125 && hitZ < 0.6875) if (hitX > 0.6875 && hitX < 1) toggle = ForgeDirection.EAST;
+            if (hitX > 0.3125 && hitX < 0.6875 && hitZ > 0 && hitZ < 0.3125) toggle = ForgeDirection.NORTH;
+            if (hitX > 0.3125 && hitX < 0.6875 && hitZ > 0.6875 && hitZ < 1) toggle = ForgeDirection.SOUTH;
+            if (hitZ > 0.3125 && hitZ < 0.6875 && hitX > 0 && hitX < 0.3125) toggle = ForgeDirection.WEST;
+            if (hitZ > 0.3125 && hitZ < 0.6875 && hitX > 0.6875 && hitX < 1) toggle = ForgeDirection.EAST;
 
-            if (side == 0)
-                if (hitX > 0.3125 && hitX < 0.6875) if (hitZ > 0.3125 && hitZ < 0.6875) toggle = ForgeDirection.DOWN;
+            if (side == 0 && hitX > 0.3125 && hitX < 0.6875 && hitZ > 0.3125 && hitZ < 0.6875)
+                toggle = ForgeDirection.DOWN;
         } else {
             if (side == 2) {
                 if (hitX > 0 && hitX < 0.3125) toggle = ForgeDirection.WEST;
@@ -96,16 +96,17 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
         if (toggle != ForgeDirection.UNKNOWN) {
             TileEntity tile = worldObj
                     .getTileEntity(xCoord + toggle.offsetX, yCoord + toggle.offsetY, zCoord + toggle.offsetZ);
-            if (tile instanceof IFluidHandler) if (validOutputs.contains(toggle)) {
+            if (tile instanceof IFluidHandler && validOutputs.contains(toggle)) {
                 validOutputs.remove(toggle);
-                if (tile instanceof CastingChannelLogic && toggle != ForgeDirection.DOWN)
-                    ((CastingChannelLogic) tile).validOutputs.remove(toggle.getOpposite());
-            } else {
-                validOutputs.add(toggle);
-                if (tile instanceof CastingChannelLogic && toggle != ForgeDirection.DOWN)
-                    if (!((CastingChannelLogic) tile).validOutputs.contains(toggle.getOpposite()))
-                        ((CastingChannelLogic) tile).validOutputs.add(toggle.getOpposite());
+                if (tile instanceof CastingChannelLogic castingChannelLogic && toggle != ForgeDirection.DOWN)
+                    castingChannelLogic.validOutputs.remove(toggle.getOpposite());
             }
+
+            validOutputs.add(toggle);
+            if (tile instanceof CastingChannelLogic castingChannelLogic && toggle != ForgeDirection.DOWN
+                    && !castingChannelLogic.validOutputs.contains(toggle.getOpposite()))
+                castingChannelLogic.validOutputs.add(toggle.getOpposite());
+
         }
         markDirtyForRendering();
     }

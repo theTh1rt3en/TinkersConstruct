@@ -61,13 +61,10 @@ public class Jerky extends SpecialFood {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         int type = stack.getItemDamage();
-        switch (type) {
-            case 6:
-                list.add("\u00a7b" + StatCollector.translateToLocal("strangefood5.tooltip"));
-                break;
-            case 7:
-                list.add("\u00a74" + StatCollector.translateToLocal("strangefood6.tooltip"));
-                break;
+        if (type == 6) {
+            list.add("\u00a7b" + StatCollector.translateToLocal("strangefood5.tooltip"));
+        } else if (type == 7) {
+            list.add("\u00a74" + StatCollector.translateToLocal("strangefood6.tooltip"));
         }
     }
 }

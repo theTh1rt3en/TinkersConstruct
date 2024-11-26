@@ -26,8 +26,7 @@ public class MultiBrickFancyItem extends MultiItemBlock {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
         switch (stack.getItemDamage()) {
-            case 5:
-            case 6:
+            case 5, 6:
                 list.add(StatCollector.translateToLocal("fancybrick1.tooltip"));
                 break;
             case 7:
@@ -37,8 +36,7 @@ public class MultiBrickFancyItem extends MultiItemBlock {
                 list.add(StatCollector.translateToLocal("fancybrick3.tooltip"));
                 list.add(StatCollector.translateToLocal("fancybrick4.tooltip"));
                 break;
-            case 10:
-            case 11:
+            case 10, 11:
                 list.add(StatCollector.translateToLocal("fancybrick5.tooltip"));
                 break;
         }

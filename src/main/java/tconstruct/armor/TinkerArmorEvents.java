@@ -7,7 +7,6 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -47,14 +46,7 @@ public class TinkerArmorEvents implements IMobExtraInfoProvider {
         if (TConstruct.random.nextInt(200) == 0 && event.entityLiving instanceof IMob
                 && event.source.damageType.equals("player")) {
             ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
-            EntityItem entityitem = new EntityItem(
-                    event.entityLiving.worldObj,
-                    event.entityLiving.posX,
-                    event.entityLiving.posY,
-                    event.entityLiving.posZ,
-                    dropStack);
-            entityitem.delayBeforeCanPickup = 10;
-            event.drops.add(entityitem);
+            ItemHelper.addDrops(event, dropStack);
         }
 
         if (event.entityLiving instanceof IBossDisplayData) {

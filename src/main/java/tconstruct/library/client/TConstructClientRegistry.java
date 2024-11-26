@@ -58,10 +58,7 @@ public class TConstructClientRegistry {
     public static void registerManualModifier(String name, ItemStack output, ItemStack topinput,
             ItemStack bottominput) {
         ItemStack[] recipe = new ItemStack[3];
-        recipe[0] = ModifyBuilder.instance.modifyItem(output, new ItemStack[] { topinput, bottominput }); // ToolBuilder.instance.buildTool(output,
-                                                                                                          // topinput,
-                                                                                                          // bottominput,
-                                                                                                          // "");
+        recipe[0] = ModifyBuilder.instance.modifyItem(output, new ItemStack[] { topinput, bottominput });
         recipe[1] = topinput;
         recipe[2] = bottominput;
         MantleClientRegistry.recipeIcons.put(name, recipe);

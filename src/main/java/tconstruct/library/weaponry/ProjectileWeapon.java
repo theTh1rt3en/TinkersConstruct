@@ -111,11 +111,10 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
     }
 
     public float getWindupProgress(ItemStack itemStack, int timeInUse) {
-        float time = (float) timeInUse;
         float windup = getWindupTime(itemStack);
-        if (time > windup) return 1.0f;
+        if (timeInUse > windup) return 1.0f;
 
-        return time / windup;
+        return timeInUse / windup;
     }
 
     public float getProjectileSpeed(ItemStack itemStack) {
@@ -252,18 +251,17 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
 
         float progress = getWindupProgress(usingItem, getMaxItemUseDuration(usingItem) - useRemaining);
         // get the correct icon
-        switch (renderPass) {
-            case 0:
-                return getCorrectAnimationIcon(animationHandleIcons, tags.getInteger("RenderHandle"), progress);
-            case 1:
-                return getCorrectAnimationIcon(animationHeadIcons, tags.getInteger("RenderHead"), progress);
-            case 2:
-                return getCorrectAnimationIcon(animationAccessoryIcons, tags.getInteger("RenderAccessory"), progress);
-            case 3:
-                return getCorrectAnimationIcon(animationExtraIcons, tags.getInteger("RenderExtra"), progress);
-        }
+        return getIIcon(renderPass, tags, progress);
+    }
 
-        return emptyIcon;
+    protected IIcon getIIcon(int renderPass, NBTTagCompound tags, float progress) {
+        return switch (renderPass) {
+            case 0 -> getCorrectAnimationIcon(animationHandleIcons, tags.getInteger("RenderHandle"), progress);
+            case 1 -> getCorrectAnimationIcon(animationHeadIcons, tags.getInteger("RenderHead"), progress);
+            case 2 -> getCorrectAnimationIcon(animationAccessoryIcons, tags.getInteger("RenderAccessory"), progress);
+            case 3 -> getCorrectAnimationIcon(animationExtraIcons, tags.getInteger("RenderExtra"), progress);
+            default -> emptyIcon;
+        };
     }
 
     protected IIcon getCorrectAnimationIcon(Map<Integer, IIcon[]> icons, int id, float progress) {
@@ -381,8 +379,8 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
         }
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         super.addInformation(stack, player, list, par4);
 

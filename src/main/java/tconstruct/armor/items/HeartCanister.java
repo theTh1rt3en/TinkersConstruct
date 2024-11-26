@@ -41,8 +41,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory {
             if (stats != null && stats.armor != null) {
                 ArmorExtended armor = stats.armor;
                 ItemStack slotStack = armor.getStackInSlot(6);
-                if (slotStack == null) // || slotStack.getItem() == this)
-                {
+                if (slotStack == null) {
                     armor.setInventorySlotContents(6, new ItemStack(this, 1, 2));
                     stack.stackSize--;
                 } else if (slotStack.getItem() == this && slotStack.stackSize < this.maxStackSize) {

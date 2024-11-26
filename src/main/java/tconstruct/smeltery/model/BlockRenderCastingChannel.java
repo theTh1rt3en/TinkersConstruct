@@ -155,18 +155,13 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler {
     }
 
     private double[] getRenderboundsForLiquid(ForgeDirection dir) {
-        switch (dir) {
-            case NORTH:
-                return new double[] { 0.375, 0, 0.625, 0.375 };
-            case SOUTH:
-                return new double[] { 0.375, 0.625, 0.625, 1 };
-            case WEST:
-                return new double[] { 0, 0.375, 0.375, 0.625 };
-            case EAST:
-                return new double[] { 0.625, 0.375, 1, 0.625 };
-            default:
-                return null;
-        }
+        return switch (dir) {
+            case NORTH -> new double[] { 0.375, 0, 0.625, 0.375 };
+            case SOUTH -> new double[] { 0.375, 0.625, 0.625, 1 };
+            case WEST -> new double[] { 0, 0.375, 0.375, 0.625 };
+            case EAST -> new double[] { 0.625, 0.375, 1, 0.625 };
+            default -> null;
+        };
     }
 
     private void renderLiquidPart(IBlockAccess world, int x, int y, int z, Block block, RenderBlocks renderer,

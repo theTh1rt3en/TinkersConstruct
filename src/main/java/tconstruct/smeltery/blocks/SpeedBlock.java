@@ -40,11 +40,6 @@ public class SpeedBlock extends TConstructBlock {
     }
 
     @Override
-    public int damageDropped(int meta) {
-        return meta;
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item b, CreativeTabs tab, List<ItemStack> list) {
         for (int iter = 0; iter < textureNames.length; iter++) {

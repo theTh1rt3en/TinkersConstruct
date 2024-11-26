@@ -37,21 +37,14 @@ public abstract class SpecialStackHandler {
     public EnumFacing getFacing(World par1World, int par2, int par3, int par4) {
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(par1World.getBlockMetadata(par2, par3, par4));
 
-        switch (dir) {
-            case UP:
-                return EnumFacing.DOWN;
-            case WEST:
-                return EnumFacing.WEST;
-            case EAST:
-                return EnumFacing.EAST;
-            case SOUTH:
-                return EnumFacing.NORTH;
-            case NORTH:
-                return EnumFacing.SOUTH;
-            case DOWN:
-            default:
-                return EnumFacing.UP;
-        }
+        return switch (dir) {
+            case UP -> EnumFacing.DOWN;
+            case WEST -> EnumFacing.WEST;
+            case EAST -> EnumFacing.EAST;
+            case SOUTH -> EnumFacing.NORTH;
+            case NORTH -> EnumFacing.SOUTH;
+            default -> EnumFacing.UP;
+        };
     }
 
     public final void removeItemFromInventory(World par1World, int x, int y, int z, ItemStack item) {

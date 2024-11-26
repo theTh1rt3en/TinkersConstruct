@@ -41,7 +41,6 @@ public class LandmineExplodeLogic {
         boolean cancelDefault = false;
 
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        boolean hasExploded = false;
 
         if (tileEntity == null) {
             return;

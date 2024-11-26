@@ -69,7 +69,7 @@ public class ToolPage extends BookPage {
                 manual.getMC().renderEngine,
                 icons[0],
                 localWidth + 50,
-                localHeight + 0);
+                localHeight);
         for (int i = 1; i < icons.length; i++) {
             manual.renderitem.renderItemAndEffectIntoGUI(
                     manual.fonts,

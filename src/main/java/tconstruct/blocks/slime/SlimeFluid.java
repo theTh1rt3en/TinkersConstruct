@@ -59,5 +59,8 @@ public class SlimeFluid extends BlockFluidClassic {
         }
     }
 
-    public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {}
+    public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+        // do nothing
+    }
+
 }

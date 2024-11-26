@@ -140,26 +140,26 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler {
 
     void setSlotType(int type) {
         switch (type) {
-            case 0:
+            case 0 -> {
                 slotX = new int[] { 56, 38, 38 }; // Repair
                 slotY = new int[] { 37, 28, 46 };
-                break;
-            case 1:
+            }
+            case 1 -> {
                 slotX = new int[] { 56, 56, 56 }; // Three parts
                 slotY = new int[] { 19, 55, 37 };
-                break;
-            case 2:
+            }
+            case 2 -> {
                 slotX = new int[] { 56, 56, 14 }; // Two parts
                 slotY = new int[] { 28, 46, 37 };
-                break;
-            case 3:
+            }
+            case 3 -> {
                 slotX = new int[] { 38, 47, 56 }; // Double head
                 slotY = new int[] { 28, 46, 28 };
-                break;
-            case 7:
+            }
+            case 7 -> {
                 slotX = new int[] { 56, 56, 56 }; // Three parts reverse
                 slotY = new int[] { 19, 37, 55 };
-                break;
+            }
         }
         toolSlots.resetSlots(slotX, slotY);
     }

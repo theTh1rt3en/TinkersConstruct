@@ -35,8 +35,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     public ItemStack returnStack;
     public float mass;
     public int baseDamage;
-    private float knockbackStrengthMod;
     Random random = new Random();
+    private float knockbackStrengthMod;
 
     public ArrowEntity(World par1World) {
         super(par1World);
@@ -179,13 +179,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 movingobjectposition = new MovingObjectPosition(entity);
             }
 
-            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
-
-                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer
-                        && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer)) {
-                    movingobjectposition = null;
-                }
+            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer entityplayer
+                    && (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer
+                            && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))) {
+                movingobjectposition = null;
             }
 
             float speed;
@@ -220,7 +217,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         int fireAspect = 0;
                         NBTTagCompound toolTags = returnStack.getTagCompound().getCompoundTag("InfiTool");
                         if (toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")) {
-                            fireAspect *= 4;
                             if (toolTags.hasKey("Fiery")) {
                                 fireAspect += toolTags.getInteger("Fiery") / 5 + 1;
                             }
@@ -236,9 +232,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     }
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damageInflicted)) {
-                        if (movingobjectposition.entityHit instanceof EntityLivingBase) {
-                            EntityLivingBase entityliving = (EntityLivingBase) movingobjectposition.entityHit;
-
+                        if (movingobjectposition.entityHit instanceof EntityLivingBase entityliving) {
                             if (!this.worldObj.isRemote) {
                                 entityliving.setArrowCountInEntity(entityliving.getArrowCountInEntity() + 1);
                             }
@@ -258,9 +252,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             }
 
                             if (this.shootingEntity != null) {
-                                damagesource = DamageSource.causeArrowDamage(this, this);
+                                DamageSource.causeArrowDamage(this, this);
                             } else {
-                                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+                                DamageSource.causeArrowDamage(this, this.shootingEntity);
                             }
 
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity
@@ -268,9 +262,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                     && this.shootingEntity instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler
                                         .sendPacket(new S2BPacketChangeGameState(6, 0));
-                                // TConstruct.packetPipeline.sendTo(new
-                                // S2BPacketChangeGameState(6, 0),
-                                // (EntityPlayerMP) this.shootingEntity);
                             }
                         }
 
@@ -279,12 +270,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         if (!(movingobjectposition.entityHit instanceof EntityEnderman)) {
                             this.motionX = 0;
                             this.motionZ = 0;
-                            if (movingobjectposition.entityHit instanceof EntityPlayer) {
-                                EntityPlayer player = (EntityPlayer) movingobjectposition.entityHit;
+                            if (movingobjectposition.entityHit instanceof EntityPlayer player) {
                                 if (canBePickedUp == 2 || player.inventory.addItemStackToInventory(returnStack))
                                     this.setDead();
-                            } else if (movingobjectposition.entityHit instanceof EntityLivingBase) {
-                                EntityLivingBase living = (EntityLivingBase) movingobjectposition.entityHit;
+                            } else if (movingobjectposition.entityHit instanceof EntityLivingBase living) {
                                 if (canBePickedUp == 2 || addItemStackToInventory(returnStack, living)) this.setDead();
                             }
                         }

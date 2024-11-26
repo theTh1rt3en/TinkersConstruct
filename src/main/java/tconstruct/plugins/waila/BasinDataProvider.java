@@ -35,8 +35,7 @@ public class BasinDataProvider implements IWailaDataProvider {
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
             IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof CastingBasinLogic && config.getConfig("tcon.basin", true)) {
-            CastingBasinLogic te = (CastingBasinLogic) accessor.getTileEntity();
+        if (accessor.getTileEntity() instanceof CastingBasinLogic te && config.getConfig("tcon.basin", true)) {
             if (te.getFluidAmount() != 0) {
                 FluidStack fs = te.getFluid();
                 currenttip.add(

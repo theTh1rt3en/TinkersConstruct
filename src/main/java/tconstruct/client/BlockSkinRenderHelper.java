@@ -15,9 +15,9 @@ public class BlockSkinRenderHelper {
     public static boolean renderMetadataBlock(Block block, int metadata, int x, int y, int z, RenderBlocks renderer,
             IBlockAccess world) {
         int var5 = block.colorMultiplier(world, x, y, z);
-        float var6 = (float) (var5 >> 16 & 255) / 255.0F;
-        float var7 = (float) (var5 >> 8 & 255) / 255.0F;
-        float var8 = (float) (var5 & 255) / 255.0F;
+        float var6 = (var5 >> 16 & 255) / 255.0F;
+        float var7 = (var5 >> 8 & 255) / 255.0F;
+        float var8 = (var5 & 255) / 255.0F;
 
         if (EntityRenderer.anaglyphEnable) {
             float var9 = (var6 * 30.0F + var7 * 59.0F + var8 * 11.0F) / 100.0F;

@@ -2,7 +2,6 @@ package tconstruct.tools.items;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -111,7 +110,6 @@ public class TitleIcon extends Item {
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int posX, int posY, int posZ, int par7,
             float par8, float par9, float par10) {
         if (!world.isRemote) {
-            Block b = world.getBlock(posX, posY, posZ);
             posX += Facing.offsetsXForSide[par7];
             posY += Facing.offsetsYForSide[par7];
             posZ += Facing.offsetsZForSide[par7];
@@ -132,7 +130,6 @@ public class TitleIcon extends Item {
 
     public static EntityLiving activateSpawnEgg(ItemStack stack, World world, double posX, double posY, double posZ,
             int par7) {
-        Block b = world.getBlock((int) posX, (int) posY, (int) posZ);
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];

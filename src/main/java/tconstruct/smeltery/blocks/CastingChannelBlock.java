@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Getter;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.logic.CastingChannelLogic;
@@ -34,13 +35,9 @@ public class CastingChannelBlock extends BlockContainer {
         setCreativeTab(TConstructRegistry.blockTab);
     }
 
+    @Getter
     public String[] textureNames = new String[] { "searedstone", "nether_searedstone" };
     public IIcon[] icons;
-
-    /* Rendering */
-    public String[] getTextureNames() {
-        return textureNames;
-    }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,

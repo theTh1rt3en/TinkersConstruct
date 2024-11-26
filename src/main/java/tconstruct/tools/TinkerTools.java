@@ -228,6 +228,12 @@ public class TinkerTools {
     public static Item openBlocksDevNull;
     public static Item ofanix;
 
+    public static void registerPatternMaterial(String oreName, int value, String materialName) {
+        for (ItemStack ore : OreDictionary.getOres(oreName)) {
+            PatternBuilder.instance.registerMaterial(ore, value, materialName);
+        }
+    }
+
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
         TinkerToolEvents toolEvents = new TinkerToolEvents();
@@ -875,12 +881,6 @@ public class TinkerTools {
             Items.golden_shovel.setMaxDamage(1);
             Items.golden_hoe.setMaxDamage(1);
             Items.golden_sword.setMaxDamage(1);
-        }
-    }
-
-    public static void registerPatternMaterial(String oreName, int value, String materialName) {
-        for (ItemStack ore : OreDictionary.getOres(oreName)) {
-            PatternBuilder.instance.registerMaterial(ore, value, materialName);
         }
     }
 

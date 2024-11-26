@@ -161,40 +161,40 @@ public class ToolBuilder {
 
         if (extra != -1) extraMat = TConstructRegistry.getMaterial(extra);
 
-        int durability = headMat.durability();
+        int durability = headMat.getDurability();
         int heads = 1;
         int handles = 0;
         float modifier = 1f;
-        int attack = headMat.attack();
+        int attack = headMat.getAttack();
 
         if (item.durabilityTypeHandle() == 2) {
             heads++;
-            durability += handleMat.durability();
-            attack += handleMat.attack();
+            durability += handleMat.getDurability();
+            attack += handleMat.getAttack();
         } else if (item.durabilityTypeHandle() == 1) {
             handles++;
-            modifier = handleMat.handleDurability();
+            modifier = handleMat.getHandleModifier();
         }
 
         if (accessory != -1) {
             if (item.durabilityTypeAccessory() == 2) {
                 heads++;
-                durability += accessoryMat.durability();
-                attack += accessoryMat.attack();
+                durability += accessoryMat.getDurability();
+                attack += accessoryMat.getAttack();
             } else if (item.durabilityTypeAccessory() == 1) {
                 handles++;
-                modifier += accessoryMat.handleDurability();
+                modifier += accessoryMat.getHandleModifier();
             }
         }
 
         if (extra != -1) {
             if (item.durabilityTypeExtra() == 2) {
                 heads++;
-                durability += extraMat.durability();
-                attack += extraMat.attack();
+                durability += extraMat.getDurability();
+                attack += extraMat.getAttack();
             } else if (item.durabilityTypeExtra() == 1) {
                 handles++;
-                modifier += extraMat.handleDurability();
+                modifier += extraMat.getHandleModifier();
             }
         }
 
@@ -235,20 +235,20 @@ public class ToolBuilder {
         compound.getCompoundTag("InfiTool").setInteger("Attack", attack);
         compound.getCompoundTag("InfiTool").setInteger("BaseAttack", attack);
 
-        compound.getCompoundTag("InfiTool").setInteger("MiningSpeed", headMat.toolSpeed());
-        compound.getCompoundTag("InfiTool").setInteger("HarvestLevel", headMat.harvestLevel());
+        compound.getCompoundTag("InfiTool").setInteger("MiningSpeed", headMat.getMiningSpeed());
+        compound.getCompoundTag("InfiTool").setInteger("HarvestLevel", headMat.getHarvestLevel());
         if (item.durabilityTypeHandle() == 2) {
-            compound.getCompoundTag("InfiTool").setInteger("MiningSpeedHandle", handleMat.toolSpeed());
-            compound.getCompoundTag("InfiTool").setInteger("HarvestLevelHandle", handleMat.harvestLevel());
+            compound.getCompoundTag("InfiTool").setInteger("MiningSpeedHandle", handleMat.getMiningSpeed());
+            compound.getCompoundTag("InfiTool").setInteger("HarvestLevelHandle", handleMat.getHarvestLevel());
         }
         if (accessory != -1 && item.durabilityTypeAccessory() == 2) {
-            compound.getCompoundTag("InfiTool").setInteger("MiningSpeed2", accessoryMat.toolSpeed());
-            compound.getCompoundTag("InfiTool").setInteger("HarvestLevel2", accessoryMat.harvestLevel());
+            compound.getCompoundTag("InfiTool").setInteger("MiningSpeed2", accessoryMat.getMiningSpeed());
+            compound.getCompoundTag("InfiTool").setInteger("HarvestLevel2", accessoryMat.getHarvestLevel());
         }
 
         if (extra != -1 && item.durabilityTypeExtra() == 2) {
-            compound.getCompoundTag("InfiTool").setInteger("MiningSpeedExtra", extraMat.toolSpeed());
-            compound.getCompoundTag("InfiTool").setInteger("HarvestLevelExtra", extraMat.harvestLevel());
+            compound.getCompoundTag("InfiTool").setInteger("MiningSpeedExtra", extraMat.getMiningSpeed());
+            compound.getCompoundTag("InfiTool").setInteger("HarvestLevelExtra", extraMat.getHarvestLevel());
         }
 
         compound.getCompoundTag("InfiTool")
@@ -257,7 +257,7 @@ public class ToolBuilder {
 
         compound.getCompoundTag("InfiTool").setInteger("Modifiers", item.getModifierAmount());
 
-        if (name != null && !name.equals("")) {
+        if (name != null && !name.isEmpty()) {
             compound.setTag("display", new NBTTagCompound());
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
@@ -288,12 +288,12 @@ public class ToolBuilder {
             ToolMaterial extraMat) {
         int reinforced = 0;
 
-        int dHead = headMat.reinforced();
-        int dHandle = handleMat.reinforced();
+        int dHead = headMat.getReinforced();
+        int dHandle = handleMat.getReinforced();
         int dAccessory = 0;
-        if (accessoryMat != null) dAccessory = accessoryMat.reinforced();
+        if (accessoryMat != null) dAccessory = accessoryMat.getReinforced();
         int dExtra = 0;
-        if (extraMat != null) dExtra = extraMat.reinforced();
+        if (extraMat != null) dExtra = extraMat.getReinforced();
 
         if (dHead > reinforced) reinforced = dHead;
         if (dHandle > reinforced) reinforced = dHandle;
@@ -304,16 +304,16 @@ public class ToolBuilder {
     }
 
     float buildShoddy(ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat, ToolMaterial extraMat) {
-        float sHead = headMat.shoddy();
-        float sHandle = handleMat.shoddy();
+        float sHead = headMat.getStonebound();
+        float sHandle = handleMat.getStonebound();
         if (extraMat != null) {
-            float sAccessory = accessoryMat.shoddy();
-            float sExtra = extraMat.shoddy();
+            float sAccessory = accessoryMat.getStonebound();
+            float sExtra = extraMat.getStonebound();
             return (sHead + sHandle + sAccessory + sExtra) / 4f;
         }
 
         if (accessoryMat != null) {
-            float sAccessory = accessoryMat.shoddy();
+            float sAccessory = accessoryMat.getStonebound();
             return (sHead + sHandle + sAccessory) / 3f;
         }
         return (sHead + sHandle) / 2f;
