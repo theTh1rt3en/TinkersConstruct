@@ -33,17 +33,6 @@ public class KnapsackGui extends InventoryEffectRenderer {
 
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
         TabRegistry.addTabsToList(this.buttonList);
-
-        // InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new
-        // ItemStack(Block.workbench), 0);
-        // this.buttonList.add(tab);
-        // tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new
-        // ItemStack(Item.plateDiamond), 1);
-        // this.buttonList.add(tab);
-        // tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new
-        // ItemStack(TContent.knapsack), 1);
-        // tab.enabled = false;
-        // this.buttonList.add(tab);
     }
 
     @Override
@@ -63,9 +52,4 @@ public class KnapsackGui extends InventoryEffectRenderer {
         int cornerY = guiTop;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
     }
-
-    /*
-     * protected void keyTyped(char par1, int par2) { if (par2 == TControls.armorKey.keyCode) {
-     * this.mc.thePlayer.closeScreen(); } super.keyTyped(par1, par2); }
-     */
 }

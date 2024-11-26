@@ -165,8 +165,6 @@ public class ArmorProxyClient extends ArmorProxyCommon {
         ItemStack gloves = TinkerArmor.travelGlove.getDefaultItem();
         TConstructClientRegistry
                 .registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Blocks.redstone_block));
-        // MantleClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Items.slime_ball),
-        // new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25), null);
         TConstructClientRegistry.registerManualModifier(
                 "gloveknuckles",
                 gloves.copy(),
@@ -230,8 +228,6 @@ public class ArmorProxyClient extends ArmorProxyCommon {
                 event.newfov = 0.3f;
             }
         }
-        // ItemStack feet = player.getCurrentArmor(0);
-        // event.newfov = 1.0f;
     }
 
     /* Armor rendering */
@@ -338,7 +334,6 @@ public class ArmorProxyClient extends ArmorProxyCommon {
         float limbSwing = player.prevLimbSwingAmount
                 + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
         float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
-        // TPlayerStats stats = TPlayerStats.get(player);
         ArmorExtended armor = ArmorProxyClient.armorExtended; // TODO: Do this for every player, not just the client
         if (armor != null && armor.inventory[1] != null) {
             if (getTranslucencyLevel(armor.inventory[1]) != 2
@@ -406,10 +401,8 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 
     @Override
     public void updatePlayerStats(TPlayerStats stats) {
-
         playerStats.copyFrom(stats, false);
         armorExtended = stats.armor;
         knapsack = stats.knapsack;
-        // dumpTPlayerStats(stats);
     }
 }

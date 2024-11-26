@@ -13,7 +13,6 @@ public class KnapsackContainer extends Container {
     public KnapsackInventory backpack;
     public int progress = 0;
     public int fuel = 0;
-    public int fuelGague = 0;
 
     public KnapsackContainer(InventoryPlayer inventoryplayer, KnapsackInventory knapsack) {
         backpack = knapsack;
@@ -44,7 +43,7 @@ public class KnapsackContainer extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
         ItemStack stack = null;
-        Slot slot = (Slot) this.inventorySlots.get(slotID);
+        Slot slot = this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack slotStack = slot.getStack();

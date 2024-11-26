@@ -29,12 +29,5 @@ public class SlotBehavedOnly extends Slot {
         } else {
             return par1ItemStack.stackSize <= stackL;
         }
-        // return b != null;
-    }
-
-    public int getSlotStackLimit(ItemStack par1ItemStack) {
-        return Behavior.getBehaviorFromStack(par1ItemStack) != null
-                ? Behavior.getBehaviorFromStack(par1ItemStack).getStackLimit(par1ItemStack)
-                : 1;
     }
 }

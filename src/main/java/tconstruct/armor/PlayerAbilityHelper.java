@@ -1,6 +1,5 @@
 package tconstruct.armor;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -65,38 +64,5 @@ public class PlayerAbilityHelper {
             }
         }
         belt.getTagCompound().setTag("Inventory", slots);
-    }
-
-    public static void setEntitySize(Entity entity, float width, float height) {
-        float f2;
-
-        if (width != entity.width || height != entity.height) {
-            f2 = entity.width;
-            entity.width = width;
-            entity.height = height;
-            entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
-            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
-            entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
-
-            if (entity.width > f2 && !entity.worldObj.isRemote) {
-                entity.moveEntity(f2 - entity.width, 0.0D, f2 - entity.width);
-            }
-        }
-
-        f2 = width % 2.0F;
-
-        if ((double) f2 < 0.375D) {
-            entity.myEntitySize = Entity.EnumEntitySize.SIZE_1;
-        } else if ((double) f2 < 0.75D) {
-            entity.myEntitySize = Entity.EnumEntitySize.SIZE_2;
-        } else if ((double) f2 < 1.0D) {
-            entity.myEntitySize = Entity.EnumEntitySize.SIZE_3;
-        } else if ((double) f2 < 1.375D) {
-            entity.myEntitySize = Entity.EnumEntitySize.SIZE_4;
-        } else if ((double) f2 < 1.75D) {
-            entity.myEntitySize = Entity.EnumEntitySize.SIZE_5;
-        } else {
-            entity.myEntitySize = Entity.EnumEntitySize.SIZE_6;
-        }
     }
 }

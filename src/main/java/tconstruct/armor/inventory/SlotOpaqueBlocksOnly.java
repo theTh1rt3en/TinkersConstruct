@@ -26,9 +26,4 @@ public class SlotOpaqueBlocksOnly extends SlotBlocksOnly {
 
         return false;
     }
-
-    @Override
-    public int getSlotStackLimit() {
-        return 1;
-    }
 }

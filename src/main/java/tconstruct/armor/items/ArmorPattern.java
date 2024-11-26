@@ -10,10 +10,12 @@ import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Getter;
 import mantle.items.abstracts.CraftingItem;
 import tconstruct.library.ItemBlocklike;
 import tconstruct.library.TConstructRegistry;
 
+@Getter
 public class ArmorPattern extends CraftingItem implements ItemBlocklike {
 
     private IIcon baseIcon;
@@ -30,10 +32,6 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike {
         String[] names = new String[patternName.length];
         for (int i = 0; i < patternName.length; i++) names[i] = partType + patternName[i];
         return names;
-    }
-
-    public IIcon getBaseIcon() {
-        return baseIcon;
     }
 
     @SideOnly(Side.CLIENT)

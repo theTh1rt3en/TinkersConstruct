@@ -12,8 +12,8 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import tconstruct.api.IPlayerExtendedInventoryWrapper;
 
 public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedInventoryWrapper // TODO:
-                                                                                                // IExtendedEntityProperties
-                                                                                                // is not appropriate!
+// IExtendedEntityProperties
+// is not appropriate!
 {
 
     public static final String PROP_NAME = "TConstruct";
@@ -24,7 +24,6 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     public int bonusHealth;
     public int damage;
     public int hunger;
-    public int previousDimension;
 
     public boolean climbWalls;
     public boolean activeGoggles = false;

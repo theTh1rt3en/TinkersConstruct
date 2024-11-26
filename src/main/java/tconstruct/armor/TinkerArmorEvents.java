@@ -23,16 +23,18 @@ import com.kuba6000.mobsinfo.api.IMobExtraInfoProvider;
 import com.kuba6000.mobsinfo.api.MobDrop;
 import com.kuba6000.mobsinfo.api.MobRecipe;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.items.TravelWings;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.ArmourGuiSyncPacket;
 
-@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
+@Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
 public class TinkerArmorEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
@@ -63,20 +65,13 @@ public class TinkerArmorEvents implements IMobExtraInfoProvider {
             int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
             for (int i = 0; i < count; i++) {
                 ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 3);
-                EntityItem entityitem = new EntityItem(
-                        event.entityLiving.worldObj,
-                        event.entityLiving.posX,
-                        event.entityLiving.posY,
-                        event.entityLiving.posZ,
-                        dropStack);
-                entityitem.delayBeforeCanPickup = 10;
-                event.drops.add(entityitem);
+                ItemHelper.addDrops(event, dropStack);
             }
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
     @Override
+    @Method(modid = "mobsinfo")
     public void provideExtraDropsInformation(@Nonnull String entityString, @Nonnull ArrayList<MobDrop> drops,
             @Nonnull MobRecipe recipe) {
         if (recipe.entity instanceof IMob) {
@@ -158,9 +153,8 @@ public class TinkerArmorEvents implements IMobExtraInfoProvider {
         if (!event.source.isProjectile()) return;
 
         // perfect dodge?
-        if (!(event.entityLiving instanceof EntityPlayer)) return;
+        if (!(event.entityLiving instanceof EntityPlayer player)) return;
 
-        EntityPlayer player = (EntityPlayer) event.entityLiving;
         ItemStack chest = player.getCurrentArmor(2);
         if (chest == null || !(chest.getItem() instanceof IModifyable) || !chest.hasTagCompound()) return;
 
@@ -171,8 +165,7 @@ public class TinkerArmorEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
     public void joinWorld(EntityJoinWorldEvent event) {
-        if (event.entity instanceof EntityPlayerMP) {
-            EntityPlayerMP player = (EntityPlayerMP) event.entity;
+        if (event.entity instanceof EntityPlayerMP player) {
             TPlayerStats stats = TPlayerStats.get(player);
             NBTTagCompound tag = new NBTTagCompound();
             stats.saveNBTData(tag);

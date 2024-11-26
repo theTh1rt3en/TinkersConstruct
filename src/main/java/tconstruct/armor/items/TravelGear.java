@@ -13,7 +13,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.InterfaceList;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tconstruct.armor.ArmorProxyClient;
@@ -23,8 +25,9 @@ import tconstruct.library.armor.ArmorPart;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 
-@Optional.InterfaceList({ @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer"),
-        @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles") })
+@InterfaceList(
+        value = { @Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer"),
+                @Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles") })
 public class TravelGear extends ArmorCore implements IRevealer, IGoggles {
 
     public TravelGear(ArmorPart part) {
@@ -62,31 +65,21 @@ public class TravelGear extends ArmorCore implements IRevealer, IGoggles {
 
     @Override
     protected double getBaseDefense() {
-        switch (armorPart) {
-            case Head:
-                return 0;
-            case Chest:
-                return 4;
-            case Legs:
-            case Feet:
-                return 2;
-        }
-        return 0;
+        return switch (armorPart) {
+            case Head -> 0;
+            case Chest -> 4;
+            case Legs, Feet -> 2;
+        };
     }
 
     @Override
     protected double getMaxDefense() {
-        switch (armorPart) {
-            case Head:
-                return 4;
-            case Chest:
-                return 10;
-            case Legs:
-                return 8;
-            case Feet:
-                return 6;
-        }
-        return 0;
+        return switch (armorPart) {
+            case Head -> 4;
+            case Chest -> 10;
+            case Legs -> 8;
+            case Feet -> 6;
+        };
     }
 
     @Override
@@ -194,8 +187,8 @@ public class TravelGear extends ArmorCore implements IRevealer, IGoggles {
         super.addInformation(stack, player, list, par4);
     }
 
-    @Optional.Method(modid = "Thaumcraft")
     @Override
+    @Method(modid = "Thaumcraft")
     public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
         if (itemstack == null || !itemstack.hasTagCompound() || itemstack.getItem() != TinkerArmor.travelGoggles)
             return false;
@@ -203,8 +196,8 @@ public class TravelGear extends ArmorCore implements IRevealer, IGoggles {
         return itemstack.getTagCompound().getCompoundTag(this.getBaseTagName()).getBoolean("Thaumic Senses");
     }
 
-    @Optional.Method(modid = "Thaumcraft")
     @Override
+    @Method(modid = "Thaumcraft")
     public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
         if (itemstack == null || !itemstack.hasTagCompound() || itemstack.getItem() != TinkerArmor.travelGoggles)
             return false;

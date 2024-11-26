@@ -2,16 +2,11 @@ package tconstruct.armor.player;
 
 import java.lang.ref.WeakReference;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import cpw.mods.fml.common.network.ByteBufUtils;
-import io.netty.buffer.ByteBuf;
 
 public class KnapsackInventory implements IInventory {
 
@@ -39,10 +34,6 @@ public class KnapsackInventory implements IInventory {
     @Override
     public int getInventoryStackLimit() {
         return 64;
-    }
-
-    public boolean canDropInventorySlot(int slot) {
-        return true;
     }
 
     @Override
@@ -85,10 +76,6 @@ public class KnapsackInventory implements IInventory {
     public ItemStack getStackInSlotOnClosing(int slot) {
         return null;
     }
-
-    public void openChest() {}
-
-    public void closeChest() {}
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
@@ -146,24 +133,6 @@ public class KnapsackInventory implements IInventory {
         }
     }
 
-    public void unequipItems() {
-        EntityPlayer player = parent.get();
-
-        if (player != null) {
-            for (int i = 0; i < inventory.length; ++i) {
-                if (this.inventory[i] != null) {
-                    dropItemEntity(player, inventory[i]);
-                    this.inventory[i] = null;
-                }
-            }
-        }
-    }
-
-    void dropItemEntity(Entity dropper, ItemStack dropStack) {
-        EntityItem entityitem = new EntityItem(dropper.worldObj, dropper.posX, dropper.posY, dropper.posZ, dropStack);
-        dropper.worldObj.spawnEntityInWorld(entityitem);
-    }
-
     @Override
     public void markDirty() {}
 
@@ -173,11 +142,4 @@ public class KnapsackInventory implements IInventory {
     @Override
     public void closeInventory() {}
 
-    public void writeInventoryToStream(ByteBuf os) {
-        for (int i = 0; i < 27; i++) ByteBufUtils.writeItemStack(os, inventory[i]);
-    }
-
-    public void readInventoryFromStream(ByteBuf is) {
-        for (int i = 0; i < 27; i++) inventory[i] = ByteBufUtils.readItemStack(is);
-    }
 }

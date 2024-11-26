@@ -55,13 +55,8 @@ public class BeltModel extends ModelBiped {
     }
 
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        // super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         bipedBody.render(f5);
-        // Buckle.render(f5);
-        /*
-         * FrontRight.render(f5); FrontLeft.render(f5); SideRight.render(f5); SideLeft.render(f5); Back.render(f5);
-         */
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {

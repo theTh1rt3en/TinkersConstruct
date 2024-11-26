@@ -54,7 +54,6 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer {
                 // Rotate, Flip.
                 GL11.glRotatef(180F, 0F, 1F, 0F);
                 GL11.glTranslatef(0F, 0F, 0.2F);
-                // GL11.glTranslatef(0F, 0F, -0.375F);
             }
             if (meta == 4) {
                 GL11.glTranslatef(0F, 0F, 0.2875F);
@@ -63,12 +62,10 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer {
                 // Rotate, Flip.
                 GL11.glRotatef(180F, 0F, 1F, 0F);
                 GL11.glTranslatef(0F, 0F, 0.3F);
-                // GL11.glTranslatef(0F, 0F, -0.5F);
             }
         }
         GL11.glScalef(2F, 2F, 2F);
         if (stack.getItem() instanceof ItemBlock) {
-            // GL11.glRotatef(90F, -1, 0F, 0F);
             GL11.glTranslatef(0F, 0.2125F, 0.0375F);
         }
 

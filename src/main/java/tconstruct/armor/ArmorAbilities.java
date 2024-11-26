@@ -20,7 +20,6 @@ import tconstruct.util.network.HealthUpdatePacket;
 public class ArmorAbilities {
 
     public static List<String> stepBoostedPlayers = new ArrayList<>();
-    // ItemStack prevFeet;
     double prevMotionY;
 
     @SubscribeEvent
@@ -52,11 +51,7 @@ public class ArmorAbilities {
             }
             prevMotionY = player.motionY;
         }
-        /*
-         * Former step height boost handling if (feet != prevFeet) { if (prevFeet != null && prevFeet.getItem()
-         * instanceof TravelGear) player.stepHeight -= 0.6f; if (feet != null && feet.getItem() instanceof TravelGear)
-         * player.stepHeight += 0.6f; prevFeet = feet; }
-         */
+
         boolean stepBoosted = stepBoostedPlayers.contains(player.getGameProfile().getName());
         if (stepBoosted) player.stepHeight = 1.1f;
         if (!stepBoosted && feet != null && feet.getItem() instanceof TravelGear) {
@@ -65,11 +60,6 @@ public class ArmorAbilities {
             stepBoostedPlayers.remove(player.getGameProfile().getName());
             player.stepHeight -= 0.6f;
         }
-        // TODO: Proper minimap support
-        /*
-         * ItemStack stack = player.inventory.getStackInSlot(8); if (stack != null && stack.getItem() instanceof
-         * ItemMap) { stack.getItem().onUpdate(stack, player.worldObj, player, 8, true); }
-         */
     }
 
     @SubscribeEvent

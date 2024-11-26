@@ -1,11 +1,9 @@
 package tconstruct.armor;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.IGuiHandler;
-import tconstruct.TConstruct;
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.inventory.KnapsackContainer;
 import tconstruct.armor.player.TPlayerStats;
@@ -32,7 +30,6 @@ public class ArmorProxyCommon implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == ArmorProxyCommon.inventoryGui) {
-            // GuiInventory inv = new GuiInventory(player);
             return player.inventoryContainer;
         }
         if (ID == ArmorProxyCommon.armorGuiID) {
@@ -59,36 +56,4 @@ public class ArmorProxyCommon implements IGuiHandler {
 
     public void updatePlayerStats(TPlayerStats stats) {}
 
-    public void dumpTPlayerStats(TPlayerStats stats) {
-        TConstruct.logger.debug("~~~~~~~~~~~~~~~~~ STATS ~~~~~~~~~~~~~~~~~");
-        TConstruct.logger.debug("Player: " + stats.player.get().getCommandSenderName());
-        TConstruct.logger.debug("Level: " + stats.level);
-        TConstruct.logger.debug("BonusHealth: " + stats.bonusHealth);
-        TConstruct.logger.debug("Damage: " + stats.damage);
-        TConstruct.logger.debug("Hunger: " + stats.hunger);
-        TConstruct.logger.debug("Prev Dim: " + stats.previousDimension);
-        TConstruct.logger.debug("Climb Walls: " + stats.climbWalls);
-        TConstruct.logger.debug("Activate Goggles: " + stats.activeGoggles);
-        TConstruct.logger.debug("Beginer Manual: " + stats.beginnerManual);
-        TConstruct.logger.debug("Material Manual: " + stats.materialManual);
-        TConstruct.logger.debug("Smeltery Manual: " + stats.smelteryManual);
-        TConstruct.logger.debug("Weponary Manual: " + stats.weaponryManual);
-        TConstruct.logger.debug("BattleSign Bonus: " + stats.battlesignBonus);
-        TConstruct.logger.debug("Derp Level: " + stats.derpLevel);
-        int i = 0;
-        for (ItemStack stack : stats.armor.inventory) {
-            if (stack != null) {
-                TConstruct.logger.debug("Armor Slot: " + i + " Contains: " + stack.getDisplayName());
-            }
-            i++;
-        }
-        i = 0;
-        for (ItemStack stack : stats.knapsack.inventory) {
-            if (stack != null) {
-                TConstruct.logger.debug("Knapsack Slot: " + i + " Contains: " + stack.getDisplayName());
-            }
-            i++;
-        }
-        TConstruct.logger.debug("~~~~~~~~~~~~~~~~~ STATS ~~~~~~~~~~~~~~~~~");
-    }
 }

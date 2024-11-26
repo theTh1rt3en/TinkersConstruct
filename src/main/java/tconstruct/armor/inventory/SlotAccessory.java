@@ -5,25 +5,23 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import lombok.Getter;
 import tconstruct.library.accessory.IAccessory;
 
 public class SlotAccessory extends Slot {
 
     private final int slotID;
+    /**
+     * -- GETTER -- Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1
+     * in the case of armor slots)
+     */
+    @Getter
     private final int slotStackLimit;
 
     public SlotAccessory(IInventory par2IInventory, int par3, int par4, int par5, int slotStackLimit) {
         super(par2IInventory, par3, par4, par5);
         this.slotID = par3;
         this.slotStackLimit = slotStackLimit;
-    }
-
-    /**
-     * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the case
-     * of armor slots)
-     */
-    public int getSlotStackLimit() {
-        return slotStackLimit;
     }
 
     /**

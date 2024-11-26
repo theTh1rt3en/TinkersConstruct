@@ -1,17 +1,10 @@
 package tconstruct.armor.player;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashSet;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.Entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -30,7 +23,6 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
 import mantle.player.PlayerUtils;
-import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
@@ -38,9 +30,9 @@ import tconstruct.util.config.PHConstruct;
 // TODO: Redesign this class
 public class TPlayerHandler {
     /* Player */
-    // public int hunger;
 
     private final ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<>();
+    private final HashSet<String> stickUsers = new HashSet<>();
 
     @SubscribeEvent
     public void PlayerLoggedInEvent(PlayerLoggedInEvent event) {
@@ -65,8 +57,6 @@ public class TPlayerHandler {
 
         stats.level = player.experienceLevel;
         stats.hunger = player.getFoodStats().getFoodLevel();
-
-        // stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
 
         // gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
@@ -196,17 +186,12 @@ public class TPlayerHandler {
         stats.init(entityplayer, entityplayer.worldObj);
         stats.armor.recalculateHealth(entityplayer, stats);
 
-        /*
-         * TFoodStats food = new TFoodStats(); entityplayer.foodStats = food;
-         */
-
         if (PHConstruct.keepLevels) entityplayer.experienceLevel = stats.level;
         if (PHConstruct.keepHunger) entityplayer.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
 
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        if (side == Side.CLIENT) {
-            // TProxyClient.controlInstance.resetControls();
-            if (PHConstruct.keepHunger) entityplayer.getFoodStats().setFoodLevel(stats.hunger);
+        if (side == Side.CLIENT && PHConstruct.keepHunger) {
+            entityplayer.getFoodStats().setFoodLevel(stats.hunger);
         }
     }
 
@@ -235,7 +220,6 @@ public class TPlayerHandler {
         TPlayerStats stats = playerStats.get(evt.entityPlayer.getPersistentID());
 
         stats.level = evt.entityPlayer.experienceLevel / 2;
-        // stats.health = 20;
         int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
         if (hunger < 6) stats.hunger = 6;
         else stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
@@ -254,70 +238,5 @@ public class TPlayerHandler {
         }
 
         playerStats.put(evt.entityPlayer.getPersistentID(), stats);
-    }
-
-    /* Modify Player */
-    public void updateSize(String user, float offset) {
-        /*
-         * EntityPlayer player = getEntityPlayer(user); setEntitySize(0.6F, offset, player); player.yOffset = offset -
-         * 0.18f;
-         */
-    }
-
-    public static void setEntitySize(float width, float height, Entity entity) {
-        // TConstruct.logger.info("Size: " + height);
-        if (width != entity.width || height != entity.height) {
-            entity.width = width;
-            entity.height = height;
-            entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
-            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
-            entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
-        }
-
-        float que = width % 2.0F;
-
-        if ((double) que < 0.375D) {
-            entity.myEntitySize = EnumEntitySize.SIZE_1;
-        } else if ((double) que < 0.75D) {
-            entity.myEntitySize = EnumEntitySize.SIZE_2;
-        } else if ((double) que < 1.0D) {
-            entity.myEntitySize = EnumEntitySize.SIZE_3;
-        } else if ((double) que < 1.375D) {
-            entity.myEntitySize = EnumEntitySize.SIZE_4;
-        } else if ((double) que < 1.75D) {
-            entity.myEntitySize = EnumEntitySize.SIZE_5;
-        } else {
-            entity.myEntitySize = EnumEntitySize.SIZE_6;
-        }
-        // entity.yOffset = height;
-    }
-
-    private final String serverLocation = "https://dl.dropboxusercontent.com/u/42769935/sticks.txt";
-    private final int timeout = 1000;
-    private final HashSet<String> stickUsers = new HashSet<>();
-
-    public void buildStickURLDatabase(String location) {
-        URL url;
-        try {
-            url = new URL(location);
-            URLConnection con = url.openConnection();
-            con.setConnectTimeout(timeout);
-            con.setReadTimeout(timeout);
-            InputStream io = con.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(io));
-
-            String nick;
-            int linetracker = 1;
-            while ((nick = br.readLine()) != null) {
-                if (!nick.startsWith("--")) {
-                    stickUsers.add(nick);
-                }
-                linetracker++;
-            }
-
-            br.close();
-        } catch (Exception e) {
-            TConstruct.logger.error(e.getMessage() != null ? e.getMessage() : "UNKOWN DL ERROR", e);
-        }
     }
 }

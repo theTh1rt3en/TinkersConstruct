@@ -14,10 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.relauncher.Side;
-import io.netty.buffer.ByteBuf;
 import tconstruct.library.accessory.IHealthAccessory;
 import tconstruct.util.config.PHConstruct;
 
@@ -48,7 +44,6 @@ public class ArmorExtended implements IInventory {
     @Override
     public ItemStack decrStackSize(int slot, int quantity) {
         if (inventory[slot] != null) {
-            // TConstruct.logger.info("Took something from slot " + slot);
             if (inventory[slot].stackSize <= quantity) {
                 ItemStack stack = inventory[slot];
                 inventory[slot] = null;
@@ -75,8 +70,6 @@ public class ArmorExtended implements IInventory {
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemstack) {
         inventory[slot] = itemstack;
-        // TConstruct.logger.info("Changed slot " + slot + " on side " +
-        // FMLCommonHandler.instance().getEffectiveSide());
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
         }
@@ -105,17 +98,10 @@ public class ArmorExtended implements IInventory {
     public void markDirty() {
         EntityPlayer player = parent.get();
         TPlayerStats stats = TPlayerStats.get(player);
-        // recalculateSkills(player, stats);
         recalculateHealth(player, stats);
-
-        /*
-         * if (inventory[2] == null && stats.knapsack != null) { stats.knapsack.unequipItems(); }
-         */
     }
 
     public void recalculateHealth(EntityPlayer player, TPlayerStats stats) {
-        Side side = FMLCommonHandler.instance().getEffectiveSide();
-
         if (inventory[4] != null || inventory[5] != null || inventory[6] != null) {
             int bonusHP = 0;
             for (int i = 4; i < 7; i++) {
@@ -156,10 +142,6 @@ public class ArmorExtended implements IInventory {
     public boolean isUseableByPlayer(EntityPlayer entityplayer) {
         return true;
     }
-
-    public void openChest() {}
-
-    public void closeChest() {}
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
@@ -243,12 +225,4 @@ public class ArmorExtended implements IInventory {
 
     @Override
     public void closeInventory() {}
-
-    public void writeInventoryToStream(ByteBuf os) {
-        for (ItemStack itemStack : inventory) ByteBufUtils.writeItemStack(os, itemStack);
-    }
-
-    public void readInventoryFromStream(ByteBuf is) {
-        for (int i = 0; i < inventory.length; i++) inventory[i] = ByteBufUtils.readItemStack(is);
-    }
 }
