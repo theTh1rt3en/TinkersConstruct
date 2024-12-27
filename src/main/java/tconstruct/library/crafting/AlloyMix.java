@@ -24,7 +24,15 @@ public class AlloyMix {
         ArrayList<Integer> effectiveAmount = new ArrayList<>();
 
         for (FluidStack liquid : liquids) {
+            if (liquid == null) {
+                continue; // Skip this iteration if liquid is null
+            }
+
             for (FluidStack mixer : copyMix) {
+                // Check if the mixer is null
+                if (mixer == null) {
+                    continue; // Skip this iteration if mixer is null
+                }
                 if (mixer.isFluidEqual(liquid)) {
                     // do we actually have enough of that liquid?
                     if (liquid.amount < mixer.amount) break;
