@@ -188,6 +188,7 @@ public class TinkerSmeltery {
     public static Block speedBlock;
     public static Fluid bloodFluid;
     public static Block blood;
+    private static FluidType metalPatternFluidType;
 
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
@@ -608,6 +609,7 @@ public class TinkerSmeltery {
     @Handler
     public void init(FMLInitializationEvent event) {
         proxy.initialize();
+        loadMetalPatternMaterial();
         craftingTableRecipes();
         addRecipesForSmeltery();
         addRecipesForTableCasting();
@@ -619,6 +621,10 @@ public class TinkerSmeltery {
     public void postInit(FMLPostInitializationEvent evt) {
         addOreDictionarySmelteryRecipes();
         modIntegration();
+    }
+
+    private static void loadMetalPatternMaterial() {
+        metalPatternFluidType = FluidType.getFluidType(PHConstruct.metalCastFluidTypeName);
     }
 
     private void craftingTableRecipes() {
@@ -1000,7 +1006,7 @@ public class TinkerSmeltery {
         // Blank
         tableCasting.addCastingRecipe(
                 new ItemStack(TinkerTools.blankPattern, 1, 1),
-                new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
+                new FluidStack(metalPatternFluidType.fluid, TConstruct.ingotLiquidValue),
                 80);
         if (!PHConstruct.removeGoldCastRecipes) {
             tableCasting.addCastingRecipe(
@@ -1358,7 +1364,7 @@ public class TinkerSmeltery {
             int delay) {
         tableCasting.addCastingRecipe(
                 pattern,
-                new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
+                new FluidStack(metalPatternFluidType.fluid, TConstruct.ingotLiquidValue),
                 shape,
                 delay);
         if (!PHConstruct.removeGoldCastRecipes) {
@@ -1649,7 +1655,7 @@ public class TinkerSmeltery {
 
         // Items
         Smeltery.addMelting(
-                FluidType.getFluidType("AluminumBrass"),
+                metalPatternFluidType,
                 new ItemStack(TinkerTools.blankPattern, 4, 1),
                 -50,
                 TConstruct.ingotLiquidValue);
