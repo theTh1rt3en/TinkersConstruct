@@ -1667,7 +1667,13 @@ public class TinkerSmeltery {
                 new ItemStack(TinkerTools.blankPattern, 4, 1),
                 -50,
                 TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(gold, new ItemStack(TinkerTools.blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue * 2);
+        if (!PHConstruct.removeGoldCastRecipes) {
+            Smeltery.addMelting(
+                    gold,
+                    new ItemStack(TinkerTools.blankPattern, 4, 2),
+                    -50,
+                    TConstruct.ingotLiquidValue * 2);
+        }
         Smeltery.addMelting(
                 FluidType.getFluidType("Glue"),
                 new ItemStack(TinkerTools.materials, 1, 36),
