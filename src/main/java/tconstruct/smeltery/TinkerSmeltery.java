@@ -1002,20 +1002,25 @@ public class TinkerSmeltery {
                 new ItemStack(TinkerTools.blankPattern, 1, 1),
                 new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
                 80);
-        tableCasting.addCastingRecipe(
-                gemcast,
-                new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
-                new ItemStack(Items.emerald),
-                80);
         if (!PHConstruct.removeGoldCastRecipes) {
             tableCasting.addCastingRecipe(
                     new ItemStack(TinkerTools.blankPattern, 1, 2),
                     new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
                     80);
+        }
+
+        // Gem
+        ItemStack emerald = new ItemStack(Items.emerald);
+        tableCasting.addCastingRecipe(
+                gemcast,
+                new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
+                emerald,
+                80);
+        if (!PHConstruct.removeGoldCastRecipes) {
             tableCasting.addCastingRecipe(
                     gemcast,
                     new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
-                    new ItemStack(Items.emerald),
+                    emerald,
                     80);
         }
 
@@ -1140,17 +1145,17 @@ public class TinkerSmeltery {
                 ItemStack cast = new ItemStack(TinkerSmeltery.metalPattern, 1, iter + 1);
                 ItemStack clay_cast = new ItemStack(TinkerSmeltery.clayPattern, 1, iter + 1);
 
+                // Create metal casts from any existing part that could be melted
+                ItemStack part = new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE);
                 tableCasting.addCastingRecipe(
                         cast,
                         new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
-                        new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE),
-                        false,
+                        part,
                         50);
                 if (!PHConstruct.removeGoldCastRecipes) tableCasting.addCastingRecipe(
                         cast,
                         new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
-                        new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE),
-                        false,
+                        part,
                         50);
 
                 for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
@@ -1199,28 +1204,25 @@ public class TinkerSmeltery {
                     ingotcast,
                     new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
                     ingotShape,
-                    false,
                     50);
             if (!PHConstruct.removeGoldCastRecipes) tableCasting.addCastingRecipe(
                     ingotcast,
                     new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
                     ingotShape,
-                    false,
                     50);
         }
 
         ItemStack fullguardCast = new ItemStack(TinkerSmeltery.metalPattern, 1, 22);
+        ItemStack anyFullguardPart = new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE);
         tableCasting.addCastingRecipe(
                 fullguardCast,
                 new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
-                new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE),
-                false,
+                anyFullguardPart,
                 50);
         if (!PHConstruct.removeGoldCastRecipes) tableCasting.addCastingRecipe(
                 fullguardCast,
                 new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
-                new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE),
-                false,
+                anyFullguardPart,
                 50);
 
         // Golden Food Stuff
@@ -1917,24 +1919,21 @@ public class TinkerSmeltery {
         ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
         LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name)) {
+            // Allow making ingot cast with this ingot
+            ItemStack ingot = new ItemStack(ore.getItem(), 1, ore.getItemDamage());
             tableCasting.addCastingRecipe(
                     pattern,
                     new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
-                    new ItemStack(ore.getItem(), 1, ore.getItemDamage()),
-                    false,
+                    ingot,
                     50);
             if (!PHConstruct.removeGoldCastRecipes) tableCasting.addCastingRecipe(
                     pattern,
                     new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
-                    new ItemStack(ore.getItem(), 1, ore.getItemDamage()),
-                    false,
+                    ingot,
                     50);
 
-            tableCasting.addCastingRecipe(
-                    new ItemStack(ore.getItem(), 1, ore.getItemDamage()),
-                    new FluidStack(ft.fluid, TConstruct.ingotLiquidValue),
-                    pattern,
-                    80);
+            // Allow casting this ingot using a metal ingot cast
+            tableCasting.addCastingRecipe(ingot, new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
         }
     }
 
@@ -1950,24 +1949,21 @@ public class TinkerSmeltery {
 
                 if (isOreberry) continue;
             }
+            // Allow making nugget cast with this ingot
+            ItemStack nugget = new ItemStack(ore.getItem(), 1, ore.getItemDamage());
             tableCasting.addCastingRecipe(
                     pattern,
                     new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
-                    new ItemStack(ore.getItem(), 1, ore.getItemDamage()),
-                    false,
+                    nugget,
                     50);
             if (!PHConstruct.removeGoldCastRecipes) tableCasting.addCastingRecipe(
                     pattern,
                     new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
-                    new ItemStack(ore.getItem(), 1, ore.getItemDamage()),
-                    false,
+                    nugget,
                     50);
 
-            tableCasting.addCastingRecipe(
-                    new ItemStack(ore.getItem(), 1, ore.getItemDamage()),
-                    new FluidStack(ft.fluid, TConstruct.nuggetLiquidValue),
-                    pattern,
-                    40);
+            // Allow casting this nugget using a metal ingot cast
+            tableCasting.addCastingRecipe(nugget, new FluidStack(ft.fluid, TConstruct.nuggetLiquidValue), pattern, 40);
         }
     }
 
