@@ -205,7 +205,7 @@ public class PHConstruct {
         copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 3).getInt(3);
         tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 3).getInt(3);
         aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 2).getInt(2);
-        essenceBushRarity = config.get("Worldgen", "Essence Bush Rarity", 6).getInt(6);
+        essenceBushRarity = config.get("Worldgen", "Essence Bush Rarity", 5).getInt(5);
 
         copperBushMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
         copperBushMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);
