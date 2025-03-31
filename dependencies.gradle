@@ -15,4 +15,8 @@ dependencies {
     compileOnly("curse.maven:notenoughkeys-224614:2276280")
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     compileOnly("com.github.GTNewHorizons:Mobs-Info:0.5.2-GTNH:dev")
+    compileOnlyApi("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
+
+//    devOnlyNonPublishable("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
+
 }

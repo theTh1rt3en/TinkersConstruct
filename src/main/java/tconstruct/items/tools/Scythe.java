@@ -24,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import tconstruct.api.harvesting.CropHarvestHandler;
+import tconstruct.api.harvesting.CropHarvestHandlers;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
@@ -291,5 +293,52 @@ public class Scythe extends Weapon {
             AbilityHelper.onLeftClickEntity(stack, player, e, this);
         }
         return true;
+    }
+
+    @Override
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
+        if (world.isRemote) {
+            return false;
+        }
+        if (shouldHarvestInAoe(world, x, y, z)) {
+            harvestInAoe(stack, player, world, x, y, z);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean shouldHarvestInAoe(World world, int x, int y, int z) {
+        for (CropHarvestHandler handler : CropHarvestHandlers.getCropHarvestHandlers()) {
+            if (handler.couldHarvest(world, x, y, z)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void harvestInAoe(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
+        for (int i = -2; i < 3; i++) {
+            for (int j = -2; j < 3; j++) {
+                for (int k = -2; k < 3; k++) {
+                    if (!(stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))) {
+                        harvestCrop(stack, player, world, x + i, y + j, z + k);
+                    }
+                }
+
+            }
+        }
+    }
+
+    private static void harvestCrop(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
+        for (CropHarvestHandler handler : CropHarvestHandlers.getCropHarvestHandlers()) {
+            if (handler.couldHarvest(world, x, y, z)) {
+                boolean harvestSuccessful = handler.tryHarvest(stack, player, world, x, y, z);
+                if (harvestSuccessful && !player.capabilities.isCreativeMode) {
+                    AbilityHelper.damageTool(stack, 1, null, false);
+                }
+                return;
+            }
+        }
     }
 }
