@@ -1,6 +1,7 @@
 package tconstruct.api.harvesting;
 
 import net.minecraft.block.BlockCrops;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -17,7 +18,13 @@ public class VanillaCropsHarvestHandler implements CropHarvestHandler {
         int blockMetadata = world.getBlockMetadata(x, y, z);
         boolean shouldHarvest = couldHarvest(world, x, y, z) && blockMetadata >= 7;
         if (shouldHarvest) {
-            world.getBlock(x, y, z).dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+            world.getBlock(x, y, z).dropBlockAsItem(
+                    world,
+                    x,
+                    y,
+                    z,
+                    world.getBlockMetadata(x, y, z),
+                    EnchantmentHelper.getFortuneModifier(player));
             world.setBlockMetadataWithNotify(x, y, z, 0, 2);
         }
         return shouldHarvest;

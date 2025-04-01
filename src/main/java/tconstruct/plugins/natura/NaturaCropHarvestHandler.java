@@ -1,6 +1,7 @@
 package tconstruct.plugins.natura;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -21,7 +22,7 @@ public class NaturaCropHarvestHandler implements CropHarvestHandler {
         if (block instanceof CropBlock crop) {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == crop.getMaxGrowth(meta)) {
-                crop.dropBlockAsItem(world, x, y, z, meta, 0);
+                crop.dropBlockAsItem(world, x, y, z, meta, EnchantmentHelper.getFortuneModifier(player));
                 world.setBlockMetadataWithNotify(x, y, z, crop.getStartGrowth(meta), 2);
                 return true;
             }
