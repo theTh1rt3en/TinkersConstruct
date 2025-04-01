@@ -301,14 +301,18 @@ public class Scythe extends Weapon {
         if (world.isRemote) {
             return false;
         }
-        if (shouldHarvestInAoe(world, x, y, z)) {
-            harvestInAoe(stack, player, world, x, y, z);
+        if (canPlayerHarvestCrop(world, x, y, z)) {
+            if (player.isSneaking()) {
+                tryHarvestCrop(stack, player, world, x, y, z);
+            } else {
+                harvestInAoe(stack, player, world, x, y, z);
+            }
             return true;
         }
         return false;
     }
 
-    private boolean shouldHarvestInAoe(World world, int x, int y, int z) {
+    private boolean canPlayerHarvestCrop(World world, int x, int y, int z) {
         for (CropHarvestHandler handler : CropHarvestHandlers.getCropHarvestHandlers()) {
             if (handler.couldHarvest(world, x, y, z)) {
                 return true;
@@ -322,7 +326,7 @@ public class Scythe extends Weapon {
             for (int j = -2; j < 3; j++) {
                 for (int k = -2; k < 3; k++) {
                     if (!(stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))) {
-                        harvestCrop(stack, player, world, x + i, y + j, z + k);
+                        tryHarvestCrop(stack, player, world, x + i, y + j, z + k);
                     }
                 }
 
@@ -330,7 +334,7 @@ public class Scythe extends Weapon {
         }
     }
 
-    private static void harvestCrop(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
+    private static void tryHarvestCrop(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
         for (CropHarvestHandler handler : CropHarvestHandlers.getCropHarvestHandlers()) {
             if (handler.couldHarvest(world, x, y, z)) {
                 boolean harvestSuccessful = handler.tryHarvest(stack, player, world, x, y, z);
