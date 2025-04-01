@@ -36,6 +36,8 @@ import mantle.pulsar.control.PulseManager;
 import tconstruct.achievements.AchievementEvents;
 import tconstruct.achievements.TAchievements;
 import tconstruct.api.TConstructAPI;
+import tconstruct.api.harvesting.CropHarvestHandlers;
+import tconstruct.api.harvesting.VanillaCropsHarvestHandler;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.armor.player.TPlayerStats;
@@ -59,6 +61,7 @@ import tconstruct.plugins.imc.TinkerBuildCraft;
 import tconstruct.plugins.imc.TinkerMystcraft;
 import tconstruct.plugins.imc.TinkerRfTools;
 import tconstruct.plugins.mfr.TinkerMFR;
+import tconstruct.plugins.natura.TinkerNatura;
 import tconstruct.plugins.te4.TinkerTE4;
 import tconstruct.plugins.te4.TinkersThermalFoundation;
 import tconstruct.plugins.ubc.TinkerUBC;
@@ -172,6 +175,7 @@ public class TConstruct {
         pulsar.registerPulse(new TinkerUBC());
         pulsar.registerPulse(new TinkerGears());
         pulsar.registerPulse(new TinkerRfTools());
+        pulsar.registerPulse(new TinkerNatura());
 
         TConstructRegistry.materialTab = new TConstructCreativeTab("TConstructMaterials");
         TConstructRegistry.toolTab = new TConstructCreativeTab("TConstructTools");
@@ -227,6 +231,7 @@ public class TConstruct {
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TinkerWorld.slimePool, 2), 2);
 
         pulsar.init(event);
+        CropHarvestHandlers.registerCropHarvestHandler(new VanillaCropsHarvestHandler());
     }
 
     @EventHandler
