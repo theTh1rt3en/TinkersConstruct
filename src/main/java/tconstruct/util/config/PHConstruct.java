@@ -321,6 +321,12 @@ public class PHConstruct {
                 "AluminumBrass",
                 "For pack maintainers. Defines the LiquidType used to create metal casts.").getString();
 
+        scytheAoeHarvest = config.get(
+                "NewFeatures",
+                "Scythe AOE harvest",
+                true,
+                "Can the Scythe harvest crops in an AOE on right click?.").getBoolean();
+
         /* Save the configuration file only if it has changed */
         if (config.hasChanged()) config.save();
 
@@ -517,4 +523,7 @@ public class PHConstruct {
 
     // Crossmod interactions
     public static String metalCastFluidTypeName;
+
+    // New features
+    public static boolean scytheAoeHarvest;
 }

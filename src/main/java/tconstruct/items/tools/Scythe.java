@@ -31,6 +31,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
 import tconstruct.tools.TinkerTools;
+import tconstruct.util.config.PHConstruct;
 
 public class Scythe extends Weapon {
 
@@ -298,7 +299,7 @@ public class Scythe extends Weapon {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ) {
-        if (world.isRemote) {
+        if (world.isRemote || !PHConstruct.scytheAoeHarvest) {
             return false;
         }
         if (canPlayerHarvestCrop(world, x, y, z)) {
