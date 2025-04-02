@@ -11,6 +11,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
+import tconstruct.api.harvesting.CropHarvestHandlers;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
 
@@ -27,6 +28,8 @@ public class TinkerIC2 {
     @Handler
     public void init(FMLInitializationEvent event) {
         TConstruct.logger.info("IC2 detected. Preparing for shenanigans.");
+
+        CropHarvestHandlers.registerCropHarvestHandler(new Ic2CropHarvestHandler());
 
         Fluid fluidUUM = FluidRegistry.getFluid(IC2_UUM_FLUIDNAME);
         if (fluidUUM == null) return;
