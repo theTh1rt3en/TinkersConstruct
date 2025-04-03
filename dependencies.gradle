@@ -16,12 +16,12 @@ dependencies {
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     compileOnly("com.github.GTNewHorizons:Mobs-Info:0.5.2-GTNH:dev")
     compileOnlyApi("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
-    compileOnlyApi("com.github.GTNewHorizons:Natura:2.8.2:dev")
+    compileOnlyApi("com.github.GTNewHorizons:Natura:2.8.5:dev")
 
     // For testing scythe crop harvesting
     // devOnlyNonPublishable("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
     // devOnlyNonPublishable("com.github.GTNewHorizons:harvestcraft:1.3.1-GTNH:dev")
     // devOnlyNonPublishable(deobfCurse("pams-harvest-the-nether-231262:2241397"))
-    // devOnlyNonPublishable("com.github.GTNewHorizons:Natura:2.8.2:dev")
+    // devOnlyNonPublishable("com.github.GTNewHorizons:Natura:2.8.5:dev")
 
 }
