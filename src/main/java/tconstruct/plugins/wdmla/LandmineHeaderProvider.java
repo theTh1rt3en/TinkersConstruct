@@ -24,6 +24,6 @@ public enum LandmineHeaderProvider implements IBlockComponentProvider {
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(TConstruct.modID, "landmine_header");
+        return new ResourceLocation(TConstruct.modID.toLowerCase(), "landmine_header");
     }
 }
