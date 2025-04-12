@@ -8,7 +8,6 @@ import com.gtnewhorizons.wdmla.api.provider.IBlockComponentProvider;
 import com.gtnewhorizons.wdmla.api.ui.ITooltip;
 import com.gtnewhorizons.wdmla.impl.ui.ThemeHelper;
 
-import tconstruct.TConstruct;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 
 public enum LandmineHeaderProvider implements IBlockComponentProvider {
@@ -27,6 +26,6 @@ public enum LandmineHeaderProvider implements IBlockComponentProvider {
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(TConstruct.modID.toLowerCase(), "landmine_header");
+        return TinkerWDMla.TiC("landmine_header");
     }
 }

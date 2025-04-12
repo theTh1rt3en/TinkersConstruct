@@ -9,18 +9,14 @@ import net.minecraft.util.ResourceLocation;
 import com.gtnewhorizons.wdmla.api.accessor.BlockAccessor;
 import com.gtnewhorizons.wdmla.api.provider.IBlockComponentProvider;
 import com.gtnewhorizons.wdmla.api.provider.IServerDataProvider;
-import com.gtnewhorizons.wdmla.api.provider.ITimeFormatConfigurable;
 import com.gtnewhorizons.wdmla.api.ui.IComponent;
 import com.gtnewhorizons.wdmla.api.ui.ITooltip;
-import com.gtnewhorizons.wdmla.impl.format.TimeFormattingPattern;
 import com.gtnewhorizons.wdmla.impl.ui.ThemeHelper;
 
-import tconstruct.TConstruct;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.library.crafting.DryingRackRecipes;
 
-public enum DryingRackProvider
-        implements IBlockComponentProvider, IServerDataProvider<BlockAccessor>, ITimeFormatConfigurable {
+public enum DryingRackProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
 
     INSTANCE;
 
@@ -68,11 +64,6 @@ public enum DryingRackProvider
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(TConstruct.modID.toLowerCase(), "drying_rack");
-    }
-
-    @Override
-    public TimeFormattingPattern getDefaultTimeFormatter() {
-        return TimeFormattingPattern.ALWAYS_SECOND;
+        return TinkerWDMla.TiC("drying_rack");
     }
 }
