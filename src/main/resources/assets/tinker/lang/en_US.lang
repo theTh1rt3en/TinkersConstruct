@@ -1206,3 +1206,4 @@ item.iguana.tcon.clayBucket.Quartz.name=Molten Quartz Clay Bucket
 tconstruct.mobsinfocompat.tinkers_construct_beheading=Each level of beheading on your weapon gives additional %.2f%%
 tconstruct.mobsinfocompat.tinkers_construct_beheading_1=If you are using a Cleaver, it gives another %.2f%%
 
+provider.wdmla.TConstruct.landmine.header=Landmine Header
