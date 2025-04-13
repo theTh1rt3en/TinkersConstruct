@@ -1,5 +1,6 @@
 package tconstruct.plugins.wdmla;
 
+import com.gtnewhorizons.wdmla.plugin.universal.FluidStorageProvider;
 import com.gtnewhorizons.wdmla.plugin.universal.ItemStorageProvider;
 import mantle.blocks.abstracts.InventorySlab;
 import net.minecraft.util.ResourceLocation;
@@ -14,6 +15,10 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 import tconstruct.armor.blocks.DryingRack;
 import tconstruct.mechworks.blocks.BlockLandmine;
+import tconstruct.smeltery.blocks.CastingChannelBlock;
+import tconstruct.smeltery.blocks.LavaTankBlock;
+import tconstruct.smeltery.blocks.SearedBlock;
+import tconstruct.smeltery.blocks.SmelteryBlock;
 import tconstruct.tools.blocks.CraftingStationBlock;
 import tconstruct.tools.blocks.FurnaceSlab;
 import tconstruct.tools.blocks.ToolStationBlock;
@@ -31,9 +36,16 @@ public class TinkerWDMla implements IWDMlaPlugin {
         registration.registerBlockDataProvider(DryingRackProvider.INSTANCE, DryingRack.class);
         registration.registerBlockDataProvider(TECustomNameHeaderProvider.INSTANCE, FurnaceSlab.class);
         registration.registerBlockDataProvider(FurnaceSlabProvider.INSTANCE, FurnaceSlab.class);
+
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, CraftingStationBlock.class);
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, ToolStationBlock.class);
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, InventorySlab.class);
+        registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, SmelteryBlock.class);
+
+        registration.registerFluidStorage(SmelteryFluidProvider.INSTANCE, SmelteryBlock.class);
+        registration.registerFluidStorage(FluidStorageProvider.Extension.INSTANCE, LavaTankBlock.class);
+        registration.registerFluidStorage(FluidStorageProvider.Extension.INSTANCE, CastingChannelBlock.class);
+        registration.registerFluidStorage(FluidStorageProvider.Extension.INSTANCE, SearedBlock.class);
     }
 
     @Override
@@ -41,6 +53,8 @@ public class TinkerWDMla implements IWDMlaPlugin {
         registration.registerBlockComponent(LandmineHeaderProvider.INSTANCE, BlockLandmine.class);
         registration.registerBlockComponent(DryingRackProvider.INSTANCE, DryingRack.class);
         registration.registerBlockComponent(FurnaceSlabProvider.INSTANCE, FurnaceSlab.class);
+
+        registration.registerFluidStorageClient(SmelteryFluidProvider.INSTANCE);
     }
 
     public static ResourceLocation TiC(String uid) {
