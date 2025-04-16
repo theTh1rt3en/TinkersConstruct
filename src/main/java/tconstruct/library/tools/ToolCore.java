@@ -822,4 +822,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         return curTags.equals(prevTags);
     }
     // end of TE support section
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return ToolBuilder.defaultToolName(stack);
+    }
 }
