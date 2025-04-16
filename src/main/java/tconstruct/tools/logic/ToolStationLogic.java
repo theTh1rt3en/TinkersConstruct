@@ -54,8 +54,24 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
     }
 
     @Override
+    public void setInventorySlotContents(int slot, ItemStack stack) {
+        super.setInventorySlotContents(slot, stack);
+        if (slot != 0) {
+            buildTool(toolName);
+        }
+    }
+
+    @Override
+    public ItemStack decrStackSize(int slot, int amount) {
+        ItemStack itemstack = super.decrStackSize(slot, amount);
+        if (slot != 0) {
+            buildTool(toolName);
+        }
+        return itemstack;
+    }
+
+    @Override
     public void markDirty() {
-        buildTool(toolName);
         if (this.worldObj != null) {
             this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
             this.worldObj.markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
