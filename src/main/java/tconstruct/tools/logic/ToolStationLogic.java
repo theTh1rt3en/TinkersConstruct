@@ -117,10 +117,6 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
         if (output != null) temp = output;
         else temp = inventory[1].copy();
 
-        if (temp == null) {
-            return null; // output is null or not a tool :(
-        }
-
         NBTTagCompound tags = temp.getTagCompound();
         if (tags == null) {
             tags = new NBTTagCompound();
