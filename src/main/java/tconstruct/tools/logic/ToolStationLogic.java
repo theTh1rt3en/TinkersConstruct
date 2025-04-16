@@ -124,7 +124,8 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
         }
 
         NBTTagCompound display = null;
-        if (tags.hasKey("display") && tags.getCompoundTag("display").hasKey("Name")) display = tags.getCompoundTag("display");
+        if (tags.hasKey("display") && tags.getCompoundTag("display").hasKey("Name"))
+            display = tags.getCompoundTag("display");
 
         boolean doRename = false;
         if (display == null) {
