@@ -124,17 +124,15 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
         }
 
         NBTTagCompound display = null;
-        if (!(tags.hasKey("display"))) display = new NBTTagCompound();
-        else if (tags.getCompoundTag("display").hasKey("Name")) display = tags.getCompoundTag("display");
-
-        if (display == null) return output;
+        if (tags.hasKey("display") && tags.getCompoundTag("display").hasKey("Name")) display = tags.getCompoundTag("display");
 
         boolean doRename = false;
-        if (canRename(display, temp)) {
+        if (display == null) {
+            display = new NBTTagCompound();
             doRename = true;
         }
         // we only allow renaming with a nametag otherwise
-        else if (!("\u00A7f" + name).equals(display.getString("Name")) && !name.equals(display.getString("Name"))) {
+        else if (!name.equals(display.getString("Name"))) {
             int nametagCount = 0;
             for (ItemStack itemStack : inventory)
                 if (itemStack != null && itemStack.getItem() == Items.name_tag) nametagCount++;
@@ -144,8 +142,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
 
         if (!doRename) return output;
 
-        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
-        display.setString("Name", dName);
+        display.setString("Name", name);
         tags.setTag("display", display);
         temp.setRepairCost(2);
         output = temp;
