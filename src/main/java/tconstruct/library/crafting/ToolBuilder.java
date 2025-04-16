@@ -268,7 +268,7 @@ public class ToolBuilder {
 
         if (name != null && !name.equals("")) {
             compound.setTag("display", new NBTTagCompound());
-            compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
+            compound.getCompoundTag("display").setString("Name", name);
         }
         // set a nice default name
 
