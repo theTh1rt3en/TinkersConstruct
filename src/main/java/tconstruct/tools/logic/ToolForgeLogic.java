@@ -6,12 +6,10 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.tools.inventory.ToolForgeContainer;
-import tconstruct.util.network.ToolStationPacket;
 
 /*
  * Simple class for storing items in the block
