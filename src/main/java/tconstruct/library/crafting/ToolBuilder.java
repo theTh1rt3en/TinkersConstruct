@@ -270,7 +270,6 @@ public class ToolBuilder {
             compound.setTag("display", new NBTTagCompound());
             compound.getCompoundTag("display").setString("Name", name);
         }
-        // set a nice default name
 
         ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(
                 item,
