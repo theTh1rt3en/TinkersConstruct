@@ -825,6 +825,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return ToolBuilder.defaultToolName(stack);
+        String name = ToolBuilder.defaultToolName(stack);
+        return name != null ? name : super.getItemStackDisplayName(stack);
     }
 }
