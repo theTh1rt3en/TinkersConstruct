@@ -41,11 +41,14 @@ public class TinkerWDMla implements IWDMlaPlugin {
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, ToolStationBlock.class);
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, InventorySlab.class);
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, SmelteryBlock.class);
+        registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, SearedBlock.class);
 
         registration.registerFluidStorage(SmelteryFluidProvider.INSTANCE, SmelteryBlock.class);
         registration.registerFluidStorage(FluidStorageProvider.Extension.INSTANCE, LavaTankBlock.class);
         registration.registerFluidStorage(FluidStorageProvider.Extension.INSTANCE, CastingChannelBlock.class);
         registration.registerFluidStorage(FluidStorageProvider.Extension.INSTANCE, SearedBlock.class);
+
+        registration.registerProgress(SearedBlockProgressProvider.INSTANCE, SearedBlock.class);
     }
 
     @Override
@@ -55,6 +58,8 @@ public class TinkerWDMla implements IWDMlaPlugin {
         registration.registerBlockComponent(FurnaceSlabProvider.INSTANCE, FurnaceSlab.class);
 
         registration.registerFluidStorageClient(SmelteryFluidProvider.INSTANCE);
+
+        registration.registerProgressClient(SearedBlockProgressProvider.INSTANCE);
     }
 
     public static ResourceLocation TiC(String uid) {
