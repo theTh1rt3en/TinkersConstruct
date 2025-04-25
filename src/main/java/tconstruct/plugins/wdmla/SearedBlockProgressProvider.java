@@ -1,5 +1,11 @@
 package tconstruct.plugins.wdmla;
 
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
 import com.gtnewhorizons.wdmla.api.accessor.Accessor;
 import com.gtnewhorizons.wdmla.api.provider.IClientExtensionProvider;
 import com.gtnewhorizons.wdmla.api.provider.IServerExtensionProvider;
@@ -8,15 +14,12 @@ import com.gtnewhorizons.wdmla.api.view.ProgressView;
 import com.gtnewhorizons.wdmla.api.view.ViewGroup;
 import com.gtnewhorizons.wdmla.impl.ui.ThemeHelper;
 import com.gtnewhorizons.wdmla.util.FormatUtil;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import tconstruct.smeltery.logic.CastingBlockLogic;
 
-import java.util.Arrays;
-import java.util.List;
+import tconstruct.smeltery.logic.CastingBlockLogic;
 
 public enum SearedBlockProgressProvider implements IServerExtensionProvider<ProgressView.Data>,
         IClientExtensionProvider<ProgressView.Data, ProgressView> {
+
     INSTANCE;
 
     @Override
@@ -25,7 +28,8 @@ public enum SearedBlockProgressProvider implements IServerExtensionProvider<Prog
     }
 
     @Override
-    public List<ClientViewGroup<ProgressView>> getClientGroups(Accessor accessor, List<ViewGroup<ProgressView.Data>> groups) {
+    public List<ClientViewGroup<ProgressView>> getClientGroups(Accessor accessor,
+            List<ViewGroup<ProgressView.Data>> groups) {
         return ClientViewGroup.map(groups, ProgressView::read, (group, clientGroup) -> {
             ProgressView view = clientGroup.views.get(0);
             view.description = ThemeHelper.INSTANCE.value(
@@ -37,9 +41,9 @@ public enum SearedBlockProgressProvider implements IServerExtensionProvider<Prog
 
     @Override
     public List<ViewGroup<ProgressView.Data>> getGroups(Accessor accessor) {
-        if(accessor.getTarget() instanceof CastingBlockLogic castingBlockLogic) {
+        if (accessor.getTarget() instanceof CastingBlockLogic castingBlockLogic) {
             int progress = castingBlockLogic.getProgress();
-            if(progress == 0) {
+            if (progress == 0) {
                 return null;
             }
             ProgressView.Data progressData = new ProgressView.Data(progress, 100);

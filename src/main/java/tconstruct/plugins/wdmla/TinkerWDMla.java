@@ -1,16 +1,16 @@
 package tconstruct.plugins.wdmla;
 
-import com.gtnewhorizons.wdmla.plugin.universal.FluidStorageProvider;
-import com.gtnewhorizons.wdmla.plugin.universal.ItemStorageProvider;
-import mantle.blocks.abstracts.InventorySlab;
 import net.minecraft.util.ResourceLocation;
 
 import com.gtnewhorizons.wdmla.api.IWDMlaClientRegistration;
 import com.gtnewhorizons.wdmla.api.IWDMlaCommonRegistration;
 import com.gtnewhorizons.wdmla.api.IWDMlaPlugin;
 import com.gtnewhorizons.wdmla.api.WDMlaPlugin;
+import com.gtnewhorizons.wdmla.plugin.universal.FluidStorageProvider;
+import com.gtnewhorizons.wdmla.plugin.universal.ItemStorageProvider;
 import com.gtnewhorizons.wdmla.plugin.vanilla.TECustomNameHeaderProvider;
 
+import mantle.blocks.abstracts.InventorySlab;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 import tconstruct.armor.blocks.DryingRack;
@@ -36,6 +36,7 @@ public class TinkerWDMla implements IWDMlaPlugin {
         registration.registerBlockDataProvider(DryingRackProvider.INSTANCE, DryingRack.class);
         registration.registerBlockDataProvider(TECustomNameHeaderProvider.INSTANCE, FurnaceSlab.class);
         registration.registerBlockDataProvider(FurnaceSlabProvider.INSTANCE, FurnaceSlab.class);
+        registration.registerBlockDataProvider(SmelteryStatusProvider.INSTANCE, SmelteryBlock.class);
 
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, CraftingStationBlock.class);
         registration.registerItemStorage(ItemStorageProvider.Extension.INSTANCE, ToolStationBlock.class);
@@ -56,6 +57,7 @@ public class TinkerWDMla implements IWDMlaPlugin {
         registration.registerBlockComponent(LandmineHeaderProvider.INSTANCE, BlockLandmine.class);
         registration.registerBlockComponent(DryingRackProvider.INSTANCE, DryingRack.class);
         registration.registerBlockComponent(FurnaceSlabProvider.INSTANCE, FurnaceSlab.class);
+        registration.registerBlockComponent(SmelteryStatusProvider.INSTANCE, SmelteryBlock.class);
 
         registration.registerFluidStorageClient(SmelteryFluidProvider.INSTANCE);
 

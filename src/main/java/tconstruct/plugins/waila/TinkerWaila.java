@@ -18,7 +18,7 @@ public class TinkerWaila {
 
     @Handler
     public void init(FMLInitializationEvent event) {
-        if(Loader.isModLoaded("wdmla")) {
+        if (Loader.isModLoaded("wdmla")) {
             return;
         }
 
