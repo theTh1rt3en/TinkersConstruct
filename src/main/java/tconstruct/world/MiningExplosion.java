@@ -25,7 +25,6 @@ public class MiningExplosion extends Explosion {
 
     World world;
     private final Random random = new Random();
-    private final int field_77289_h = 16;
     private final Map<Entity, Vec3> field_77288_k = new HashMap<>();
 
     public MiningExplosion(World par1World, Entity par2Entity, double par3, double par5, double par7, float par9) {
@@ -44,17 +43,18 @@ public class MiningExplosion extends Explosion {
         double d1;
         double d2;
 
-        for (i = 0; i < this.field_77289_h; ++i) {
-            for (j = 0; j < this.field_77289_h; ++j) {
-                for (k = 0; k < this.field_77289_h; ++k) {
-                    if (i == 0 || i == this.field_77289_h - 1
+        int field_77289_h = 16;
+        for (i = 0; i < field_77289_h; ++i) {
+            for (j = 0; j < field_77289_h; ++j) {
+                for (k = 0; k < field_77289_h; ++k) {
+                    if (i == 0 || i == field_77289_h - 1
                             || j == 0
-                            || j == this.field_77289_h - 1
+                            || j == field_77289_h - 1
                             || k == 0
-                            || k == this.field_77289_h - 1) {
-                        double d3 = (float) i / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F;
-                        double d4 = (float) j / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F;
-                        double d5 = (float) k / ((float) this.field_77289_h - 1.0F) * 2.0F - 1.0F;
+                            || k == field_77289_h - 1) {
+                        double d3 = (float) i / ((float) field_77289_h - 1.0F) * 2.0F - 1.0F;
+                        double d4 = (float) j / ((float) field_77289_h - 1.0F) * 2.0F - 1.0F;
+                        double d5 = (float) k / ((float) field_77289_h - 1.0F) * 2.0F - 1.0F;
                         double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
                         d3 /= d6;
                         d4 /= d6;
@@ -204,9 +204,9 @@ public class MiningExplosion extends Explosion {
                     d5 *= d7;
                     this.world.spawnParticle(
                             "explode",
-                            (d0 + this.explosionX * 1.0D) / 2.0D,
-                            (d1 + this.explosionY * 1.0D) / 2.0D,
-                            (d2 + this.explosionZ * 1.0D) / 2.0D,
+                            (d0 + this.explosionX) / 2.0D,
+                            (d1 + this.explosionY) / 2.0D,
+                            (d2 + this.explosionZ) / 2.0D,
                             d3,
                             d4,
                             d5);
@@ -226,7 +226,7 @@ public class MiningExplosion extends Explosion {
             iterator = this.affectedBlockPositions.iterator();
 
             while (iterator.hasNext()) {
-                chunkposition = (ChunkPosition) iterator.next();
+                chunkposition = iterator.next();
                 i = chunkposition.chunkPosX;
                 j = chunkposition.chunkPosY;
                 k = chunkposition.chunkPosZ;

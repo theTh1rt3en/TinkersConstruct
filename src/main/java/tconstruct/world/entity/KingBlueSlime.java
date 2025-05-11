@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 import com.kuba6000.mobsinfo.api.MobDrop;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Method;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -119,7 +119,7 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
+    @Method(modid = "mobsinfo")
     @Override
     public void provideDropsInformation(@Nonnull ArrayList<MobDrop> drops) {
         super.provideDropsInformation(drops);

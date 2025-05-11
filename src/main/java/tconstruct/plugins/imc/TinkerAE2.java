@@ -1,5 +1,7 @@
 package tconstruct.plugins.imc;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(
         id = "Tinkers AE2 Compatibility",
         description = "Tinkers Construct compatibility for Applied Energistics 2",

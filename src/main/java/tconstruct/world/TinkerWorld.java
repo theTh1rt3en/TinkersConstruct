@@ -1,5 +1,7 @@
 package tconstruct.world;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
@@ -95,11 +97,11 @@ import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
 
-    @Instance("TinkerWorld")
+    @Instance(value = "TinkerWorld")
     public static TinkerWorld instance;
 
     @SidedProxy(

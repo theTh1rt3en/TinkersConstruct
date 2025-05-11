@@ -25,13 +25,13 @@ public class GoldenHead extends ItemFood {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @SideOnly(value = Side.CLIENT)
     public boolean hasEffect(ItemStack par1ItemStack) {
         return par1ItemStack.getItemDamage() > 0;
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @SideOnly(value = Side.CLIENT)
     /**
      * Return an item rarity from EnumRarity
      */
@@ -53,7 +53,7 @@ public class GoldenHead extends ItemFood {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @SideOnly(value = Side.CLIENT)
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */

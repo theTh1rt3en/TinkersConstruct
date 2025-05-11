@@ -25,7 +25,6 @@ public class MeatBlock extends BlockWood {
     public MeatBlock() {
         this.setHardness(1.0F);
         this.setStepSound(Block.soundTypeWood);
-        // setBurnProperties(this.blockID, 5, 20);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -38,15 +37,15 @@ public class MeatBlock extends BlockWood {
         switch (orientation)
         // Ends of logs
         {
-            case 0:
+            case 0 -> {
                 if (side == 0 || side == 1) return icons[tex + 1];
-                break;
-            case 1:
+            }
+            case 1 -> {
                 if (side == 4 || side == 5) return icons[tex + 1];
-                break;
-            case 2:
+            }
+            case 2 -> {
                 if (side == 2 || side == 3) return icons[tex + 1];
-                break;
+            }
         }
 
         return icons[tex];
@@ -96,21 +95,11 @@ public class MeatBlock extends BlockWood {
     public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7,
             float par8, int par9) {
         int j1 = par9 & 3;
-        byte b0 = 0;
-
-        switch (par5) {
-            case 0:
-            case 1:
-                b0 = 0;
-                break;
-            case 2:
-            case 3:
-                b0 = 8;
-                break;
-            case 4:
-            case 5:
-                b0 = 4;
-        }
+        byte b0 = switch (par5) {
+            case 2, 3 -> 8;
+            case 4, 5 -> 4;
+            default -> 0;
+        };
 
         return j1 | b0;
     }
@@ -138,12 +127,6 @@ public class MeatBlock extends BlockWood {
     public boolean isBlockReplaceable(World world, int x, int y, int z) {
         return false;
     }
-
-    /*
-     * public void onBlockHarvested (World world, int x, int y, int z, int meta, EntityPlayer player) { if (meta % 4 ==
-     * 1) { if (world.difficultySetting > 2) world.createExplosion(null, x, y, z, 1.75f, false); else
-     * world.createExplosion(null, x, y, z, 2f, false); } }
-     */
 
     @SideOnly(Side.CLIENT)
     @Override

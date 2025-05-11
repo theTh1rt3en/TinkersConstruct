@@ -1,6 +1,7 @@
 package tconstruct.weaponry;
 
 import static tconstruct.tools.TinkerTools.MaterialID;
+import static tconstruct.util.Reference.MOD_ID;
 
 import java.util.Map;
 import java.util.Random;
@@ -23,6 +24,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
@@ -54,6 +56,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.tools.items.Bowstring;
 import tconstruct.tools.items.Fletching;
 import tconstruct.tools.items.Pattern;
+import tconstruct.util.Constants;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
@@ -74,7 +77,7 @@ import tconstruct.weaponry.weapons.Shuriken;
 import tconstruct.weaponry.weapons.ThrowingKnife;
 import tconstruct.world.TinkerWorld;
 
-@GameRegistry.ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(
         id = "Tinkers' Weaponry",
         description = "The main core of the mod! All of the tools, the tables, and the patterns are here.",
@@ -284,7 +287,7 @@ public class TinkerWeaponry {
 
                 for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                     Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-                    int fluidAmount = metalPattern.getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                    int fluidAmount = metalPattern.getPatternCost(cast) * Constants.LIQUID_VALUE_INGOT / 2;
                     ItemStack metalCast = new ItemStack(patternOutputs[i], 1, liquidDamage[iterTwo]);
                     tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
                     Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
@@ -294,7 +297,7 @@ public class TinkerWeaponry {
             for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                 Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
                 ItemStack clay_cast = new ItemStack(clayPattern, 1, 3);
-                int fluidAmount = clayPattern.getPatternCost(clay_cast) * TConstruct.ingotLiquidValue / 2;
+                int fluidAmount = clayPattern.getPatternCost(clay_cast) * Constants.LIQUID_VALUE_INGOT / 2;
 
                 tableCasting.addCastingRecipe(
                         new ItemStack(patternOutputs[3], 1, liquidDamage[iterTwo]),
@@ -316,7 +319,7 @@ public class TinkerWeaponry {
             for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                 Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
                 int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast)
-                        * TConstruct.ingotLiquidValue
+                        * Constants.LIQUID_VALUE_INGOT
                         / 2;
                 ItemStack metalCast = new ItemStack(arrowhead, 1, liquidDamage[iterTwo]);
                 tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
@@ -520,7 +523,7 @@ public class TinkerWeaponry {
             if (!entry.getValue().isToolpart) continue;
 
             // get a casting recipe for it D:
-            FluidStack liquid = new FluidStack(entry.getValue().fluid, TConstruct.ingotLiquidValue);
+            FluidStack liquid = new FluidStack(entry.getValue().fluid, Constants.LIQUID_VALUE_INGOT);
             CastingRecipe recipe = tb.getCastingRecipe(liquid, new ItemStack(TinkerSmeltery.metalPattern, 1, 2)); // pickaxe
             // no recipe found
             if (recipe == null) continue;

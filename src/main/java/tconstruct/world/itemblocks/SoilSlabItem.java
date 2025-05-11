@@ -26,12 +26,8 @@ public class SoilSlabItem extends MultiItemBlock {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         switch (stack.getItemDamage()) {
-            case 3:
-                list.add(StatCollector.translateToLocal("craftedsoil.slab1.tooltip"));
-                break;
-            case 4:
-                list.add(StatCollector.translateToLocal("craftedsoil.slab2.tooltip"));
-                break;
+            case 3 -> list.add(StatCollector.translateToLocal("craftedsoil.slab1.tooltip"));
+            case 4 -> list.add(StatCollector.translateToLocal("craftedsoil.slab2.tooltip"));
         }
     }
 }

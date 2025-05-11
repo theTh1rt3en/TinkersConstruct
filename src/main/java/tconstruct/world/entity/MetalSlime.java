@@ -9,7 +9,6 @@ public class MetalSlime extends BlueSlime {
 
     public MetalSlime(World world) {
         super(world);
-        // this.texture = "/mods/tinker/textures/mob/slimemetal.png";
         this.setHealth(getMaxHealthForSize());
     }
 
@@ -34,12 +33,6 @@ public class MetalSlime extends BlueSlime {
     public void setDead() {
         this.isDead = true;
     }
-
-    /*
-     * protected void dropFewItems (boolean par1, int par2) { int j = this.getDropItemId(); if (j > 0) { int k =
-     * rand.nextInt(3) + rand.nextInt(this.getSlimeSize()); if (par2 > 0) { k += this.rand.nextInt(par2 + 1); } for (int
-     * l = 0; l < k; ++l) { this.dropItem(j, 1); } } }
-     */
 
     @Override
     protected void updateEntityActionState() {
@@ -71,7 +64,7 @@ public class MetalSlime extends BlueSlime {
             }
 
             this.moveStrafing = 1.0F - this.rand.nextFloat() * 2.0F;
-            this.moveForward = (float) (1 * this.getSlimeSize());
+            this.moveForward = (float) (this.getSlimeSize());
         } else {
             this.isJumping = false;
 

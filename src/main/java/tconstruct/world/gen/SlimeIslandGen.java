@@ -25,7 +25,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
     private final int gelMeta;
     int randomness = 2;
     Random random = new Random();
-    Block base = TinkerTools.craftedSoil; // Block.dirt.blockID;
+    Block base = TinkerTools.craftedSoil;
     Block top = TinkerWorld.slimeGrass;
     SlimeTreeGen trees = new SlimeTreeGen(false, 5, 4, 1, 0);
 
@@ -36,9 +36,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator,
-            IChunkProvider chunkProvider) // IWorldGenerator
-    // version
-    {
+            IChunkProvider chunkProvider) {
         // dim 0 only?
         if ((chunkGenerator instanceof ChunkProviderFlat || world.provider.terrainType == WorldType.FLAT)
                 && !PHConstruct.genIslandsFlat) {
@@ -148,9 +146,6 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
     {
         x -= 8;
         z -= 8;
-        /*
-         * for (z -= 8; y > 5 && world.isAirBlock(x, y, z); --y) { ; } if (y <= 4) { return false; } else {
-         */
         y -= 4;
         boolean[] validLocations = new boolean[2048];
         int var7 = rand.nextInt(4) + 4;
@@ -257,6 +252,5 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator {
         }
 
         return true;
-        // }
     }
 }

@@ -23,10 +23,11 @@ import net.minecraftforge.common.ForgeHooks;
 import com.kuba6000.mobsinfo.api.IMobInfoProvider;
 import com.kuba6000.mobsinfo.api.MobDrop;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.Method;
 import tconstruct.world.TinkerWorld;
 
-@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobInfoProvider", modid = "mobsinfo")
+@Interface(iface = "com.kuba6000.mobsinfo.api.IMobInfoProvider", modid = "mobsinfo")
 public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoProvider {
 
     public float sizeOffset;
@@ -306,7 +307,7 @@ public abstract class SlimeBase extends EntityLiving implements IMob, IMobInfoPr
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
+    @Method(modid = "mobsinfo")
     @Override
     public void provideDropsInformation(@Nonnull ArrayList<MobDrop> drops) {
         Item j = this.getDropItem();

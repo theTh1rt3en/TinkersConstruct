@@ -25,6 +25,7 @@ import tconstruct.TConstruct;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.smeltery.inventory.SmelteryContainer;
 import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.util.Constants;
 import tconstruct.util.network.SmelteryPacket;
 
 public class SmelteryGui extends ActiveContainerGui {
@@ -378,20 +379,20 @@ public class SmelteryGui extends ActiveContainerGui {
                 int mB = liquid.amount % 360;
                 if (mB > 0) list.add("mB: " + mB);
             } else {
-                int blocks = liquid.amount / TConstruct.ingotLiquidValue;
+                int blocks = liquid.amount / Constants.LIQUID_VALUE_INGOT;
                 if (blocks > 0) list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
-                int ingots = (liquid.amount % TConstruct.ingotLiquidValue) / (TConstruct.ingotLiquidValue / 4);
+                int ingots = (liquid.amount % Constants.LIQUID_VALUE_INGOT) / (Constants.LIQUID_VALUE_INGOT / 4);
                 if (ingots > 0) list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
-                int mB = (liquid.amount % TConstruct.ingotLiquidValue) % (TConstruct.ingotLiquidValue / 4);
+                int mB = (liquid.amount % Constants.LIQUID_VALUE_INGOT) % (Constants.LIQUID_VALUE_INGOT / 4);
                 if (mB > 0) list.add("mB: " + mB);
             }
         } else if (isMolten(name)) {
-            int ingots = liquid.amount / TConstruct.ingotLiquidValue;
+            int ingots = liquid.amount / Constants.LIQUID_VALUE_INGOT;
             if (ingots > 0) list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
-            int mB = liquid.amount % TConstruct.ingotLiquidValue;
+            int mB = liquid.amount % Constants.LIQUID_VALUE_INGOT;
             if (mB > 0) {
-                int nuggets = mB / TConstruct.nuggetLiquidValue;
-                int junk = (mB % TConstruct.nuggetLiquidValue);
+                int nuggets = mB / Constants.LIQUID_VALUE_NUGGET;
+                int junk = (mB % Constants.LIQUID_VALUE_NUGGET);
                 if (nuggets > 0) list.add(StatCollector.translateToLocal("gui.smeltery.metal.nugget") + nuggets);
                 if (junk > 0) list.add("mB: " + junk);
             }

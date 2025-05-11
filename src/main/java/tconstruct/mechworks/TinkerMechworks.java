@@ -1,5 +1,7 @@
 package tconstruct.mechworks;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -25,7 +27,7 @@ import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 // TODO handle migration of all items/blocks that were owned by the previously seperate mod
 @Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
 public class TinkerMechworks {

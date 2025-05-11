@@ -1,5 +1,7 @@
 package tconstruct.armor;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.EnumSet;
 
 import net.minecraft.block.Block;
@@ -53,7 +55,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
 public class TinkerArmor {
 

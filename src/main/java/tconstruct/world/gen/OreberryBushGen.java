@@ -75,11 +75,6 @@ public class OreberryBushGen extends WorldGenerator {
     }
 
     void generateBerryBlock(World world, int x, int y, int z, Random random) {
-        /*
-         * if (!Block.opaqueCubeLookup[world.getBlockId(x, y, z)]) { setBlockAndMetadata(world, x, y, z, blockID,
-         * metadata); }
-         */
-
         Block block = world.getBlock(x, y, z);
         if (block == null || (block != Blocks.end_portal_frame && !world.getBlock(x, y, z).func_149730_j()))
             world.setBlock(x, y, z, this.blockB, metadata, 2);

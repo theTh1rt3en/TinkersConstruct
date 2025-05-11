@@ -45,10 +45,6 @@ public class SlimeTreeGen extends WorldGenerator {
                     && soil.canSustainPlant(world, xPos, yPos - 1, zPos, ForgeDirection.UP, TinkerWorld.slimeSapling));
 
             if (isSoil) {
-                // TODO Fix this for 1.7
-                // if (!checkClear(world, xPos, yPos, zPos, height))
-                // return false;
-
                 soil.onPlantGrow(world, xPos, yPos - 1, zPos, xPos, yPos, zPos);
                 placeCanopy(world, random, xPos, yPos, zPos, height);
                 placeTrunk(world, xPos, yPos, zPos, height);

@@ -1,5 +1,7 @@
 package tconstruct.plugins;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -13,7 +15,7 @@ import tconstruct.modifiers.armor.AModThaumicVision;
 import tconstruct.world.TinkerWorld;
 import thaumcraft.api.ItemApi;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(
         id = "Tinkers Thaumcraft Compatibility",
         description = "Tinkers Construct compatibility for Thaumcraft",

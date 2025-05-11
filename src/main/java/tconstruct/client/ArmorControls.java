@@ -1,5 +1,7 @@
 package tconstruct.client;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
@@ -66,7 +68,7 @@ public class ArmorControls {
         }
         isNotEnoughKeysLoaded = Loader.isModLoaded("notenoughkeys");
         if (isNotEnoughKeysLoaded) {
-            Api.registerMod(TConstruct.modID, keyDescs);
+            Api.registerMod(MOD_ID, keyDescs);
         }
         // Add mc keys
         keys[4] = jumpKey;

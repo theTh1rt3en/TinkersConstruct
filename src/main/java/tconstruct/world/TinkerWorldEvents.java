@@ -29,7 +29,8 @@ import com.kuba6000.mobsinfo.api.IMobExtraInfoProvider;
 import com.kuba6000.mobsinfo.api.MobDrop;
 import com.kuba6000.mobsinfo.api.MobRecipe;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.TConstruct;
@@ -37,7 +38,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 
-@Optional.Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
+@Interface(iface = "com.kuba6000.mobsinfo.api.IMobExtraInfoProvider", modid = "mobsinfo")
 public class TinkerWorldEvents implements IMobExtraInfoProvider {
 
     @SubscribeEvent
@@ -130,7 +131,7 @@ public class TinkerWorldEvents implements IMobExtraInfoProvider {
         }
     }
 
-    @Optional.Method(modid = "mobsinfo")
+    @Method(modid = "mobsinfo")
     @Override
     public void provideExtraDropsInformation(@Nonnull String entityString, @Nonnull ArrayList<MobDrop> drops,
             @Nonnull MobRecipe recipe) {

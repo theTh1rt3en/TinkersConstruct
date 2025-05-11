@@ -1,12 +1,14 @@
 package tconstruct.plugins.mfr;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(
         id = "Tinkers MFR Compatibility",
         description = "Tinkers Construct compatibility for MineFactory Reloaded",

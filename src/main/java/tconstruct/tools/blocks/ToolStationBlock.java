@@ -40,8 +40,6 @@ public class ToolStationBlock extends InventoryBlock {
         this.setStepSound(Block.soundTypeWood);
     }
 
-    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
-
     /* Rendering */
     @Override
     public String[] getTextureNames() {
@@ -57,7 +55,7 @@ public class ToolStationBlock extends InventoryBlock {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @SideOnly(value = Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
         if (meta <= 4) {
             return icons[meta * 3 + getTextureIndex(side)];
@@ -137,8 +135,6 @@ public class ToolStationBlock extends InventoryBlock {
         else if (md < 5) return 1;
         else if (md < 10) return 2;
         else return 3;
-
-        // return -1;
     }
 
     @Override
@@ -156,15 +152,6 @@ public class ToolStationBlock extends InventoryBlock {
             list.add(new ItemStack(id, 1, iter));
         }
     }
-
-    /*
-     * @Override public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase par5EntityLiving,
-     * ItemStack par6ItemStack) { if (PHConstruct.freePatterns) { int meta = world.getBlockMetadata(x, y, z); if (meta
-     * == 5) { PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z); for (int i = 1; i <= 13; i++)
-     * { logic.setInventorySlotContents(i - 1, new ItemStack(TinkerTools.woodPattern, 1, i)); }
-     * logic.setInventorySlotContents(13, new ItemStack(TinkerTools.woodPattern, 1, 22)); } }
-     * super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack); }
-     */
 
     @Override
     public String getTextureDomain(int textureNameIndex) {

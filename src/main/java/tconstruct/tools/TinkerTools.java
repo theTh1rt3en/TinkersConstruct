@@ -13,6 +13,7 @@ import static net.minecraft.util.EnumChatFormatting.LIGHT_PURPLE;
 import static net.minecraft.util.EnumChatFormatting.RED;
 import static net.minecraft.util.EnumChatFormatting.WHITE;
 import static net.minecraft.util.EnumChatFormatting.YELLOW;
+import static tconstruct.util.Reference.MOD_ID;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -121,7 +122,7 @@ import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(value = MOD_ID)
 @Pulse(
         id = "Tinkers' Tools",
         description = "The main core of the mod! All of the tools, the tables, and the patterns are here.",

@@ -67,13 +67,6 @@ public class HamboneItemBlock extends ItemBlock {
     /** probably of the set potion effect occurring */
     private float potionEffectProbability;
 
-    /*
-     * public ItemFood(int par1, int par2, float par3, boolean par4) { super(par1); this.itemUseDuration = 32;
-     * this.healAmount = par2; this.isWolfsFavoriteMeat = par4; this.saturationModifier = par3;
-     * this.setCreativeTab(CreativeTabs.tabFood); } public ItemFood(int par1, int par2, boolean par3) { this(par1, par2,
-     * 0.6F, par3); }
-     */
-
     @Override
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
         --par1ItemStack.stackSize;
