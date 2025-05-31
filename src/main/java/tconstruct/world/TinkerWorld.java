@@ -242,8 +242,10 @@ public class TinkerWorld {
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 4);
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 4, 5);
         // Rail
-        TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood)
-                .setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
+        if (!Loader.isModLoaded("dreamcraft")) {
+            TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood)
+                    .setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
+        }
 
         GameRegistry.registerBlock(TinkerWorld.meatBlock, HamboneItemBlock.class, "MeatBlock");
         OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
@@ -291,7 +293,9 @@ public class TinkerWorld {
         GameRegistry.registerBlock(TinkerWorld.oreGravel, GravelOreItem.class, "GravelOre");
 
         // Rail
-        GameRegistry.registerBlock(TinkerWorld.woodenRail, "rail.wood");
+        if (TinkerWorld.woodenRail != null) {
+            GameRegistry.registerBlock(TinkerWorld.woodenRail, "rail.wood");
+        }
 
         // Items
         goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F)
@@ -315,9 +319,6 @@ public class TinkerWorld {
         Items.iron_door.setMaxStackSize(16);
         Items.boat.setMaxStackSize(16);
         Items.minecart.setMaxStackSize(3);
-        // Items.minecartEmpty.setMaxStackSize(3);
-        // Items.minecartCrate.setMaxStackSize(3);
-        // Items.minecartPowered.setMaxStackSize(3);
         Items.cake.setMaxStackSize(16);
         // Block.torchWood.setTickRandomly(false);
 
@@ -331,8 +332,10 @@ public class TinkerWorld {
 
     @Handler
     public void init(FMLInitializationEvent event) {
-        craftingTableRecipes();
-        addRecipesForFurnace();
+        if (!PHConstruct.disableAllRecipes) {
+            craftingTableRecipes();
+            addRecipesForFurnace();
+        }
         addLoot();
         createEntities();
         proxy.initialize();
@@ -350,8 +353,6 @@ public class TinkerWorld {
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
-        // EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1,
-        // TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         EntityRegistry.registerModEntity(KingBlueSlime.class, "KingSlime", 14, TConstruct.instance, 64, 5, true);
@@ -681,17 +682,19 @@ public class TinkerWorld {
         // Stone Ladder Recipe
         GameRegistry.addRecipe(
                 new ShapedOreRecipe(new ItemStack(TinkerWorld.stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
-        // Wooden Rail Recipe
-        GameRegistry.addRecipe(
-                new ShapedOreRecipe(
-                        new ItemStack(TinkerWorld.woodenRail, 4, 0),
-                        "b b",
-                        "bxb",
-                        "b b",
-                        'b',
-                        "plankWood",
-                        'x',
-                        "stickWood"));
+        // Wooden Rail (if registered) Recipe
+        if (TinkerWorld.woodenRail != null) {
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(TinkerWorld.woodenRail, 4, 0),
+                            "b b",
+                            "bxb",
+                            "b b",
+                            'b',
+                            "plankWood",
+                            'x',
+                            "stickWood"));
+        }
         // Stonesticks Recipes
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolRod, 4, 1), "c", "c", 'c', new ItemStack(Blocks.stone));
         GameRegistry
