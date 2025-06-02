@@ -225,7 +225,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
 
             connected.remove(ForgeDirection.DOWN);
         }
-        if (connected.size() != 0) {
+        if (!connected.isEmpty()) {
             for (ForgeDirection dir : connected.keySet()) // Iterates to connected FluidHandlers
             {
                 if (subTanks.get(dir) != null && subTanks.get(dir).getFluid() != null) {
@@ -422,41 +422,27 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler {
     }
 
     public int convertFDToInt(ForgeDirection dir) {
-        switch (dir) {
-            case DOWN:
-                return 0;
-            case UP:
-                return 1;
-            case NORTH:
-                return 2;
-            case SOUTH:
-                return 3;
-            case WEST:
-                return 4;
-            case EAST:
-                return 5;
-            default:
-                return -1;
-        }
+        return switch (dir) {
+            case DOWN -> 0;
+            case UP -> 1;
+            case NORTH -> 2;
+            case SOUTH -> 3;
+            case WEST -> 4;
+            case EAST -> 5;
+            default -> -1;
+        };
     }
 
     public ForgeDirection convertIntToFD(int i) {
-        switch (i) {
-            case 0:
-                return ForgeDirection.DOWN;
-            case 1:
-                return ForgeDirection.UP;
-            case 2:
-                return ForgeDirection.NORTH;
-            case 3:
-                return ForgeDirection.SOUTH;
-            case 4:
-                return ForgeDirection.WEST;
-            case 5:
-                return ForgeDirection.EAST;
-            default:
-                return ForgeDirection.UNKNOWN;
-        }
+        return switch (i) {
+            case 0 -> ForgeDirection.DOWN;
+            case 1 -> ForgeDirection.UP;
+            case 2 -> ForgeDirection.NORTH;
+            case 3 -> ForgeDirection.SOUTH;
+            case 4 -> ForgeDirection.WEST;
+            case 5 -> ForgeDirection.EAST;
+            default -> ForgeDirection.UNKNOWN;
+        };
     }
     /*
      * UNUSED public enum CastingChannelMode { //Will not output while being filled by Faucet, hence only taking one

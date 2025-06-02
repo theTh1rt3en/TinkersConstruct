@@ -50,8 +50,7 @@ public class PatternTablePacket extends AbstractPacket {
 
     @Override
     public void handleServerSide(EntityPlayer player) {
-        if (player.openContainer instanceof PatternShaperContainer) {
-            PatternShaperContainer container = (PatternShaperContainer) player.openContainer;
+        if (player.openContainer instanceof PatternShaperContainer container) {
             StencilTableLogic logic = container.logic;
             if (logic != null && logic.xCoord == this.x && logic.yCoord == this.y && logic.zCoord == this.z)
                 if (this.contents == null) logic.setSelectedPattern(null);

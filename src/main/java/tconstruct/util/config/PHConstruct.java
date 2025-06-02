@@ -25,17 +25,6 @@ public class PHConstruct {
          * read any old configs file if they exist Second: Create the actual config file
          */
         File mainFile = new File(location + "/TinkersConstruct.cfg");
-        File legacyFile16 = new File(location + "/TinkersWorkshop.txt");
-        File legacyFile17 = new File(location + "/TConstruct.cfg");
-        try {
-            if (!mainFile.exists()) {
-                if (legacyFile16.exists()) legacyFile16.renameTo(mainFile);
-                if (legacyFile17.exists()) legacyFile17.renameTo(mainFile);
-            }
-        } catch (Exception e) {
-            log.warn("Could not update legacy configuration file for TConstruct. Reason:");
-            log.warn(e.getLocalizedMessage());
-        }
 
         Configuration config = new Configuration(mainFile);
         // config.load(); /* Load happens in the constructor */

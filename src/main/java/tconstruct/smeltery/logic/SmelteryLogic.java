@@ -352,8 +352,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 } else if (o instanceof EntityHorse && PHConstruct.meltableHorses) {
                     fluid = TinkerSmeltery.glueFluid;
                     amount = 108;
-                } else if (o instanceof EntityLivingBase) {
-                    EntityLivingBase living = (EntityLivingBase) o;
+                } else if (o instanceof EntityLivingBase living) {
                     fluid = TinkerSmeltery.bloodFluid;
                     amount = living.isChild() || living instanceof EntityPlayer ? 5 : 40;
                 }
@@ -450,7 +449,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     boolean addMoltenMetal(FluidStack liquid, boolean first) {
         needsUpdate = true;
-        if (moltenMetal.size() == 0) {
+        if (moltenMetal.isEmpty()) {
             // does it fit in?
             if (liquid.amount > this.getCapacity()) return false;
 
@@ -800,7 +799,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         lavaTanks.clear();
         drains.clear();
         boolean check = checkBricksOnLevel(x, y, z, sides);
-        return check && lavaTanks.size() > 0;
+        return check && !lavaTanks.isEmpty();
     }
 
     public int recurseStructureUp(int x, int y, int z, int[] sides, int count) {
@@ -847,8 +846,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     if (this.validBlockID(chunk.getBlock(xx, y, zz)) && chunk.getBlockMetadata(xx, y, zz) >= 2) {
                         TileEntity te = worldObj.getTileEntity(xPos, y, zPos);
 
-                        if (te instanceof MultiServantLogic) {
-                            MultiServantLogic servant = (MultiServantLogic) te;
+                        if (te instanceof MultiServantLogic servant) {
                             if (servant.hasValidMaster()) {
                                 if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
                                     bottomBricks++;
@@ -883,8 +881,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             TileEntity te = worldObj.getTileEntity(x, y, z);
             if (te == this) {
                 tempBricks++;
-            } else if (te instanceof MultiServantLogic) {
-                MultiServantLogic servant = (MultiServantLogic) te;
+            } else if (te instanceof MultiServantLogic servant) {
 
                 if (servant.hasValidMaster()) {
                     if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord)) tempBricks++;
@@ -925,7 +922,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         // don't drain if we're not complete
         if (!validStructure) return null;
 
-        if (moltenMetal.size() == 0) return null;
+        if (moltenMetal.isEmpty()) return null;
 
         FluidStack liquid = moltenMetal.get(0);
         if (liquid != null) {
@@ -982,7 +979,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     @Override
     public FluidStack getFluid() {
-        if (moltenMetal.size() == 0) return null;
+        if (moltenMetal.isEmpty()) return null;
         return moltenMetal.get(0);
     }
 

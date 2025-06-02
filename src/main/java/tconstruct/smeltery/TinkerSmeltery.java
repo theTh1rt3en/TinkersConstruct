@@ -1979,7 +1979,7 @@ public class TinkerSmeltery {
 
         /* Extra Utilities */
         ores = OreDictionary.getOres("compressedGravel1x");
-        if (ores.size() > 0) {
+        if (!ores.isEmpty()) {
             basinCasting.addCastingRecipe(
                     new ItemStack(TinkerSmeltery.speedBlock, 9),
                     new FluidStack(TinkerSmeltery.moltenTinFluid, LIQUID_VALUE_INGOT),
@@ -1995,7 +1995,7 @@ public class TinkerSmeltery {
         }
         ores = OreDictionary.getOres("compressedGravel2x"); // Higher won't save
         // properly
-        if (ores.size() > 0) {
+        if (!ores.isEmpty()) {
             basinCasting.addCastingRecipe(
                     new ItemStack(TinkerSmeltery.speedBlock, 81),
                     new FluidStack(TinkerSmeltery.moltenTinFluid, LIQUID_VALUE_BLOCK),

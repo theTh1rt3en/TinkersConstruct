@@ -74,8 +74,7 @@ public class ToolCoreRenderer implements IItemRenderer {
 
         IIcon[] tempParts = new IIcon[iconParts];
         label: {
-            if (!isInventory && ent instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) ent;
+            if (!isInventory && ent instanceof EntityPlayer player) {
                 ItemStack itemInUse = player.getItemInUse();
                 if (itemInUse != null) {
                     int useCount = player.getItemInUseCount();

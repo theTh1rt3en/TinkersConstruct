@@ -24,8 +24,7 @@ public class CraftingStationStackPositioner implements IStackPositioner {
             screen = ((GuiRecipe<?>) screen).firstGui;
         }
 
-        if (screen instanceof CraftingStationGui) {
-            CraftingStationGui gui = (CraftingStationGui) screen;
+        if (screen instanceof CraftingStationGui gui) {
 
             int offsetX = gui.hasChest() ? 5 + gui.getChestWidth() : 5;
             int offsetY = 11;
