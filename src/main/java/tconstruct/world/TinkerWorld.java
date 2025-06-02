@@ -1,5 +1,7 @@
 package tconstruct.world;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
@@ -95,16 +97,17 @@ import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld {
+
+    private static final String CLIENT_SIDE_PROXY = "tconstruct.world.TinkerWorldProxyClient";
+    private static final String SERVER_SIDE_PROXY = "tconstruct.world.TinkerWorldProxyCommon";
 
     @Instance("TinkerWorld")
     public static TinkerWorld instance;
 
-    @SidedProxy(
-            clientSide = "tconstruct.world.TinkerWorldProxyClient",
-            serverSide = "tconstruct.world.TinkerWorldProxyCommon")
+    @SidedProxy(clientSide = CLIENT_SIDE_PROXY, serverSide = SERVER_SIDE_PROXY)
     public static TinkerWorldProxyCommon proxy;
 
     public static Item strangeFood;

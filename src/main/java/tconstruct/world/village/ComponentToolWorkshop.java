@@ -1,5 +1,7 @@
 package tconstruct.world.village;
 
+import static tconstruct.util.Constants.TINKERS_VILLAGER_ID;
+
 import java.util.List;
 import java.util.Random;
 
@@ -222,6 +224,6 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1 {
      */
     @Override
     protected int getVillagerType(int par1) {
-        return 78943;
+        return TINKERS_VILLAGER_ID;
     }
 }

@@ -20,15 +20,17 @@ import static tconstruct.smeltery.TinkerSmeltery.moltenSignalumFluid;
 import static tconstruct.smeltery.TinkerSmeltery.moltenSilverFluid;
 import static tconstruct.smeltery.TinkerSmeltery.moltenSteelFluid;
 import static tconstruct.smeltery.TinkerSmeltery.pigIronFluid;
+import static tconstruct.util.Reference.MOD_ID;
 
 import net.minecraftforge.fluids.Fluid;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import lombok.extern.log4j.Log4j2;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 
+@Log4j2(topic = MOD_ID)
 @Pulse(
         id = "Tinkers Mystcraft Compatibility",
         forced = true,
@@ -48,7 +50,7 @@ public class TinkerMystcraft {
                 moltenEnderFluid, moltenSilverFluid, moltenInvarFluid, moltenElectrumFluid, moltenShinyFluid,
                 moltenSignalumFluid, moltenLumiumFluid, moltenMithrilFluid, moltenEnderiumFluid };
 
-        TConstruct.logger.info("Mystcraft detected. Blacklisting Mystcraft fluid symbols.");
+        log.info("Mystcraft detected. Blacklisting Mystcraft fluid symbols.");
         for (Fluid fluid : fluids) {
             if (fluid == null) continue;
             FMLInterModComms.sendMessage("Mystcraft", "blacklistfluid", fluid.getName());

@@ -1,12 +1,15 @@
 package tconstruct.plugins.mfr;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import lombok.extern.log4j.Log4j2;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 
-@ObjectHolder(TConstruct.modID)
+@Log4j2(topic = MOD_ID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers MFR Compatibility",
         description = "Tinkers Construct compatibility for MineFactory Reloaded",
@@ -16,7 +19,7 @@ public class TinkerMFR {
 
     @Handler
     public void init(FMLInitializationEvent event) {
-        TConstruct.logger.info(
+        log.info(
                 "MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
         MFRRegister.registerWithMFR();
         /*

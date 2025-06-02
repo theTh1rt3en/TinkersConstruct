@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +46,6 @@ import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.SmelteryDamageSource;
 import tconstruct.smeltery.TinkerSmeltery;
@@ -58,7 +59,7 @@ import tconstruct.util.config.PHConstruct;
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic {
 
     private static final int MAX_SMELTERY_SIZE = 7;
-    public static final int MB_PER_BLOCK_CAPACITY = TConstruct.ingotLiquidValue * 10;
+    public static final int MB_PER_BLOCK_CAPACITY = LIQUID_VALUE_INGOT * 10;
 
     public boolean validStructure;
     public boolean tempValidStructure;

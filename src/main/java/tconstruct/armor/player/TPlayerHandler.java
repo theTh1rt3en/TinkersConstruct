@@ -1,5 +1,7 @@
 package tconstruct.armor.player;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,13 +31,14 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
+import lombok.extern.log4j.Log4j2;
 import mantle.player.PlayerUtils;
-import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
 // TODO: Redesign this class
+@Log4j2(topic = MOD_ID)
 public class TPlayerHandler {
     /* Player */
     // public int hunger;
@@ -317,7 +320,7 @@ public class TPlayerHandler {
 
             br.close();
         } catch (Exception e) {
-            TConstruct.logger.error(e.getMessage() != null ? e.getMessage() : "UNKOWN DL ERROR", e);
+            log.error(e.getMessage() != null ? e.getMessage() : "UNKOWN DL ERROR", e);
         }
     }
 }

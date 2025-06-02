@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -19,15 +21,14 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import tconstruct.TConstruct;
 
 /**
  * @author BluSunrize
  */
 public class CastingChannelLogic extends TileEntity implements IFluidHandler {
 
-    public static final int fillMax = TConstruct.ingotLiquidValue * 3;
-    public static final int outputMax = TConstruct.ingotLiquidValue;
+    public static final int fillMax = LIQUID_VALUE_INGOT * 3;
+    public static final int outputMax = LIQUID_VALUE_INGOT;
     FluidTank internalTank = new FluidTank(fillMax);
     HashMap<ForgeDirection, FluidTank> subTanks = new HashMap<>();
     public ForgeDirection lastProvider;

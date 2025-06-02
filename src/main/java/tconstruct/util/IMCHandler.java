@@ -1,5 +1,7 @@
 package tconstruct.util;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInterModComms;
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.CastingRecipe;
@@ -27,6 +29,7 @@ import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 
+@Log4j2(topic = MOD_ID)
 public final class IMCHandler {
 
     private IMCHandler() {}
@@ -50,7 +53,7 @@ public final class IMCHandler {
                     if (mat != null) {
                         TConstructRegistry.addtoolMaterial(id, mat);
                         TConstructRegistry.addDefaultToolPartMaterial(id);
-                        TConstruct.logger.debug("IMC: Added material " + mat.materialName);
+                        log.debug("IMC: Added material " + mat.materialName);
 
                         // bow stats
                         if (tag.hasKey("Bow_DrawSpeed") && tag.hasKey("Bow_ProjectileSpeed")) {
@@ -58,7 +61,7 @@ public final class IMCHandler {
                             float flightspeed = tag.getFloat("Bow_ProjectileSpeed");
 
                             TConstructRegistry.addBowMaterial(id, drawspeed, flightspeed);
-                            TConstruct.logger.debug("IMC: Added Bow stats for material " + mat.materialName);
+                            log.debug("IMC: Added Bow stats for material " + mat.materialName);
                         }
                         // arrow stats
                         if (tag.hasKey("Projectile_Mass") && tag.hasKey("Projectile_Fragility")) {
@@ -66,7 +69,7 @@ public final class IMCHandler {
                             float breakchance = tag.getFloat("Projectile_Fragility");
 
                             TConstructRegistry.addArrowMaterial(id, mass, breakchance);
-                            TConstruct.logger.debug("IMC: Added Projectile stats for material " + mat.materialName);
+                            log.debug("IMC: Added Projectile stats for material " + mat.materialName);
                         }
 
                         // add additional render mapping so resource packs or the mods themselves can have custom
@@ -143,7 +146,7 @@ public final class IMCHandler {
                     for (int i = 0; i < addItems.size(); i++)
                         TConstructRegistry.addPartMapping(addItems.get(i), addMetas.get(i), matID, addOUtputs.get(i));
 
-                    TConstruct.logger.debug(
+                    log.debug(
                             "PartBuilder IMC: Added Part builder mapping for "
                                     + TConstructRegistry.getMaterial(matID).materialName);
                     break;
@@ -207,8 +210,7 @@ public final class IMCHandler {
                         Smeltery.addMelting(ft, output, 0, liquid2.amount);
                     }
 
-                    TConstruct.logger
-                            .debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
+                    log.debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
                     break;
                 }
                 case "addMaterialItem": {
@@ -293,7 +295,7 @@ public final class IMCHandler {
                             block.getItemDamage(),
                             temperature,
                             liquid);
-                    TConstruct.logger.debug(
+                    log.debug(
                             "Smeltery IMC: Added melting: " + item
                                     .getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
                     break;
@@ -318,7 +320,7 @@ public final class IMCHandler {
 
                     Smeltery.addSmelteryFuel(liquid.getFluid(), temperature, duration);
 
-                    TConstruct.logger.debug(
+                    log.debug(
                             "Smeltery IMC: Added fuel: " + liquid
                                     .getLocalizedName() + " (" + temperature + ", " + duration + ")");
                     break;
@@ -417,11 +419,11 @@ public final class IMCHandler {
     // basically FMLLog.bigWarning
     public static void bigWarning(String format, Object... data) {
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-        TConstruct.logger.error("**********************************************************************");
-        TConstruct.logger.error(String.format("* " + format, data));
+        log.error("**********************************************************************");
+        log.error(String.format("* " + format, data));
         for (int i = 2; i < 8 && i < trace.length; i++) {
-            TConstruct.logger.error(String.format("*  at %s%s", trace[i].toString(), i == 7 ? "..." : ""));
+            log.error(String.format("*  at %s%s", trace[i].toString(), i == 7 ? "..." : ""));
         }
-        TConstruct.logger.error("**********************************************************************");
+        log.error("**********************************************************************");
     }
 }

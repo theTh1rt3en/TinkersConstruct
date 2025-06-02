@@ -1,6 +1,8 @@
 package tconstruct.weaponry;
 
 import static tconstruct.tools.TinkerTools.MaterialID;
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+import static tconstruct.util.Reference.MOD_ID;
 
 import java.util.Map;
 import java.util.Random;
@@ -23,6 +25,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import lombok.extern.log4j.Log4j2;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
@@ -74,16 +78,18 @@ import tconstruct.weaponry.weapons.Shuriken;
 import tconstruct.weaponry.weapons.ThrowingKnife;
 import tconstruct.world.TinkerWorld;
 
-@GameRegistry.ObjectHolder(TConstruct.modID)
+@Log4j2(topic = MOD_ID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers' Weaponry",
         description = "The main core of the mod! All of the tools, the tables, and the patterns are here.",
         pulsesRequired = "Tinkers' Tools")
 public class TinkerWeaponry {
 
-    @SidedProxy(
-            clientSide = "tconstruct.weaponry.WeaponryClientProxy",
-            serverSide = "tconstruct.weaponry.WeaponryCommonProxy")
+    private static final String CLIENT_SIDE_PROXY = "tconstruct.weaponry.WeaponryClientProxy";
+    private static final String SERVER_SIDE_PROXY = "tconstruct.weaponry.WeaponryCommonProxy";
+
+    @SidedProxy(clientSide = CLIENT_SIDE_PROXY, serverSide = SERVER_SIDE_PROXY)
     public static WeaponryCommonProxy proxy;
 
     // Throwing Weapons
@@ -178,7 +184,7 @@ public class TinkerWeaponry {
         if (tool != null) {
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
             creativeBolt = tool;
-        } else TConstruct.logger.error("Couldn't build basic Tinker Bolt for creative crossbow shootnig");
+        } else log.error("Couldn't build basic Tinker Bolt for creative crossbow shootnig");
 
         proxy.init();
 
@@ -284,7 +290,7 @@ public class TinkerWeaponry {
 
                 for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                     Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-                    int fluidAmount = metalPattern.getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                    int fluidAmount = (metalPattern.getPatternCost(cast) * LIQUID_VALUE_INGOT) / 2;
                     ItemStack metalCast = new ItemStack(patternOutputs[i], 1, liquidDamage[iterTwo]);
                     tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
                     Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
@@ -294,7 +300,7 @@ public class TinkerWeaponry {
             for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                 Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
                 ItemStack clay_cast = new ItemStack(clayPattern, 1, 3);
-                int fluidAmount = clayPattern.getPatternCost(clay_cast) * TConstruct.ingotLiquidValue / 2;
+                int fluidAmount = (clayPattern.getPatternCost(clay_cast) * LIQUID_VALUE_INGOT) / 2;
 
                 tableCasting.addCastingRecipe(
                         new ItemStack(patternOutputs[3], 1, liquidDamage[iterTwo]),
@@ -315,8 +321,7 @@ public class TinkerWeaponry {
 
             for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                 Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-                int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast)
-                        * TConstruct.ingotLiquidValue
+                int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * LIQUID_VALUE_INGOT
                         / 2;
                 ItemStack metalCast = new ItemStack(arrowhead, 1, liquidDamage[iterTwo]);
                 tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
@@ -520,7 +525,7 @@ public class TinkerWeaponry {
             if (!entry.getValue().isToolpart) continue;
 
             // get a casting recipe for it D:
-            FluidStack liquid = new FluidStack(entry.getValue().fluid, TConstruct.ingotLiquidValue);
+            FluidStack liquid = new FluidStack(entry.getValue().fluid, LIQUID_VALUE_INGOT);
             CastingRecipe recipe = tb.getCastingRecipe(liquid, new ItemStack(TinkerSmeltery.metalPattern, 1, 2)); // pickaxe
             // no recipe found
             if (recipe == null) continue;

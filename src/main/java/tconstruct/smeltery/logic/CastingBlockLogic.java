@@ -1,5 +1,7 @@
 package tconstruct.smeltery.logic;
 
+import static tconstruct.util.Constants.LIQUID_VALUE_INGOT;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -24,7 +26,6 @@ import net.minecraftforge.fluids.IFluidTank;
 import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
 import mantle.blocks.iface.IFacingLogic;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.event.SmelteryCastEvent;
@@ -56,7 +57,7 @@ public abstract class CastingBlockLogic extends InventoryLogic
     public int updateCapacity() // Only used to initialize
     {
         ItemStack inv = inventory[0];
-        int ret = TConstruct.ingotLiquidValue;
+        int ret = LIQUID_VALUE_INGOT;
         int rec = liquidCasting.getCastingAmount(this.liquid, inv);
 
         if (rec > 0) ret = rec;
@@ -71,7 +72,7 @@ public abstract class CastingBlockLogic extends InventoryLogic
     }
 
     public int updateCapacity(int capacity) {
-        int ret = TConstruct.ingotLiquidValue;
+        int ret = LIQUID_VALUE_INGOT;
 
         if (capacity > 0) ret = capacity;
         else {

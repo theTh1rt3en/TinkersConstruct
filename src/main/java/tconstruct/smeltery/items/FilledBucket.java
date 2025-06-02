@@ -1,5 +1,7 @@
 package tconstruct.smeltery.items;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -18,10 +20,11 @@ import net.minecraftforge.fluids.BlockFluidFinite;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.extern.log4j.Log4j2;
 import mantle.world.WorldHelper;
-import tconstruct.TConstruct;
 import tconstruct.smeltery.TinkerSmeltery;
 
+@Log4j2(topic = MOD_ID)
 public class FilledBucket extends ItemBucket {
 
     public FilledBucket(Block b) {
@@ -113,7 +116,7 @@ public class FilledBucket extends ItemBucket {
                 world.setBlock(clickX, clickY, clickZ, TinkerSmeltery.fluidBlocks[type], metadata, 3); // TODO: Merge
                                                                                                        // liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
-                TConstruct.logger.warn("AIOBE occured when placing bucket into world; " + ex);
+                log.warn("AIOBE occured when placing bucket into world; " + ex);
                 return false;
             }
 

@@ -1,5 +1,7 @@
 package tconstruct.plugins.nei;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
@@ -8,9 +10,10 @@ import net.minecraft.client.gui.GuiScreen;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IStackPositioner;
 import codechicken.nei.recipe.GuiRecipe;
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 import tconstruct.tools.gui.CraftingStationGui;
 
+@Log4j2(topic = MOD_ID)
 public class CraftingStationStackPositioner implements IStackPositioner {
 
     @Override
@@ -32,7 +35,7 @@ public class CraftingStationStackPositioner implements IStackPositioner {
                 stack.rely += offsetY;
             }
         } else {
-            TConstruct.logger.warn("No CraftingStationGui found!");
+            log.warn("No CraftingStationGui found!");
         }
 
         return stacks;

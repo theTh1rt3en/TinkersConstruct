@@ -1,14 +1,17 @@
 package tconstruct.plugins.fmp;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import codechicken.microblock.BlockMicroMaterial;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import lombok.extern.log4j.Log4j2;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import tconstruct.TConstruct;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 
+@Log4j2(topic = MOD_ID)
 @Pulse(
         id = "Tinkers FMP Compatibility",
         description = "Makes Tinkers Blocks Multipart compatible",
@@ -19,7 +22,7 @@ public class TinkerFMP {
     @Handler
     public void init(FMLInitializationEvent event) {
 
-        TConstruct.logger.info("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
+        log.info("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
 
         // make Tconstruct blocks multipartable!
         if (TinkerWorld.metalBlock != null) {

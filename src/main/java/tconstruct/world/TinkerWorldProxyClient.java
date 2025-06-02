@@ -1,5 +1,7 @@
 package tconstruct.world;
 
+import static tconstruct.util.Constants.TINKERS_VILLAGER_ID;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelSlime;
@@ -68,8 +70,9 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon {
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, slimeRender);
         RenderingRegistry.registerEntityRenderingHandler(KingBlueSlime.class, slimeRender);
 
-        VillagerRegistry.instance()
-                .registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
+        VillagerRegistry.instance().registerVillagerSkin(
+                TINKERS_VILLAGER_ID,
+                new ResourceLocation("tinker", "textures/mob/villagertools.png"));
     }
 
     void registerManualIcons() {}

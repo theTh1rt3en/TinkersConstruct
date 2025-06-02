@@ -1,5 +1,7 @@
 package tconstruct.util.config;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.io.File;
 import java.util.Set;
 
@@ -10,9 +12,10 @@ import net.minecraftforge.common.config.Property;
 import com.google.common.collect.Sets;
 
 import cpw.mods.fml.common.Loader;
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 import tconstruct.library.tools.AbilityHelper;
 
+@Log4j2(topic = MOD_ID)
 public class PHConstruct {
 
     public static void initProps(File location) {
@@ -30,8 +33,8 @@ public class PHConstruct {
                 if (legacyFile17.exists()) legacyFile17.renameTo(mainFile);
             }
         } catch (Exception e) {
-            TConstruct.logger.warn("Could not update legacy configuration file for TConstruct. Reason:");
-            TConstruct.logger.warn(e.getLocalizedMessage());
+            log.warn("Could not update legacy configuration file for TConstruct. Reason:");
+            log.warn(e.getLocalizedMessage());
         }
 
         Configuration config = new Configuration(mainFile);

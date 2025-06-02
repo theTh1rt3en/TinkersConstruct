@@ -1,5 +1,7 @@
 package tconstruct.armor;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.EnumSet;
 
 import net.minecraft.block.Block;
@@ -53,11 +55,14 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 @Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
 public class TinkerArmor {
 
-    @SidedProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
+    private static final String CLIENT_SIDE_PROXY = "tconstruct.armor.ArmorProxyClient";
+    private static final String SERVER_SIDE_PROXY = "tconstruct.armor.ArmorProxyCommon";
+
+    @SidedProxy(clientSide = CLIENT_SIDE_PROXY, serverSide = SERVER_SIDE_PROXY)
     public static ArmorProxyCommon proxy;
 
     public static Item diamondApple;

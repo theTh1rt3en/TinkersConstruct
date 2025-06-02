@@ -1,5 +1,7 @@
 package tconstruct.client;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,9 +12,10 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 import tconstruct.library.tools.ToolCore;
 
+@Log4j2(topic = MOD_ID)
 public class ToolCoreRenderer implements IItemRenderer {
 
     private final boolean isEntity;
@@ -44,7 +47,7 @@ public class ToolCoreRenderer implements IItemRenderer {
             case EQUIPPED_FIRST_PERSON:
                 return !isEntity;
             default:
-                TConstruct.logger.warn("[TCon] Unhandled render case!");
+                log.warn("[TCon] Unhandled render case!");
             case FIRST_PERSON_MAP:
                 return false;
         }

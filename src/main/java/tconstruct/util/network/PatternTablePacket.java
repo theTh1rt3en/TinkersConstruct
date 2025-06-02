@@ -1,17 +1,20 @@
 package tconstruct.util.network;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import lombok.extern.log4j.Log4j2;
 import mantle.common.network.AbstractPacket;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
 
+@Log4j2(topic = MOD_ID)
 public class PatternTablePacket extends AbstractPacket {
 
     int x, y, z;
@@ -63,7 +66,7 @@ public class PatternTablePacket extends AbstractPacket {
                                 break;
                             }
                         }
-                        if (warning) TConstruct.logger.warn(
+                        if (warning) log.warn(
                                 "Possible packet-cheating with PatternTable for player "
                                         + player.getCommandSenderName());
                         else logic.setSelectedPattern(this.contents);

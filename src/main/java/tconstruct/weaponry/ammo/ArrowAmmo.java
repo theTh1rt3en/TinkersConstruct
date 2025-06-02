@@ -1,5 +1,7 @@
 package tconstruct.weaponry.ammo;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -7,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.CustomMaterial;
@@ -17,6 +19,7 @@ import tconstruct.library.weaponry.AmmoItem;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 
+@Log4j2(topic = MOD_ID)
 public class ArrowAmmo extends AmmoItem {
 
     public static ItemStack vanillaArrow;
@@ -27,18 +30,13 @@ public class ArrowAmmo extends AmmoItem {
 
     @Override
     public String getIconSuffix(int partType) {
-        switch (partType) {
-            case 0:
-                return "_arrow_head";
-            case 1:
-                return ""; // Doesn't break
-            case 2:
-                return "_arrow_shaft";
-            case 3:
-                return "_arrow_fletching";
-            default:
-                return "";
-        }
+        return switch (partType) {
+            case 0 -> "_arrow_head";
+            case 1 -> ""; // Doesn't break
+            case 2 -> "_arrow_shaft";
+            case 3 -> "_arrow_fletching";
+            default -> "";
+        };
     }
 
     @Override
@@ -116,7 +114,7 @@ public class ArrowAmmo extends AmmoItem {
         if (tool != null) {
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
             vanillaArrow = tool;
-        } else TConstruct.logger.error("Couldn't build vanilla equivalent of Tinker Arrow");
+        } else log.error("Couldn't build vanilla equivalent of Tinker Arrow");
     }
 
     @Override

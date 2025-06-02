@@ -13,6 +13,7 @@ import static net.minecraft.util.EnumChatFormatting.LIGHT_PURPLE;
 import static net.minecraft.util.EnumChatFormatting.RED;
 import static net.minecraft.util.EnumChatFormatting.WHITE;
 import static net.minecraft.util.EnumChatFormatting.YELLOW;
+import static tconstruct.util.Reference.MOD_ID;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -36,6 +37,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import lombok.extern.log4j.Log4j2;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.utils.RecipeRemover;
@@ -121,15 +123,19 @@ import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 
-@ObjectHolder(TConstruct.modID)
+@Log4j2(topic = MOD_ID)
+@ObjectHolder(MOD_ID)
 @Pulse(
         id = "Tinkers' Tools",
         description = "The main core of the mod! All of the tools, the tables, and the patterns are here.",
         forced = true)
 public class TinkerTools {
 
+    private static final String CLIENT_SIDE_PROXY = "tconstruct.tools.ToolProxyClient";
+    private static final String SERVER_SIDE_PROXY = "tconstruct.tools.ToolProxyCommon";
+
     /* Proxies for sides, used for graphics processing */
-    @SidedProxy(clientSide = "tconstruct.tools.ToolProxyClient", serverSide = "tconstruct.tools.ToolProxyCommon")
+    @SidedProxy(clientSide = CLIENT_SIDE_PROXY, serverSide = SERVER_SIDE_PROXY)
     public static ToolProxyCommon proxy;
 
     // backwards compatibility
@@ -1350,7 +1356,7 @@ public class TinkerTools {
         /* Thaumcraft */
         Object obj = ItemHelper.getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
         if (obj != null) {
-            TConstruct.logger.info("Thaumcraft detected. Adding thaumium tools.");
+            log.info("Thaumcraft detected. Adding thaumium tools.");
             TinkerTools.thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(MaterialID.Thaumium, "tinker", "thaumium", true);
             TConstructRegistry
@@ -1400,7 +1406,7 @@ public class TinkerTools {
             TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Thaumium);
             TConstructRegistry.addDefaultShardMaterial(MaterialID.Thaumium);
         } else {
-            TConstruct.logger.warn("Thaumcraft not detected.");
+            log.warn("Thaumcraft not detected.");
         }
 
         if (Loader.isModLoaded("Natura")) {

@@ -1,5 +1,7 @@
 package tconstruct.world.village;
 
+import static tconstruct.util.Constants.TINKERS_VILLAGER_ID;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +47,7 @@ public class TVillageTrades implements IVillageTradeHandler {
 
     @Override
     public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
-        if (villager.getProfession() == 78943) {
+        if (villager.getProfession() == TINKERS_VILLAGER_ID) {
             ItemStack ingredient;
             ItemStack ingredient2;
             ItemStack result;

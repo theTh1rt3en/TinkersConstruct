@@ -1,5 +1,7 @@
 package tconstruct.mechworks;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -25,14 +27,15 @@ import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
-@ObjectHolder(TConstruct.modID)
+@ObjectHolder(MOD_ID)
 // TODO handle migration of all items/blocks that were owned by the previously seperate mod
 @Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
 public class TinkerMechworks {
 
-    @SidedProxy(
-            clientSide = "tconstruct.mechworks.MechworksProxyClient",
-            serverSide = "tconstruct.mechworks.MechworksProxyCommon")
+    private static final String CLIENT_SIDE_PROXY = "tconstruct.mechworks.MechworksProxyClient";
+    private static final String SERVER_SIDE_PROXY = "tconstruct.mechworks.MechworksProxyCommon";
+
+    @SidedProxy(clientSide = CLIENT_SIDE_PROXY, serverSide = SERVER_SIDE_PROXY)
     public static MechworksProxyCommon proxy;
     // Traps
     public static Block landmine;

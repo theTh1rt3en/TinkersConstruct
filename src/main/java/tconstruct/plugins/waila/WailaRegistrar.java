@@ -1,19 +1,22 @@
 package tconstruct.plugins.waila;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraftforge.fluids.FluidStack;
 
+import lombok.extern.log4j.Log4j2;
 import mcp.mobius.waila.api.IWailaRegistrar;
-import tconstruct.TConstruct;
 import tconstruct.smeltery.blocks.LavaTankBlock;
 import tconstruct.smeltery.blocks.SmelteryBlock;
 import tconstruct.smeltery.logic.CastingBasinLogic;
 import tconstruct.smeltery.logic.CastingChannelLogic;
 import tconstruct.smeltery.logic.CastingTableLogic;
 
+@Log4j2(topic = MOD_ID)
 public class WailaRegistrar {
 
     public static void wailaCallback(IWailaRegistrar registrar) {
-        TConstruct.logger.info("[Waila-Compat] Got registrar: " + registrar);
+        log.info("[Waila-Compat] Got registrar: " + registrar);
 
         // Configs
         registrar.addConfig("Tinkers' Construct", "tcon.searedtank");

@@ -1,5 +1,7 @@
 package tconstruct.util;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.lang.reflect.Field;
 
 import net.minecraft.block.Block;
@@ -15,8 +17,9 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2(topic = MOD_ID)
 public class ItemHelper {
 
     public static Object getStaticItem(String name, String classPackage) {
@@ -27,7 +30,7 @@ public class ItemHelper {
             if ((ret instanceof ItemStack || ret instanceof Item)) return ret;
             return null;
         } catch (Exception e) {
-            TConstruct.logger.warn("Could not find " + name + "from " + classPackage);
+            log.warn("Could not find " + name + "from " + classPackage);
             return null;
         }
     }

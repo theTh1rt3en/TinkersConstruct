@@ -1,13 +1,16 @@
 package tconstruct.util.config;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import java.io.File;
 import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.common.Loader;
-import tconstruct.TConstruct;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2(topic = MOD_ID)
 public class DimensionBlacklist {
 
     public static ArrayList<Integer> blacklistedDims = new ArrayList<>();
@@ -63,7 +66,7 @@ public class DimensionBlacklist {
             config.load();
 
             twilightForestDimensionID = config.get("dimension", "dimensionID", -100).getInt();
-            TConstruct.logger.trace("Twilight Forest Dim ID: " + twilightForestDimensionID);
+            log.trace("Twilight Forest Dim ID: " + twilightForestDimensionID);
         } else twilightForestDimensionID = -100;
     }
 
@@ -72,11 +75,10 @@ public class DimensionBlacklist {
         File newFile = new File(location + File.separator + "biomesoplenty" + File.separator + "ids.cfg");
         if (newFile.exists()) {
             Configuration config = new Configuration(newFile);
-
             config.load();
 
             promisedLandDimensionID = config.get("dimension settings", "Promised Land Dimension ID", -200).getInt();
-            TConstruct.logger.trace("Promised Lands Dim ID: " + promisedLandDimensionID);
+            log.trace("Promised Lands Dim ID: " + promisedLandDimensionID);
         } else promisedLandDimensionID = -100;
     }
 }
