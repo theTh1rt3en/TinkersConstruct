@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.List;
 
+import lombok.Getter;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -83,6 +84,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
 
     private int chestLeft = 0;
     private int chestTop = 0;
+    @Getter
     private int chestWidth = 0;
     private int chestHeight = 0;
 
@@ -389,10 +391,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler {
             h -= slotElement.h;
         }
         return h;
-    }
-
-    public int getChestWidth() {
-        return chestWidth;
     }
 
     // updatePosition

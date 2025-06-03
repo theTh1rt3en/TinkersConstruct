@@ -157,7 +157,7 @@ public class CraftingStationContainer extends Container {
     }
 
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int index) {
-        Slot slot = (Slot) this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot == null || !slot.getHasStack()) {
             return null;
@@ -318,7 +318,7 @@ public class CraftingStationContainer extends Container {
 
         if (stack.stackSize > 0) {
             while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart) {
-                otherInventorySlot = (Slot) this.inventorySlots.get(slotIndex);
+                otherInventorySlot = this.inventorySlots.get(slotIndex);
                 copyStack = otherInventorySlot.getStack();
 
                 if (copyStack == null && otherInventorySlot.isItemValid(stack)) {
@@ -364,7 +364,7 @@ public class CraftingStationContainer extends Container {
 
         if (stack.isStackable()) {
             while (stack.stackSize > 0 && (!useEndIndex && k < endIndex || useEndIndex && k >= startIndex)) {
-                slot = (Slot) this.inventorySlots.get(k);
+                slot = this.inventorySlots.get(k);
                 itemstack1 = slot.getStack();
 
                 if (itemstack1 != null && itemstack1.getItem() == stack.getItem()
@@ -405,7 +405,7 @@ public class CraftingStationContainer extends Container {
         int k = useEndIndex ? endIndex - 1 : startIndex;
 
         while (!useEndIndex && k < endIndex || useEndIndex && k >= startIndex) {
-            final Slot slot = (Slot) this.inventorySlots.get(k);
+            final Slot slot = this.inventorySlots.get(k);
             ItemStack itemstack1 = slot.getStack();
 
             if ((itemstack1 == null || itemstack1.stackSize == 0) && slot.isItemValid(stack)

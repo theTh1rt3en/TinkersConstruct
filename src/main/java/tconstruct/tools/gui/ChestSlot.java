@@ -1,5 +1,6 @@
 package tconstruct.tools.gui;
 
+import lombok.Getter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -16,6 +17,7 @@ public class ChestSlot extends Slot {
      */
     public boolean enabled = true;
     private final int accessSide;
+    @Getter
     private final int visualIndex;
 
     public ChestSlot(IInventory inventory, int index, int visualIndex, int xPosition, int yPosition, int accessSide) {
@@ -28,10 +30,6 @@ public class ChestSlot extends Slot {
     @Override
     public boolean func_111238_b /* isEnabled */() {
         return enabled;
-    }
-
-    public int getVisualIndex() {
-        return visualIndex;
     }
 
     public void disable() {

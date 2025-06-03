@@ -53,6 +53,7 @@ import tconstruct.tools.gui.BattlesignGui;
 import tconstruct.tools.gui.CraftingStationGui;
 import tconstruct.tools.gui.FrypanGui;
 import tconstruct.tools.gui.FurnaceGui;
+import tconstruct.tools.gui.PartChestGui;
 import tconstruct.tools.gui.PartCrafterGui;
 import tconstruct.tools.gui.PatternChestGui;
 import tconstruct.tools.gui.StencilTableGui;
@@ -63,6 +64,7 @@ import tconstruct.tools.logic.CraftingStationLogic;
 import tconstruct.tools.logic.FrypanLogic;
 import tconstruct.tools.logic.FurnaceLogic;
 import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PartChestLogic;
 import tconstruct.tools.logic.PatternChestLogic;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.tools.logic.ToolForgeLogic;
@@ -96,11 +98,8 @@ public class ToolProxyClient extends ToolProxyCommon {
         RenderingRegistry
                 .registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Items.potionitem, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerEntityRenderer());
-        // RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
-        // RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
-        // MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
         FlexibleToolRenderer renderer = new FlexibleToolRenderer();
         MinecraftForgeClient.registerItemRenderer(TinkerTools.pickaxe, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.shovel, renderer);
@@ -120,8 +119,6 @@ public class ToolProxyClient extends ToolProxyCommon {
         MinecraftForgeClient.registerItemRenderer(TinkerTools.rapier, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.scythe, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
-        // ToolCoreRenderer daggerRenderer = new ToolCoreRenderer(true);
-        // MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, daggerRenderer); // todo proper renderer
 
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(BattlesignLogic.class, new BattlesignTesr());
     }
@@ -206,12 +203,6 @@ public class ToolProxyClient extends ToolProxyCommon {
                         new ItemStack(TinkerTools.toolRod, 1, 11),
                         null,
                         ""));
-        // MantleClientRegistry.registerManualIcon("shortbowIcon", ToolBuilder.instance.buildTool(new
-        // ItemStack(TinkerTools.toolRod, 1, 10), new ItemStack(TinkerWeaponry.bowstring, 1, 0), new
-        // ItemStack(TinkerTools.toolRod, 1, 12), ""));
-        // MantleClientRegistry.registerManualIcon("arrowIcon", ToolBuilder.instance.buildTool(new
-        // ItemStack(TinkerWeaponry.arrowhead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new
-        // ItemStack(TinkerWeaponry.fletching, 1, 0), ""));
 
         MantleClientRegistry.registerManualIcon(
                 "hammericon",
@@ -597,6 +588,7 @@ public class ToolProxyClient extends ToolProxyCommon {
         TProxyCommon.registerClientGuiHandler(toolStationID, this);
         TProxyCommon.registerClientGuiHandler(partBuilderID, this);
         TProxyCommon.registerClientGuiHandler(patternChestID, this);
+        TProxyCommon.registerClientGuiHandler(partChestID, this);
         TProxyCommon.registerClientGuiHandler(stencilTableID, this);
         TProxyCommon.registerClientGuiHandler(frypanGuiID, this);
         TProxyCommon.registerClientGuiHandler(toolForgeID, this);
@@ -628,6 +620,8 @@ public class ToolProxyClient extends ToolProxyCommon {
                 x,
                 y,
                 z);
+        if (ID == ToolProxyCommon.partChestID)
+            return new PartChestGui(player.inventory, (PartChestLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == ToolProxyCommon.frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == ToolProxyCommon.battlesignTextID)
@@ -658,16 +652,6 @@ public class ToolProxyClient extends ToolProxyCommon {
 
     @SubscribeEvent
     public void onSound(SoundLoadEvent event) {
-        // try {
-        /*
-         * SoundManager soundmanager = event.manager; soundmanager.addSound("tinker:frypan_hit.ogg");
-         * soundmanager.addSound("tinker:little_saw.ogg"); soundmanager.addSound("tinker:launcher_clank.ogg");
-         * TConstruct.logger.info("Successfully loaded sounds.");
-         */
-        // } catch (Exception e) {
-        // TConstruct.logger.error("Failed to register one or more sounds");
-        // }
-
         MinecraftForge.EVENT_BUS.unregister(this);
     }
 

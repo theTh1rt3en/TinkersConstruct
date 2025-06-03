@@ -34,7 +34,6 @@ public class EquipBlock extends InventoryBlock {
         super(material);
         this.setHardness(0.3f);
         this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
-        // this.setCreativeTab(ToolConstruct.materialTab);
     }
 
     @Override
@@ -56,8 +55,6 @@ public class EquipBlock extends InventoryBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister par1IconRegister) {
-        // this.blockIcon =
-        // par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
     }
 
     @Override
@@ -104,7 +101,6 @@ public class EquipBlock extends InventoryBlock {
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         int newMeta = switch (i3) {
-            case 3 -> 0;
             case 0 -> 3;
             case 1 -> 1;
             case 2 -> 2;

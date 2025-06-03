@@ -8,7 +8,7 @@ public class ToolStationItemBlock extends MultiItemBlock {
 
     public static final String[] blockTypes = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest",
             "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper", "PatternShaper",
-            "PatternShaper", "PatternShaper", "CastingTable" };
+            "PatternShaper", "PatternShaper", "PartChest" };
 
     public ToolStationItemBlock(Block b) {
         super(b, "ToolStation", blockTypes);

@@ -179,8 +179,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 movingobjectposition = new MovingObjectPosition(entity);
             }
 
-            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
+            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer entityplayer) {
 
                 if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer
                         && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer)) {
@@ -236,8 +235,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     }
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damageInflicted)) {
-                        if (movingobjectposition.entityHit instanceof EntityLivingBase) {
-                            EntityLivingBase entityliving = (EntityLivingBase) movingobjectposition.entityHit;
+                        if (movingobjectposition.entityHit instanceof EntityLivingBase entityliving) {
 
                             if (!this.worldObj.isRemote) {
                                 entityliving.setArrowCountInEntity(entityliving.getArrowCountInEntity() + 1);
@@ -268,9 +266,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                     && this.shootingEntity instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler
                                         .sendPacket(new S2BPacketChangeGameState(6, 0));
-                                // TConstruct.packetPipeline.sendTo(new
-                                // S2BPacketChangeGameState(6, 0),
-                                // (EntityPlayerMP) this.shootingEntity);
                             }
                         }
 
@@ -279,12 +274,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         if (!(movingobjectposition.entityHit instanceof EntityEnderman)) {
                             this.motionX = 0;
                             this.motionZ = 0;
-                            if (movingobjectposition.entityHit instanceof EntityPlayer) {
-                                EntityPlayer player = (EntityPlayer) movingobjectposition.entityHit;
+                            if (movingobjectposition.entityHit instanceof EntityPlayer player) {
                                 if (canBePickedUp == 2 || player.inventory.addItemStackToInventory(returnStack))
                                     this.setDead();
-                            } else if (movingobjectposition.entityHit instanceof EntityLivingBase) {
-                                EntityLivingBase living = (EntityLivingBase) movingobjectposition.entityHit;
+                            } else if (movingobjectposition.entityHit instanceof EntityLivingBase living) {
                                 if (canBePickedUp == 2 || addItemStackToInventory(returnStack, living)) this.setDead();
                             }
                         }
@@ -411,12 +404,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                // TODO is this needed???
-                // crashreportcategory.addCrashSection("Item ID",
-                // Integer.valueOf(par1ItemStack.itemID));
                 crashreportcategory.addCrashSection("Item data", par1ItemStack.getItemDamage());
-                // crashreportcategory.addCrashSectionCallable("Item name", new
-                // CallableItemName(this, par1ItemStack));
                 throw new ReportedException(crashreport);
             }
         }

@@ -13,6 +13,8 @@ crafters.PartBuilder=Part Builder
 crafters.PatternShaper=Stencil Table
 crafters.CraftingStation=Crafting Station
 inventory.PatternChest=Pattern Chest
+inventory.PartChest=Part Chest
+toolstation.partholder=Part Chest
 crafters.Smeltery=Smeltery
 crafters.Frypan=Frying Pan
 inventory.knapsack=Knapsack
@@ -23,6 +25,7 @@ tile.ToolStation.name=Tool Station
 ToolStation.Crafter.name=Tool Station
 ToolStation.Parts.name=Part Builder
 ToolStation.PatternChest.name=Pattern Chest
+ToolStation.PartChest.name=Part Chest
 ToolStation.PatternShaper.name=Stencil Table
 ToolStation.CastingTable.name=Casting Table
 tile.FurnaceSlab.name=Slab Furnace
@@ -1205,4 +1208,3 @@ item.iguana.tcon.clayBucket.Quartz.name=Molten Quartz Clay Bucket
 #mobsinfo compat
 tconstruct.mobsinfocompat.tinkers_construct_beheading=Each level of beheading on your weapon gives additional %.2f%%
 tconstruct.mobsinfocompat.tinkers_construct_beheading_1=If you are using a Cleaver, it gives another %.2f%%
-

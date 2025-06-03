@@ -3,6 +3,7 @@ package tconstruct.tools.gui;
 import java.util.Collections;
 import java.util.List;
 
+import cpw.mods.fml.common.Optional.Interface;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,7 @@ import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.PartBuilderLogic;
 
-@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+@Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
 
     PartBuilderLogic logic;
@@ -120,9 +121,7 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler {
 
     void drawMaterialInformation() {
         ItemStack top = logic.getStackInSlot(2);
-        // ItemStack topResult = logic.getStackInSlot(4);
         ItemStack bottom = logic.getStackInSlot(3);
-        // ItemStack bottomResult = logic.getStackInSlot(6);
         if (topMaterial != top) {
             topMaterial = top;
             int topID = PatternBuilder.instance.getPartID(top);

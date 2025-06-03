@@ -101,7 +101,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory 
                     }
                 }
             }
-            if (!name.equals("")) // Name item
+            if (!name.isEmpty()) // Name item
                 output = tryRenameTool(output, name);
         }
         inventory[0] = output;

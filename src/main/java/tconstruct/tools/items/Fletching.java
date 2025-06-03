@@ -17,7 +17,7 @@ public class Fletching extends CraftingItem implements IToolPart {
     private static String[] buildTextureNames(String textureType) {
         String[] names = new String[toolMaterialNames.length];
         for (int i = 0; i < toolMaterialNames.length; i++) {
-            if (toolTextureNames[i].equals("")) names[i] = "";
+            if (toolTextureNames[i].isEmpty()) names[i] = "";
             else names[i] = toolTextureNames[i] + textureType;
         }
         return names;

@@ -54,8 +54,7 @@ public final class ToolStationGuiHelper {
         yPos = y + 8;
 
         // get the correct tags
-        if (item instanceof IModifyable) {
-            IModifyable modifyable = (IModifyable) item;
+        if (item instanceof IModifyable modifyable) {
             tags = tags.getCompoundTag(modifyable.getBaseTagName());
             categories = Arrays.asList(modifyable.getTraits());
         }

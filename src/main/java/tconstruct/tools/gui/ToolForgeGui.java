@@ -72,7 +72,7 @@ public class ToolForgeGui extends ToolStationGui {
     @Override
     protected void actionPerformed(GuiButton button) {
         GuiButtonTool b = (GuiButtonTool) button;
-        ((GuiButton) this.buttonList.get(selectedButton)).enabled = true;
+        this.buttonList.get(selectedButton).enabled = true;
         selectedButton = button.id;
         button.enabled = false;
 

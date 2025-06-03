@@ -1,5 +1,7 @@
 package tconstruct.tools.gui;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.relauncher.Side;
@@ -41,7 +43,11 @@ public class GuiSliderWidget {
     protected int increment;
     // positioning info
     protected int currentValue;
+    @Setter
+    @Getter
     protected boolean enabled;
+    @Setter
+    @Getter
     protected boolean hidden;
 
     protected boolean isScrolling;
@@ -125,28 +131,12 @@ public class GuiSliderWidget {
         return Math.min(maxValue, Math.max(minValue, currentValue));
     }
 
-    public boolean isHidden() {
-        return this.hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     public void enable() {
         this.enabled = true;
     }
 
     public void disable() {
         this.enabled = false;
-    }
-
-    public boolean isEnabled() {
-        return this.enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public void hide() {

@@ -65,21 +65,11 @@ public class Manual extends CraftingItem {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
         switch (stack.getItemDamage()) {
-            case 0:
-                list.add("\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"));
-                break;
-            case 1:
-                list.add("\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"));
-                break;
-            case 2:
-                list.add("\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"));
-                break;
-            case 4:
-                list.add("\u00a7o" + StatCollector.translateToLocal("manual4.tooltip"));
-                break;
-            default:
-                list.add("\u00a7o" + StatCollector.translateToLocal("manual5.tooltip"));
-                break;
+            case 0 -> list.add("\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"));
+            case 1 -> list.add("\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"));
+            case 2 -> list.add("\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"));
+            case 4 -> list.add("\u00a7o" + StatCollector.translateToLocal("manual4.tooltip"));
+            default -> list.add("\u00a7o" + StatCollector.translateToLocal("manual5.tooltip"));
         }
     }
 }

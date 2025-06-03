@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -42,6 +43,7 @@ public class Pattern extends CraftingItem implements IPattern {
             "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard",
             "bowstring", "fletching", "arrowhead" };
 
+    @Getter
     private static final Map<Integer, Integer> patternCosts = buildPatternCostMap();
 
     @Override
@@ -106,10 +108,6 @@ public class Pattern extends CraftingItem implements IPattern {
             if (cost - (int) cost < 0.1) list.add(StatCollector.translateToLocal("pattern1.tooltip") + (int) cost);
             else list.add(StatCollector.translateToLocal("pattern2.tooltip") + cost);
         }
-    }
-
-    public static Map<Integer, Integer> getPatternCosts() {
-        return patternCosts;
     }
 
     public static void setPatternCost(Integer index, Integer newCost) {

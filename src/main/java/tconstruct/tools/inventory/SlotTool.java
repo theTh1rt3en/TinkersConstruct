@@ -35,7 +35,6 @@ public class SlotTool extends Slot {
 
     public void onPickupFromSlot(EntityPlayer par1EntityPlayer, ItemStack stack) {
         this.onCrafting(stack);
-        // stack.setUnlocalizedName("\u00A7f" + toolName);
         super.onPickupFromSlot(par1EntityPlayer, stack);
     }
 
@@ -44,7 +43,6 @@ public class SlotTool extends Slot {
      * internal count then calls onCrafting(item).
      */
     protected void onCrafting(ItemStack stack, int par2) {
-        // this.field_75228_b += par2;
         this.onCrafting(stack);
     }
 

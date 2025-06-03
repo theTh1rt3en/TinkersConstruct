@@ -63,7 +63,6 @@ public class DaggerEntity extends ProjectileBase {
                 movingobjectposition.entityHit,
                 (ToolCore) returnStack.getItem(),
                 PHConstruct.daggerAdditionalThrowDamage);
-        // super.onHitEntity(movingobjectposition);
     }
 
     @Override

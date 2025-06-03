@@ -25,6 +25,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.CraftingStationLogic;
 import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PartChestLogic;
 import tconstruct.tools.logic.PatternChestLogic;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.tools.logic.ToolForgeLogic;
@@ -46,8 +47,8 @@ public class CraftingSlab extends InventorySlab {
         return new String[] { "craftingstation_top", "craftingstation_slab_side", "craftingstation_bottom",
                 "toolstation_top", "toolstation_slab_side", "toolstation_bottom", "partbuilder_oak_top",
                 "partbuilder_slab_side", "partbuilder_oak_bottom", "stenciltable_oak_top", "stenciltable_slab_side",
-                "stenciltable_oak_bottom", "patternchest_top", "patternchest_slab_side", "patternchest_bottom",
-                "toolforge_top", "toolforge_slab_side", "toolforge_top" };
+                "stenciltable_oak_bottom", "patternchest", "patternchest_slab_side", "patternchest", "toolforge_top",
+                "toolforge_slab_side", "toolforge_top", "partchest", "partchest_slab_side", "partchest" };
     }
 
     @Override
@@ -96,6 +97,7 @@ public class CraftingSlab extends InventorySlab {
             case 3 -> new StencilTableLogic();
             case 4 -> new PatternChestLogic();
             case 5 -> new ToolForgeLogic();
+            case 6 -> new PartChestLogic();
             default -> null;
         };
     }
@@ -110,9 +112,9 @@ public class CraftingSlab extends InventorySlab {
             case 3 -> ToolProxyCommon.stencilTableID;
             case 4 -> ToolProxyCommon.patternChestID;
             case 5 -> ToolProxyCommon.toolForgeID;
+            case 6 -> ToolProxyCommon.partChestID;
             default -> -1;
         };
-
     }
 
     @Override
@@ -122,7 +124,7 @@ public class CraftingSlab extends InventorySlab {
 
     @Override
     public void getSubBlocks(Item b, CreativeTabs tab, List<ItemStack> list) {
-        for (int iter = 0; iter < 6; iter++) {
+        for (int iter = 0; iter < 7; iter++) {
             list.add(new ItemStack(b, 1, iter));
         }
     }
@@ -134,6 +136,12 @@ public class CraftingSlab extends InventorySlab {
             NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("Inventory");
             TileEntity te = world.getTileEntity(x, y, z);
             if (inventory != null && te instanceof PatternChestLogic logic) {
+                logic.readInventoryFromNBT(inventory);
+                logic.xCoord = x;
+                logic.yCoord = y;
+                logic.zCoord = z;
+                keptInventory = true;
+            } else if (inventory != null && te instanceof PartChestLogic logic) {
                 logic.readInventoryFromNBT(inventory);
                 logic.xCoord = x;
                 logic.yCoord = y;
@@ -163,6 +171,7 @@ public class CraftingSlab extends InventorySlab {
             case 3 -> new StencilTableLogic();
             case 4 -> new PatternChestLogic();
             case 5 -> new ToolForgeLogic();
+            case 6 -> new PartChestLogic();
             default -> null;
         };
     }
@@ -202,6 +211,34 @@ public class CraftingSlab extends InventorySlab {
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
                 }
+            } else if (meta == 6) {
+                ItemStack chest = new ItemStack(this, 1, 6);
+                NBTTagCompound inventory = new NBTTagCompound();
+                PartChestLogic logic = (PartChestLogic) world.getTileEntity(x, y, z);
+                logic.writeInventoryToNBT(inventory);
+                NBTTagCompound baseTag = new NBTTagCompound();
+                baseTag.setTag("Inventory", inventory);
+                chest.setTagCompound(baseTag);
+
+                // remove content. This is necessary because otherwise the parts would also spill into the world
+                // we don't want to prevent that since that's the intended behaviour for explosions.
+                for (int i = 0; i < logic.getSizeInventory(); i++) logic.setInventorySlotContents(i, null);
+
+                // Spawn item
+                if (!player.capabilities.isCreativeMode || player.isSneaking()) {
+                    float f = 0.7F;
+                    double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(
+                            world,
+                            (double) x + d0,
+                            (double) y + d1,
+                            (double) z + d2,
+                            chest);
+                    entityitem.delayBeforeCanPickup = 10;
+                    world.spawnEntityInWorld(entityitem);
+                }
             }
         }
         return world.setBlockToAir(x, y, z);
@@ -209,7 +246,7 @@ public class CraftingSlab extends InventorySlab {
 
     @Override
     public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
-        if (meta != 4) super.harvestBlock(world, player, x, y, z, meta);
+        if (meta != 4 && meta != 6) super.harvestBlock(world, player, x, y, z, meta);
         // Do nothing
     }
 }

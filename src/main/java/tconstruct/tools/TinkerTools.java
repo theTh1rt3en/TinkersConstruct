@@ -111,6 +111,7 @@ import tconstruct.tools.logic.CraftingStationLogic;
 import tconstruct.tools.logic.FrypanLogic;
 import tconstruct.tools.logic.FurnaceLogic;
 import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PartChestLogic;
 import tconstruct.tools.logic.PatternChestLogic;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.tools.logic.ToolForgeLogic;
@@ -257,6 +258,7 @@ public class TinkerTools {
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
         GameRegistry.registerTileEntity(PartBuilderLogic.class, "PartCrafter");
         GameRegistry.registerTileEntity(PatternChestLogic.class, "PatternHolder");
+        GameRegistry.registerTileEntity(PartChestLogic.class, "PartHolder");
         GameRegistry.registerTileEntity(StencilTableLogic.class, "PatternShaper");
         GameRegistry.registerBlock(TinkerTools.toolForge, MetadataItemBlock.class, "ToolForgeBlock");
         GameRegistry.registerTileEntity(ToolForgeLogic.class, "ToolForge");
@@ -347,8 +349,6 @@ public class TinkerTools {
         TinkerTools.potionLauncher = new PotionLauncher().setUnlocalizedName("tconstruct.PotionLauncher");
         GameRegistry.registerItem(TinkerTools.potionLauncher, "potionLauncher");
 
-        // TinkerTools.pickaxeHead = new ToolPart("_pickaxe_head",
-        // "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
         TinkerTools.pickaxeHead = new DynamicToolPart("_pickaxe_head", "PickaxeHead");
         TinkerTools.shovelHead = new DynamicToolPart("_shovel_head", "ShovelHead");
         TinkerTools.hatchetHead = new DynamicToolPart("_axe_head", "AxeHead");
@@ -518,7 +518,6 @@ public class TinkerTools {
         TConstructRegistry.toolTab.init(tool);
     }
 
-    // @Override
     public int getBurnTime(ItemStack fuel) {
         if (fuel.getItem() == TinkerTools.materials && fuel.getItemDamage() == 7) return 26400;
         return 0;
@@ -785,10 +784,6 @@ public class TinkerTools {
         chiseling.addDetailing(Blocks.sandstone, 0, Blocks.sandstone, 2, TinkerTools.chisel);
         chiseling.addDetailing(Blocks.sandstone, 2, Blocks.sandstone, 1, TinkerTools.chisel);
         chiseling.addDetailing(Blocks.sandstone, 1, TinkerTools.multiBrick, 1, TinkerTools.chisel);
-        // chiseling.addDetailing(Block.netherrack, 0, TRepo.multiBrick, 2,
-        // TRepo.chisel);
-        // chiseling.addDetailing(Block.stone_refined, 0, TRepo.multiBrick, 3,
-        // TRepo.chisel);
         chiseling.addDetailing(Items.iron_ingot, 0, TinkerTools.multiBrick, 4, TinkerTools.chisel);
         chiseling.addDetailing(Items.gold_ingot, 0, TinkerTools.multiBrick, 5, TinkerTools.chisel);
         chiseling.addDetailing(Items.dye, 4, TinkerTools.multiBrick, 6, TinkerTools.chisel);
@@ -808,10 +803,6 @@ public class TinkerTools {
         chiseling.addDetailing(Blocks.stonebrick, 0, TinkerTools.multiBrickFancy, 15, TinkerTools.chisel);
         chiseling.addDetailing(TinkerTools.multiBrickFancy, 15, TinkerTools.multiBrickFancy, 14, TinkerTools.chisel);
         chiseling.addDetailing(TinkerTools.multiBrickFancy, 14, Blocks.stonebrick, 3, TinkerTools.chisel);
-        /*
-         * chiseling.addDetailing(TRepo.multiBrick, 14, TRepo.multiBrickFancy, 14, TRepo.chisel);
-         * chiseling.addDetailing(TRepo.multiBrick, 15, TRepo.multiBrickFancy, 15, TRepo.chisel);
-         */
 
         if (TinkerSmeltery.smeltery != null) {
             chiseling.addDetailing(TinkerSmeltery.smeltery, 4, TinkerSmeltery.smeltery, 6, TinkerTools.chisel);

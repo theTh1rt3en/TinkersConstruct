@@ -1,7 +1,5 @@
 package tconstruct.tools.inventory;
 
-import java.util.Random;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -13,9 +11,6 @@ import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
 
 public class SlotToolForge extends SlotTool {
-
-    /** The player that is using the GUI where this slot resides. */
-    Random random = new Random();
 
     public SlotToolForge(EntityPlayer entityplayer, IInventory builder, int par3, int par4, int par5) {
         super(entityplayer, builder, par3, par4, par5);
