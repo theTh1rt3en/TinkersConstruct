@@ -66,7 +66,7 @@ public class DimensionBlacklist {
             config.load();
 
             twilightForestDimensionID = config.get("dimension", "dimensionID", -100).getInt();
-            log.trace("Twilight Forest Dim ID: " + twilightForestDimensionID);
+            log.trace("Twilight Forest Dim ID: {}", twilightForestDimensionID);
         } else twilightForestDimensionID = -100;
     }
 
@@ -78,7 +78,7 @@ public class DimensionBlacklist {
             config.load();
 
             promisedLandDimensionID = config.get("dimension settings", "Promised Land Dimension ID", -200).getInt();
-            log.trace("Promised Lands Dim ID: " + promisedLandDimensionID);
+            log.trace("Promised Lands Dim ID: {}", promisedLandDimensionID);
         } else promisedLandDimensionID = -100;
     }
 }

@@ -35,7 +35,6 @@ public class ArmorProxyCommon implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == ArmorProxyCommon.inventoryGui) {
-            // GuiInventory inv = new GuiInventory(player);
             return player.inventoryContainer;
         }
         if (ID == ArmorProxyCommon.armorGuiID) {
@@ -64,31 +63,31 @@ public class ArmorProxyCommon implements IGuiHandler {
 
     public void dumpTPlayerStats(TPlayerStats stats) {
         log.debug("~~~~~~~~~~~~~~~~~ STATS ~~~~~~~~~~~~~~~~~");
-        log.debug("Player: " + stats.player.get().getCommandSenderName());
-        log.debug("Level: " + stats.level);
-        log.debug("BonusHealth: " + stats.bonusHealth);
-        log.debug("Damage: " + stats.damage);
-        log.debug("Hunger: " + stats.hunger);
-        log.debug("Prev Dim: " + stats.previousDimension);
-        log.debug("Climb Walls: " + stats.climbWalls);
-        log.debug("Activate Goggles: " + stats.activeGoggles);
-        log.debug("Beginer Manual: " + stats.beginnerManual);
-        log.debug("Material Manual: " + stats.materialManual);
-        log.debug("Smeltery Manual: " + stats.smelteryManual);
-        log.debug("Weponary Manual: " + stats.weaponryManual);
-        log.debug("BattleSign Bonus: " + stats.battlesignBonus);
-        log.debug("Derp Level: " + stats.derpLevel);
+        log.debug("Player: {}", stats.player.get().getCommandSenderName());
+        log.debug("Level: {}", stats.level);
+        log.debug("BonusHealth: {}", stats.bonusHealth);
+        log.debug("Damage: {}", stats.damage);
+        log.debug("Hunger: {}", stats.hunger);
+        log.debug("Prev Dim: {}", stats.previousDimension);
+        log.debug("Climb Walls: {}", stats.climbWalls);
+        log.debug("Activate Goggles: {}", stats.activeGoggles);
+        log.debug("Beginner Manual: {}", stats.beginnerManual);
+        log.debug("Material Manual: {}", stats.materialManual);
+        log.debug("Smeltery Manual: {}", stats.smelteryManual);
+        log.debug("Weaponry Manual: {}", stats.weaponryManual);
+        log.debug("BattleSign Bonus: {}", stats.battlesignBonus);
+        log.debug("Derp Level: {}", stats.derpLevel);
         int i = 0;
         for (ItemStack stack : stats.armor.inventory) {
             if (stack != null) {
-                log.debug("Armor Slot: " + i + " Contains: " + stack.getDisplayName());
+                log.debug("Armor Slot: {} Contains: {}", i, stack.getDisplayName());
             }
             i++;
         }
         i = 0;
         for (ItemStack stack : stats.knapsack.inventory) {
             if (stack != null) {
-                log.debug("Knapsack Slot: " + i + " Contains: " + stack.getDisplayName());
+                log.debug("Knapsack Slot: {} Contains: {}", i, stack.getDisplayName());
             }
             i++;
         }

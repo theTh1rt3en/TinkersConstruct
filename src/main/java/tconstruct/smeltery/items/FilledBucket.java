@@ -29,8 +29,6 @@ public class FilledBucket extends ItemBucket {
 
     public FilledBucket(Block b) {
         super(b);
-        // setTextureFile(TRepo.craftingTexture);
-        // setIconIndex(224);
         setUnlocalizedName("tconstruct.bucket");
         setContainerItem(Items.bucket);
         this.setHasSubtypes(true);
@@ -38,23 +36,10 @@ public class FilledBucket extends ItemBucket {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        float var4 = 1.0F;
-        double trueX = player.prevPosX + (player.posX - player.prevPosX) * (double) var4;
-        double trueY = player.prevPosY + (player.posY - player.prevPosY) * (double) var4
-                + 1.62D
-                - (double) player.yOffset;
-        double trueZ = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) var4;
         boolean wannabeFull = false;
         MovingObjectPosition position = this.getMovingObjectPositionFromPlayer(world, player, wannabeFull);
 
         if (position != null) {
-            /*
-             * FillBucketEvent event = new FillBucketEvent(player, stack, world, position); if
-             * (MinecraftForge.EVENT_BUS.post(event)) { return stack; } if (event.getResult() == Event.Result.ALLOW) {
-             * if (player.capabilities.isCreativeMode) { return stack; } if (--stack.stackSize <= 0) { return
-             * event.result; } if (!player.inventory.addItemStackToInventory(event.result)) {
-             * player.dropPlayerItem(event.result); } return stack; }
-             */
 
             if (position.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 int clickX = position.blockX;
@@ -116,7 +101,7 @@ public class FilledBucket extends ItemBucket {
                 world.setBlock(clickX, clickY, clickZ, TinkerSmeltery.fluidBlocks[type], metadata, 3); // TODO: Merge
                                                                                                        // liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
-                log.warn("AIOBE occured when placing bucket into world; " + ex);
+                log.warn("AIOBE occured when placing bucket into world;", ex);
                 return false;
             }
 

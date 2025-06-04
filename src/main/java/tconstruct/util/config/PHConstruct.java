@@ -27,7 +27,6 @@ public class PHConstruct {
         File mainFile = new File(location + "/TinkersConstruct.cfg");
 
         Configuration config = new Configuration(mainFile);
-        // config.load(); /* Load happens in the constructor */
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 

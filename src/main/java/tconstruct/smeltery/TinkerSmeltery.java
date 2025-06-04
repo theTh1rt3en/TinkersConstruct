@@ -101,7 +101,6 @@ public class TinkerSmeltery {
 
     public static Item metalPattern;
     public static Item clayPattern;
-    // public static Item armorPattern;
     public static Item buckets;
     public static Block smeltery;
     public static Block lavaTank;
@@ -113,10 +112,8 @@ public class TinkerSmeltery {
     public static Block searedSlab;
     public static Block glueBlock;
     public static Block clearGlass;
-    // public static Block stainedGlass;
     public static Block stainedGlassClear;
     public static Block glassPane;
-    // public static Block stainedGlassPane;
     public static Block stainedGlassClearPane;
     public static Block glassMagicSlab;
     public static Block stainedGlassMagicSlab;
@@ -1528,21 +1525,6 @@ public class TinkerSmeltery {
                 null,
                 true,
                 100); // glue
-
-        // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new
-        // FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME),
-        // null, true, 100);
-
-        // Armor casts
-        /*
-         * FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F,
-         * Applications.BASIN); FluidStack aluFlu = new FluidStack(TRepo.moltenAlubrassFluid,
-         * TConstruct.ingotLiquidValue * 10); FluidStack gloFlu = new FluidStack(TRepo.moltenGoldFluid,
-         * TConstruct.ingotLiquidValue * 10); ItemStack[] armor = { new ItemStack(helmetWood), new
-         * ItemStack(chestplateWood), new ItemStack(leggingsWood), new ItemStack(bootsWood) }; for (int sc = 0; sc <
-         * armor.length; sc++) { basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), aluFlu, armor[sc],
-         * 50, frp); basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), gloFlu, armor[sc], 50, frp); }
-         */
     }
 
     protected static void addRecipesForSmeltery() {
@@ -1777,11 +1759,8 @@ public class TinkerSmeltery {
                 new FluidStack(TinkerSmeltery.moltenStoneFluid, LIQUID_VALUE_STONE));
         Smeltery.addMelting(Blocks.emerald_block, 0, 800, new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640 * 9));
         Smeltery.addMelting(Blocks.emerald_ore, 0, 800, new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640 * 2)); // the
-        // ore
-        // also
-        // is
-        // done
-        // here
+
+        // ore also is done here
         Smeltery.addMelting(Blocks.quartz_block, 0, 800, new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 4));
         Smeltery.addMelting(Blocks.quartz_ore, 0, 800, new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 2));
         Smeltery.addMelting(
@@ -1858,8 +1837,6 @@ public class TinkerSmeltery {
                 new ItemStack(Blocks.enchanting_table),
                 0,
                 LIQUID_VALUE_INGOT * 4);
-        // Smeltery.addMelting(iron, new ItemStack(Blocks.cauldron),
-        // 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(iron, new ItemStack(Blocks.anvil, 1, 0), 200, LIQUID_VALUE_INGOT * 31);
         Smeltery.addMelting(iron, new ItemStack(Blocks.anvil, 1, 1), 200, LIQUID_VALUE_INGOT * 31);
         Smeltery.addMelting(iron, new ItemStack(Blocks.anvil, 1, 2), 200, LIQUID_VALUE_INGOT * 31);
@@ -2069,7 +2046,7 @@ public class TinkerSmeltery {
                 reg = true;
             }
 
-            if (!reg) log.error("Couldn't register fluid container for " + name);
+            if (!reg) log.error("Couldn't register fluid container for {}", name);
         }
 
         return fluid;

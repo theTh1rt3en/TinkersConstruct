@@ -30,7 +30,7 @@ public class ItemHelper {
             if ((ret instanceof ItemStack || ret instanceof Item)) return ret;
             return null;
         } catch (Exception e) {
-            log.warn("Could not find " + name + "from " + classPackage);
+            log.warn("Could not find {} from {}", name, classPackage);
             return null;
         }
     }

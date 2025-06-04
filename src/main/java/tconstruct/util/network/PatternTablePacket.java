@@ -66,8 +66,8 @@ public class PatternTablePacket extends AbstractPacket {
                             }
                         }
                         if (warning) log.warn(
-                                "Possible packet-cheating with PatternTable for player "
-                                        + player.getCommandSenderName());
+                                "Possible packet-cheating with PatternTable for player {}",
+                                player.getCommandSenderName());
                         else logic.setSelectedPattern(this.contents);
                     }
                 }

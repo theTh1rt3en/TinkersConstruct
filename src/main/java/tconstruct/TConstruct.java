@@ -1,5 +1,6 @@
 package tconstruct;
 
+import static tconstruct.util.Constants.TINKERS_VILLAGER_ID;
 import static tconstruct.util.Reference.*;
 
 import java.io.File;
@@ -69,7 +70,6 @@ import tconstruct.plugins.ubc.TinkerUBC;
 import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.Constants;
 import tconstruct.util.IMCHandler;
 import tconstruct.util.SpawnInterceptor;
 import tconstruct.util.config.DimensionBlacklist;
@@ -155,10 +155,10 @@ public class TConstruct {
 
         if (PHConstruct.addToVillages) {
             // adds to the villager spawner egg
-            VillagerRegistry.instance().registerVillagerId(Constants.TINKERS_VILLAGER_ID);
+            VillagerRegistry.instance().registerVillagerId(TINKERS_VILLAGER_ID);
             // moved down, not needed if 'addToVillages' is false
-            if (PHConstruct.allowVillagerTrading) VillagerRegistry.instance()
-                    .registerVillageTradeHandler(Constants.TINKERS_VILLAGER_ID, new TVillageTrades());
+            if (PHConstruct.allowVillagerTrading)
+                VillagerRegistry.instance().registerVillageTradeHandler(TINKERS_VILLAGER_ID, new TVillageTrades());
 
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");

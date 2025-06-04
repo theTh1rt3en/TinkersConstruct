@@ -226,7 +226,7 @@ public class MiningExplosion extends Explosion {
             iterator = this.affectedBlockPositions.iterator();
 
             while (iterator.hasNext()) {
-                chunkposition = (ChunkPosition) iterator.next();
+                chunkposition = iterator.next();
                 i = chunkposition.chunkPosX;
                 j = chunkposition.chunkPosY;
                 k = chunkposition.chunkPosZ;

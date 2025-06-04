@@ -57,9 +57,9 @@ public class TankLayerScan extends LogicComponent {
         if (debug) {
             log.info("In debug mode: " + this);
             log.info(
-                    "Using recursion size " + MAX_LAYER_RECURSION_DEPTH
-                            + " on JVM arch "
-                            + System.getProperty("os.arch"));
+                    "Using recursion size {} on JVM arch {}",
+                    MAX_LAYER_RECURSION_DEPTH,
+                    System.getProperty("os.arch"));
         }
     }
 
@@ -68,23 +68,8 @@ public class TankLayerScan extends LogicComponent {
         airBlocks = 0;
         blockCoords.clear();
         airCoords.clear();
-        boolean validAir = false;
         // Check for air space in front of and behind the structure
         byte dir = getDirection();
-        switch (getDirection()) {
-            case 2: // +z
-            case 3: // -z
-                if (checkAir(master.xCoord, master.yCoord, master.zCoord - 1)
-                        && checkAir(master.xCoord, master.yCoord, master.zCoord + 1))
-                    validAir = true;
-                break;
-            case 4: // +x
-            case 5: // -x
-                if (checkAir(master.xCoord - 1, master.yCoord, master.zCoord)
-                        && checkAir(master.xCoord + 1, master.yCoord, master.zCoord))
-                    validAir = true;
-                break;
-        }
 
         // Recurse the structure
         boolean validBlocks = false;
@@ -100,28 +85,20 @@ public class TankLayerScan extends LogicComponent {
             xPos = 0;
             zPos = 0;
             switch (dir) {
-                case 2: // +z
-                    zPos = 1;
-                    break;
-                case 3: // -z
-                    zPos = -1;
-                    break;
-                case 4: // +x
-                    xPos = 1;
-                    break;
-                case 5: // -x
-                    xPos = -1;
-                    break;
+                case 2 -> zPos = 1;
+                case 3 -> zPos = -1;
+                case 4 -> xPos = 1;
+                case 5 -> xPos = -1;
             }
-            if (!world.isRemote && debug) log.info("Bricks in recursion: " + blockCoords.size());
+            if (!world.isRemote && debug) log.info("Bricks in recursion: {}", blockCoords.size());
             blockCoords.clear();
             bricks = 0;
 
             // Does the actual adding of blocks in the ring
             boolean sealed = floodTest(master.xCoord + xPos, master.yCoord, master.zCoord + zPos);
             if (!world.isRemote && debug) {
-                log.info("Air in ring: " + airBlocks);
-                log.info("Bricks in ring: " + bricks);
+                log.info("Air in ring: {}", airBlocks);
+                log.info("Bricks in ring: {}", bricks);
             }
 
             if (sealed) {
@@ -136,15 +113,14 @@ public class TankLayerScan extends LogicComponent {
                     finalizeStructure();
 
                     if (!world.isRemote && debug) {
-                        log.info("Air in structure: " + airCoords.size());
-                        log.info("Bricks in structure: " + blockCoords.size());
+                        log.info("Air in structure: {}", airCoords.size());
+                        log.info("Bricks in structure: {}", blockCoords.size());
                     }
                 }
             }
         }
     }
 
-    // @SuppressWarnings({ "unchecked" })
     protected void finalizeStructure() {
         blockCoords.sort(new CoordTupleSort());
         airCoords.sort(new CoordTupleSort());
@@ -181,7 +157,6 @@ public class TankLayerScan extends LogicComponent {
 
     protected boolean checkAir(int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        // || block == TContent.tankAir)
         return block == null || world.isAirBlock(x, y, z);
     }
 
@@ -347,17 +322,15 @@ public class TankLayerScan extends LogicComponent {
         int height = -1;
         for (CoordTuple coord : blockCoords) {
             TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
-            boolean canPass = false;
+            boolean canPass;
             if (servant instanceof IServantLogic) {
                 canPass = ((IServantLogic) servant)
                         .verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
                 if (canPass) continue;
             }
-            if (!canPass) {
-                System.out.println("Coord: " + coord);
-                height = coord.y;
-                break;
-            }
+            log.info("Coord: {}", coord);
+            height = coord.y;
+            break;
         }
 
         if (height != -1) {

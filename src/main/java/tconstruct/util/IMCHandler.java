@@ -53,7 +53,7 @@ public final class IMCHandler {
                     if (mat != null) {
                         TConstructRegistry.addtoolMaterial(id, mat);
                         TConstructRegistry.addDefaultToolPartMaterial(id);
-                        log.debug("IMC: Added material " + mat.materialName);
+                        log.debug("IMC: Added material {}", mat.materialName);
 
                         // bow stats
                         if (tag.hasKey("Bow_DrawSpeed") && tag.hasKey("Bow_ProjectileSpeed")) {
@@ -61,7 +61,7 @@ public final class IMCHandler {
                             float flightspeed = tag.getFloat("Bow_ProjectileSpeed");
 
                             TConstructRegistry.addBowMaterial(id, drawspeed, flightspeed);
-                            log.debug("IMC: Added Bow stats for material " + mat.materialName);
+                            log.debug("IMC: Added Bow stats for material {}", mat.materialName);
                         }
                         // arrow stats
                         if (tag.hasKey("Projectile_Mass") && tag.hasKey("Projectile_Fragility")) {
@@ -69,12 +69,13 @@ public final class IMCHandler {
                             float breakchance = tag.getFloat("Projectile_Fragility");
 
                             TConstructRegistry.addArrowMaterial(id, mass, breakchance);
-                            log.debug("IMC: Added Projectile stats for material " + mat.materialName);
+                            log.debug("IMC: Added Projectile stats for material {}", mat.materialName);
                         }
 
-                        // add additional render mapping so resource packs or the mods themselves can have custom
-                        // textures
-                        // for the tools
+                        /*
+                         * add additional render mapping so resource packs or the mods themselves can have custom
+                         * textures for the tools
+                         */
                         if (FMLCommonHandler.instance().getSide().isClient()) TConstructClientRegistry
                                 .addMaterialRenderMapping(id, "tinker", mat.name().toLowerCase(), true);
                     }
@@ -102,7 +103,7 @@ public final class IMCHandler {
 
                     ItemStack rod = new ItemStack(TinkerTools.toolRod, 1, matID);
 
-                    // default shard if none present. Has to exist because old code.
+                    // Default shard if none present. Has to exist because old code.
                     if (shard == null) {
                         TConstructRegistry.addDefaultShardMaterial(matID);
                         shard = new ItemStack(TinkerTools.toolShard, 1, matID);
@@ -147,8 +148,8 @@ public final class IMCHandler {
                         TConstructRegistry.addPartMapping(addItems.get(i), addMetas.get(i), matID, addOUtputs.get(i));
 
                     log.debug(
-                            "PartBuilder IMC: Added Part builder mapping for "
-                                    + TConstructRegistry.getMaterial(matID).materialName);
+                            "PartBuilder IMC: Added Part builder mapping for {}",
+                            TConstructRegistry.getMaterial(matID).materialName);
                     break;
                 }
                 case "addPartCastingMaterial": {
@@ -183,10 +184,8 @@ public final class IMCHandler {
                     for (CastingRecipe recipe : TConstructRegistry.getTableCasting().getCastingRecipes()) {
                         if (recipe.castingMetal.getFluid() != TinkerSmeltery.moltenIronFluid) continue;
                         if (recipe.cast == null || !(recipe.cast.getItem() instanceof IPattern)) continue;
-                        if (!(recipe.getResult().getItem() instanceof DynamicToolPart)) // has to be dynamic toolpart to
-                                                                                        // support automatic addition
-                            continue;
-
+                        // has to be dynamic toolpart to support automatic addition
+                        if (!(recipe.getResult().getItem() instanceof DynamicToolPart)) continue;
                         newRecipies.add(recipe);
                     }
 
@@ -210,7 +209,7 @@ public final class IMCHandler {
                         Smeltery.addMelting(ft, output, 0, liquid2.amount);
                     }
 
-                    log.debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
+                    log.debug("Casting IMC: Added fluid {} to part casting", tag.getString("FluidName"));
                     break;
                 }
                 case "addMaterialItem": {
@@ -296,8 +295,10 @@ public final class IMCHandler {
                             temperature,
                             liquid);
                     log.debug(
-                            "Smeltery IMC: Added melting: " + item
-                                    .getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
+                            "Smeltery IMC: Added melting: {} to {}mb {}",
+                            item.getDisplayName(),
+                            liquid.amount,
+                            liquid.getLocalizedName());
                     break;
                 }
                 case "addSmelteryFuel": {
@@ -321,8 +322,10 @@ public final class IMCHandler {
                     Smeltery.addSmelteryFuel(liquid.getFluid(), temperature, duration);
 
                     log.debug(
-                            "Smeltery IMC: Added fuel: " + liquid
-                                    .getLocalizedName() + " (" + temperature + ", " + duration + ")");
+                            "Smeltery IMC: Added fuel: {} ({}, {})",
+                            liquid.getLocalizedName(),
+                            temperature,
+                            duration);
                     break;
                 }
                 case "addFluxBattery":

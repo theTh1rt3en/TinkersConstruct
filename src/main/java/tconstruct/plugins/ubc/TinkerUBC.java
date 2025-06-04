@@ -37,7 +37,7 @@ public class TinkerUBC {
         } catch (RuntimeException exception) {
             // we have to work around this because otherwise FML would access this for some reason
             // and crash because BlocksAreAlreadySet Exception is not present without UBC
-            if (exception instanceof BlocksAreAlreadySet) log.error(blockName + " is already registered in UBC");
+            if (exception instanceof BlocksAreAlreadySet) log.error("{} is already registered in UBC", blockName);
             else
                 // rethrow if it's another exception
                 throw exception;
