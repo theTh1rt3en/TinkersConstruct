@@ -51,7 +51,7 @@ public class BattlesignBlock extends EquipBlock {
         super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-        int newMeta = switch (i3) {
+        var newMeta = switch (i3) {
             case 0 -> 3;
             case 1 -> 1;
             case 2 -> 2;
@@ -64,18 +64,11 @@ public class BattlesignBlock extends EquipBlock {
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
         switch (blockAccess.getBlockMetadata(x, y, z)) {
-            case 0:
-                setBlockBounds(0.42F, 0.5F, 0F, 0.50F, 1.1F, 1F);
-                break;
-            case 1:
-                setBlockBounds(0.50F, 0.5F, 0F, 0.58F, 1.1F, 1F);
-                break;
-            case 2:
-                setBlockBounds(0F, 0.5F, 0.50F, 1F, 1.1F, 0.58F);
-                break;
-            case 3:
-                setBlockBounds(0F, 0.5F, 0.42F, 1F, 1.1F, 0.50F);
-                break;
+            case 0 -> setBlockBounds(0.42F, 0.5F, 0F, 0.50F, 1.1F, 1F);
+            case 1 -> setBlockBounds(0.50F, 0.5F, 0F, 0.58F, 1.1F, 1F);
+            case 2 -> setBlockBounds(0F, 0.5F, 0.50F, 1F, 1.1F, 0.58F);
+            case 3 -> setBlockBounds(0F, 0.5F, 0.42F, 1F, 1.1F, 0.50F);
+            default -> {} // do nothing
         }
     }
 

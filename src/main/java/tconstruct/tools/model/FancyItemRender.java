@@ -210,7 +210,6 @@ public class FancyItemRender extends Render {
         float f5 = par2Icon.getMaxU();
         float f6 = par2Icon.getMinV();
         float f7 = par2Icon.getMaxV();
-        float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
         float f11;
@@ -231,7 +230,6 @@ public class FancyItemRender extends Render {
         float f12 = 0.0625F;
         f11 = 0.021875F;
         ItemStack itemstack = par1EntityItem.getEntityItem();
-        int j = itemstack.stackSize;
         byte b0 = getMiniItemCount(itemstack);
 
         GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float) b0 / 2.0F));

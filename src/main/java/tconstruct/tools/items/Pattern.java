@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -13,6 +12,7 @@ import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lombok.Getter;
 import mantle.items.abstracts.CraftingItem;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder.MaterialSet;
@@ -49,7 +49,6 @@ public class Pattern extends CraftingItem implements IPattern {
     @Override
     public void getSubItems(Item b, CreativeTabs tab, List list) {
         for (int i = 1; i < patternName.length; i++) {
-            // if (i != 23)
             list.add(new ItemStack(b, 1, i));
         }
     }

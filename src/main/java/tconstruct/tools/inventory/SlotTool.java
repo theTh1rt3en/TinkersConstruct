@@ -7,7 +7,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 
 import tconstruct.library.event.ToolCraftedEvent;
@@ -30,7 +29,6 @@ public class SlotTool extends Slot {
      */
     public boolean isItemValid(ItemStack stack) {
         return false;
-        // return stack.getItem() instanceof ToolCore;
     }
 
     public void onPickupFromSlot(EntityPlayer par1EntityPlayer, ItemStack stack) {
@@ -51,8 +49,7 @@ public class SlotTool extends Slot {
      */
     protected void onCrafting(ItemStack stack) {
         if (stack.getItem() instanceof IModifyable) {
-            NBTTagCompound tags = stack.getTagCompound()
-                    .getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+            stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null);
             for (int i = 2; i <= 3; i++) inventory.decrStackSize(i, 1);
             ItemStack compare = inventory.getStackInSlot(1);

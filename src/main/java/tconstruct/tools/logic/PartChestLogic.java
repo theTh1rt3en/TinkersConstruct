@@ -1,14 +1,18 @@
 package tconstruct.tools.logic;
 
+import static tconstruct.util.Reference.MOD_ID;
+
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import lombok.extern.log4j.Log4j2;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.library.tools.DynamicToolPart;
+import tconstruct.library.util.IToolPart;
 import tconstruct.tools.inventory.PartChestContainer;
 
+@Log4j2(topic = MOD_ID)
 public class PartChestLogic extends InventoryLogic {
 
     public PartChestLogic() {
@@ -42,7 +46,7 @@ public class PartChestLogic extends InventoryLogic {
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-        return itemstack != null && itemstack.getItem() instanceof DynamicToolPart;
+        return itemstack != null && itemstack.getItem() instanceof IToolPart;
     }
 
     @Override

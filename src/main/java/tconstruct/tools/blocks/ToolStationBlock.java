@@ -70,7 +70,6 @@ public class ToolStationBlock extends InventoryBlock {
     public int getTextureIndex(int side) {
         if (side == 0) return 2;
         if (side == 1) return 0;
-
         return 1;
     }
 
@@ -138,8 +137,6 @@ public class ToolStationBlock extends InventoryBlock {
         else if (md < 10) return 2;
         else if (md == 14) return 6;
         else return 3;
-
-        // return -1;
     }
 
     @Override
@@ -235,8 +232,9 @@ public class ToolStationBlock extends InventoryBlock {
 
     @Override
     public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int meta) {
-        if ((meta < 5 || meta > 9) && meta != 14) super.harvestBlock(world, player, x, y, z, meta);
-        // Do nothing
+        if ((meta < 5 || meta > 9) && meta != 14) {
+            super.harvestBlock(world, player, x, y, z, meta);
+        }
     }
 
     @Override

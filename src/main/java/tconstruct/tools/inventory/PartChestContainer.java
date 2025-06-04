@@ -8,7 +8,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import invtweaks.api.container.ChestContainer;
-import tconstruct.library.tools.DynamicToolPart;
+import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.logic.PartChestLogic;
 
@@ -77,7 +77,7 @@ public class PartChestContainer extends Container {
 
     @Override
     protected boolean mergeItemStack(ItemStack stack, int inventorySize, int slotSize, boolean par4) {
-        if (!(stack.getItem() instanceof DynamicToolPart)) return false;
+        if (!(stack.getItem() instanceof IToolPart)) return false;
 
         return super.mergeItemStack(stack, inventorySize, slotSize, par4);
     }
@@ -90,7 +90,7 @@ public class PartChestContainer extends Container {
 
         @Override
         public boolean isItemValid(ItemStack itemstack) {
-            return itemstack != null && itemstack.getItem() instanceof DynamicToolPart;
+            return itemstack != null && itemstack.getItem() instanceof IToolPart;
         }
     }
 }

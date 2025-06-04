@@ -122,11 +122,11 @@ public class FurnaceContainer extends Container {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
                         return null;
                     }
-                } else if (par2 >= 3 && par2 < 30) {
+                } else if (par2 < 30) {
                     if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
                         return null;
                     }
-                } else if (par2 >= 30 && par2 < 39 && !this.mergeItemStack(itemstack1, 3, 30, false)) {
+                } else if (par2 < 39 && !this.mergeItemStack(itemstack1, 3, 30, false)) {
                     return null;
                 }
             } else if (!this.mergeItemStack(itemstack1, 3, 39, false)) {

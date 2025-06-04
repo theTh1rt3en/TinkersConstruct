@@ -1576,15 +1576,12 @@ public class TinkerTools {
         TConstructRegistry.addDefaultToolPartMaterial(MaterialID.PigIron);
 
         // Register all the materials for default toolparts
-        // TConstructRegistry.addDefaultShardMaterial(MaterialID.Wood);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Stone);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Flint);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Cactus);
-        // TConstructRegistry.addDefaultShardMaterial(MaterialID.Bone);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Obsidian);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Netherrack);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.Slime);
-        // TConstructRegistry.addDefaultShardMaterial(MaterialID.Paper);
         TConstructRegistry.addDefaultShardMaterial(MaterialID.BlueSlime);
 
         if (PHConstruct.craftMetalTools) {
@@ -1781,14 +1778,13 @@ public class TinkerTools {
         public static final int Paper = 9;
         public static final int Cobalt = 10;
         public static final int Ardite = 11;
-        public static final int Manyullyn = 12; // I'd still call it Manymetal --boni
+        public static final int Manyullyn = 12;
         public static final int Copper = 13;
         public static final int Bronze = 14;
         public static final int Alumite = 15;
         public static final int Steel = 16;
         public static final int BlueSlime = 17;
         public static final int PigIron = 18;
-
         public static final int Thaumium = 31;
     }
 }

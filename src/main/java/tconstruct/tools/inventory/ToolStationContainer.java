@@ -159,14 +159,10 @@ public class ToolStationContainer extends ActiveContainer {
     protected boolean mergeCraftedStack(ItemStack stack, int slotsStart, int slotsTotal, boolean playerInventory,
             EntityPlayer player) {
         boolean failedToMerge = false;
-        int slotIndex = slotsStart;
-
-        if (playerInventory) {
-            slotIndex = slotsTotal - 1;
-        }
+        int slotIndex;
 
         Slot otherInventorySlot;
-        ItemStack copyStack = null;
+        ItemStack copyStack;
 
         if (stack.stackSize > 0) {
             if (playerInventory) {
@@ -176,7 +172,7 @@ public class ToolStationContainer extends ActiveContainer {
             }
 
             while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart) {
-                otherInventorySlot = (Slot) this.inventorySlots.get(slotIndex);
+                otherInventorySlot = this.inventorySlots.get(slotIndex);
                 copyStack = otherInventorySlot.getStack();
 
                 if (copyStack == null) {

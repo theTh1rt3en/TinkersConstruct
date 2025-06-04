@@ -186,13 +186,13 @@ public class CraftingStationContainer extends Container {
             }
 
             slot.onSlotChange(itemstack, ret);
-        } else if (index >= 1 && index < 10) { // From Crafting Grid
+        } else if (index < 10) { // From Crafting Grid
             // First refill the attached chests
             nothingDone &= this.refillChest(itemstack);
 
             // Then try moving to player inventory
             nothingDone &= moveToPlayerInventory(itemstack);
-        } else if (index >= 10 && index < 46) { // From Player Inv or Hotbar
+        } else if (index < 46) { // From Player Inv or Hotbar
             // First to the crafting Matrix
             nothingDone &= moveToCraftingGrid(itemstack);
 

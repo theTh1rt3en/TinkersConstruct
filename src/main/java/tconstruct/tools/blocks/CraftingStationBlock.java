@@ -51,7 +51,6 @@ public class CraftingStationBlock extends InventoryBlock {
     public int getTextureIndex(int side) {
         if (side == 0) return 2;
         if (side == 1) return 0;
-
         return 1;
     }
 

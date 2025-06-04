@@ -54,8 +54,7 @@ public class EquipBlock extends InventoryBlock {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister par1IconRegister) {
-    }
+    public void registerBlockIcons(IIconRegister par1IconRegister) {}
 
     @Override
     public boolean renderAsNormalBlock() {
@@ -100,7 +99,7 @@ public class EquipBlock extends InventoryBlock {
         super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-        int newMeta = switch (i3) {
+        var newMeta = switch (i3) {
             case 0 -> 3;
             case 1 -> 1;
             case 2 -> 2;

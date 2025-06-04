@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import cpw.mods.fml.common.Optional.Interface;
-import cpw.mods.fml.common.Optional.Method;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
@@ -37,7 +35,8 @@ import com.kuba6000.mobsinfo.api.MobDrop;
 import com.kuba6000.mobsinfo.api.MobRecipe;
 import com.kuba6000.mobsinfo.loader.extras.Translations;
 
-import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
+import cpw.mods.fml.common.Optional.Method;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -299,7 +298,6 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
 
         if (event.recentlyHit) {
             if (event.entityLiving instanceof EntitySkeleton enemy) {
-
                 if (event.source.damageType.equals("player")) {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
                     ItemStack stack = player.getCurrentEquippedItem();
@@ -316,18 +314,14 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
                     ItemHelper.addDrops(event, new ItemStack(TinkerTools.materials, 1, 8));
                 }
             }
-
             if (event.entityLiving.getClass() == EntityZombie.class) {
-                EntityZombie enemy = (EntityZombie) event.entityLiving;
-
                 if (event.source.damageType.equals("player")) {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
                     ItemStack stack = player.getCurrentEquippedItem();
 
                     if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore) {
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack != null && stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver)
-                            beheading += 2;
+                        if (stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver) beheading += 2;
                         if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 10) {
                             ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 2));
                         }
@@ -340,10 +334,7 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
                     }
                 }
             }
-
             if (event.entityLiving.getClass() == EntityCreeper.class) {
-                EntityCreeper enemy = (EntityCreeper) event.entityLiving;
-
                 if (event.source.damageType.equals("player")) {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
                     ItemStack stack = player.getCurrentEquippedItem();
@@ -357,9 +348,7 @@ public class TinkerToolEvents implements IMobExtraInfoProvider {
                 }
             }
         }
-
         if (event.entityLiving instanceof EntityPlayer player) {
-
             if (PHConstruct.dropPlayerHeads) {
                 ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                 NBTTagCompound nametag = new NBTTagCompound();

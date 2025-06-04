@@ -76,7 +76,6 @@ public class MultiBrickFancy extends TConstructBlock {
         };
     }
 
-    // TODO onEntityCollidedWithBlock
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         int meta = world.getBlockMetadata(x, y, z);
