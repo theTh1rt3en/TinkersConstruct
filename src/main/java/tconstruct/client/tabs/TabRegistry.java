@@ -26,21 +26,6 @@ public class TabRegistry {
         return tabList;
     }
 
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void guiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
-        if ((event.gui instanceof GuiInventory)) {
-            int xSize = 176;
-            int ySize = 166;
-            int guiLeft = (event.gui.width - xSize) / 2;
-            int guiTop = (event.gui.height - ySize) / 2;
-            guiLeft += getPotionOffset();
-
-            updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
-            addTabsToList(event.gui.buttonList);
-        }
-    }
-
     private static final Minecraft mc = FMLClientHandler.instance().getClient();
 
     public static void openInventoryGui() {
@@ -94,5 +79,23 @@ public class TabRegistry {
 
         // No potions, no offset needed
         return 0;
+    }
+
+    public static class EventHandler {
+
+        @SideOnly(Side.CLIENT)
+        @SubscribeEvent
+        public void guiPostInit(GuiScreenEvent.InitGuiEvent.Post event) {
+            if ((event.gui instanceof GuiInventory)) {
+                int xSize = 176;
+                int ySize = 166;
+                int guiLeft = (event.gui.width - xSize) / 2;
+                int guiTop = (event.gui.height - ySize) / 2;
+                guiLeft += getPotionOffset();
+
+                updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
+                addTabsToList(event.gui.buttonList);
+            }
+        }
     }
 }
